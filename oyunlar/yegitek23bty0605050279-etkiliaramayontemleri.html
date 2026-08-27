@@ -249,7 +249,7 @@ b,strong{font-weight:700}
         <line x1="11" y1="8" x2="11" y2="14"></line>
         <line x1="8" y1="11" x2="14" y2="11"></line>
       </svg>
-      Arama Dedektifi
+      Etkili Arama Yöntemleri
     </h1>
     <div id="skorlar">
       <span class="skor-kutu">
@@ -278,8 +278,7 @@ b,strong{font-weight:700}
 
     <!-- ============ GİRİŞ EKRANI ============ -->
     <section class="ekran acik" id="ekran-giris" aria-labelledby="giris-baslik">
-      <h2 id="giris-baslik">Arama Dedektifi: Etkili Arama Yöntemleri</h2>
-      <p id="giris-altbaslik">Bilişim Teknolojileri ve Yazılım — 5. Sınıf</p>
+      <h2 id="giris-baslik">Etkili Arama Yöntemleri</h2>
       
       <svg id="giris-gorsel" viewBox="0 0 340 180" role="img" aria-label="Arama motoru ve büyüteçli dedektif robot çizimi">
         <rect x="20" y="25" width="300" height="130" rx="18" fill="#FFFFFF" stroke="#0E5A8A" stroke-width="4"/>
@@ -298,32 +297,32 @@ b,strong{font-weight:700}
         
         <!-- Rozet / Kütüphane İkonu -->
         <rect x="45" y="120" width="70" height="22" rx="6" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
-        <text x="54" y="135" fill="#15803D" font-size="11" font-weight="bold">1. Tarama</text>
+        <text x="54" y="135" fill="#15803D" font-size="11" font-weight="bold">1. tarama</text>
         
         <rect x="135" y="120" width="70" height="22" rx="6" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="2"/>
-        <text x="141" y="135" fill="#0E5A8A" font-size="11" font-weight="bold">2. Dizin</text>
+        <text x="135" y="135" fill="#0E5A8A" font-size="11" font-weight="bold">2. dizine ekleme</text>
         
         <rect x="225" y="120" width="70" height="22" rx="6" fill="#FEF3C7" stroke="#B45309" stroke-width="2"/>
-        <text x="231" y="135" fill="#B45309" font-size="11" font-weight="bold">3. Sıralama</text>
+        <text x="231" y="135" fill="#B45309" font-size="11" font-weight="bold">3. sıralama</text>
       </svg>
 
       <div class="giris-kutusu">
-        <p><b>Hoş Geldiniz Dedektif!</b> İnternet sonsuz bir kütüphanedir, arama motoru ise süper hızlı bir kütüphanecidir.</p>
+        <p><b>Hoş Geldiniz!</b> İnternet sonsuz bir kütüphanedir, arama motoru ise süper hızlı bir kütüphanecidir.</p>
         <p>Bu etkinlikte 3 kritik aşamayı başarıyla tamamlayacaksınız:</p>
         <ul>
-          <li><b>1. Aşama:</b> Arama motorunun 3 temel görevini (Tarama, Dizine Ekleme, Sıralama) keşfediniz.</li>
-          <li><b>2. Aşama:</b> Özel arama operatörlerini (<code>" "</code>, <code>-</code>, <code>site:</code>, <code>filetype:</code>, <code>*</code>, <code>related:</code>) kullanarak canlı arama simülatöründe hedefleri vurunuz.</li>
-          <li><b>3. Aşama:</b> Bilgi Güvenilirliği ve Güncellik radarında kaynakları denetleyiniz.</li>
+          <li><b>1. Aşama:</b> Arama motorunun 3 temel görevini (tarama, dizine ekleme, sıralama ve sunma) keşfediniz.</li>
+          <li><b>2. Aşama:</b> Özel arama operatörlerini (<code>" "</code>, <code>-</code>, <code>site:</code>, <code>filetype:</code>, <code>*</code>, <code>related:</code>) kullanarak canlı arama simülatöründeki görevleri yerine getiriniz.</li>
+          <li><b>3. Aşama:</b> Bilgi güvenilirliği ve güncellik radarında kaynakları denetleyiniz.</li>
         </ul>
       </div>
 
-      <button id="btn-basla" type="button">Dedektif Görevine Başla</button>
+      <button id="btn-basla" type="button">Etkinliği Başlatmak İçin Tıklayınız</button>
     </section>
 
     <!-- ============ OYUN EKRANI ============ -->
     <section class="ekran" id="ekran-oyun" aria-labelledby="gorev-metin">
       <div id="gorev-serit">
-        <span id="bolum-etiket">1. Aşama: Çark</span>
+        <span id="bolum-etiket">1. Aşama: İşlem Basamakları</span>
         <span id="bolum-no">Görev 1 / 15</span>
         <span id="gorev-metin" aria-live="polite"></span>
         <div id="ilerleme-dis" role="progressbar" aria-label="Oyun ilerlemesi" aria-valuemin="0" aria-valuemax="15" aria-valuenow="0">
@@ -412,7 +411,7 @@ b,strong{font-weight:700}
 
     <!-- ============ SONUÇ EKRANI ============ -->
     <section class="ekran" id="ekran-son" aria-labelledby="son-baslik">
-      <h2 id="son-baslik">Tebrikler Dedektif! Tüm Görevleri Tamamladınız!</h2>
+      <h2 id="son-baslik">Tebrikler! Tüm Görevleri Tamamladınız!</h2>
       
       <svg id="son-rozet" viewBox="0 0 160 160" role="img" aria-label="Başarı Madalyası">
         <circle cx="80" cy="80" r="72" fill="#FEF3C7" stroke="#F59E0B" stroke-width="6"/>
@@ -428,7 +427,7 @@ b,strong{font-weight:700}
       
       <div id="son-puan-kutusu">
         <div id="son-puan">Puanınız: 150 / 150</div>
-        <div id="son-yildiz-yazi" style="font-size:1.15rem;color:var(--vurgu);">Kazanılan Yıldız: 15 / 15 — Usta Arama Dedektifi Rozeti</div>
+        <div id="son-yildiz-yazi" style="font-size:1.15rem;color:var(--vurgu);">Kazanılan Yıldız: 15 / 15 — Etkili Arama Uzmanı Başarı Rozeti</div>
       </div>
 
       <button class="ikincil-buton" id="btn-yeniden" type="button">Yeniden Oyna</button>
@@ -461,38 +460,38 @@ var GOREVLER = [
   /* --- AŞAMA 1: ARAMA MOTORUNUN ÇALIŞMA ÇARKI (3 Görev) --- */
   {
     asama: 1,
-    etiket: "1. Aşama: Çark",
+    etiket: "1. Aşama: İşlem Basamakları",
     yonerge: "Arama motoru örümceklerinin internetteki yeni sayfaları keşfettiği aşamayı bulunuz.",
     soruKart: "Arama motoru botlarının (örümceklerin) internette gezinip yeni sayfaları, görselleri ve dosyaları keşfettiği ilk aşama hangisidir?",
     dogruHedef: "tarama",
     kartlar: [
-      { id: "tarama", metin: "1. Tarama (Crawling)", aciklama: "Örümcek botlar milyarlarca web sayfasını otomatik gezer ve yeni içerikleri bulur." },
-      { id: "dizin", metin: "2. Dizine Ekleme (Indexing)", aciklama: "Bu aşama toplanan bilgilerin veritabanına kaydedildiği ikinci aşamadır." },
-      { id: "siralama", metin: "3. Sıralama ve Sunma (Ranking)", aciklama: "Bu aşama arama yapıldığında en uygun sonuçların listelendiği üçüncü aşamadır." }
+      { id: "tarama", metin: "1. tarama (crawling)", aciklama: "Örümcek botlar milyarlarca web sayfasını otomatik gezer ve yeni içerikleri bulur." },
+      { id: "dizin", metin: "2. dizine ekleme (indexing)", aciklama: "Bu aşama toplanan bilgilerin veritabanına kaydedildiği ikinci aşamadır." },
+      { id: "siralama", metin: "3. sıralama ve sunma (ranking)", aciklama: "Bu aşama arama yapıldığında en uygun sonuçların listelendiği üçüncü aşamadır." }
     ]
   },
   {
     asama: 1,
-    etiket: "1. Aşama: Çark",
+    etiket: "1. Aşama: İşlem Basamakları",
     yonerge: "Toplanan bilgilerin devasa bir veritabanına ve kütüphaneye kaydedildiği aşamayı bulunuz.",
     soruKart: "Toplanan web bilgilerinin kategorilere ayrılarak düzenli devasa bir kütüphaneye (veri tabanına) kaydedildiği aşama hangisidir?",
     dogruHedef: "dizin",
     kartlar: [
-      { id: "dizin", metin: "2. Dizine Ekleme (Indexing)", aciklama: "Bulunan bilgiler belirli bir sisteme göre indekslenir ve veritabanına işlenir." },
-      { id: "tarama", metin: "1. Tarama (Crawling)", aciklama: "Tarama, botların web sayfalarını ilk keşfettiği adımdır." },
-      { id: "siralama", metin: "3. Sıralama ve Sunma (Ranking)", aciklama: "Sıralama, kullanıcı kelime aradığında devreye giren son adımdır." }
+      { id: "dizin", metin: "2. dizine ekleme (indexing)", aciklama: "Bulunan bilgiler belirli bir sisteme göre indekslenir ve veritabanına işlenir." },
+      { id: "tarama", metin: "1. tarama (crawling)", aciklama: "Tarama, botların web sayfalarını ilk keşfettiği adımdır." },
+      { id: "siralama", metin: "3. sıralama ve sunma (ranking)", aciklama: "Sıralama, kullanıcı kelime aradığında devreye giren son adımdır." }
     ]
   },
   {
     asama: 1,
-    etiket: "1. Aşama: Çark",
+    etiket: "1. Aşama: İşlem Basamakları",
     yonerge: "Kullanıcı arama yaptığında en doğru sonuçların saniyeler içinde seçilip ekrana sunulduğu aşamayı bulunuz.",
     soruKart: "Kullanıcı anahtar kelime yazdığında en güvenilir ve uygun sonuçların seçilip ekrana listelendiği aşama hangisidir?",
     dogruHedef: "siralama",
     kartlar: [
-      { id: "siralama", metin: "3. Sıralama ve Sunma (Ranking)", aciklama: "Arama motoru saniyeler içinde en alakalı sayfaları sıralayıp ekranınıza getirir." },
-      { id: "tarama", metin: "1. Tarama (Crawling)", aciklama: "Tarama, botların interneti gezdiği ilk aşamadır." },
-      { id: "dizin", metin: "2. Dizine Ekleme (Indexing)", aciklama: "Dizine ekleme, verilerin kütüphaneye kaydedilmesidir." }
+      { id: "siralama", metin: "3. sıralama ve sunma (ranking)", aciklama: "Arama motoru saniyeler içinde en alakalı sayfaları sıralayıp ekranınıza getirir." },
+      { id: "tarama", metin: "1. tarama (crawling)", aciklama: "Tarama, botların interneti gezdiği ilk aşamadır." },
+      { id: "dizin", metin: "2. dizine ekleme (indexing)", aciklama: "Dizine ekleme, verilerin kütüphaneye kaydedilmesidir." }
     ]
   },
 
@@ -818,9 +817,9 @@ function yukleAsama1(g){
   cs.innerHTML = "";
 
   var basamaklar = [
-    { id: "tarama", ad: "1. Tarama", aciklama: "Örümcek botlar interneti gezer ve yeni içerik bulur." },
-    { id: "dizin", ad: "2. Dizine Ekleme", aciklama: "Veriler düzenli devasa kütüphaneye kaydedilir." },
-    { id: "siralama", ad: "3. Sıralama ve Sunma", aciklama: "Kullanıcı aradığında en uygun sonuçlar listelenir." }
+    { id: "tarama", ad: "1. tarama", aciklama: "Örümcek botlar interneti gezer ve yeni içerikleri bulur." },
+    { id: "dizin", ad: "2. dizine ekleme", aciklama: "Veriler düzenli ve devasa bir kütüphaneye kaydedilir." },
+    { id: "siralama", ad: "3. sıralama ve sunma", aciklama: "Kullanıcı arama yaptığında en uygun sonuçlar listelenir." }
   ];
 
   basamaklar.forEach(function(b){
@@ -922,7 +921,7 @@ function yukleAsama2(g){
   rehberSoyle("Operatör kartını arama kutusuna yerleştiriniz.", "notr");
   yerlesenOperator = null;
 
-  $("senaryo-metin").innerHTML = "<b>Dedektif Senaryosu:</b> " + g.senaryo;
+  $("senaryo-metin").innerHTML = "<b>Arama Senaryosu:</b> " + g.senaryo;
   $("btn-ara").disabled = true;
 
   var aga = $("arama-giris-alani");
@@ -1235,7 +1234,7 @@ function oyunuBitir(){
     kap.appendChild(d);
   }
   $("son-puan").textContent = "Toplam Puanınız: " + puan + " / 150";
-  $("son-yildiz-yazi").textContent = "Kazanılan Yıldız: " + yildiz + " / 15 — Usta Arama Dedektifi Rozeti";
+  $("son-yildiz-yazi").textContent = "Kazanılan Yıldız: " + yildiz + " / 15 — Etkili Arama Uzmanı Başarı Rozeti";
   ekranAc(2);
   sesCal("dogru");
 }
