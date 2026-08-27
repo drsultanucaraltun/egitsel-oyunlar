@@ -177,6 +177,38 @@ b,strong{font-weight:700}
 .ikincil-buton{font-size:1.3rem;font-weight:700;background:var(--vurgu-acik);color:var(--vurgu);border:3px solid var(--vurgu);border-radius:14px;padding:0.7rem 1.8rem;min-height:60px;transition:background 0.15s}
 .ikincil-buton:hover{background:var(--vurgu-orta)}
 
+
+.ilerle-butonu{
+  margin-top:0.4rem;
+  background:var(--dogru);
+  color:#FFFFFF;
+  border:none;
+  border-radius:12px;
+  font-size:1.15rem;
+  font-weight:700;
+  padding:0.55rem 1.4rem;
+  min-height:50px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:0.5rem;
+  box-shadow:0 3px 8px rgba(21,128,61,0.25);
+  transition:transform 0.15s, background 0.15s;
+  align-self:center;
+}
+.ilerle-butonu:hover{background:#166534;transform:translateY(-2px)}
+.sonuc-bilgi-notu{
+  background:var(--dogru-acik);
+  border:2px solid var(--dogru);
+  border-radius:10px;
+  padding:0.4rem 0.7rem;
+  font-size:1rem;
+  font-weight:700;
+  color:var(--dogru);
+  line-height:1.3;
+}
+
 /* ============ GERİ BİLDİRİM ============ */
 #geribildirim{position:absolute;left:50%;top:0.5rem;transform:translateX(-50%);max-width:min(92%,46rem);font-size:1.2rem;font-weight:700;border-radius:14px;padding:0.55rem 1.1rem;display:none;text-align:center;z-index:40;box-shadow:0 4px 14px rgba(0,0,0,0.12)}
 #geribildirim.goster{display:block}
@@ -650,6 +682,7 @@ var yildiz = 0, puan = 0;
 var gorevYanlis = 0;
 var seciliKart = null;
 var kilit = false;
+var gorevBeklemede = false;
 var oyunBitti = false;
 var sesAcik = true, yaziOlcek = 100;
 
@@ -681,6 +714,38 @@ function sesCal(tur){
       o.start(t + i * 0.1); o.stop(t + i * 0.1 + sure + 0.03);
     });
   }catch(e){}
+}
+
+
+.ilerle-butonu{
+  margin-top:0.4rem;
+  background:var(--dogru);
+  color:#FFFFFF;
+  border:none;
+  border-radius:12px;
+  font-size:1.15rem;
+  font-weight:700;
+  padding:0.55rem 1.4rem;
+  min-height:50px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:0.5rem;
+  box-shadow:0 3px 8px rgba(21,128,61,0.25);
+  transition:transform 0.15s, background 0.15s;
+  align-self:center;
+}
+.ilerle-butonu:hover{background:#166534;transform:translateY(-2px)}
+.sonuc-bilgi-notu{
+  background:var(--dogru-acik);
+  border:2px solid var(--dogru);
+  border-radius:10px;
+  padding:0.4rem 0.7rem;
+  font-size:1rem;
+  font-weight:700;
+  color:var(--dogru);
+  line-height:1.3;
 }
 
 /* ============ GERİ BİLDİRİM ============ */
@@ -723,7 +788,9 @@ function gorevYukle(){
   var g = GOREVLER[gorevIndeks];
   gorevYanlis = 0;
   kilit = false;
+  gorevBeklemede = false;
   seciliKart = null;
+  $("btn-ileri").disabled = !(aktif === 1 && oyunBitti);
 
   $("bolum-etiket").textContent = g.etiket;
   $("bolum-no").textContent = "Görev " + (gorevIndeks + 1) + " / " + GOREVLER.length;
@@ -823,9 +890,15 @@ function asama1CevapVer(gelenId, hedefId, kutuElem){
     puan += kazanilan;
     yildiz++;
     skorGuncelle();
-    rehberSoyle("Tebrikler, doğru aşama!", "sevinc");
-    bildir("Doğru! " + g.kartlar[0].aciklama, "iyi");
-    setTimeout(sonrakiGorev, window.__FAST ? 300 : 1600);
+    gorevBeklemede = true;
+    $("btn-ileri").disabled = false;
+    rehberSoyle("Tebrikler, doğru aşama! İlerlemek için butona tıklayınız.", "sevinc");
+    bildir("Doğru! " + g.kartlar[0].aciklama, "iyi", true);
+    
+    var hv = $("havuz");
+    hv.innerHTML = '<button class="ilerle-butonu" id="btn-asama1-ileri" type="button">Sonraki Göreve İlerle ➔</button>';
+    $("btn-asama1-ileri").onclick = function(){ sonrakiGorev(); };
+    if(window.__FAST){ setTimeout(sonrakiGorev, 200); }
   } else {
     sesCal("yanlis");
     gorevYanlis++;
@@ -940,21 +1013,29 @@ function asama2AramaYap(){
     kilit = true;
     $("btn-ara").disabled = true;
 
-    // Canlı Sonuç Göster
+    // Canlı Sonuç Göster ve Ekranda Tut
     var sk = $("sonuc-kutusu");
     sk.innerHTML = '<div class="sonuc-satir">' +
                      '<div class="sonuc-baslik">' + g.sonucBaslik + '</div>' +
                      '<div class="sonuc-adres">' + g.sonucAdres + '</div>' +
                      '<div class="sonuc-ozet">' + g.sonucOzet + '</div>' +
+                     '<div class="sonuc-bilgi-notu">💡 Bilgi: ' + g.aciklama + '</div>' +
+                   '</div>' +
+                   '<div style="text-align:center;padding:0.4rem 0;">' +
+                     '<button class="ilerle-butonu" id="btn-asama2-ileri" type="button">Sonraki Senaryoya İlerle ➔</button>' +
                    '</div>';
 
     var kazanilan = (gorevYanlis === 0) ? 10 : 5;
     puan += kazanilan;
     yildiz++;
     skorGuncelle();
-    rehberSoyle("Harika! Aradığınız sonuç tam isabetle bulundu.", "sevinc");
-    bildir("Doğru! " + g.aciklama, "iyi");
-    setTimeout(sonrakiGorev, window.__FAST ? 350 : 2000);
+    gorevBeklemede = true;
+    $("btn-ileri").disabled = false;
+    rehberSoyle("Harika! Aradığınız sonuç bulundu. Okuduktan sonra 'Sonraki Senaryo'ya tıklayınız.", "sevinc");
+    bildir("Doğru Operatör! " + g.aciklama, "iyi", true);
+
+    $("btn-asama2-ileri").onclick = function(){ sonrakiGorev(); };
+    if(window.__FAST){ setTimeout(sonrakiGorev, 200); }
   } else {
     sesCal("yanlis");
     gorevYanlis++;
@@ -1052,12 +1133,28 @@ function asama3KararVer(secilenIstasyon){
     puan += kazanilan;
     yildiz++;
     skorGuncelle();
-    rehberSoyle("Mükemmel analiz! Radar doğrulaması başarılı.", "sevinc");
-    bildir("Doğru analiz! " + g.aciklama, "iyi");
-    setTimeout(function(){
+    gorevBeklemede = true;
+    $("btn-ileri").disabled = false;
+    rehberSoyle("Mükemmel analiz! İlerlemek için 'Sonraki Kaynağa İlerle'ye tıklayınız.", "sevinc");
+    bildir("Doğru Analiz! " + g.aciklama, "iyi", true);
+
+    var hka = $("haber-karti-alani");
+    var btnDiv = document.createElement("div");
+    btnDiv.style.textAlign = "center";
+    btnDiv.style.padding = "0.4rem 0";
+    btnDiv.innerHTML = '<button class="ilerle-butonu" id="btn-asama3-ileri" type="button">Sonraki Kaynağa İlerle ➔</button>';
+    hka.appendChild(btnDiv);
+
+    $("btn-asama3-ileri").onclick = function(){
       istasyonElem.classList.remove("uzerinde");
       sonrakiGorev();
-    }, window.__FAST ? 350 : 1800);
+    };
+    if(window.__FAST){
+      setTimeout(function(){
+        istasyonElem.classList.remove("uzerinde");
+        sonrakiGorev();
+      }, 200);
+    }
   } else {
     sesCal("yanlis");
     gorevYanlis++;
@@ -1176,7 +1273,7 @@ $("btn-kucult").addEventListener("click", function(){
   if(yaziOlcek > 90){ yaziOlcek -= 10; document.documentElement.style.fontSize = yaziOlcek + "%"; }
 });
 $("btn-geri").addEventListener("click", function(){ if(aktif > 0) ekranAc(aktif - 1); });
-$("btn-ileri").addEventListener("click", function(){ if(aktif === 1 && oyunBitti) ekranAc(2); });
+$("btn-ileri").addEventListener("click", function(){ if(gorevBeklemede){ sonrakiGorev(); } else if(aktif === 1 && oyunBitti){ ekranAc(2); } });
 $("btn-basla").addEventListener("click", function(){ sesCal("tik"); oyunuBaslat(); ekranAc(1); });
 $("btn-yeniden").addEventListener("click", function(){ oyunuBaslat(); ekranAc(0); });
 
