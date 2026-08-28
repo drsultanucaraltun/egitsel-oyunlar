@@ -297,20 +297,20 @@ b,strong{font-weight:700}
         
         <!-- 3 Basamak Kutucukları (Tam sığacak şekilde genişletilmiş ve ortalanmış) -->
         <rect x="35" y="112" width="105" height="34" rx="8" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
-        <text x="87" y="133" text-anchor="middle" fill="#15803D" font-size="12" font-weight="bold" font-family="'Roboto',sans-serif">1. tarama</text>
+        <text x="87" y="133" text-anchor="middle" fill="#15803D" font-size="12" font-weight="bold" font-family="'Roboto',sans-serif">1. Tarama</text>
         
         <rect x="148" y="112" width="124" height="34" rx="8" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="2"/>
-        <text x="210" y="133" text-anchor="middle" fill="#0E5A8A" font-size="12" font-weight="bold" font-family="'Roboto',sans-serif">2. dizine ekleme</text>
+        <text x="210" y="133" text-anchor="middle" fill="#0E5A8A" font-size="12" font-weight="bold" font-family="'Roboto',sans-serif">2. Dizine ekleme</text>
         
         <rect x="280" y="112" width="100" height="34" rx="8" fill="#FEF3C7" stroke="#B45309" stroke-width="2"/>
-        <text x="330" y="133" text-anchor="middle" fill="#B45309" font-size="12" font-weight="bold" font-family="'Roboto',sans-serif">3. sıralama</text>
+        <text x="330" y="133" text-anchor="middle" fill="#B45309" font-size="12" font-weight="bold" font-family="'Roboto',sans-serif">3. Sıralama</text>
       </svg>
 
       <div class="giris-kutusu">
         <p><b>Hoş Geldiniz!</b> İnternet sonsuz bir kütüphanedir, arama motoru ise süper hızlı bir kütüphanecidir.</p>
         <p>Bu etkinlikte 3 kritik aşamayı başarıyla tamamlayacaksınız:</p>
         <ul>
-          <li><b>1. Aşama:</b> Arama motorunun 3 temel görevini (tarama, dizine ekleme, sıralama ve sunma) keşfediniz.</li>
+          <li><b>1. Aşama:</b> Arama motorunun 3 temel görevini (Tarama, Dizine ekleme, Sıralama) keşfediniz.</li>
           <li><b>2. Aşama:</b> Özel arama operatörlerini (<code>" "</code>, <code>-</code>, <code>site:</code>, <code>filetype:</code>, <code>*</code>, <code>related:</code>) kullanarak canlı arama simülatöründeki görevleri yerine getiriniz.</li>
           <li><b>3. Aşama:</b> Bilgi güvenilirliği ve güncellik radarında kaynakları denetleyiniz.</li>
         </ul>
@@ -465,9 +465,9 @@ var GOREVLER = [
     soruKart: "Arama motoru botlarının (örümceklerin) internette gezinip yeni sayfaları, görselleri ve dosyaları keşfettiği ilk aşama hangisidir?",
     dogruHedef: "tarama",
     kartlar: [
-      { id: "tarama", metin: "1. tarama (crawling)", aciklama: "Örümcek botlar milyarlarca web sayfasını otomatik gezer ve yeni içerikleri bulur." },
-      { id: "dizin", metin: "2. dizine ekleme (indexing)", aciklama: "Bu aşama toplanan bilgilerin veritabanına kaydedildiği ikinci aşamadır." },
-      { id: "siralama", metin: "3. sıralama ve sunma (ranking)", aciklama: "Bu aşama arama yapıldığında en uygun sonuçların listelendiği üçüncü aşamadır." }
+      { id: "tarama", metin: "1. Tarama (Crawling)", aciklama: "Örümcek botlar milyarlarca web sayfasını otomatik gezer ve yeni içerikleri bulur." },
+      { id: "dizin", metin: "2. Dizine ekleme (Indexing)", aciklama: "Bu aşama toplanan bilgilerin veritabanına kaydedildiği ikinci aşamadır." },
+      { id: "siralama", metin: "3. Sıralama ve sunma (Ranking)", aciklama: "Bu aşama arama yapıldığında en uygun sonuçların listelendiği üçüncü aşamadır." }
     ]
   },
   {
@@ -477,9 +477,9 @@ var GOREVLER = [
     soruKart: "Toplanan web bilgilerinin kategorilere ayrılarak düzenli devasa bir kütüphaneye (veri tabanına) kaydedildiği aşama hangisidir?",
     dogruHedef: "dizin",
     kartlar: [
-      { id: "dizin", metin: "2. dizine ekleme (indexing)", aciklama: "Bulunan bilgiler belirli bir sisteme göre indekslenir ve veritabanına işlenir." },
-      { id: "tarama", metin: "1. tarama (crawling)", aciklama: "Tarama, botların web sayfalarını ilk keşfettiği adımdır." },
-      { id: "siralama", metin: "3. sıralama ve sunma (ranking)", aciklama: "Sıralama, kullanıcı kelime aradığında devreye giren son adımdır." }
+      { id: "dizin", metin: "2. Dizine ekleme (Indexing)", aciklama: "Bulunan bilgiler belirli bir sisteme göre indekslenir ve veritabanına işlenir." },
+      { id: "tarama", metin: "1. Tarama (Crawling)", aciklama: "Tarama, botların web sayfalarını ilk keşfettiği adımdır." },
+      { id: "siralama", metin: "3. Sıralama ve sunma (Ranking)", aciklama: "Sıralama, kullanıcı kelime aradığında devreye giren son adımdır." }
     ]
   },
   {
@@ -489,9 +489,9 @@ var GOREVLER = [
     soruKart: "Kullanıcı anahtar kelime yazdığında en güvenilir ve uygun sonuçların seçilip ekrana listelendiği aşama hangisidir?",
     dogruHedef: "siralama",
     kartlar: [
-      { id: "siralama", metin: "3. sıralama ve sunma (ranking)", aciklama: "Arama motoru saniyeler içinde en alakalı sayfaları sıralayıp ekranınıza getirir." },
-      { id: "tarama", metin: "1. tarama (crawling)", aciklama: "Tarama, botların interneti gezdiği ilk aşamadır." },
-      { id: "dizin", metin: "2. dizine ekleme (indexing)", aciklama: "Dizine ekleme, verilerin kütüphaneye kaydedilmesidir." }
+      { id: "siralama", metin: "3. Sıralama ve sunma (Ranking)", aciklama: "Arama motoru saniyeler içinde en alakalı sayfaları sıralayıp ekranınıza getirir." },
+      { id: "tarama", metin: "1. Tarama (Crawling)", aciklama: "Tarama, botların interneti gezdiği ilk aşamadır." },
+      { id: "dizin", metin: "2. Dizine ekleme (Indexing)", aciklama: "Dizine ekleme, verilerin kütüphaneye kaydedilmesidir." }
     ]
   },
 
@@ -817,9 +817,9 @@ function yukleAsama1(g){
   cs.innerHTML = "";
 
   var basamaklar = [
-    { id: "tarama", ad: "1. tarama", aciklama: "Örümcek botlar interneti gezer ve yeni içerikleri bulur." },
-    { id: "dizin", ad: "2. dizine ekleme", aciklama: "Veriler düzenli ve devasa bir kütüphaneye kaydedilir." },
-    { id: "siralama", ad: "3. sıralama ve sunma", aciklama: "Kullanıcı arama yaptığında en uygun sonuçlar listelenir." }
+    { id: "tarama", ad: "1. Tarama", aciklama: "Örümcek botlar interneti gezer ve yeni içerikleri bulur." },
+    { id: "dizin", ad: "2. Dizine ekleme", aciklama: "Veriler düzenli ve devasa bir kütüphaneye kaydedilir." },
+    { id: "siralama", ad: "3. Sıralama ve sunma", aciklama: "Kullanıcı arama yaptığında en uygun sonuçlar listelenir." }
   ];
 
   basamaklar.forEach(function(b){
