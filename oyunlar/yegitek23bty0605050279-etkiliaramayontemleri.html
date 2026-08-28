@@ -71,45 +71,56 @@ b,strong{font-weight:700}
 #btn-basla{font-size:1.25rem;font-weight:700;background:var(--vurgu);color:var(--panel);border:none;border-radius:14px;padding:0.65rem 1.8rem;min-height:52px;box-shadow:0 3px 8px rgba(14,90,138,0.2);transition:transform 0.15s, background 0.15s}
 #btn-basla:hover{background:var(--vurgu-parlak);transform:translateY(-1px)}
 
-/* ============ OYUN ŞERİDİ ============ */
-#gorev-serit{flex:0 0 auto;display:flex;align-items:center;gap:0.65rem;padding:0.25rem 0.2rem;margin-bottom:0.3rem}
+/* ============ OYUN ŞERİDİ (FERAH & DÜZENLİ BAŞLIK) ============ */
+#gorev-serit{
+  flex:0 0 auto;display:flex;flex-direction:column;gap:0.35rem;
+  background:var(--panel);border:2px solid var(--cizgi);border-radius:14px;
+  padding:0.5rem 0.9rem;margin-bottom:0.5rem;box-shadow:0 1px 4px rgba(14,90,138,0.04);
+}
+#gorev-ust-bilgi{display:flex;align-items:center;justify-content:space-between;gap:0.8rem}
 #bolum-etiket{font-size:1.02rem;font-weight:700;color:var(--vurgu);background:var(--vurgu-acik);padding:0.22rem 0.55rem;border-radius:8px;white-space:nowrap;border:1.5px solid var(--vurgu-orta)}
 #bolum-no{font-size:1.05rem;font-weight:700;color:var(--gri);white-space:nowrap}
-#gorev-metin{font-size:1.16rem;font-weight:700;flex:1;min-width:0;color:var(--murekkep)}
-#ilerleme-dis{flex:0 0 auto;width:105px;height:12px;border-radius:6px;background:var(--panel);border:1.5px solid var(--cizgi);overflow:hidden}
+#gorev-metin{font-size:1.15rem;font-weight:700;color:var(--murekkep);line-height:1.35}
+#ilerleme-dis{flex:0 0 auto;width:110px;height:12px;border-radius:6px;background:var(--panel);border:1.5px solid var(--cizgi);overflow:hidden}
 #ilerleme-ic{height:100%;width:0;background:linear-gradient(90deg,var(--vurgu),var(--vurgu-parlak));transition:width .25s}
 
 /* ============ ALTA ORTALANMIŞ GERİ BİLDİRİM BARI ============ */
 #geribildirim-alani{
   flex:0 0 auto;width:100%;min-height:2.4rem;
   display:flex;align-items:center;justify-content:center;
-  padding:0.15rem 0;margin:0.35rem 0 0;
+  padding:0.15rem 0;margin-top:0.3rem;
 }
 #geribildirim{
   display:none;text-align:center;
   font-size:1.02rem;font-weight:700;border-radius:10px;padding:0.35rem 1.1rem;
-  max-width:46rem;box-shadow:0 1px 5px rgba(0,0,0,0.06);
+  max-width:48rem;box-shadow:0 1px 5px rgba(0,0,0,0.06);
 }
 #geribildirim.goster{display:block}
 #geribildirim.iyi{background:var(--dogru-acik);color:var(--dogru);border:2px solid var(--dogru)}
 #geribildirim.kotu{background:var(--yanlis-acik);color:var(--yanlis);border:2px solid var(--yanlis)}
 #geribildirim.notr{background:var(--vurgu-acik);color:var(--murekkep);border:2px solid var(--vurgu)}
 
-/* ============ OYUN GÖVDESİ ============ */
-#oyun-govde{flex:1 1 auto;min-height:0;display:flex;gap:0.8rem;align-items:flex-start;padding-top:0.6rem}
-#rehber{flex:0 0 auto;width:6.4rem;display:flex;flex-direction:column;align-items:center;gap:0.3rem}
-#rehber svg{width:100%;max-width:5.4rem}
+/* ============ OYUN GÖVDESİ (TAM ORTALANMIŞ ALAN) ============ */
+#oyun-govde{
+  flex:1 1 auto;min-height:0;display:flex;gap:1rem;
+  align-items:center;justify-content:center;padding:0.4rem 0;margin:auto 0;width:100%;
+}
+#rehber{flex:0 0 auto;width:6.8rem;display:flex;flex-direction:column;align-items:center;gap:0.35rem}
+#rehber svg{width:100%;max-width:5.6rem}
 #rehber-soz{font-size:0.86rem;text-align:center;color:var(--murekkep);font-weight:700;background:var(--panel);border:1.5px solid var(--cizgi);border-radius:10px;padding:0.3rem 0.45rem;width:100%;min-height:2.4rem;display:flex;align-items:center;justify-content:center;line-height:1.2}
 
-#sahne-icerik{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:0.45rem;min-height:0}
+#sahne-icerik{
+  flex:1 1 auto;min-width:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:0.5rem;width:100%;
+}
 
-/* Aşama 1 Stilleri (İşlem Basamakları) - Rahat & Okunabilir */
-#cark-sahne{flex:1 1 auto;display:flex;gap:0.7rem;align-items:flex-start;justify-content:center;padding-top:0.6rem;min-height:0}
+/* Aşama 1 Stilleri (İşlem Basamakları) - Tam Ortalanmış & Dengeli */
+#cark-sahne{display:flex;gap:0.8rem;align-items:center;justify-content:center;width:100%}
 .cark-yuva-kutu{
   flex:1 1 0;max-width:16.5rem;min-width:0;
   display:flex;flex-direction:column;align-items:center;justify-content:space-between;
   background:var(--panel);border:2px dashed var(--cizgi);border-radius:14px;
-  padding:0.65rem 0.75rem;min-height:130px;max-height:165px;gap:0.4rem;
+  padding:0.75rem 0.8rem;min-height:135px;max-height:175px;gap:0.45rem;box-shadow:0 2px 6px rgba(0,0,0,0.03);
 }
 .cark-yuva-kutu.uzerinde{border-color:var(--vurgu);background:var(--vurgu-acik);border-style:solid}
 .cark-yuva-kutu.dolu{border-color:var(--dogru);background:var(--dogru-acik);border-style:solid}
@@ -121,11 +132,11 @@ b,strong{font-weight:700}
 }
 .cark-yuva-kutu.dolu .cark-yuva-alan{border-color:var(--dogru);background:#fff}
 
-/* Aşama 2 Stilleri (Canlı Arama Simülasyonu) - Rahat & Okunabilir */
+/* Aşama 2 Stilleri (Canlı Arama Simülasyonu) - Tam Ortalanmış & Dengeli */
 #arama-simulasyon{
-  flex:1 1 auto;max-width:48rem;margin:0 auto;width:100%;
-  display:flex;flex-direction:column;justify-content:flex-start;gap:0.45rem;min-height:0;
-  background:var(--panel);border:2px solid var(--cizgi);border-radius:14px;padding:0.65rem 0.9rem;
+  max-width:48rem;margin:0 auto;width:100%;
+  display:flex;flex-direction:column;justify-content:center;gap:0.5rem;min-height:0;
+  background:var(--panel);border:2px solid var(--cizgi);border-radius:14px;padding:0.75rem 1rem;box-shadow:0 2px 6px rgba(0,0,0,0.03);
 }
 #senaryo-kart{
   background:var(--vurgu-acik);border:1.5px solid var(--vurgu-orta);border-radius:10px;
@@ -167,8 +178,8 @@ b,strong{font-weight:700}
   padding:0.3rem 0.6rem;font-size:0.95rem;font-weight:700;color:var(--dogru);line-height:1.25;
 }
 
-/* Aşama 3 Stilleri (Güvenilirlik & Güncellik Radarı) - Rahat & Okunabilir */
-#radar-sahne{flex:1 1 auto;max-width:48rem;margin:0 auto;width:100%;display:flex;gap:0.7rem;align-items:flex-start;padding-top:0.6rem;min-height:0}
+/* Aşama 3 Stilleri (Güvenilirlik & Güncellik Radarı) - Tam Ortalanmış & Dengeli */
+#radar-sahne{max-width:48rem;margin:0 auto;width:100%;display:flex;gap:0.9rem;align-items:center;justify-content:center}
 #haber-karti-alani{
   flex:1.1 1 0;display:flex;flex-direction:column;gap:0.3rem;
   background:var(--panel);border:2px solid var(--cizgi);border-radius:14px;padding:0.5rem 0.75rem;max-height:210px;overflow-y:auto;
@@ -328,12 +339,14 @@ b,strong{font-weight:700}
     <!-- ============ OYUN EKRANI ============ -->
     <section class="ekran" id="ekran-oyun" aria-labelledby="gorev-metin">
       <div id="gorev-serit">
-        <span id="bolum-etiket">1. Aşama: İşlem Basamakları</span>
-        <span id="bolum-no">Görev 1 / 15</span>
-        <span id="gorev-metin" aria-live="polite"></span>
-        <div id="ilerleme-dis" role="progressbar" aria-label="Oyun ilerlemesi" aria-valuemin="0" aria-valuemax="15" aria-valuenow="0">
-          <div id="ilerleme-ic"></div>
+        <div id="gorev-ust-bilgi">
+          <span id="bolum-etiket">1. Aşama: İşlem Basamakları</span>
+          <span id="bolum-no">Görev 1 / 15</span>
+          <div id="ilerleme-dis" role="progressbar" aria-label="Oyun ilerlemesi" aria-valuemin="0" aria-valuemax="15" aria-valuenow="0">
+            <div id="ilerleme-ic"></div>
+          </div>
         </div>
+        <div id="gorev-metin" aria-live="polite"></div>
       </div>
 
       <div id="oyun-govde">
