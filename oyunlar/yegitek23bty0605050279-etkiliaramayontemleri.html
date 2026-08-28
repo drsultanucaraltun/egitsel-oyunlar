@@ -79,14 +79,18 @@ b,strong{font-weight:700}
 #ilerleme-dis{flex:0 0 auto;width:90px;height:10px;border-radius:5px;background:var(--panel);border:1.5px solid var(--cizgi);overflow:hidden}
 #ilerleme-ic{height:100%;width:0;background:linear-gradient(90deg,var(--vurgu),var(--vurgu-parlak));transition:width .25s}
 
-/* ============ ALTA ORTALANMIŞ GERİ BİLDİRİM ============ */
-#geribildirim{
-  flex:0 0 auto;min-height:0;display:none;text-align:center;
-  font-size:0.92rem;font-weight:700;border-radius:8px;padding:0.25rem 0.8rem;
-  margin:0.15rem auto;max-width:44rem;width:fit-content;min-width:18rem;
-  position:static;transform:none;box-shadow:0 2px 5px rgba(0,0,0,0.05);
+/* ============ ALTA ORTALANMIŞ GERİ BİLDİRİM BARI ============ */
+#geribildirim-alani{
+  flex:0 0 auto;width:100%;min-height:2.2rem;
+  display:flex;align-items:center;justify-content:center;
+  padding:0.1rem 0;margin:0.15rem 0 0;
 }
-#geribildirim.goster{display:inline-block}
+#geribildirim{
+  display:none;text-align:center;
+  font-size:0.92rem;font-weight:700;border-radius:8px;padding:0.3rem 0.9rem;
+  max-width:44rem;box-shadow:0 1px 4px rgba(0,0,0,0.06);
+}
+#geribildirim.goster{display:block}
 #geribildirim.iyi{background:var(--dogru-acik);color:var(--dogru);border:2px solid var(--dogru)}
 #geribildirim.kotu{background:var(--yanlis-acik);color:var(--yanlis);border:2px solid var(--yanlis)}
 #geribildirim.notr{background:var(--vurgu-acik);color:var(--murekkep);border:2px solid var(--vurgu)}
@@ -412,8 +416,10 @@ b,strong{font-weight:700}
       <!-- Kart Havuzu -->
       <div id="havuz" aria-label="Kart havuzu"></div>
 
-      <!-- ALTA ORTALANMIŞ GERİ BİLDİRİM MESAJI -->
-      <div id="geribildirim" role="status" aria-live="assertive"></div>
+      <!-- ALTA ORTALANMIŞ GERİ BİLDİRİM BARI (SABİT ALT ALAN) -->
+      <div id="geribildirim-alani">
+        <div id="geribildirim" role="status" aria-live="assertive"></div>
+      </div>
     </section>
 
     <!-- ============ SONUÇ EKRANI ============ -->
