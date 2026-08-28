@@ -79,19 +79,20 @@ b,strong{font-weight:700}
 #ilerleme-dis{flex:0 0 auto;width:90px;height:10px;border-radius:5px;background:var(--panel);border:1.5px solid var(--cizgi);overflow:hidden}
 #ilerleme-ic{height:100%;width:0;background:linear-gradient(90deg,var(--vurgu),var(--vurgu-parlak));transition:width .25s}
 
-/* ============ GERİ BİLDİRİM (IN-FLOW, ASLA ÜST ÜSTE BİNMEZ) ============ */
+/* ============ ALTA ORTALANMIŞ GERİ BİLDİRİM ============ */
 #geribildirim{
   flex:0 0 auto;min-height:0;display:none;text-align:center;
-  font-size:0.95rem;font-weight:700;border-radius:8px;padding:0.3rem 0.7rem;margin:0.15rem 0;
-  max-width:100%;position:static;transform:none;box-shadow:0 2px 4px rgba(0,0,0,0.04);
+  font-size:0.92rem;font-weight:700;border-radius:8px;padding:0.25rem 0.8rem;
+  margin:0.15rem auto;max-width:44rem;width:fit-content;min-width:18rem;
+  position:static;transform:none;box-shadow:0 2px 5px rgba(0,0,0,0.05);
 }
-#geribildirim.goster{display:block}
+#geribildirim.goster{display:inline-block}
 #geribildirim.iyi{background:var(--dogru-acik);color:var(--dogru);border:2px solid var(--dogru)}
 #geribildirim.kotu{background:var(--yanlis-acik);color:var(--yanlis);border:2px solid var(--yanlis)}
 #geribildirim.notr{background:var(--vurgu-acik);color:var(--murekkep);border:2px solid var(--vurgu)}
 
 /* ============ OYUN GÖVDESİ ============ */
-#oyun-govde{flex:1 1 auto;min-height:0;display:flex;gap:0.6rem;padding-top:0.15rem}
+#oyun-govde{flex:1 1 auto;min-height:0;display:flex;gap:0.6rem;align-items:flex-start;padding-top:0.2rem}
 #rehber{flex:0 0 auto;width:5.6rem;display:flex;flex-direction:column;align-items:center;gap:0.25rem}
 #rehber svg{width:100%;max-width:4.8rem}
 #rehber-soz{font-size:0.78rem;text-align:center;color:var(--murekkep);font-weight:700;background:var(--panel);border:1.5px solid var(--cizgi);border-radius:8px;padding:0.25rem 0.35rem;width:100%;min-height:2rem;display:flex;align-items:center;justify-content:center;line-height:1.15}
@@ -99,7 +100,7 @@ b,strong{font-weight:700}
 #sahne-icerik{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:0.35rem;min-height:0}
 
 /* Aşama 1 Stilleri (İşlem Basamakları) - Kompakt & Zarif */
-#cark-sahne{flex:1 1 auto;display:flex;gap:0.5rem;align-items:center;justify-content:center;min-height:0}
+#cark-sahne{flex:1 1 auto;display:flex;gap:0.5rem;align-items:flex-start;justify-content:center;padding-top:0.4rem;min-height:0}
 .cark-yuva-kutu{
   flex:1 1 0;max-width:14rem;min-width:0;
   display:flex;flex-direction:column;align-items:center;gap:0.25rem;
@@ -121,7 +122,7 @@ b,strong{font-weight:700}
 /* Aşama 2 Stilleri (Canlı Arama Simülasyonu) - Kompakt & Zarif */
 #arama-simulasyon{
   flex:1 1 auto;max-width:44rem;margin:0 auto;width:100%;
-  display:flex;flex-direction:column;justify-content:center;gap:0.35rem;min-height:0;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:0.35rem;min-height:0;
   background:var(--panel);border:2px solid var(--cizgi);border-radius:12px;padding:0.45rem 0.7rem;
 }
 #senaryo-kart{
@@ -165,7 +166,7 @@ b,strong{font-weight:700}
 }
 
 /* Aşama 3 Stilleri (Güvenilirlik & Güncellik Radarı) - Kompakt & Zarif */
-#radar-sahne{flex:1 1 auto;max-width:44rem;margin:0 auto;width:100%;display:flex;gap:0.5rem;align-items:center;min-height:0}
+#radar-sahne{flex:1 1 auto;max-width:44rem;margin:0 auto;width:100%;display:flex;gap:0.5rem;align-items:flex-start;padding-top:0.4rem;min-height:0}
 #haber-karti-alani{
   flex:1.1 1 0;display:flex;flex-direction:column;gap:0.25rem;
   background:var(--panel);border:2px solid var(--cizgi);border-radius:12px;padding:0.4rem 0.6rem;max-height:190px;overflow-y:auto;
@@ -216,13 +217,8 @@ b,strong{font-weight:700}
   padding:0.25rem 0.4rem;text-align:center;
   display:flex;align-items:center;justify-content:center;gap:0.25rem;
 }
-.ilerle-butonu{
-  margin-top:0.25rem;background:var(--dogru);color:#FFFFFF;border:none;border-radius:8px;
-  font-size:0.98rem;font-weight:700;padding:0.35rem 1.1rem;min-height:38px;
-  cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:0.4rem;
-  box-shadow:0 2px 6px rgba(21,128,61,0.2);transition:transform 0.15s, background 0.15s;align-self:center;
-}
-.ilerle-butonu:hover{background:#166534;transform:translateY(-1px)}
+#btn-ileri.vurgulu{animation:btnNabiz 1.2s infinite alternate}
+@keyframes btnNabiz{0%{transform:scale(1);box-shadow:0 2px 6px rgba(14,90,138,0.2)}100%{transform:scale(1.05);box-shadow:0 4px 14px rgba(37,99,235,0.45)}}
 
 /* ============ SON ============ */
 #ekran-son{align-items:center;justify-content:center;text-align:center;gap:0.6rem;overflow-y:auto}
@@ -338,9 +334,6 @@ b,strong{font-weight:700}
         </div>
       </div>
 
-      <!-- IN-FLOW GERİ BİLDİRİM (ASLA ÜST ÜSTE BİNMEZ) -->
-      <div id="geribildirim" role="status" aria-live="assertive"></div>
-
       <div id="oyun-govde">
         <!-- Rehber Karakter -->
         <div id="rehber">
@@ -418,6 +411,9 @@ b,strong{font-weight:700}
 
       <!-- Kart Havuzu -->
       <div id="havuz" aria-label="Kart havuzu"></div>
+
+      <!-- ALTA ORTALANMIŞ GERİ BİLDİRİM MESAJI -->
+      <div id="geribildirim" role="status" aria-live="assertive"></div>
     </section>
 
     <!-- ============ SONUÇ EKRANI ============ -->
@@ -770,6 +766,7 @@ function gorevYukle(){
   gorevBeklemede = false;
   seciliKart = null;
   $("btn-ileri").disabled = !(aktif === 1 && oyunBitti);
+  $("btn-ileri").classList.remove("vurgulu");
 
   $("bolum-etiket").textContent = g.etiket;
   $("bolum-no").textContent = "Görev " + (gorevIndeks + 1) + " / " + GOREVLER.length;
@@ -871,12 +868,9 @@ function asama1CevapVer(gelenId, hedefId, kutuElem){
     skorGuncelle();
     gorevBeklemede = true;
     $("btn-ileri").disabled = false;
-    rehberSoyle("Tebrikler, doğru aşama! İlerlemek için butona tıklayınız.", "sevinc");
+    $("btn-ileri").classList.add("vurgulu");
+    rehberSoyle("Tebrikler, doğru aşama! Sonraki göreve geçmek için alttaki 'İleri' butonuna basınız.", "sevinc");
     bildir("Doğru! " + g.kartlar[0].aciklama, "iyi", true);
-    
-    var hv = $("havuz");
-    hv.innerHTML = '<button class="ilerle-butonu" id="btn-asama1-ileri" type="button">Sonraki Göreve İlerle ➔</button>';
-    $("btn-asama1-ileri").onclick = function(){ sonrakiGorev(); };
     if(window.__FAST){ setTimeout(sonrakiGorev, 200); }
   } else {
     sesCal("yanlis");
@@ -999,9 +993,6 @@ function asama2AramaYap(){
                      '<div class="sonuc-adres">' + g.sonucAdres + '</div>' +
                      '<div class="sonuc-ozet">' + g.sonucOzet + '</div>' +
                      '<div class="sonuc-bilgi-notu">💡 Bilgi: ' + g.aciklama + '</div>' +
-                   '</div>' +
-                   '<div style="text-align:center;padding:0.4rem 0;">' +
-                     '<button class="ilerle-butonu" id="btn-asama2-ileri" type="button">Sonraki Senaryoya İlerle ➔</button>' +
                    '</div>';
 
     var kazanilan = (gorevYanlis === 0) ? 10 : 5;
@@ -1010,10 +1001,9 @@ function asama2AramaYap(){
     skorGuncelle();
     gorevBeklemede = true;
     $("btn-ileri").disabled = false;
-    rehberSoyle("Harika! Aradığınız sonuç bulundu. Okuduktan sonra 'Sonraki Senaryo'ya tıklayınız.", "sevinc");
+    $("btn-ileri").classList.add("vurgulu");
+    rehberSoyle("Harika! Aradığınız sonuç bulundu. Sonraki göreve geçmek için alttaki 'İleri' butonuna basınız.", "sevinc");
     bildir("Doğru Operatör! " + g.aciklama, "iyi", true);
-
-    $("btn-asama2-ileri").onclick = function(){ sonrakiGorev(); };
     if(window.__FAST){ setTimeout(sonrakiGorev, 200); }
   } else {
     sesCal("yanlis");
@@ -1114,20 +1104,9 @@ function asama3KararVer(secilenIstasyon){
     skorGuncelle();
     gorevBeklemede = true;
     $("btn-ileri").disabled = false;
-    rehberSoyle("Mükemmel analiz! İlerlemek için 'Sonraki Kaynağa İlerle'ye tıklayınız.", "sevinc");
+    $("btn-ileri").classList.add("vurgulu");
+    rehberSoyle("Mükemmel analiz! Sonraki göreve geçmek için alttaki 'İleri' butonuna basınız.", "sevinc");
     bildir("Doğru Analiz! " + g.aciklama, "iyi", true);
-
-    var hka = $("haber-karti-alani");
-    var btnDiv = document.createElement("div");
-    btnDiv.style.textAlign = "center";
-    btnDiv.style.padding = "0.4rem 0";
-    btnDiv.innerHTML = '<button class="ilerle-butonu" id="btn-asama3-ileri" type="button">Sonraki Kaynağa İlerle ➔</button>';
-    hka.appendChild(btnDiv);
-
-    $("btn-asama3-ileri").onclick = function(){
-      istasyonElem.classList.remove("uzerinde");
-      sonrakiGorev();
-    };
     if(window.__FAST){
       setTimeout(function(){
         istasyonElem.classList.remove("uzerinde");
