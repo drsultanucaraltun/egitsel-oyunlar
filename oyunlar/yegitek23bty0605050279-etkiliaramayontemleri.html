@@ -106,17 +106,15 @@ b,strong{font-weight:700}
 /* Aşama 1 Stilleri (İşlem Basamakları) - Kompakt & Zarif */
 #cark-sahne{flex:1 1 auto;display:flex;gap:0.5rem;align-items:flex-start;justify-content:center;padding-top:0.4rem;min-height:0}
 .cark-yuva-kutu{
-  flex:1 1 0;max-width:14rem;min-width:0;
-  display:flex;flex-direction:column;align-items:center;gap:0.25rem;
-  background:var(--panel);border:2px dashed var(--cizgi);border-radius:10px;
-  padding:0.4rem 0.5rem;max-height:160px;
+  flex:1 1 0;max-width:15rem;min-width:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+  background:var(--panel);border:2px dashed var(--cizgi);border-radius:12px;
+  padding:0.55rem 0.6rem;min-height:115px;max-height:150px;gap:0.35rem;
 }
 .cark-yuva-kutu.uzerinde{border-color:var(--vurgu);background:var(--vurgu-acik);border-style:solid}
 .cark-yuva-kutu.dolu{border-color:var(--dogru);background:var(--dogru-acik);border-style:solid}
 .cark-yuva-kutu.hatali{border-color:var(--yanlis);background:var(--yanlis-acik)}
-.cark-baslik{font-size:0.95rem;font-weight:700;color:var(--vurgu);display:flex;align-items:center;gap:0.3rem;text-align:center}
-.cark-ikon{width:22px;height:22px;flex:0 0 auto}
-.cark-aciklama{font-size:0.8rem;color:var(--gri);text-align:center;line-height:1.15}
+.cark-aciklama{font-size:0.86rem;color:var(--murekkep);text-align:center;line-height:1.25;font-weight:500}
 .cark-yuva-alan{
   width:100%;border:1.5px dashed var(--cizgi);border-radius:8px;background:var(--gri-acik);
   display:flex;align-items:center;justify-content:center;padding:0.2rem;min-height:2.4rem;
@@ -410,16 +408,16 @@ b,strong{font-weight:700}
               </div>
             </div>
           </div>
+
+          <!-- KUTUCUKLARIN HEMEN ALTINDAKİ GERİ BİLDİRİM BARI -->
+          <div id="geribildirim-alani">
+            <div id="geribildirim" role="status" aria-live="assertive"></div>
+          </div>
         </div>
       </div>
 
       <!-- Kart Havuzu -->
       <div id="havuz" aria-label="Kart havuzu"></div>
-
-      <!-- ALTA ORTALANMIŞ GERİ BİLDİRİM BARI (SABİT ALT ALAN) -->
-      <div id="geribildirim-alani">
-        <div id="geribildirim" role="status" aria-live="assertive"></div>
-      </div>
     </section>
 
     <!-- ============ SONUÇ EKRANI ============ -->
@@ -813,8 +811,7 @@ function yukleAsama1(g){
     d.setAttribute("tabindex", "0");
     d.setAttribute("aria-label", b.ad + " yuvası. " + b.aciklama);
 
-    d.innerHTML = '<div class="cark-baslik"><svg class="cark-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg> ' + b.ad + '</div>' +
-                  '<div class="cark-aciklama">' + b.aciklama + '</div>' +
+    d.innerHTML = '<div class="cark-aciklama">' + b.aciklama + '</div>' +
                   '<div class="cark-yuva-alan"></div>';
 
     d.addEventListener("dragover", function(e){ e.preventDefault(); d.classList.add("uzerinde"); });
