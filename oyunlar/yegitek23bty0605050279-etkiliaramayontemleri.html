@@ -872,7 +872,7 @@ function asama1CevapVer(gelenId, hedefId, kutuElem){
     gorevBeklemede = true;
     $("btn-ileri").disabled = false;
     $("btn-ileri").classList.add("vurgulu");
-    rehberSoyle("Tebrikler, doğru aşama! Sonraki göreve geçmek için alttaki 'İleri' butonuna basınız.", "sevinc");
+    rehberSoyle("Tebrikler, doğru işlem basamağı!", "sevinc");
     bildir("Doğru! " + g.kartlar[0].aciklama, "iyi", true);
     if(window.__FAST){ setTimeout(sonrakiGorev, 200); }
   } else {
@@ -1005,7 +1005,7 @@ function asama2AramaYap(){
     gorevBeklemede = true;
     $("btn-ileri").disabled = false;
     $("btn-ileri").classList.add("vurgulu");
-    rehberSoyle("Harika! Aradığınız sonuç bulundu. Sonraki göreve geçmek için alttaki 'İleri' butonuna basınız.", "sevinc");
+    rehberSoyle("Harika! Aradığınız doğru sonuç bulundu.", "sevinc");
     bildir("Doğru Operatör! " + g.aciklama, "iyi", true);
     if(window.__FAST){ setTimeout(sonrakiGorev, 200); }
   } else {
@@ -1108,7 +1108,7 @@ function asama3KararVer(secilenIstasyon){
     gorevBeklemede = true;
     $("btn-ileri").disabled = false;
     $("btn-ileri").classList.add("vurgulu");
-    rehberSoyle("Mükemmel analiz! Sonraki göreve geçmek için alttaki 'İleri' butonuna basınız.", "sevinc");
+    rehberSoyle("Tebrikler, kaynak analizi doğru!", "sevinc");
     bildir("Doğru Analiz! " + g.aciklama, "iyi", true);
     if(window.__FAST){
       setTimeout(function(){
