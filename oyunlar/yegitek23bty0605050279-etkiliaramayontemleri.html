@@ -471,9 +471,9 @@ var GOREVLER = [
     soruKart: "Arama motoru botlarının (örümceklerin) internette gezinip yeni sayfaları, görselleri ve dosyaları keşfettiği ilk aşama hangisidir?",
     dogruHedef: "tarama",
     kartlar: [
-      { id: "tarama", metin: "1. Tarama (Crawling)", aciklama: "Örümcek botlar milyarlarca web sayfasını otomatik gezer ve yeni içerikleri bulur." },
-      { id: "dizin", metin: "2. Dizine ekleme (Indexing)", aciklama: "Bu aşama toplanan bilgilerin veritabanına kaydedildiği ikinci aşamadır." },
-      { id: "siralama", metin: "3. Sıralama ve sunma (Ranking)", aciklama: "Bu aşama arama yapıldığında en uygun sonuçların listelendiği üçüncü aşamadır." }
+      { id: "tarama", metin: "Tarama (Crawling)", aciklama: "Örümcek botlar milyarlarca web sayfasını otomatik gezer ve yeni içerikleri bulur." },
+      { id: "dizin", metin: "Dizine ekleme (Indexing)", aciklama: "Bu aşama toplanan bilgilerin veritabanına kaydedildiği ikinci aşamadır." },
+      { id: "siralama", metin: "Sıralama ve sunma (Ranking)", aciklama: "Bu aşama arama yapıldığında en uygun sonuçların listelendiği üçüncü aşamadır." }
     ]
   },
   {
@@ -483,9 +483,9 @@ var GOREVLER = [
     soruKart: "Toplanan web bilgilerinin kategorilere ayrılarak düzenli devasa bir kütüphaneye (veri tabanına) kaydedildiği aşama hangisidir?",
     dogruHedef: "dizin",
     kartlar: [
-      { id: "dizin", metin: "2. Dizine ekleme (Indexing)", aciklama: "Bulunan bilgiler belirli bir sisteme göre indekslenir ve veritabanına işlenir." },
-      { id: "tarama", metin: "1. Tarama (Crawling)", aciklama: "Tarama, botların web sayfalarını ilk keşfettiği adımdır." },
-      { id: "siralama", metin: "3. Sıralama ve sunma (Ranking)", aciklama: "Sıralama, kullanıcı kelime aradığında devreye giren son adımdır." }
+      { id: "dizin", metin: "Dizine ekleme (Indexing)", aciklama: "Bulunan bilgiler belirli bir sisteme göre indekslenir ve veritabanına işlenir." },
+      { id: "tarama", metin: "Tarama (Crawling)", aciklama: "Tarama, botların web sayfalarını ilk keşfettiği adımdır." },
+      { id: "siralama", metin: "Sıralama ve sunma (Ranking)", aciklama: "Sıralama, kullanıcı kelime aradığında devreye giren son adımdır." }
     ]
   },
   {
@@ -495,9 +495,9 @@ var GOREVLER = [
     soruKart: "Kullanıcı anahtar kelime yazdığında en güvenilir ve uygun sonuçların seçilip ekrana listelendiği aşama hangisidir?",
     dogruHedef: "siralama",
     kartlar: [
-      { id: "siralama", metin: "3. Sıralama ve sunma (Ranking)", aciklama: "Arama motoru saniyeler içinde en alakalı sayfaları sıralayıp ekranınıza getirir." },
-      { id: "tarama", metin: "1. Tarama (Crawling)", aciklama: "Tarama, botların interneti gezdiği ilk aşamadır." },
-      { id: "dizin", metin: "2. Dizine ekleme (Indexing)", aciklama: "Dizine ekleme, verilerin kütüphaneye kaydedilmesidir." }
+      { id: "siralama", metin: "Sıralama ve sunma (Ranking)", aciklama: "Arama motoru saniyeler içinde en alakalı sayfaları sıralayıp ekranınıza getirir." },
+      { id: "tarama", metin: "Tarama (Crawling)", aciklama: "Tarama, botların interneti gezdiği ilk aşamadır." },
+      { id: "dizin", metin: "Dizine ekleme (Indexing)", aciklama: "Dizine ekleme, verilerin kütüphaneye kaydedilmesidir." }
     ]
   },
 
@@ -794,9 +794,9 @@ function yukleAsama1(g){
   cs.innerHTML = "";
 
   var basamaklar = [
-    { id: "tarama", ad: "1. Tarama", aciklama: "Örümcek botlar interneti gezer ve yeni içerikleri bulur." },
-    { id: "dizin", ad: "2. Dizine ekleme", aciklama: "Veriler düzenli ve devasa bir kütüphaneye kaydedilir." },
-    { id: "siralama", ad: "3. Sıralama ve sunma", aciklama: "Kullanıcı arama yaptığında en uygun sonuçlar listelenir." }
+    { id: "tarama", ad: "1. Basamak", aciklama: "Örümcek botlar internetteki sayfaları otomatik gezer ve yeni içerikleri bulur." },
+    { id: "dizin", ad: "2. Basamak", aciklama: "Toplanan web içerikleri düzenli devasa bir kütüphaneye (veri tabanına) kaydedilir." },
+    { id: "siralama", ad: "3. Basamak", aciklama: "Kullanıcı arama yaptığında en alakalı sonuçlar saniyeler içinde listelenip sunulur." }
   ];
 
   basamaklar.forEach(function(b){
