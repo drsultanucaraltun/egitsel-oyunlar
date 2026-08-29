@@ -507,6 +507,104 @@ var GOREVLER = [
     sonucBaslik: "Popüler Bilim ve Deney Siteleri — Benzer Kaynaklar",
     sonucAdres: "https://bilimkolektifi.com",
     sonucOzet: "TÜBİTAK benzeri bilim dergileri, deney rehberleri ve araştırma portalları listelendi."
+  },
+  {
+    asama: 2,
+    etiket: "Arama Operatörleri",
+    yonerge: "Nutuk kitabını doğrudan indirilebilir PDF e-kitap formatında bulmak için operatörü seçiniz.",
+    senaryo: "Selin, Türkçe dersi ödevi için \"Nutuk\" kitabının doğrudan bilgisayarına indirip okuyabileceği elektronik kitap (PDF) dosyasını arıyor.",
+    onMetin: "Nutuk",
+    arkaMetin: "",
+    dogruCevap: "filetype:pdf",
+    secenekler: ["filetype:pdf", "site:pdf", "-pdf", "*pdf"],
+    aciklama: "filetype:pdf komutu, arama sonuçlarını yalnızca indirilebilir PDF formatındaki kitap ve belgelerle sınırlar.",
+    sonucBaslik: "Mustafa Kemal Atatürk — Nutuk (Tam Metin) [PDF]",
+    sonucAdres: "https://www.ataturk.gov.tr/nutuk.pdf",
+    sonucOzet: "Atatürk Araştırma Merkezi tarafından hazırlanmış tam metin indirilebilir PDF e-kitap."
+  },
+  {
+    asama: 2,
+    etiket: "Arama Operatörleri",
+    yonerge: "Çocuk Hakları konusunu yalnızca resmi devlet (.gov.tr) sitelerinde aramak için operatörü seçiniz.",
+    senaryo: "Emre, sosyal bilgiler dersindeki \"Çocuk Hakları\" konusunu sadece resmi devlet kurumlarının sitelerinden araştırmak istiyor.",
+    onMetin: "Çocuk Hakları",
+    arkaMetin: "",
+    dogruCevap: "site:gov.tr",
+    secenekler: ["site:gov.tr", "filetype:gov", "-gov.tr", "related:gov"],
+    aciklama: "site:gov.tr komutu, aramayı yalnızca Türkiye Cumhuriyeti resmi devlet kurumlarının web siteleriyle sınırlar.",
+    sonucBaslik: "Çocuk Haklarına Dair Sözleşme ve Belgeler — Aile ve Sosyal Hizmetler Bakanlığı",
+    sonucAdres: "https://www.aile.gov.tr/cocuk-haklari",
+    sonucOzet: "T.C. Aile ve Sosyal Hizmetler Bakanlığı Çocuk Hizmetleri Genel Müdürlüğü resmi rehberi."
+  },
+  {
+    asama: 2,
+    etiket: "Arama Operatörleri",
+    yonerge: "Güneş sistemi maketi yapımını araştırırken alışveriş ve satılık ürün sayfalarını elemek için operatörü yerleştiriniz.",
+    senaryo: "Deniz, fen bilimleri dersi için \"Güneş Sistemi Maketi\" nasıl yapılır öğrenmek istiyor; ancak sonuçlarda hep alışveriş siteleri çıkıyor. Satılık ürünleri aramadan çıkarmak istiyor.",
+    onMetin: "Güneş sistemi maketi",
+    arkaMetin: "",
+    dogruCevap: "-satılık",
+    secenekler: ["-satılık", "+satılık", "site:satılık", '"satılık"'],
+    aciklama: "Eksi (-) işareti, maket yapımını ararken satılık ürün ve alışveriş sayfalarını sonuçlardan eler.",
+    sonucBaslik: "Adım Adım Güneş Sistemi Maketi Nasıl Yapılır? — Evde Fen Etkinlikleri",
+    sonucAdres: "https://www.bilimgenclik.tubitak.gov.tr/gunes-sistemi-maketi",
+    sonucOzet: "Karton ve oyun hamurları ile evde gezegenler maketi yapım kılavuzu. Alışveriş sonuçları elendi!"
+  },
+  {
+    asama: 2,
+    etiket: "Arama Operatörleri",
+    yonerge: "Şarkı ismini kelime sırası bozulmadan tam kalıp olarak aramak için doğru operatörü seçiniz.",
+    senaryo: 'Kaan, müzik dersinde öğrendiği "Arkadaşım Eşek" şarkısının sözlerini kelimeleri bölünmeden tam kalıp olarak aramak istiyor.',
+    onMetin: "",
+    arkaMetin: "Arkadaşım Eşek",
+    dogruCevap: '""',
+    secenekler: ['""', "-", "*", "site:"],
+    aciklama: 'Çift Tırnak (" "), birden fazla kelimeden oluşan isimleri veya şarkı sözlerini tam kalıp olarak arar.',
+    sonucBaslik: "Barış Manço — Arkadaşım Eşek Şarkı Sözleri ve Notaları",
+    sonucAdres: "https://www.kultur.gov.tr/baris-manco/arkadasim-esek",
+    sonucOzet: '"Arkadaşım eş, arkadaşım şek, arkadaşım eşek..." Barış Manço çocuk şarkıları arşivi.'
+  },
+  {
+    asama: 2,
+    etiket: "Arama Operatörleri",
+    yonerge: "Atasözündeki eksik kelimeyi tamamlamak için joker operatörü yerleştiriniz.",
+    senaryo: 'Zehra, "Sakla samanı, ... zamanı." atasözünün ortasındaki kelimeyi hatırlayamıyor. Boşluğun yerine joker sembol koymak istiyor.',
+    onMetin: "Sakla samanı,",
+    arkaMetin: "zamanı.",
+    dogruCevap: "*",
+    secenekler: ["*", "-", "site:", "filetype:"],
+    aciklama: "Yıldız (*) joker karakteri, hatırlanmayan kelimenin yerini doldurarak doğru atasözünü tamamlar.",
+    sonucBaslik: "Sakla samanı, gelir zamanı — Türk Dil Kurumu Sözlüğü",
+    sonucAdres: "https://sozluk.gov.tr/atasozu/sakla-samani-gelir-zamani",
+    sonucOzet: "En değersiz görünen şey bile bir gün işe yarayabilir. Yıldız (*) sembolü 'gelir' kelimesini tamamladı."
+  },
+  {
+    asama: 2,
+    etiket: "Arama Operatörleri",
+    yonerge: "Anıtkabir web sayfasına benzer diğer müze ve tarihi anıt sitelerini bulmak için operatörü seçiniz.",
+    senaryo: "Mert, sanal turla gezdiği \"Anıtkabir\" web sitesine benzeyen diğer tarihi müze sitelerini keşfetmek istiyor.",
+    onMetin: "",
+    arkaMetin: "",
+    dogruCevap: "related:anitkabir.tsk.tr",
+    secenekler: ["related:anitkabir.tsk.tr", "filetype:anitkabir", "-anitkabir", "*anitkabir"],
+    aciklama: "related: operatörü, belirtilen web sitesine benzer kategorideki diğer müze ve tarih sayfalarını listeler.",
+    sonucBaslik: "Türkiye'nin Tarihi Müzeleri ve Sanal Turlar — Benzer Siteler",
+    sonucAdres: "https://muze.gov.tr/sanal-turlar",
+    sonucOzet: "Cumhuriyet Müzesi, Çanakkale Şehitliği ve Kurtuluş Savaşı Müzeleri sanal tur listesi."
+  },
+  {
+    asama: 2,
+    etiket: "Arama Operatörleri",
+    yonerge: "Doğrudan indirilebilecek hazır Excel/tablo formatında çalışma çizelgesi bulmak için operatörü seçiniz.",
+    senaryo: "Kerem, bilişim teknolojileri dersindeki elektronik tablo ödevi için hazır \"Ders Çalışma Çizelgesi\" hesap tablosu dosyası arıyor.",
+    onMetin: "Ders Çalışma Çizelgesi",
+    arkaMetin: "",
+    dogruCevap: "filetype:xls",
+    secenekler: ["filetype:xls", "site:xls", "-xls", "*xls"],
+    aciklama: "filetype:xls komutu, sonuçları sadece Microsoft Excel ve elektronik hesap tablosu dosyalarıyla sınırlar.",
+    sonucBaslik: "Haftalık Ders Çalışma ve Takip Çizelgesi Tablosu [XLS]",
+    sonucAdres: "https://orgm.meb.gov.tr/cizelge.xls",
+    sonucOzet: "MEB Rehberlik Hizmetleri tarafından hazırlanmış indirilebilir Excel çalışma planı tablosu."
   }
 ];
 
@@ -802,8 +900,8 @@ function oyunuBitir(){
     d.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="' + (i < yildiz ? "#F59E0B" : "#E2E8F0") + '"/></svg>';
     kap.appendChild(d);
   }
-  $("son-puan").textContent = "Toplam Puanınız: " + puan + " / 70";
-  $("son-yildiz-yazi").textContent = "Kazanılan Yıldız: " + yildiz + " / 7 — Arama Operatörleri Uzmanı Başarı Rozeti";
+  $("son-puan").textContent = "Toplam Puanınız: " + puan + " / 140";
+  $("son-yildiz-yazi").textContent = "Kazanılan Yıldız: " + yildiz + " / " + GOREVLER.length + " — Arama Operatörleri Uzmanı Başarı Rozeti";
   ekranAc(2);
   sesCal("dogru");
 }
