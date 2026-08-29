@@ -114,25 +114,7 @@ b,strong{font-weight:700}
   align-items:center;justify-content:center;gap:0.6rem;width:100%;
 }
 
-/* Aşama 1 Stilleri (İşlem Basamakları) - Rahat & Büyük Font */
-#cark-sahne{display:flex;gap:1rem;align-items:center;justify-content:center;width:100%}
-.cark-yuva-kutu{
-  flex:1 1 0;max-width:18rem;min-width:0;
-  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
-  background:var(--panel);border:2.5px dashed var(--cizgi);border-radius:16px;
-  padding:0.85rem 0.9rem;min-height:155px;max-height:200px;gap:0.55rem;box-shadow:0 2px 6px rgba(0,0,0,0.03);
-}
-.cark-yuva-kutu.uzerinde{border-color:var(--vurgu);background:var(--vurgu-acik);border-style:solid}
-.cark-yuva-kutu.dolu{border-color:var(--dogru);background:var(--dogru-acik);border-style:solid}
-.cark-yuva-kutu.hatali{border-color:var(--yanlis);background:var(--yanlis-acik)}
-.cark-aciklama{font-size:1.12rem;color:var(--murekkep);text-align:center;line-height:1.45;font-weight:600}
-.cark-yuva-alan{
-  width:100%;border:2px dashed var(--cizgi);border-radius:12px;background:var(--gri-acik);
-  display:flex;align-items:center;justify-content:center;padding:0.35rem;min-height:3rem;
-}
-.cark-yuva-kutu.dolu .cark-yuva-alan{border-color:var(--dogru);background:#fff}
-
-/* Aşama 2 Stilleri (Canlı Arama Simülasyonu) - Rahat & Büyük Font */
+/* Arama Simülatörü Stilleri - Rahat & Büyük Font */
 #arama-simulasyon{
   max-width:54rem;margin:0 auto;width:100%;
   display:flex;flex-direction:column;justify-content:center;gap:0.6rem;min-height:0;
@@ -178,35 +160,7 @@ b,strong{font-weight:700}
   padding:0.45rem 0.8rem;font-size:1.1rem;font-weight:700;color:var(--dogru);line-height:1.35;
 }
 
-/* Aşama 3 Stilleri (Güvenilirlik & Güncellik Radarı) - Rahat & Büyük Font */
-#radar-sahne{max-width:54rem;margin:0 auto;width:100%;display:flex;gap:1.1rem;align-items:center;justify-content:center}
-#haber-karti-alani{
-  flex:1.1 1 0;display:flex;flex-direction:column;gap:0.4rem;
-  background:var(--panel);border:2.5px solid var(--cizgi);border-radius:16px;padding:0.7rem 0.95rem;max-height:240px;overflow-y:auto;
-}
-.kaynak-karti{
-  background:#fff;border:2px solid var(--cizgi);border-radius:12px;padding:0.55rem 0.8rem;
-  display:flex;flex-direction:column;gap:0.3rem;cursor:pointer;transition:transform 0.15s, border-color 0.15s;
-}
-.kaynak-karti:hover{border-color:var(--vurgu)}
-.kaynak-karti[aria-pressed="true"]{border-color:var(--vurgu);background:var(--vurgu-acik);transform:scale(1.01)}
-.kaynak-ust{display:flex;align-items:center;justify-content:space-between;gap:0.4rem}
-.kaynak-baslik{font-size:1.18rem;font-weight:700;color:var(--vurgu)}
-.kaynak-rozet{font-size:0.92rem;font-weight:700;padding:0.15rem 0.5rem;border-radius:8px;background:var(--gri-acik);color:var(--murekkep)}
-.kaynak-govde{font-size:1.06rem;color:var(--murekkep);line-height:1.4}
-.kaynak-alt{display:flex;align-items:center;justify-content:space-between;font-size:0.96rem;color:var(--gri);font-weight:700;border-top:1px solid var(--cizgi);padding-top:0.25rem}
 
-#radar-istasyonlari{flex:1 1 0;display:flex;flex-direction:column;gap:0.55rem}
-.radar-istasyon{
-  border:2.5px dashed var(--cizgi);border-radius:14px;background:var(--panel);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.25rem;
-  padding:0.6rem 0.8rem;cursor:pointer;transition:all .2s;text-align:center;min-height:70px;
-}
-.radar-istasyon.uzerinde{border-style:solid;border-color:var(--vurgu);background:var(--vurgu-acik)}
-.radar-istasyon.guvenli{border-color:var(--dogru);background:var(--dogru-acik)}
-.radar-istasyon.riskli{border-color:var(--sari);background:var(--yanlis-acik)}
-.istasyon-baslik{font-size:1.18rem;font-weight:700}
-.istasyon-aciklama{font-size:0.96rem;color:var(--gri);font-weight:700}
 
 /* Havuz ve Kartlar */
 #havuz{flex:0 0 auto;display:flex;flex-wrap:wrap;gap:0.6rem;justify-content:center;padding:0.45rem 0 0.2rem}
@@ -297,7 +251,7 @@ b,strong{font-weight:700}
     <section class="ekran acik" id="ekran-giris" aria-labelledby="giris-baslik">
       <h2 id="giris-baslik">Arama Dedektifi</h2>
       
-      <svg id="giris-gorsel" viewBox="0 0 420 180" role="img" aria-label="Arama motoru ve arama basamakları çizimi">
+      <svg id="giris-gorsel" viewBox="0 0 420 180" role="img" aria-label="Arama motoru ve arama operatörleri çizimi">
         <rect x="15" y="15" width="390" height="150" rx="16" fill="#FFFFFF" stroke="#0E5A8A" stroke-width="3.5"/>
         <circle cx="35" cy="35" r="6" fill="#EF4444"/>
         <circle cx="53" cy="35" r="6" fill="#F59E0B"/>
@@ -305,32 +259,36 @@ b,strong{font-weight:700}
         <rect x="95" y="26" width="285" height="18" rx="6" fill="#E0F2FE"/>
         
         <!-- Arama Çubuğu -->
-        <rect x="35" y="58" width="345" height="38" rx="10" fill="#F1F5F9" stroke="#BFD3E2" stroke-width="2.5"/>
-        <text x="50" y="82" fill="#0E5A8A" font-size="14" font-weight="bold" font-family="'Roboto',sans-serif">"Etkili Arama" filetype:ppt</text>
+        <rect x="35" y="58" width="345" height="42" rx="10" fill="#F1F5F9" stroke="#BFD3E2" stroke-width="2.5"/>
+        <text x="50" y="84" fill="#0E5A8A" font-size="15" font-weight="bold" font-family="'Roboto',sans-serif">"Etkili Arama" filetype:ppt</text>
         
         <!-- Büyüteç -->
-        <circle cx="355" cy="77" r="10" fill="none" stroke="#2563EB" stroke-width="3"/>
-        <line x1="362" y1="84" x2="370" y2="92" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="355" cy="79" r="10" fill="none" stroke="#2563EB" stroke-width="3"/>
+        <line x1="362" y1="86" x2="370" y2="94" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
         
-        <!-- 3 Basamak Kutucukları (Tam sığacak şekilde genişletilmiş ve ortalanmış) -->
-        <rect x="35" y="112" width="105" height="34" rx="8" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
-        <text x="87" y="133" text-anchor="middle" fill="#15803D" font-size="12" font-weight="bold" font-family="'Roboto',sans-serif">1. Tarama</text>
+        <!-- Operatör Rozetleri -->
+        <rect x="35" y="114" width="48" height="30" rx="6" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="1.8"/>
+        <text x="59" y="134" text-anchor="middle" fill="#0E5A8A" font-size="13" font-weight="bold" font-family="'Roboto',sans-serif">" "</text>
         
-        <rect x="148" y="112" width="124" height="34" rx="8" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="2"/>
-        <text x="210" y="133" text-anchor="middle" fill="#0E5A8A" font-size="12" font-weight="bold" font-family="'Roboto',sans-serif">2. Dizine ekleme</text>
+        <rect x="90" y="114" width="42" height="30" rx="6" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="1.8"/>
+        <text x="111" y="134" text-anchor="middle" fill="#0E5A8A" font-size="13" font-weight="bold" font-family="'Roboto',sans-serif">-</text>
         
-        <rect x="280" y="112" width="100" height="34" rx="8" fill="#FEF3C7" stroke="#B45309" stroke-width="2"/>
-        <text x="330" y="133" text-anchor="middle" fill="#B45309" font-size="12" font-weight="bold" font-family="'Roboto',sans-serif">3. Sıralama</text>
+        <rect x="139" y="114" width="58" height="30" rx="6" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="1.8"/>
+        <text x="168" y="134" text-anchor="middle" fill="#0E5A8A" font-size="13" font-weight="bold" font-family="'Roboto',sans-serif">site:</text>
+        
+        <rect x="204" y="114" width="76" height="30" rx="6" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="1.8"/>
+        <text x="242" y="134" text-anchor="middle" fill="#0E5A8A" font-size="13" font-weight="bold" font-family="'Roboto',sans-serif">filetype:</text>
+        
+        <rect x="287" y="114" width="40" height="30" rx="6" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="1.8"/>
+        <text x="307" y="134" text-anchor="middle" fill="#0E5A8A" font-size="14" font-weight="bold" font-family="'Roboto',sans-serif">*</text>
+        
+        <rect x="334" y="114" width="68" height="30" rx="6" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="1.8"/>
+        <text x="368" y="134" text-anchor="middle" fill="#0E5A8A" font-size="12" font-weight="bold" font-family="'Roboto',sans-serif">related:</text>
       </svg>
 
       <div class="giris-kutusu">
-        <p><b>Hoş Geldiniz!</b> İnternet sonsuz bir kütüphanedir, arama motoru ise süper hızlı bir kütüphanecidir.</p>
-        <p>Bu etkinlikte 3 kritik aşamayı başarıyla tamamlayacaksınız:</p>
-        <ul>
-          <li><b>1. Aşama:</b> Arama motorunun 3 temel görevini (Tarama, Dizine ekleme, Sıralama) keşfediniz.</li>
-          <li><b>2. Aşama:</b> Özel arama operatörlerini (<code>" "</code>, <code>-</code>, <code>site:</code>, <code>filetype:</code>, <code>*</code>, <code>related:</code>) kullanarak canlı arama simülatöründeki görevleri yerine getiriniz.</li>
-          <li><b>3. Aşama:</b> Bilgi güvenilirliği ve güncellik radarında kaynakları denetleyiniz.</li>
-        </ul>
+        <p><b>Hoş Geldiniz!</b> İnternette aradığınız doğru bilgiye hızla ulaşmak için arama motoru operatörlerini etkili biçimde kullanmayı öğreneceksiniz.</p>
+        <p>Bu etkinlikte verilen arama senaryolarını dikkatle inceleyiniz ve doğru operatörü (<code>" "</code>, <code>-</code>, <code>site:</code>, <code>filetype:</code>, <code>*</code>, <code>related:</code>) arama çubuğuna yerleştirerek görevleri tamamlayınız.</p>
       </div>
 
       <button id="btn-basla" type="button">Etkinliği Başlatmak İçin Tıklayınız</button>
@@ -364,13 +322,9 @@ b,strong{font-weight:700}
           <div id="rehber-soz" aria-live="polite">Kartı seçiniz.</div>
         </div>
 
-        <!-- Dinamik Oyun Sahnesi -->
+        <!-- Canlı Arama Simülasyonu Sahnesi -->
         <div id="sahne-icerik">
-          <!-- AŞAMA 1 SAHNESİ: ARAMA ÇARKI -->
-          <div id="cark-sahne" style="display:none;"></div>
-
-          <!-- AŞAMA 2 SAHNESİ: CANLI ARAMA SİMÜLASYONU -->
-          <div id="arama-simulasyon" style="display:none;">
+          <div id="arama-simulasyon">
             <div id="senaryo-kart">
               <svg id="senaryo-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="10"></circle>
@@ -382,7 +336,7 @@ b,strong{font-weight:700}
             
             <div id="arama-bari">
               <svg viewBox="0 0 24 24">
-                <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 14z"/>
               </svg>
               <div id="arama-giris-alani"></div>
               <button id="btn-ara" type="button">
@@ -395,30 +349,6 @@ b,strong{font-weight:700}
 
             <div id="sonuc-kutusu" aria-live="polite">
               <div style="color:var(--gri);font-weight:700;text-align:center;padding:0.6rem;">Doğru operatörü arama kutusuna yerleştirip "Ara" butonuna tıklayınız.</div>
-            </div>
-          </div>
-
-          <!-- AŞAMA 3 SAHNESİ: GÜVENİLİRLİK & GÜNCELLİK RADARI -->
-          <div id="radar-sahne" style="display:none;">
-            <div id="haber-karti-alani"></div>
-            <div id="radar-istasyonlari">
-              <div class="radar-istasyon guvenli" id="istasyon-guvenli" role="button" tabindex="0" aria-label="Güvenilir ve Güncel Bilgi İstasyonu">
-                <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#15803D" stroke-width="2.4">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  <polyline points="9 12 11 14 15 10"/>
-                </svg>
-                <div class="istasyon-baslik" style="color:var(--dogru)">Güvenilir & Güncel Kaynak</div>
-                <div class="istasyon-aciklama">Resmi (.gov.tr), Üniversite (.edu.tr), uzman yazar ve güncel tarih</div>
-              </div>
-              <div class="radar-istasyon riskli" id="istasyon-riskli" role="button" tabindex="0" aria-label="Şüpheli veya Güncel Olmayan Bilgi İstasyonu">
-                <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#B45309" stroke-width="2.4">
-                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-                  <line x1="12" y1="9" x2="12" y2="13"/>
-                  <line x1="12" y1="17" x2="12.01" y2="17"/>
-                </svg>
-                <div class="istasyon-baslik" style="color:var(--yanlis)">Şüpheli / Güncel Değil</div>
-                <div class="istasyon-aciklama">Yazarı belirsiz, 10 yıllık eski haber, teyitsiz veya reklam içerik</div>
-              </div>
             </div>
           </div>
 
@@ -480,50 +410,11 @@ b,strong{font-weight:700}
 <script>
 /* ============ GÖREV VERİSİ ============ */
 var GOREVLER = [
-  /* --- AŞAMA 1: ARAMA MOTORUNUN ÇALIŞMA ÇARKI (3 Görev) --- */
-  {
-    asama: 1,
-    etiket: "1. Aşama: İşlem Basamakları",
-    yonerge: "Arama motoru örümceklerinin internetteki yeni sayfaları keşfettiği aşamayı bulunuz.",
-    soruKart: "Arama motoru botlarının (örümceklerin) internette gezinip yeni sayfaları, görselleri ve dosyaları keşfettiği ilk aşama hangisidir?",
-    dogruHedef: "tarama",
-    kartlar: [
-      { id: "tarama", metin: "Tarama (Crawling)", aciklama: "Örümcek botlar milyarlarca web sayfasını otomatik gezer ve yeni içerikleri bulur." },
-      { id: "dizin", metin: "Dizine ekleme (Indexing)", aciklama: "Bu aşama toplanan bilgilerin veritabanına kaydedildiği ikinci aşamadır." },
-      { id: "siralama", metin: "Sıralama ve sunma (Ranking)", aciklama: "Bu aşama arama yapıldığında en uygun sonuçların listelendiği üçüncü aşamadır." }
-    ]
-  },
-  {
-    asama: 1,
-    etiket: "1. Aşama: İşlem Basamakları",
-    yonerge: "Toplanan bilgilerin devasa bir veritabanına ve kütüphaneye kaydedildiği aşamayı bulunuz.",
-    soruKart: "Toplanan web bilgilerinin kategorilere ayrılarak düzenli devasa bir kütüphaneye (veri tabanına) kaydedildiği aşama hangisidir?",
-    dogruHedef: "dizin",
-    kartlar: [
-      { id: "dizin", metin: "Dizine ekleme (Indexing)", aciklama: "Bulunan bilgiler belirli bir sisteme göre indekslenir ve veritabanına işlenir." },
-      { id: "tarama", metin: "Tarama (Crawling)", aciklama: "Tarama, botların web sayfalarını ilk keşfettiği adımdır." },
-      { id: "siralama", metin: "Sıralama ve sunma (Ranking)", aciklama: "Sıralama, kullanıcı kelime aradığında devreye giren son adımdır." }
-    ]
-  },
-  {
-    asama: 1,
-    etiket: "1. Aşama: İşlem Basamakları",
-    yonerge: "Kullanıcı arama yaptığında en doğru sonuçların saniyeler içinde seçilip ekrana sunulduğu aşamayı bulunuz.",
-    soruKart: "Kullanıcı anahtar kelime yazdığında en güvenilir ve uygun sonuçların seçilip ekrana listelendiği aşama hangisidir?",
-    dogruHedef: "siralama",
-    kartlar: [
-      { id: "siralama", metin: "Sıralama ve sunma (Ranking)", aciklama: "Arama motoru saniyeler içinde en alakalı sayfaları sıralayıp ekranınıza getirir." },
-      { id: "tarama", metin: "Tarama (Crawling)", aciklama: "Tarama, botların interneti gezdiği ilk aşamadır." },
-      { id: "dizin", metin: "Dizine ekleme (Indexing)", aciklama: "Dizine ekleme, verilerin kütüphaneye kaydedilmesidir." }
-    ]
-  },
-
-  /* --- AŞAMA 2: CANLI ARAMA OPERATÖRLERİ SİMÜLATÖRÜ (7 Görev) --- */
   {
     asama: 2,
-    etiket: "2. Aşama: Operatörler",
+    etiket: "Arama Operatörleri",
     yonerge: "Panda hayvanını araştırırken Kung Fu Panda film sonuçlarını elemek için doğru operatörü yerleştiriniz.",
-    senaryo: "Ayşe sevimli panda hayvanı hakkında araştırma yapıyor; ancak sonuçlarda sürekli 'Kung Fu Panda' filmi çıkıyor. Filmleri aramadan çıkarmak istiyor.",
+    senaryo: "Ayşe, sevimli panda hayvanı hakkında araştırma yapıyor; ancak sonuçlarda sürekli 'Kung Fu Panda' filmi çıkıyor. Filmleri aramadan çıkarmak istiyor.",
     onMetin: "panda",
     arkaMetin: "",
     dogruCevap: "-film",
@@ -535,9 +426,9 @@ var GOREVLER = [
   },
   {
     asama: 2,
-    etiket: "2. Aşama: Operatörler",
+    etiket: "Arama Operatörleri",
     yonerge: "İstiklal Marşı dizesini kelime sırası bozulmadan tam cümle olarak aramak için doğru operatörü seçiniz.",
-    senaryo: "Mehmet, İstiklal Marşı'ndaki 'Bastığın yerleri toprak diyerek geçme tanı' dizesini sırası hiç bozulmadan tam kalıp olarak aramak istiyor.",
+    senaryo: "Mehmet, İstiklal Marşı'ndaki \"Bastığın yerleri toprak diyerek geçme tanı\" dizesini sırası hiç bozulmadan tam kalıp olarak aramak istiyor.",
     onMetin: "",
     arkaMetin: "Bastığın yerleri toprak diyerek geçme tanı",
     dogruCevap: '""',
@@ -549,9 +440,9 @@ var GOREVLER = [
   },
   {
     asama: 2,
-    etiket: "2. Aşama: Operatörler",
+    etiket: "Arama Operatörleri",
     yonerge: "Çevre Kirliliği konusunda doğrudan indirilebilecek hazır sunum slayt dosyası bulmak için operatörü seçiniz.",
-    senaryo: "Zeynep öğretmeninin verdiği fen projesi için bilgisayarına indirip sunabileceği hazır bir sunum (slayt) dosyası arıyor.",
+    senaryo: "Zeynep, öğretmeninin verdiği fen projesi için bilgisayarına indirip sunabileceği hazır bir sunum (slayt) dosyası arıyor.",
     onMetin: "Çevre Kirliliği",
     arkaMetin: "",
     dogruCevap: "filetype:ppt",
@@ -563,11 +454,11 @@ var GOREVLER = [
   },
   {
     asama: 2,
-    etiket: "2. Aşama: Operatörler",
+    etiket: "Arama Operatörleri",
     yonerge: "Atasözünde unutulan kelimenin yerini dolduran joker karakteri arama kutusuna koyunuz.",
-    senaryo: "Can, 'Damlaya damlaya ... olur.' atasözünün ortasındaki kelimeyi hatırlayamıyor. Unuttuğu kelimenin yerine joker sembol koymak istiyor.",
+    senaryo: 'Can, "Damlaya damlaya ... olur." atasözünün ortasındaki kelimeyi hatırlayamıyor. Unuttuğu kelimenin yerine joker sembol koymak istiyor.',
     onMetin: "Damlaya damlaya",
-    arkaMetin: "olur",
+    arkaMetin: "olur.",
     dogruCevap: "*",
     secenekler: ["*", "-", "+", "site:"],
     aciklama: "Yıldız (*) işareti, unutulan veya bilinmeyen kelimelerin yerini dolduran joker karakterdir.",
@@ -577,7 +468,7 @@ var GOREVLER = [
   },
   {
     asama: 2,
-    etiket: "2. Aşama: Operatörler",
+    etiket: "Arama Operatörleri",
     yonerge: "Robotik kodlama araştırmasını yalnızca üniversite (.edu.tr) sitelerinde yapmak için operatörü seçiniz.",
     senaryo: "Elif, robotik kodlama hakkında bilimsel ve güvenilir makaleleri sadece üniversite sitelerinde aramak istiyor.",
     onMetin: "Robotik kodlama",
@@ -591,10 +482,10 @@ var GOREVLER = [
   },
   {
     asama: 2,
-    etiket: "2. Aşama: Operatörler",
-    yonerge: "Matematik Kesirler konusunu doğrudan MEB Eğitim Bilişim Ağı (EBA) sunucusunda arayınız.",
-    senaryo: "Ali, Kesirler konusundaki etkileşimli ders materyallerini sadece EBA web sitesinde aramak istiyor.",
-    onMetin: "Kesirler",
+    etiket: "Arama Operatörleri",
+    yonerge: "Matematik kesirler konusunu doğrudan EBA'da arayınız.",
+    senaryo: "Ali, kesirler konusundaki etkileşimli ders materyallerini sadece EBA'da aramak istiyor.",
+    onMetin: "kesirler",
     arkaMetin: "",
     dogruCevap: "site:eba.gov.tr",
     secenekler: ["site:eba.gov.tr", "filetype:eba", "related:eba", '"eba.gov.tr"'],
@@ -605,7 +496,7 @@ var GOREVLER = [
   },
   {
     asama: 2,
-    etiket: "2. Aşama: Operatörler",
+    etiket: "Arama Operatörleri",
     yonerge: "TÜBİTAK gibi popüler bilim ve deney içeriği sunan benzer siteleri bulmak için operatörü seçiniz.",
     senaryo: "Bilim meraklısı Burak, TÜBİTAK web sitesine benzeyen diğer bilimsel platformları keşfetmek istiyor.",
     onMetin: "",
@@ -616,83 +507,6 @@ var GOREVLER = [
     sonucBaslik: "Popüler Bilim ve Deney Siteleri — Benzer Kaynaklar",
     sonucAdres: "https://bilimkolektifi.com",
     sonucOzet: "TÜBİTAK benzeri bilim dergileri, deney rehberleri ve araştırma portalları listelendi."
-  },
-
-  /* --- AŞAMA 3: GÜVENİLİRLİK VE GÜNCELLİK RADARI (5 Görev) --- */
-  {
-    asama: 3,
-    etiket: "3. Aşama: Radar",
-    yonerge: "Gelen kaynak kartını inceleyiniz; Güvenilir & Güncel mi yoksa Şüpheli / Eski mi olduğuna karar veriniz.",
-    kartVeri: {
-      baslik: "Milli Eğitim Bakanlığı: LGS Başvuru Kılavuzu Duyurusu",
-      rozet: "Resmi Kurum",
-      kaynak: "meb.gov.tr (Devlet Sitesi)",
-      yazar: "MEB Ölçme ve Değerlendirme Genel Müdürlüğü",
-      tarih: "Bu Hafta (Güncel)",
-      ozet: "Milli Eğitim Bakanlığı resmi internet sitesinde güncel sınav takvimi ve şartları yayınlandı."
-    },
-    dogruIstasyon: "guvenli",
-    aciklama: "gov.tr uzantılı resmi devlet siteleri en güvenilir kaynaklardır ve güncel tarihlidir."
-  },
-  {
-    asama: 3,
-    etiket: "3. Aşama: Radar",
-    yonerge: "Haberin tarih ve yazar güvenilirliğini radar istasyonunda değerlendiriniz.",
-    kartVeri: {
-      baslik: "Yarın Büyük Güneş Tutulması Olacak!",
-      rozet: "Sosyal Blog",
-      kaynak: "gunlukhaber-blog.com (Ticari / Blog)",
-      yazar: "Anonim / Yazar Belirtilmemiş",
-      tarih: "Yayın Tarihi: 12 Mart 2015 (11 Yıl Önce)",
-      ozet: "Güneş tutulması haberi 2015 yılında yazılmış. Tarih kontrol edilmeden bugünkü ödevde kullanılamaz!"
-    },
-    dogruIstasyon: "riskli",
-    aciklama: "Eski tarihli bilgiler güncelliğini yitirmiştir (bilgi o gün doğru olsa da bugün yanlıştır)."
-  },
-  {
-    asama: 3,
-    etiket: "3. Aşama: Radar",
-    yonerge: "Üniversite akademik araştırma raporunu radarla analiz ediniz.",
-    kartVeri: {
-      baslik: "Yapay Zeka ve Geleceğin Meslekleri Raporu",
-      rozet: "Bilimsel Araştırma",
-      kaynak: "itu.edu.tr (Üniversite Sitesi)",
-      yazar: "Prof. Dr. Bilgisayar Mühendisliği Bölüm Başkanı",
-      tarih: "Yayın Tarihi: 2026 (Bu Yıl)",
-      ozet: "Üniversite bünyesinde uzman akademisyenler tarafından hazırlanmış güncel bilimsel rapor."
-    },
-    dogruIstasyon: "guvenli",
-    aciklama: "edu.tr uzantılı üniversite siteleri bilimsel ve güvenilirdir; uzman yazarı ve tarihi bellidir."
-  },
-  {
-    asama: 3,
-    etiket: "3. Aşama: Radar",
-    yonerge: "Arama motorunda en üstte çıkan reklamlı içerik kartını inceleyiniz.",
-    kartVeri: {
-      baslik: "Mucize Formül! 1 Günde 10 Kilo Verdiren Çay!",
-      rozet: "Reklam / Sponsorlu",
-      kaynak: "saglik-mucizesi.net (Ticari Site)",
-      yazar: "Uzmanlığı Bilinmeyen Satıcı",
-      tarih: "Tarih Yok / Teyitsiz",
-      ozet: "Google'da en üstte çıkmak bilginin doğru olduğunu göstermez! En az 3 farklı kaynaktan doğrulanmalıdır."
-    },
-    dogruIstasyon: "riskli",
-    aciklama: "Arama motorunda ilk sırada çıkması bilginin doğru olduğunu kanıtlamaz. Şüpheli ve ticari reklamlardır."
-  },
-  {
-    asama: 3,
-    etiket: "3. Aşama: Radar",
-    yonerge: "TÜBİTAK bilim dergisinin güncel makalesini inceleyiniz.",
-    kartVeri: {
-      baslik: "Mars'ta Su Arayışı ve Uzay Araştırmaları",
-      rozet: "Popüler Bilim",
-      kaynak: "tubitak.gov.tr (Resmi Bilim Kurumu)",
-      yazar: "TÜBİTAK Bilim ve Teknik Yayın Kurulu",
-      tarih: "Yayın Tarihi: 2026 (Güncel Sayı)",
-      ozet: "TÜBİTAK uzman bilim insanları tarafından hazırlanmış doğrulanabilir uzay keşif makalesi."
-    },
-    dogruIstasyon: "guvenli",
-    aciklama: "Resmi bilim kurumları (TÜBİTAK) güvenilir kaynaklardır ve yayın kurulları uzmanlardan oluşur."
   }
 ];
 
@@ -791,117 +605,7 @@ function gorevYukle(){
   $("ilerleme-dis").setAttribute("aria-valuenow", gorevIndeks);
   $("ilerleme-ic").style.width = (gorevIndeks / GOREVLER.length * 100) + "%";
 
-  $("cark-sahne").style.display = (g.asama === 1) ? "flex" : "none";
-  $("arama-simulasyon").style.display = (g.asama === 2) ? "flex" : "none";
-  $("radar-sahne").style.display = (g.asama === 3) ? "flex" : "none";
-
-  if(g.asama === 1){
-    yukleAsama1(g);
-  } else if(g.asama === 2){
-    yukleAsama2(g);
-  } else if(g.asama === 3){
-    yukleAsama3(g);
-  }
-}
-
-/* --- AŞAMA 1: ÇARK KURULUMU --- */
-function yukleAsama1(g){
-  rehberSoyle("Doğru işlem basamağını seçiniz.", "notr");
-  var cs = $("cark-sahne");
-  cs.innerHTML = "";
-
-  var basamaklar = [
-    { id: "tarama", ad: "1. Basamak", aciklama: "Örümcek botlar internetteki sayfaları otomatik gezer ve yeni içerikleri bulur." },
-    { id: "dizin", ad: "2. Basamak", aciklama: "Toplanan web içerikleri düzenli devasa bir kütüphaneye (veri tabanına) kaydedilir." },
-    { id: "siralama", ad: "3. Basamak", aciklama: "Kullanıcı arama yaptığında en alakalı sonuçlar saniyeler içinde listelenip sunulur." }
-  ];
-
-  basamaklar.forEach(function(b){
-    var d = document.createElement("div");
-    d.className = "cark-yuva-kutu";
-    d.setAttribute("data-hedef", b.id);
-    d.setAttribute("role", "button");
-    d.setAttribute("tabindex", "0");
-    d.setAttribute("aria-label", b.ad + " yuvası. " + b.aciklama);
-
-    d.innerHTML = '<div class="cark-aciklama">' + b.aciklama + '</div>' +
-                  '<div class="cark-yuva-alan"></div>';
-
-    d.addEventListener("dragover", function(e){ e.preventDefault(); d.classList.add("uzerinde"); });
-    d.addEventListener("dragleave", function(){ d.classList.remove("uzerinde"); });
-    d.addEventListener("drop", function(e){
-      e.preventDefault(); d.classList.remove("uzerinde");
-      var hid = e.dataTransfer.getData("text/plain");
-      if(hid) asama1CevapVer(hid, b.id, d);
-    });
-    d.addEventListener("click", function(){
-      if(seciliKart !== null) asama1CevapVer(seciliKart, b.id, d);
-    });
-    klavyeTetikle(d, function(){ if(seciliKart !== null) asama1CevapVer(seciliKart, b.id, d); });
-    cs.appendChild(d);
-  });
-
-  // Havuz
-  var hv = $("havuz");
-  hv.innerHTML = "";
-  g.kartlar.forEach(function(k){
-    var btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "kart";
-    btn.textContent = k.metin;
-    btn.setAttribute("draggable", "true");
-    btn.setAttribute("aria-pressed", "false");
-    btn.setAttribute("data-id", k.id);
-    btn.setAttribute("aria-label", k.metin + " kartı.");
-
-    btn.addEventListener("dragstart", function(e){
-      seciliKart = k.id;
-      btn.classList.add("suruklenen");
-      e.dataTransfer.setData("text/plain", k.id);
-    });
-    btn.addEventListener("dragend", function(){ btn.classList.remove("suruklenen"); });
-    btn.addEventListener("click", function(){ kartSec(k.id, btn); });
-    hv.appendChild(btn);
-  });
-}
-
-function asama1CevapVer(gelenId, hedefId, kutuElem){
-  if(kilit) return;
-  var g = GOREVLER[gorevIndeks];
-  var btn = $("havuz").querySelector('[data-id="' + gelenId + '"]');
-
-  if(gelenId === g.dogruHedef && hedefId === g.dogruHedef){
-    sesCal("dogru");
-    kilit = true;
-    kutuElem.classList.add("dolu");
-    var alan = kutuElem.querySelector(".cark-yuva-alan");
-    alan.innerHTML = '<div class="yerlesen-etiket">' + btn.textContent + '</div>';
-    if(btn.parentNode) btn.parentNode.removeChild(btn);
-
-    var kazanilan = (gorevYanlis === 0) ? 10 : 5;
-    puan += kazanilan;
-    yildiz++;
-    skorGuncelle();
-    gorevBeklemede = true;
-    $("btn-ileri").disabled = false;
-    $("btn-ileri").classList.add("vurgulu");
-    rehberSoyle("Tebrikler, doğru işlem basamağı!", "sevinc");
-    bildir("Doğru! " + g.kartlar[0].aciklama, "iyi", true);
-    if(window.__FAST){ setTimeout(sonrakiGorev, 200); }
-  } else {
-    sesCal("yanlis");
-    gorevYanlis++;
-    kutuElem.classList.add("hatali");
-    if(btn) btn.classList.add("sarsil");
-    setTimeout(function(){
-      kutuElem.classList.remove("hatali");
-      if(btn) btn.classList.remove("sarsil");
-    }, 400);
-    rehberSoyle("Tekrar deneyiniz.", "dusun");
-    bildir("Bu aşama doğru değil. İpucu: Açıklamayı dikkatle okuyunuz.", "kotu");
-    seciliKart = null;
-    temizleSecim();
-  }
+  yukleAsama2(g);
 }
 
 /* --- AŞAMA 2: CANLI ARAMA OPERATÖRLERİ KURULUMU --- */
@@ -1038,116 +742,6 @@ function asama2AramaYap(){
   }
 }
 
-/* --- AŞAMA 3: GÜVENİLİRLİK & GÜNCELLİK RADARI KURULUMU --- */
-function yukleAsama3(g){
-  rehberSoyle("Kaynak kartını inceleyip radar istasyonuna yönlendiriniz.", "notr");
-  var hka = $("haber-karti-alani");
-  hka.innerHTML = "";
-
-  var kv = g.kartVeri;
-  var kartDiv = document.createElement("div");
-  kartDiv.className = "kaynak-karti";
-  kartDiv.id = "aktif-kaynak-karti";
-  kartDiv.setAttribute("role", "button");
-  kartDiv.setAttribute("tabindex", "0");
-  kartDiv.setAttribute("draggable", "true");
-  kartDiv.setAttribute("aria-pressed", "false");
-  kartDiv.setAttribute("aria-label", kv.baslik + " haber kartı.");
-
-  kartDiv.innerHTML = '<div class="kaynak-ust">' +
-                        '<div class="kaynak-baslik">' + kv.baslik + '</div>' +
-                        '<div class="kaynak-rozet">' + kv.rozet + '</div>' +
-                      '</div>' +
-                      '<div class="kaynak-govde">' + kv.ozet + '</div>' +
-                      '<div class="kaynak-alt">' +
-                        '<span>🌐 Kaynak: <b>' + kv.kaynak + '</b></span>' +
-                        '<span>📅 ' + kv.tarih + '</span>' +
-                      '</div>' +
-                      '<div style="font-size:0.85rem;color:var(--gri);margin-top:0.2rem;">✍️ Yazar: ' + kv.yazar + '</div>';
-
-  kartDiv.addEventListener("dragstart", function(e){
-    seciliKart = "kaynak";
-    kartDiv.classList.add("suruklenen");
-    e.dataTransfer.setData("text/plain", "kaynak");
-  });
-  kartDiv.addEventListener("dragend", function(){ kartDiv.classList.remove("suruklenen"); });
-  function kaynakSecFn(){
-    seciliKart = (seciliKart === "kaynak") ? null : "kaynak";
-    kartDiv.setAttribute("aria-pressed", (seciliKart === "kaynak") ? "true" : "false");
-    sesCal("tik");
-    rehberSoyle("Şimdi sağdaki uygun radar istasyonuna tıklayınız.", "dusun");
-  }
-  kartDiv.addEventListener("click", kaynakSecFn);
-  klavyeTetikle(kartDiv, kaynakSecFn);
-  hka.appendChild(kartDiv);
-
-  $("havuz").innerHTML = ""; // Havuz temiz
-
-  // İstasyon olayları
-  var ig = $("istasyon-guvenli");
-  var ir = $("istasyon-riskli");
-
-  ig.onclick = function(){ asama3KararVer("guvenli"); };
-  ir.onclick = function(){ asama3KararVer("riskli"); };
-  klavyeTetikle(ig, function(){ asama3KararVer("guvenli"); });
-  klavyeTetikle(ir, function(){ asama3KararVer("riskli"); });
-
-  ig.ondragover = function(e){ e.preventDefault(); ig.classList.add("uzerinde"); };
-  ig.ondragleave = function(){ ig.classList.remove("uzerinde"); };
-  ig.ondrop = function(e){ e.preventDefault(); ig.classList.remove("uzerinde"); asama3KararVer("guvenli"); };
-
-  ir.ondragover = function(e){ e.preventDefault(); ir.classList.add("uzerinde"); };
-  ir.ondragleave = function(){ ir.classList.remove("uzerinde"); };
-  ir.ondrop = function(e){ e.preventDefault(); ir.classList.remove("uzerinde"); asama3KararVer("riskli"); };
-}
-
-function asama3KararVer(secilenIstasyon){
-  if(kilit) return;
-  var g = GOREVLER[gorevIndeks];
-  var kartDiv = $("aktif-kaynak-karti");
-
-  if(secilenIstasyon === g.dogruIstasyon){
-    sesCal("dogru");
-    kilit = true;
-    var istasyonElem = (secilenIstasyon === "guvenli") ? $("istasyon-guvenli") : $("istasyon-riskli");
-    istasyonElem.classList.add("uzerinde");
-
-    if(kartDiv) kartDiv.style.opacity = "0.5";
-
-    var kazanilan = (gorevYanlis === 0) ? 10 : 5;
-    puan += kazanilan;
-    yildiz++;
-    skorGuncelle();
-    gorevBeklemede = true;
-    $("btn-ileri").disabled = false;
-    $("btn-ileri").classList.add("vurgulu");
-    rehberSoyle("Tebrikler, kaynak analizi doğru!", "sevinc");
-    bildir("Doğru Analiz! " + g.aciklama, "iyi", true);
-    if(window.__FAST){
-      setTimeout(function(){
-        istasyonElem.classList.remove("uzerinde");
-        sonrakiGorev();
-      }, 200);
-    }
-  } else {
-    sesCal("yanlis");
-    gorevYanlis++;
-    var istElem = (secilenIstasyon === "guvenli") ? $("istasyon-guvenli") : $("istasyon-riskli");
-    istElem.classList.add("hatali");
-    if(kartDiv) kartDiv.classList.add("sarsil");
-    setTimeout(function(){
-      istElem.classList.remove("hatali");
-      if(kartDiv) kartDiv.classList.remove("sarsil");
-    }, 400);
-
-    rehberSoyle("Kaynak analizi uyuşmadı. Yazar, site uzantısı ve tarihe dikkat ediniz!", "dusun");
-    bildir("Hatalı karar. " + g.aciklama, "kotu");
-    seciliKart = null;
-    temizleSecim();
-  }
-}
-
-
 function klavyeTetikle(elem, fn){
   elem.addEventListener("keydown", function(e){
     if(e.key === "Enter" || e.key === " "){
@@ -1208,8 +802,8 @@ function oyunuBitir(){
     d.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="' + (i < yildiz ? "#F59E0B" : "#E2E8F0") + '"/></svg>';
     kap.appendChild(d);
   }
-  $("son-puan").textContent = "Toplam Puanınız: " + puan + " / 150";
-  $("son-yildiz-yazi").textContent = "Kazanılan Yıldız: " + yildiz + " / 15 — Etkili Arama Uzmanı Başarı Rozeti";
+  $("son-puan").textContent = "Toplam Puanınız: " + puan + " / 70";
+  $("son-yildiz-yazi").textContent = "Kazanılan Yıldız: " + yildiz + " / 7 — Arama Operatörleri Uzmanı Başarı Rozeti";
   ekranAc(2);
   sesCal("dogru");
 }
