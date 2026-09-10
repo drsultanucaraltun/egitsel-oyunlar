@@ -308,7 +308,7 @@ b,strong{font-weight:700}
         <p>Her soru için <b>2 deneme hakkınız</b> bulunmaktadır. İpuçlarından yararlanarak en yüksek puanı toplamaya çalışınız!</p>
       </div>
 
-      <button id="btn-basla" type="button">Etkinliği Başlatmak İçin Tıklayınız</button>
+      <button id="btn-basla" type="button">Etkinliği başlatmak için tıklayınız.</button>
     </section>
 
     <!-- ============ OYUN EKRANI ============ -->
@@ -385,7 +385,7 @@ b,strong{font-weight:700}
 
     <!-- ============ SONUÇ EKRANI ============ -->
     <section class="ekran" id="ekran-son" aria-labelledby="son-baslik">
-      <h2 id="son-baslik">Tebrikler! Tüm Görevleri Tamamladınız!</h2>
+      <h2 id="son-baslik">Tebrikler! Tüm görevleri tamamladınız.</h2>
       
       <svg id="son-rozet" viewBox="0 0 160 160" role="img" aria-label="Başarı Madalyası">
         <circle cx="80" cy="80" r="72" fill="#FEF3C7" stroke="#F59E0B" stroke-width="6"/>
@@ -434,7 +434,7 @@ var GOREVLER = [
     asama: 2,
     etiket: "Arama Operatörleri",
     yonerge: "Panda hayvanını araştırırken Kung Fu Panda film sonuçlarını elemek için doğru operatörü yerleştiriniz.",
-    senaryo: "Ayşe, sevimli panda hayvanı hakkında araştırma yapıyor; ancak sonuçlarda sürekli 'Kung Fu Panda' filmi çıkıyor. Filmleri aramadan çıkarmak istiyor.",
+    senaryo: "Ayşe, sevimli panda hayvanı hakkında araştırma yapıyor ancak sonuçlarda sürekli 'Kung Fu Panda' filmi çıkıyor. Filmleri aramadan çıkarmak istiyor.",
     onMetin: "panda",
     arkaMetin: "",
     dogruCevap: "-film",
@@ -456,7 +456,7 @@ var GOREVLER = [
     aciklama: 'Çift Tırnak (" "), kelimeleri birbirine bağlar ve aralarında başka kelime olmadan tam kalıp olarak arar.',
     sonucBaslik: "İstiklal Marşı 6. Kıta — Mehmet Akif Ersoy",
     sonucAdres: "https://www.meb.gov.tr/istiklal-marsi",
-    sonucOzet: '"Bastığın yerleri toprak diyerek geçme tanı, düşün altındaki binlerce kefensiz yatanı..."'
+    sonucOzet: '"Bastığın yerleri toprak diyerek geçme tanı / düşün altındaki binlerce kefensiz yatanı..."'
   },
   {
     asama: 2,
@@ -560,8 +560,8 @@ var GOREVLER = [
     asama: 2,
     etiket: "Arama Operatörleri",
     yonerge: "Güneş sistemi maketi yapımını araştırırken alışveriş ve satılık ürün sayfalarını elemek için operatörü yerleştiriniz.",
-    senaryo: "Deniz, fen bilimleri dersi için güneş sistemi maketi yapmak istiyor. Ancak arama yaptığında karşısına sürekli alışveriş siteleri çıkıyor. Satılık ürünleri arama sonuçlarından çıkarmak istiyor.",
-    onMetin: "güneş sistemi maketi",
+    senaryo: "Deniz, fen bilimleri dersi için Güneş sistemi maketi yapmak istiyor. Ancak arama yaptığında karşısına sürekli alışveriş siteleri çıkıyor. Satılık ürünleri arama sonuçlarından çıkarmak istiyor.",
+    onMetin: "Güneş sistemi maketi",
     arkaMetin: "",
     dogruCevap: "-satılık",
     secenekler: ["-satılık", "+satılık", "site:satılık", '"satılık"'],
@@ -602,15 +602,15 @@ var GOREVLER = [
     asama: 2,
     etiket: "Arama Operatörleri",
     yonerge: "Atasözünde unutulan kelimenin yerini dolduran joker karakteri arama kutusuna koyunuz.",
-    senaryo: 'Mert, "Ağaç yaş iken ... eğilir." atasözünün ortasındaki kelimeyi hatırlayamıyor. Boşluğun yerine joker sembol koymak istiyor.',
-    onMetin: "Ağaç yaş iken",
-    arkaMetin: "eğilir.",
+    senaryo: 'Mert, "Ayağını ... göre uzat." atasözünün ortasındaki kelimeyi hatırlayamıyor. Boşluğun yerine joker sembol koymak istiyor.',
+    onMetin: "Ayağını",
+    arkaMetin: "göre uzat.",
     dogruCevap: "*",
     secenekler: ["*", "-", "+", "site:"],
     aciklama: "Yıldız (*) joker karakteri, unutulan kelimenin yerini doldurarak doğru atasözünü tamamlar.",
-    sonucBaslik: "Ağaç yaş iken eğilir — Türk Dil Kurumu Atasözleri",
-    sonucAdres: "https://sozluk.gov.tr/atasozu/agac-yas-iken-egilir",
-    sonucOzet: "İnsanlar küçük yaşta eğitilir. Yıldız (*) sembolü unutulan kelimeyi tamamladı."
+    sonucBaslik: "Ayağını yorganına göre uzat — Türk Dil Kurumu Atasözleri",
+    sonucAdres: "https://sozluk.gov.tr/atasozu/ayagini-yorganina-gore-uzat",
+    sonucOzet: "Harcamalar gelire göre ayarlanmalıdır. Yıldız (*) sembolü 'yorganına' kelimesini tamamladı."
   },
   {
     asama: 2,
@@ -911,7 +911,7 @@ function asama2AramaYap(){
 
     if(g.kalanHak === 1){
       // 1. HATA: Cevap gösterilmez! Yönlendirici dönüt verilir, 1 hak kalır.
-      $("sonuc-kutusu").innerHTML = '<div style="color:var(--yanlis);font-weight:700;text-align:center;padding:0.6rem;">Aranan sonuca ulaşılamadı. Farklı bir operatör kartı seçiniz! (Kalan deneme hakkı: 1)</div>';
+      $("sonuc-kutusu").innerHTML = '<div style="color:var(--yanlis);font-weight:700;text-align:center;padding:0.6rem;">Aranan sonuca ulaşılamadı. Farklı bir operatör kartı seçiniz. (Kalan deneme hakkı: 1)</div>';
       rehberSoyle("İstediğimiz sonuca ulaşamadık. Son 1 hakkınız kaldı, tekrar deneyiniz.", "dusun");
       bildir("Yanlış operatör. Senaryoyu dikkatle inceleyiniz ve tekrar deneyiniz. (Kalan hak: 1)", "kotu");
 
