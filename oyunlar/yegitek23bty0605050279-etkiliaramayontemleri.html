@@ -430,7 +430,7 @@ b,strong{font-weight:700}
 /* ============ GÖREV VERİSİ ============ */
 var GOREVLER = [
   {
-    asama: 2,
+asama: 2,
     etiket: "Arama Operatörleri",
     yonerge: "Panda hayvanını araştırırken Kung Fu Panda film sonuçlarını elemek için doğru operatörü yerleştiriniz.",
     senaryo: "Ayşe, sevimli panda hayvanı hakkında araştırma yapıyor ancak sonuçlarda sürekli 'Kung Fu Panda' filmi çıkıyor. Filmleri aramadan çıkarmak istiyor.",
@@ -444,7 +444,7 @@ var GOREVLER = [
     sonucOzet: "Dev pandalar bambu ormanlarında yaşar. Arama filtresi sayesinde film haberleri elendi!"
   },
   {
-    asama: 2,
+asama: 2,
     etiket: "Arama Operatörleri",
     yonerge: "İstiklal Marşı dizesini kelime sırası bozulmadan tam cümle olarak aramak için doğru operatörü seçiniz.",
     senaryo: "Mehmet, İstiklal Marşı'ndaki \"Bastığın yerleri “toprak” diyerek geçme, tanı,\" dizesini sırası hiç bozulmadan tam kalıp olarak aramak istiyor.",
@@ -458,35 +458,7 @@ var GOREVLER = [
     sonucOzet: '"Bastığın yerleri “toprak” diyerek geçme, tanı, / Düşün altındaki binlerce kefensiz yatanı."'
   },
   {
-    asama: 2,
-    etiket: "Arama Operatörleri",
-    yonerge: "Çevre Kirliliği konusunda doğrudan indirilebilecek hazır sunum slayt dosyası bulmak için operatörü seçiniz.",
-    senaryo: "Zeynep, öğretmeninin verdiği fen projesi için bilgisayarına indirip sunabileceği hazır bir sunum (slayt) dosyası arıyor.",
-    onMetin: "Çevre Kirliliği",
-    arkaMetin: "",
-    dogruCevap: "filetype:ppt",
-    secenekler: ["filetype:ppt", "site:ppt", "-ppt", "*ppt"],
-    aciklama: "filetype: komutu, sonuçları sadece PPT, PDF gibi belirli dosya uzantılarına göre sınırlar.",
-    sonucBaslik: "Çevre Kirliliği ve Korunma Yolları Sunumu [PPT]",
-    sonucAdres: "https://web.itu.edu.tr/cevre-sunumu.ppt",
-    sonucOzet: "İndirilebilir sunum dosyası (PowerPoint). filetype filtresi başarıyla çalıştı!"
-  },
-  {
-    asama: 2,
-    etiket: "Arama Operatörleri",
-    yonerge: "Atasözünde unutulan kelimenin yerini dolduran joker karakteri arama kutusuna koyunuz.",
-    senaryo: 'Can, "Damlaya damlaya ... olur." atasözünün ortasındaki kelimeyi hatırlayamıyor. Unuttuğu kelimenin yerine joker sembol koymak istiyor.',
-    onMetin: "Damlaya damlaya",
-    arkaMetin: "olur.",
-    dogruCevap: "*",
-    secenekler: ["*", "-", "+", "site:"],
-    aciklama: "Yıldız (*) işareti, unutulan veya bilinmeyen kelimelerin yerini dolduran joker karakterdir.",
-    sonucBaslik: "Damlaya damlaya göl olur — Türk Dil Kurumu Atasözleri",
-    sonucAdres: "https://sozluk.gov.tr/atasozu/damlaya-damlaya-gol-olur",
-    sonucOzet: "Küçük şeyler birike birike büyük varlık oluşturur. Joker karakter (*) 'göl' kelimesini tamamladı."
-  },
-  {
-    asama: 2,
+asama: 2,
     etiket: "Arama Operatörleri",
     yonerge: "Robotik kodlama araştırmasını yalnızca üniversite (.edu.tr) sitelerinde yapmak için operatörü seçiniz.",
     senaryo: "Elif, robotik kodlama hakkında bilimsel ve güvenilir makaleleri sadece üniversite sitelerinde aramak istiyor.",
@@ -500,63 +472,35 @@ var GOREVLER = [
     sonucOzet: "Üniversite akademisyenleri tarafından hazırlanmış bilimsel araştırma raporu."
   },
   {
-    asama: 2,
+asama: 2,
     etiket: "Arama Operatörleri",
-    yonerge: "Matematik kesirler konusunu doğrudan EBA'da arayınız.",
-    senaryo: "Ali, kesirler konusundaki etkileşimli ders materyallerini sadece EBA'da aramak istiyor.",
-    onMetin: "kesirler",
-    arkaMetin: "",
-    dogruCevap: "site:eba.gov.tr",
-    secenekler: ["site:eba.gov.tr", "filetype:eba", "-eba", '"eba.gov.tr"'],
-    aciklama: "site:eba.gov.tr komutu, aramayı sadece resmi eba.gov.tr portalı içinde sınırlar.",
-    sonucBaslik: "5. Sınıf Matematik — Kesirlerle İşlemler Etkileşimli Ders",
-    sonucAdres: "https://www.eba.gov.tr/ders/matematik-kesirler",
-    sonucOzet: "EBA resmi sunucusundan 5. sınıf ders modülleri listelendi."
+    yonerge: "Atasözünde unutulan kelimenin yerini dolduran joker karakteri arama kutusuna koyunuz.",
+    senaryo: 'Can, "Damlaya damlaya ... olur." atasözünün ortasındaki kelimeyi hatırlayamıyor. Unuttuğu kelimenin yerine joker sembol koymak istiyor.',
+    onMetin: "Damlaya damlaya",
+    arkaMetin: "olur.",
+    dogruCevap: "*",
+    secenekler: ["*", "-", "+", "site:"],
+    aciklama: "Yıldız (*) işareti, unutulan veya bilinmeyen kelimelerin yerini dolduran joker karakterdir.",
+    sonucBaslik: "Damlaya damlaya göl olur — Türk Dil Kurumu Atasözleri",
+    sonucAdres: "https://sozluk.gov.tr/atasozu/damlaya-damlaya-gol-olur",
+    sonucOzet: "Küçük şeyler birike birike büyük varlık oluşturur. Joker karakter (*) 'göl' kelimesini tamamladı."
   },
   {
-    asama: 2,
+asama: 2,
     etiket: "Arama Operatörleri",
-    yonerge: "Bilim Çocuk dergisi içeriklerini doğrudan resmi TÜBİTAK sitesinde aramak için operatörü seçiniz.",
-    senaryo: "Bilim meraklısı Burak, fen projesi için araştırma yaparken sadece TÜBİTAK'ın resmi web sitesindeki makaleleri incelemek istiyor.",
-    onMetin: "Bilim Çocuk",
+    yonerge: "Çevre Kirliliği konusunda doğrudan indirilebilecek hazır sunum slayt dosyası bulmak için operatörü seçiniz.",
+    senaryo: "Zeynep, öğretmeninin verdiği fen projesi için bilgisayarına indirip sunabileceği hazır bir sunum (slayt) dosyası arıyor.",
+    onMetin: "Çevre Kirliliği",
     arkaMetin: "",
-    dogruCevap: "site:tubitak.gov.tr",
-    secenekler: ["site:tubitak.gov.tr", "filetype:tubitak", "-tubitak", "*tubitak"],
-    aciklama: "site:tubitak.gov.tr komutu, aramayı yalnızca resmi TÜBİTAK portalı içinde sınırlar.",
-    sonucBaslik: "Bilim Çocuk Dergisi ve Deneyler — TÜBİTAK",
-    sonucAdres: "https://bilimcocuk.tubitak.gov.tr",
-    sonucOzet: "TÜBİTAK resmi yayın portalı üzerinden bilimsel çocuk içerikleri ve etkinlik rehberi."
+    dogruCevap: "filetype:ppt",
+    secenekler: ["filetype:ppt", "site:ppt", "-ppt", "*ppt"],
+    aciklama: "filetype: komutu, sonuçları sadece PPT, PDF gibi belirli dosya uzantılarına göre sınırlar.",
+    sonucBaslik: "Çevre Kirliliği ve Korunma Yolları Sunumu [PPT]",
+    sonucAdres: "https://web.itu.edu.tr/cevre-sunumu.ppt",
+    sonucOzet: "İndirilebilir sunum dosyası (PowerPoint). filetype filtresi başarıyla çalıştı!"
   },
   {
-    asama: 2,
-    etiket: "Arama Operatörleri",
-    yonerge: "Karagöz ile Hacivat kitabını doğrudan indirilebilir PDF e-kitap formatında bulmak için operatörü seçiniz.",
-    senaryo: "Selin, Türkçe dersi ödevi için \"Karagöz ile Hacivat\" kitabını bilgisayarına indirip okuyabileceği bir PDF dosyası arıyor.",
-    onMetin: "Karagöz ile Hacivat",
-    arkaMetin: "",
-    dogruCevap: "filetype:pdf",
-    secenekler: ["filetype:pdf", "site:pdf", "-pdf", "*pdf"],
-    aciklama: "filetype:pdf komutu, arama sonuçlarını yalnızca indirilebilir PDF formatındaki kitap ve belgelerle sınırlar.",
-    sonucBaslik: "Karagöz ile Hacivat — 100 Temel Eser Gölge Oyunu Metinleri [PDF]",
-    sonucAdres: "https://www.kultur.gov.tr/karagoz-ile-hacivat.pdf",
-    sonucOzet: "T.C. Kültür ve Turizm Bakanlığı Geleneksel Türk Tiyatrosu Arşivi indirilebilir e-kitap."
-  },
-  {
-    asama: 2,
-    etiket: "Arama Operatörleri",
-    yonerge: "Çocuk hakları konusunu yalnızca resmi kurum (.gov.tr) sitelerinde aramak için operatörü seçiniz.",
-    senaryo: "Emre, sosyal bilgiler dersindeki \"çocuk hakları\" konusunu sadece resmi kurumların sitelerinden araştırmak istiyor.",
-    onMetin: "çocuk hakları",
-    arkaMetin: "",
-    dogruCevap: "site:gov.tr",
-    secenekler: ["site:gov.tr", "filetype:gov", "-gov.tr", "*gov.tr"],
-    aciklama: "site:gov.tr komutu, aramayı yalnızca Türkiye Cumhuriyeti resmi kurumlarının web siteleriyle sınırlar.",
-    sonucBaslik: "Çocuk Haklarına Dair Sözleşme ve Belgeler — Aile ve Sosyal Hizmetler Bakanlığı",
-    sonucAdres: "https://www.aile.gov.tr/cocuk-haklari",
-    sonucOzet: "T.C. Aile ve Sosyal Hizmetler Bakanlığı Çocuk Hizmetleri Genel Müdürlüğü resmi rehberi."
-  },
-  {
-    asama: 2,
+asama: 2,
     etiket: "Arama Operatörleri",
     yonerge: "Güneş sistemi maketi yapımını araştırırken alışveriş ve satılık ürün sayfalarını elemek için operatörü yerleştiriniz.",
     senaryo: "Deniz, fen bilimleri dersi için Güneş sistemi maketi yapmak istiyor. Ancak arama yaptığında karşısına sürekli alışveriş siteleri çıkıyor. Satılık ürünleri arama sonuçlarından çıkarmak istiyor.",
@@ -570,7 +514,21 @@ var GOREVLER = [
     sonucOzet: "Karton ve oyun hamurları ile evde gezegenler maketi yapım kılavuzu. Alışveriş sonuçları elendi!"
   },
   {
-    asama: 2,
+asama: 2,
+    etiket: "Arama Operatörleri",
+    yonerge: "Matematik kesirler konusunu doğrudan EBA'da arayınız.",
+    senaryo: "Ali, kesirler konusundaki etkileşimli ders materyallerini sadece EBA'da aramak istiyor.",
+    onMetin: "kesirler",
+    arkaMetin: "",
+    dogruCevap: "site:eba.gov.tr",
+    secenekler: ["site:eba.gov.tr", "filetype:eba", "-eba", '"eba.gov.tr"'],
+    aciklama: "site:eba.gov.tr komutu, aramayı sadece resmi eba.gov.tr portalı içinde sınırlar.",
+    sonucBaslik: "5. Sınıf Matematik — Kesirlerle İşlemler Etkileşimli Ders",
+    sonucAdres: "https://www.eba.gov.tr/ders/matematik-kesirler",
+    sonucOzet: "EBA resmi sunucusundan 5. sınıf ders modülleri listelendi."
+  },
+  {
+asama: 2,
     etiket: "Arama Operatörleri",
     yonerge: "Şarkı ismini kelime sırası bozulmadan tam kalıp olarak aramak için doğru operatörü seçiniz.",
     senaryo: 'Kaan, müzik dersinde öğrendiği "Arkadaşım Eşek" şarkısının sözlerini kelimeleri bölünmeden tam kalıp olarak aramak istiyor.',
@@ -584,7 +542,7 @@ var GOREVLER = [
     sonucOzet: '"Arkadaşım eş, arkadaşım şek, arkadaşım eşek..." Barış Manço çocuk şarkıları arşivi.'
   },
   {
-    asama: 2,
+asama: 2,
     etiket: "Arama Operatörleri",
     yonerge: "Atasözündeki eksik kelimeyi tamamlamak için joker operatörü yerleştiriniz.",
     senaryo: 'Zehra, "Sakla samanı, ... zamanı." atasözünün ortasındaki kelimeyi hatırlayamıyor. Boşluğun yerine joker sembol koymak istiyor.',
@@ -598,7 +556,35 @@ var GOREVLER = [
     sonucOzet: "En değersiz görünen şey bile bir gün işe yarayabilir. Yıldız (*) sembolü 'gelir' kelimesini tamamladı."
   },
   {
-    asama: 2,
+asama: 2,
+    etiket: "Arama Operatörleri",
+    yonerge: "Karagöz ile Hacivat kitabını doğrudan indirilebilir PDF e-kitap formatında bulmak için operatörü seçiniz.",
+    senaryo: "Selin, Türkçe dersi ödevi için \"Karagöz ile Hacivat\" kitabını bilgisayarına indirip okuyabileceği bir PDF dosyası arıyor.",
+    onMetin: "Karagöz ile Hacivat",
+    arkaMetin: "",
+    dogruCevap: "filetype:pdf",
+    secenekler: ["filetype:pdf", "site:pdf", "-pdf", "*pdf"],
+    aciklama: "filetype:pdf komutu, arama sonuçlarını yalnızca indirilebilir PDF formatındaki kitap ve belgelerle sınırlar.",
+    sonucBaslik: "Karagöz ile Hacivat — 100 Temel Eser Gölge Oyunu Metinleri [PDF]",
+    sonucAdres: "https://www.kultur.gov.tr/karagoz-ile-hacivat.pdf",
+    sonucOzet: "T.C. Kültür ve Turizm Bakanlığı Geleneksel Türk Tiyatrosu Arşivi indirilebilir e-kitap."
+  },
+  {
+asama: 2,
+    etiket: "Arama Operatörleri",
+    yonerge: "Bilim Çocuk dergisi içeriklerini doğrudan resmi TÜBİTAK sitesinde aramak için operatörü seçiniz.",
+    senaryo: "Bilim meraklısı Burak, fen projesi için araştırma yaparken sadece TÜBİTAK'ın resmi web sitesindeki makaleleri incelemek istiyor.",
+    onMetin: "Bilim Çocuk",
+    arkaMetin: "",
+    dogruCevap: "site:tubitak.gov.tr",
+    secenekler: ["site:tubitak.gov.tr", "filetype:tubitak", "-tubitak", "*tubitak"],
+    aciklama: "site:tubitak.gov.tr komutu, aramayı yalnızca resmi TÜBİTAK portalı içinde sınırlar.",
+    sonucBaslik: "Bilim Çocuk Dergisi ve Deneyler — TÜBİTAK",
+    sonucAdres: "https://bilimcocuk.tubitak.gov.tr",
+    sonucOzet: "TÜBİTAK resmi yayın portalı üzerinden bilimsel çocuk içerikleri ve etkinlik rehberi."
+  },
+  {
+asama: 2,
     etiket: "Arama Operatörleri",
     yonerge: "Atasözünde unutulan kelimenin yerini dolduran joker karakteri arama kutusuna koyunuz.",
     senaryo: 'Mert, "Ayağını ... göre uzat." atasözünün ortasındaki kelimeyi hatırlayamıyor. Boşluğun yerine joker sembol koymak istiyor.',
@@ -612,7 +598,7 @@ var GOREVLER = [
     sonucOzet: "Harcamalar gelire göre ayarlanmalıdır. Yıldız (*) sembolü 'yorganına' kelimesini tamamladı."
   },
   {
-    asama: 2,
+asama: 2,
     etiket: "Arama Operatörleri",
     yonerge: "Doğrudan indirilebilecek hazır Excel/tablo formatında çalışma çizelgesi bulmak için operatörü seçiniz.",
     senaryo: "Kerem, bilişim teknolojileri dersindeki elektronik tablo ödevi için hazır \"Ders Çalışma Çizelgesi\" hesap tablosu dosyası arıyor.",
@@ -624,6 +610,20 @@ var GOREVLER = [
     sonucBaslik: "Haftalık Ders Çalışma ve Takip Çizelgesi Tablosu [XLS]",
     sonucAdres: "https://orgm.meb.gov.tr/cizelge.xls",
     sonucOzet: "MEB Rehberlik Hizmetleri tarafından hazırlanmış indirilebilir Excel çalışma planı tablosu."
+  },
+  {
+asama: 2,
+    etiket: "Arama Operatörleri",
+    yonerge: "Çocuk hakları konusunu yalnızca resmi kurum (.gov.tr) sitelerinde aramak için operatörü seçiniz.",
+    senaryo: "Emre, sosyal bilgiler dersindeki \"çocuk hakları\" konusunu sadece resmi kurumların sitelerinden araştırmak istiyor.",
+    onMetin: "çocuk hakları",
+    arkaMetin: "",
+    dogruCevap: "site:gov.tr",
+    secenekler: ["site:gov.tr", "filetype:gov", "-gov.tr", "*gov.tr"],
+    aciklama: "site:gov.tr komutu, aramayı yalnızca Türkiye Cumhuriyeti resmi kurumlarının web siteleriyle sınırlar.",
+    sonucBaslik: "Çocuk Haklarına Dair Sözleşme ve Belgeler — Aile ve Sosyal Hizmetler Bakanlığı",
+    sonucAdres: "https://www.aile.gov.tr/cocuk-haklari",
+    sonucOzet: "T.C. Aile ve Sosyal Hizmetler Bakanlığı Çocuk Hizmetleri Genel Müdürlüğü resmi rehberi."
   }
 ];
 
