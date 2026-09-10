@@ -305,7 +305,6 @@ b,strong{font-weight:700}
       <div class="giris-kutusu">
         <p><b>Hoş Geldiniz!</b> İnternette aradığınız doğru bilgiye hızla ulaşmak için arama motoru operatörlerini etkili biçimde kullanmayı öğreneceksiniz.</p>
         <p>Bu etkinlikte verilen arama senaryolarını dikkatle inceleyiniz ve doğru operatörü (<code>" "</code>, <code>-</code>, <code>site:</code>, <code>filetype:</code>, <code>*</code>) arama çubuğuna yerleştirerek görevleri tamamlayınız.</p>
-        <p>Her soru için <b>2 deneme hakkınız</b> bulunmaktadır. İpuçlarından yararlanarak en yüksek puanı toplamaya çalışınız!</p>
       </div>
 
       <button id="btn-basla" type="button">Etkinliği başlatmak için tıklayınız.</button>
@@ -911,9 +910,9 @@ function asama2AramaYap(){
 
     if(g.kalanHak === 1){
       // 1. HATA: Cevap gösterilmez! Yönlendirici dönüt verilir, 1 hak kalır.
-      $("sonuc-kutusu").innerHTML = '<div style="color:var(--yanlis);font-weight:700;text-align:center;padding:0.6rem;">Aranan sonuca ulaşılamadı. Farklı bir operatör kartı seçiniz. (Kalan deneme hakkı: 1)</div>';
-      rehberSoyle("İstediğimiz sonuca ulaşamadık. Son 1 hakkınız kaldı, tekrar deneyiniz.", "dusun");
-      bildir("Yanlış operatör. Senaryoyu dikkatle inceleyiniz ve tekrar deneyiniz. (Kalan hak: 1)", "kotu");
+      $("sonuc-kutusu").innerHTML = '<div style="color:var(--yanlis);font-weight:700;text-align:center;padding:0.6rem;">Aranan sonuca ulaşılamadı. Farklı bir operatör kartı seçiniz.</div>';
+      rehberSoyle("İstediğimiz sonuca ulaşamadık. Tekrar deneyiniz.", "dusun");
+      bildir("Yanlış operatör. Senaryoyu dikkatle inceleyiniz ve tekrar deneyiniz.", "kotu");
 
       // Kart yuvasını temizle ki öğrenci yeni kart deneyebilsin
       y.textContent = "[ Operatör Kartı ]";
