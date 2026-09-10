@@ -86,19 +86,30 @@ b,strong{font-weight:700}
 
 /* ============ ALTA ORTALANMIŞ GERİ BİLDİRİM BARI ============ */
 #geribildirim-alani{
-  flex:0 0 auto;width:100%;min-height:2.6rem;
+  flex:0 0 auto;width:100%;min-height:2.8rem;
   display:flex;align-items:center;justify-content:center;
   padding:0.2rem 0;margin-top:0.35rem;
 }
 #geribildirim{
-  display:none;text-align:center;
-  font-size:1.16rem;font-weight:700;border-radius:12px;padding:0.45rem 1.3rem;
-  max-width:52rem;box-shadow:0 2px 6px rgba(0,0,0,0.08);line-height:1.35;
+  display:none;position:relative;
+  text-align:center;
+  font-size:1.14rem;font-weight:700;border-radius:12px;
+  padding:0.45rem 2.8rem 0.45rem 1.4rem;
+  max-width:54rem;box-shadow:0 2px 6px rgba(0,0,0,0.08);line-height:1.35;
 }
-#geribildirim.goster{display:block}
+#geribildirim.goster{display:inline-flex;align-items:center;justify-content:center}
 #geribildirim.iyi{background:var(--dogru-acik);color:var(--dogru);border:2.5px solid var(--dogru)}
 #geribildirim.kotu{background:var(--yanlis-acik);color:var(--yanlis);border:2.5px solid var(--yanlis)}
 #geribildirim.notr{background:var(--vurgu-acik);color:var(--murekkep);border:2.5px solid var(--vurgu)}
+#btn-bildirim-kapat{
+  position:absolute;right:8px;top:50%;transform:translateY(-50%);
+  background:transparent;border:none;color:inherit;
+  font-size:1.6rem;line-height:1;font-weight:700;
+  cursor:pointer;padding:0.15rem 0.45rem;border-radius:6px;
+  display:inline-flex;align-items:center;justify-content:center;
+  opacity:0.75;transition:opacity 0.15s, background 0.15s;
+}
+#btn-bildirim-kapat:hover{opacity:1;background:rgba(0,0,0,0.1)}
 
 /* ============ OYUN GÖVDESİ (TAM ORTALANMIŞ ALAN) ============ */
 #oyun-govde{
@@ -227,7 +238,7 @@ b,strong{font-weight:700}
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="#F59E0B"/>
         </svg>
-        <span id="skor-yildiz">0 / 15</span>
+        <span id="skor-yildiz">0 / 14</span>
       </span>
       <span class="skor-kutu">
         <span>Puan:</span>
@@ -241,6 +252,14 @@ b,strong{font-weight:700}
         <path d="M4 9v6h4l5 4V5L8 9H4z" fill="#1E2A44"/>
         <path id="ses-dalga" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11" fill="none" stroke="#1E2A44" stroke-width="2" stroke-linecap="round"/>
         <line id="ses-cizgi" x1="4" y1="4" x2="21" y2="21" stroke="#B91C1C" stroke-width="2.6" stroke-linecap="round" style="display:none"/>
+      </svg>
+    </button>
+    <button class="arac" id="btn-tam-ekran" type="button" aria-label="Ekranı kaplayınız" title="Ekranı Kapla">
+      <svg id="ikon-tam-ekran" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+      </svg>
+      <svg id="ikon-kucult-ekran" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none">
+        <path d="M4 14h6m0 0v6m0-6L3 21m17-7h-6m0 0v6m0-6l7 7M4 10h6m0 0V4m0 6L3 3m17 7h-6m0 0V4m0 6l7-7"/>
       </svg>
     </button>
   </header>
@@ -266,29 +285,27 @@ b,strong{font-weight:700}
         <circle cx="355" cy="79" r="10" fill="none" stroke="#2563EB" stroke-width="3"/>
         <line x1="362" y1="86" x2="370" y2="94" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
         
-        <!-- Operatör Rozetleri -->
-        <rect x="35" y="114" width="48" height="30" rx="6" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="1.8"/>
-        <text x="59" y="134" text-anchor="middle" fill="#0E5A8A" font-size="13" font-weight="bold" font-family="'Roboto',sans-serif">" "</text>
+        <!-- 5 Temel Operatör Rozeti -->
+        <rect x="38" y="114" width="56" height="32" rx="7" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="2"/>
+        <text x="66" y="135" text-anchor="middle" fill="#0E5A8A" font-size="15" font-weight="bold" font-family="'Roboto',sans-serif">" "</text>
         
-        <rect x="90" y="114" width="42" height="30" rx="6" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="1.8"/>
-        <text x="111" y="134" text-anchor="middle" fill="#0E5A8A" font-size="13" font-weight="bold" font-family="'Roboto',sans-serif">-</text>
+        <rect x="106" y="114" width="50" height="32" rx="7" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="2"/>
+        <text x="131" y="135" text-anchor="middle" fill="#0E5A8A" font-size="16" font-weight="bold" font-family="'Roboto',sans-serif">-</text>
         
-        <rect x="139" y="114" width="58" height="30" rx="6" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="1.8"/>
-        <text x="168" y="134" text-anchor="middle" fill="#0E5A8A" font-size="13" font-weight="bold" font-family="'Roboto',sans-serif">site:</text>
+        <rect x="168" y="114" width="70" height="32" rx="7" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="2"/>
+        <text x="203" y="135" text-anchor="middle" fill="#0E5A8A" font-size="14" font-weight="bold" font-family="'Roboto',sans-serif">site:</text>
         
-        <rect x="204" y="114" width="76" height="30" rx="6" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="1.8"/>
-        <text x="242" y="134" text-anchor="middle" fill="#0E5A8A" font-size="13" font-weight="bold" font-family="'Roboto',sans-serif">filetype:</text>
+        <rect x="250" y="114" width="88" height="32" rx="7" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="2"/>
+        <text x="294" y="135" text-anchor="middle" fill="#0E5A8A" font-size="14" font-weight="bold" font-family="'Roboto',sans-serif">filetype:</text>
         
-        <rect x="287" y="114" width="40" height="30" rx="6" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="1.8"/>
-        <text x="307" y="134" text-anchor="middle" fill="#0E5A8A" font-size="14" font-weight="bold" font-family="'Roboto',sans-serif">*</text>
-        
-        <rect x="334" y="114" width="68" height="30" rx="6" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="1.8"/>
-        <text x="368" y="134" text-anchor="middle" fill="#0E5A8A" font-size="12" font-weight="bold" font-family="'Roboto',sans-serif">related:</text>
+        <rect x="350" y="114" width="45" height="32" rx="7" fill="#E0F2FE" stroke="#0E5A8A" stroke-width="2"/>
+        <text x="372.5" y="136" text-anchor="middle" fill="#0E5A8A" font-size="17" font-weight="bold" font-family="'Roboto',sans-serif">*</text>
       </svg>
 
       <div class="giris-kutusu">
         <p><b>Hoş Geldiniz!</b> İnternette aradığınız doğru bilgiye hızla ulaşmak için arama motoru operatörlerini etkili biçimde kullanmayı öğreneceksiniz.</p>
-        <p>Bu etkinlikte verilen arama senaryolarını dikkatle inceleyiniz ve doğru operatörü (<code>" "</code>, <code>-</code>, <code>site:</code>, <code>filetype:</code>, <code>*</code>, <code>related:</code>) arama çubuğuna yerleştirerek görevleri tamamlayınız.</p>
+        <p>Bu etkinlikte verilen arama senaryolarını dikkatle inceleyiniz ve doğru operatörü (<code>" "</code>, <code>-</code>, <code>site:</code>, <code>filetype:</code>, <code>*</code>) arama çubuğuna yerleştirerek görevleri tamamlayınız.</p>
+        <p>Her soru için <b>2 deneme hakkınız</b> bulunmaktadır. İpuçlarından yararlanarak en yüksek puanı toplamaya çalışınız!</p>
       </div>
 
       <button id="btn-basla" type="button">Etkinliği Başlatmak İçin Tıklayınız</button>
@@ -299,8 +316,8 @@ b,strong{font-weight:700}
       <div id="gorev-serit">
         <div id="gorev-ust-bilgi">
           <span id="bolum-etiket">1. Aşama: İşlem Basamakları</span>
-          <span id="bolum-no">Görev 1 / 15</span>
-          <div id="ilerleme-dis" role="progressbar" aria-label="Oyun ilerlemesi" aria-valuemin="0" aria-valuemax="15" aria-valuenow="0">
+          <span id="bolum-no">Görev 1 / 14</span>
+          <div id="ilerleme-dis" role="progressbar" aria-label="Oyun ilerlemesi" aria-valuemin="0" aria-valuemax="14" aria-valuenow="0">
             <div id="ilerleme-ic"></div>
           </div>
         </div>
@@ -354,7 +371,10 @@ b,strong{font-weight:700}
 
           <!-- KUTUCUKLARIN HEMEN ALTINDAKİ GERİ BİLDİRİM BARI -->
           <div id="geribildirim-alani">
-            <div id="geribildirim" role="status" aria-live="assertive"></div>
+            <div id="geribildirim" role="status" aria-live="assertive">
+              <span id="geribildirim-metin"></span>
+              <button type="button" id="btn-bildirim-kapat" aria-label="Uyarıyı kapatınız" title="Kapat">×</button>
+            </div>
           </div>
         </div>
       </div>
@@ -433,8 +453,8 @@ var GOREVLER = [
     arkaMetin: "Bastığın yerleri toprak diyerek geçme tanı",
     dogruCevap: '""',
     secenekler: ['""', "-", "*", "filetype:"],
-    aciklama: 'Çift Tırnak (" "), kelimeleri birbirine yapıştırır ve tam cümle olarak sırasıyla arar.',
-    sonucBaslik: 'İstiklal Marşı 6. Kıta — Mehmet Akif Ersoy',
+    aciklama: 'Çift Tırnak (" "), kelimeleri birbirine bağlar ve aralarında başka kelime olmadan tam kalıp olarak arar.',
+    sonucBaslik: "İstiklal Marşı 6. Kıta — Mehmet Akif Ersoy",
     sonucAdres: "https://www.meb.gov.tr/istiklal-marsi",
     sonucOzet: '"Bastığın yerleri toprak diyerek geçme tanı, düşün altındaki binlerce kefensiz yatanı..."'
   },
@@ -488,7 +508,7 @@ var GOREVLER = [
     onMetin: "kesirler",
     arkaMetin: "",
     dogruCevap: "site:eba.gov.tr",
-    secenekler: ["site:eba.gov.tr", "filetype:eba", "related:eba", '"eba.gov.tr"'],
+    secenekler: ["site:eba.gov.tr", "filetype:eba", "-eba", '"eba.gov.tr"'],
     aciklama: "site:eba.gov.tr komutu, aramayı sadece resmi eba.gov.tr portalı içinde sınırlar.",
     sonucBaslik: "5. Sınıf Matematik — Kesirlerle İşlemler Etkileşimli Ders",
     sonucAdres: "https://www.eba.gov.tr/ders/matematik-kesirler",
@@ -497,16 +517,16 @@ var GOREVLER = [
   {
     asama: 2,
     etiket: "Arama Operatörleri",
-    yonerge: "TÜBİTAK gibi popüler bilim ve deney içeriği sunan benzer siteleri bulmak için operatörü seçiniz.",
-    senaryo: "Bilim meraklısı Burak, TÜBİTAK web sitesine benzeyen diğer bilimsel platformları keşfetmek istiyor.",
-    onMetin: "",
+    yonerge: "Bilim Çocuk dergisi içeriklerini doğrudan resmi TÜBİTAK sitesinde aramak için operatörü seçiniz.",
+    senaryo: "Bilim meraklısı Burak, fen projesi için araştırma yaparken sadece TÜBİTAK'ın resmi web sitesindeki makaleleri incelemek istiyor.",
+    onMetin: "Bilim Çocuk",
     arkaMetin: "",
-    dogruCevap: "related:tubitak.gov.tr",
-    secenekler: ["related:tubitak.gov.tr", "filetype:tubitak", "-tubitak", "*tubitak"],
-    aciklama: "related: komutu, belirtilen web sitesine benzer türde yayın yapan siteleri listeler.",
-    sonucBaslik: "Popüler Bilim ve Deney Siteleri — Benzer Kaynaklar",
-    sonucAdres: "https://bilimkolektifi.com",
-    sonucOzet: "TÜBİTAK benzeri bilim dergileri, deney rehberleri ve araştırma portalları listelendi."
+    dogruCevap: "site:tubitak.gov.tr",
+    secenekler: ["site:tubitak.gov.tr", "filetype:tubitak", "-tubitak", "*tubitak"],
+    aciklama: "site:tubitak.gov.tr komutu, aramayı yalnızca resmi TÜBİTAK portalı içinde sınırlar.",
+    sonucBaslik: "Bilim Çocuk Dergisi ve Deneyler — TÜBİTAK",
+    sonucAdres: "https://bilimcocuk.tubitak.gov.tr",
+    sonucOzet: "TÜBİTAK resmi yayın portalı üzerinden bilimsel çocuk içerikleri ve etkinlik rehberi."
   },
   {
     asama: 2,
@@ -530,7 +550,7 @@ var GOREVLER = [
     onMetin: "çocuk hakları",
     arkaMetin: "",
     dogruCevap: "site:gov.tr",
-    secenekler: ["site:gov.tr", "filetype:gov", "-gov.tr", "related:gov"],
+    secenekler: ["site:gov.tr", "filetype:gov", "-gov.tr", "*gov.tr"],
     aciklama: "site:gov.tr komutu, aramayı yalnızca Türkiye Cumhuriyeti resmi kurumlarının web siteleriyle sınırlar.",
     sonucBaslik: "Çocuk Haklarına Dair Sözleşme ve Belgeler — Aile ve Sosyal Hizmetler Bakanlığı",
     sonucAdres: "https://www.aile.gov.tr/cocuk-haklari",
@@ -581,16 +601,16 @@ var GOREVLER = [
   {
     asama: 2,
     etiket: "Arama Operatörleri",
-    yonerge: "Anıtkabir web sayfasına benzer diğer müze ve tarihi anıt sitelerini bulmak için operatörü seçiniz.",
-    senaryo: "Mert, sanal turla gezdiği \"Anıtkabir\" web sitesine benzeyen diğer tarihi müze sitelerini keşfetmek istiyor.",
-    onMetin: "",
-    arkaMetin: "",
-    dogruCevap: "related:anitkabir.tsk.tr",
-    secenekler: ["related:anitkabir.tsk.tr", "filetype:anitkabir", "-anitkabir", "*anitkabir"],
-    aciklama: "related: operatörü, belirtilen web sitesine benzer kategorideki diğer müze ve tarih sayfalarını listeler.",
-    sonucBaslik: "Türkiye'nin Tarihi Müzeleri ve Sanal Turlar — Benzer Siteler",
-    sonucAdres: "https://muze.gov.tr/sanal-turlar",
-    sonucOzet: "Cumhuriyet Müzesi, Çanakkale Şehitliği ve Kurtuluş Savaşı Müzeleri sanal tur listesi."
+    yonerge: "Atasözünde unutulan kelimenin yerini dolduran joker karakteri arama kutusuna koyunuz.",
+    senaryo: 'Mert, "Ağaç yaş iken ... eğilir." atasözünün ortasındaki kelimeyi hatırlayamıyor. Boşluğun yerine joker sembol koymak istiyor.',
+    onMetin: "Ağaç yaş iken",
+    arkaMetin: "eğilir.",
+    dogruCevap: "*",
+    secenekler: ["*", "-", "+", "site:"],
+    aciklama: "Yıldız (*) joker karakteri, unutulan kelimenin yerini doldurarak doğru atasözünü tamamlar.",
+    sonucBaslik: "Ağaç yaş iken eğilir — Türk Dil Kurumu Atasözleri",
+    sonucAdres: "https://sozluk.gov.tr/atasozu/agac-yas-iken-egilir",
+    sonucOzet: "İnsanlar küçük yaşta eğitilir. Yıldız (*) sembolü unutulan kelimeyi tamamladı."
   },
   {
     asama: 2,
@@ -652,23 +672,21 @@ function sesCal(tur){
 
 
 
-/* ============ GERİ BİLDİRİM ============ */
-var gbZaman = null;
-function bildir(metin, tur, kalici){
-  geribildirim.textContent = metin;
-  geribildirim.className = "goster " + tur;
-  if(gbZaman){ clearTimeout(gbZaman); gbZaman = null; }
-  if(!kalici){
-    gbZaman = setTimeout(function(){
-      geribildirim.className = "";
-      geribildirim.textContent = "";
-    }, window.__FAST ? 300 : 3200);
-  }
+/* ============ BİLDİRİM VE REHBER ============ */
+function bildir(metin, tur){
+  var gb = $("geribildirim");
+  var gbm = $("geribildirim-metin");
+  if(!gb) return;
+  if(gbm){ gbm.textContent = metin; }
+  else { gb.textContent = metin; }
+  gb.className = "goster " + tur;
 }
 function bildirimTemizle(){
-  if(gbZaman){ clearTimeout(gbZaman); gbZaman = null; }
-  geribildirim.className = "";
-  geribildirim.textContent = "";
+  var gb = $("geribildirim");
+  var gbm = $("geribildirim-metin");
+  if(!gb) return;
+  gb.className = "";
+  if(gbm) gbm.textContent = "";
 }
 function rehberSoyle(metin, ifade){
   $("rehber-soz").textContent = metin;
@@ -682,20 +700,30 @@ function rehberSoyle(metin, ifade){
 function ekranAc(i){
   aktif = i;
   ekranlar.forEach(function(id, k){ $(id).classList.toggle("acik", k === i); });
-  $("btn-geri").disabled = (i === 0);
-  $("btn-ileri").disabled = !(i === 1 && oyunBitti);
+  if(i === 0){
+    $("btn-geri").disabled = true;
+    $("btn-ileri").disabled = true;
+  } else if(i === 1){
+    $("btn-geri").disabled = false;
+    var g = GOREVLER[gorevIndeks];
+    $("btn-ileri").disabled = !(g && g.tamamlandi);
+    if(g && g.tamamlandi){
+      $("btn-ileri").classList.add("vurgulu");
+    } else {
+      $("btn-ileri").classList.remove("vurgulu");
+    }
+  } else if(i === 2){
+    $("btn-geri").disabled = false;
+    $("btn-ileri").disabled = true;
+    $("btn-ileri").classList.remove("vurgulu");
+  }
   bildirimTemizle();
 }
 
 /* ============ GÖREV YÜKLEME ============ */
 function gorevYukle(){
   var g = GOREVLER[gorevIndeks];
-  gorevYanlis = 0;
-  kilit = false;
-  gorevBeklemede = false;
   seciliKart = null;
-  $("btn-ileri").disabled = !(aktif === 1 && oyunBitti);
-  $("btn-ileri").classList.remove("vurgulu");
 
   $("bolum-etiket").textContent = g.etiket;
   $("bolum-no").textContent = "Görev " + (gorevIndeks + 1) + " / " + GOREVLER.length;
@@ -703,16 +731,27 @@ function gorevYukle(){
   $("ilerleme-dis").setAttribute("aria-valuenow", gorevIndeks);
   $("ilerleme-ic").style.width = (gorevIndeks / GOREVLER.length * 100) + "%";
 
+  // Buton durumları
+  $("btn-geri").disabled = false;
+  if(g.tamamlandi){
+    $("btn-ileri").disabled = false;
+    $("btn-ileri").classList.add("vurgulu");
+    kilit = true;
+    gorevBeklemede = true;
+  } else {
+    $("btn-ileri").disabled = true;
+    $("btn-ileri").classList.remove("vurgulu");
+    kilit = false;
+    gorevBeklemede = false;
+  }
+
   yukleAsama2(g);
 }
 
-/* --- AŞAMA 2: CANLI ARAMA OPERATÖRLERİ KURULUMU --- */
+/* --- CANLI ARAMA OPERATÖRLERİ SİMÜLATÖRÜ --- */
 var yerlesenOperator = null;
 
 function yukleAsama2(g){
-  rehberSoyle("Operatör kartını arama kutusuna yerleştiriniz.", "notr");
-  yerlesenOperator = null;
-
   $("senaryo-metin").innerHTML = "<b>Arama Senaryosu:</b> " + g.senaryo;
   $("btn-ara").disabled = true;
 
@@ -731,20 +770,28 @@ function yukleAsama2(g){
   yuva.id = "operator-yuvasi";
   yuva.setAttribute("role", "region");
   yuva.setAttribute("aria-label", "Operatör yerleştirme alanı");
-  yuva.textContent = "[ Operatör Kartı ]";
 
-  yuva.addEventListener("dragover", function(e){ e.preventDefault(); yuva.classList.add("uzerinde"); });
+  if(g.tamamlandi){
+    yuva.textContent = g.dogruCevap;
+    yuva.classList.add("dolu");
+  } else {
+    yuva.textContent = "[ Operatör Kartı ]";
+  }
+
+  yuva.addEventListener("dragover", function(e){ e.preventDefault(); if(!kilit) yuva.classList.add("uzerinde"); });
   yuva.addEventListener("dragleave", function(){ yuva.classList.remove("uzerinde"); });
   yuva.addEventListener("drop", function(e){
     e.preventDefault(); yuva.classList.remove("uzerinde");
-    var val = e.dataTransfer.getData("text/plain");
-    if(val) asama2KartaYerlestir(val);
+    if(!kilit){
+      var val = e.dataTransfer.getData("text/plain");
+      if(val) asama2KartaYerlestir(val);
+    }
   });
   yuva.addEventListener("click", function(){
-    if(seciliKart !== null) asama2KartaYerlestir(seciliKart);
+    if(!kilit && seciliKart !== null) asama2KartaYerlestir(seciliKart);
   });
   yuva.setAttribute("tabindex", "0");
-  klavyeTetikle(yuva, function(){ if(seciliKart !== null) asama2KartaYerlestir(seciliKart); });
+  klavyeTetikle(yuva, function(){ if(!kilit && seciliKart !== null) asama2KartaYerlestir(seciliKart); });
   aga.appendChild(yuva);
 
   if(g.arkaMetin){
@@ -754,9 +801,32 @@ function yukleAsama2(g){
     aga.appendChild(arkaSpan);
   }
 
-  $("sonuc-kutusu").innerHTML = '<div style="color:var(--gri);font-weight:700;text-align:center;padding:0.6rem;">Doğru operatörü arama kutusuna yerleştirip "Ara" butonuna basınız.</div>';
+  var sk = $("sonuc-kutusu");
+  if(g.tamamlandi){
+    if(g.kazanildi){
+      sk.innerHTML = '<div class="sonuc-satir">' +
+                       '<div class="sonuc-baslik">' + g.sonucBaslik + '</div>' +
+                       '<div class="sonuc-adres">' + g.sonucAdres + '</div>' +
+                       '<div class="sonuc-ozet">' + g.sonucOzet + '</div>' +
+                       '<div class="sonuc-bilgi-notu">⚡ İpucu: ' + g.aciklama + '</div>' +
+                     '</div>';
+      rehberSoyle("Bu görevi başarıyla tamamladınız! 'İleri' butonuna basarak devam edebilirsiniz.", "sevinc");
+    } else {
+      sk.innerHTML = '<div class="sonuc-satir">' +
+                       '<div style="color:var(--yanlis);font-weight:700;font-size:1.08rem;margin-bottom:0.25rem;">❌ Bu görevde 2 deneme hakkı dolmuştur.</div>' +
+                       '<div class="sonuc-baslik">' + g.sonucBaslik + '</div>' +
+                       '<div class="sonuc-adres">' + g.sonucAdres + '</div>' +
+                       '<div class="sonuc-ozet">' + g.sonucOzet + '</div>' +
+                       '<div class="sonuc-bilgi-notu">⚡ Doğru Operatör: <b>' + g.dogruCevap + '</b> — ' + g.aciklama + '</div>' +
+                     '</div>';
+      rehberSoyle("Bu görev tamamlandı. Çözümü inceleyip 'İleri' butonuna basınız.", "notr");
+    }
+  } else {
+    sk.innerHTML = '<div style="color:var(--gri);font-weight:700;text-align:center;padding:0.6rem;">Doğru operatörü arama kutusuna yerleştirip "Ara" butonuna basınız. (2 deneme hakkınız vardır)</div>';
+    rehberSoyle("Operatör kartını arama kutusuna yerleştiriniz.", "notr");
+  }
 
-  // Havuz
+  // Havuz kartları
   var hv = $("havuz");
   hv.innerHTML = "";
   g.secenekler.forEach(function(opt){
@@ -770,12 +840,14 @@ function yukleAsama2(g){
     btn.setAttribute("aria-label", opt + " operatör kartı.");
 
     btn.addEventListener("dragstart", function(e){
-      seciliKart = opt;
-      btn.classList.add("suruklenen");
-      e.dataTransfer.setData("text/plain", opt);
+      if(!kilit){
+        seciliKart = opt;
+        btn.classList.add("suruklenen");
+        e.dataTransfer.setData("text/plain", opt);
+      }
     });
     btn.addEventListener("dragend", function(){ btn.classList.remove("suruklenen"); });
-    btn.addEventListener("click", function(){ kartSec(opt, btn); });
+    btn.addEventListener("click", function(){ if(!kilit) kartSec(opt, btn); });
     hv.appendChild(btn);
   });
 
@@ -804,6 +876,18 @@ function asama2AramaYap(){
     kilit = true;
     $("btn-ara").disabled = true;
 
+    g.tamamlandi = true;
+    g.kazanildi = true;
+    g.secilenCevap = yerlesenOperator;
+
+    // 1. hakta doğru: 10 puan, 2. hakta doğru: 5 puan
+    var kazanilan = (g.kalanHak === 2) ? 10 : 5;
+    g.kazanilanPuan = kazanilan;
+    puan += kazanilan;
+    yildiz++;
+    skorGuncelle();
+    gorevBeklemede = true;
+
     // Canlı Sonuç Göster ve Ekranda Tut
     var sk = $("sonuc-kutusu");
     sk.innerHTML = '<div class="sonuc-satir">' +
@@ -813,30 +897,57 @@ function asama2AramaYap(){
                      '<div class="sonuc-bilgi-notu">⚡ İpucu: ' + g.aciklama + '</div>' +
                    '</div>';
 
-    var kazanilan = (gorevYanlis === 0) ? 10 : 5;
-    puan += kazanilan;
-    yildiz++;
-    skorGuncelle();
-    gorevBeklemede = true;
     $("btn-ileri").disabled = false;
     $("btn-ileri").classList.add("vurgulu");
     rehberSoyle("Harika! Aradığınız doğru sonuç bulundu.", "sevinc");
-    bildir("Doğru Operatör! " + g.aciklama, "iyi", true);
+    bildir("Tebrikler! Doğru operatörü buldunuz.", "iyi");
     if(window.__FAST){ setTimeout(sonrakiGorev, 200); }
   } else {
     sesCal("yanlis");
-    gorevYanlis++;
+    g.kalanHak--;
     var y = $("operator-yuvasi");
     y.classList.add("hatali");
     setTimeout(function(){ y.classList.remove("hatali"); }, 400);
 
-    $("sonuc-kutusu").innerHTML = '<div style="color:var(--yanlis);font-weight:700;text-align:center;padding:0.6rem;">Aranan kritere ulaşılamadı. Farklı bir operatör seçiniz!</div>';
-    rehberSoyle("İstediğimiz sonuca ulaşamadık. Tekrar deneyiniz.", "dusun");
-    bildir("Yanlış operatör. " + g.aciklama, "kotu");
-    y.textContent = "[ Operatör Kartı ]";
-    y.classList.remove("dolu");
-    yerlesenOperator = null;
-    $("btn-ara").disabled = true;
+    if(g.kalanHak === 1){
+      // 1. HATA: Cevap gösterilmez! Yönlendirici dönüt verilir, 1 hak kalır.
+      $("sonuc-kutusu").innerHTML = '<div style="color:var(--yanlis);font-weight:700;text-align:center;padding:0.6rem;">Aranan sonuca ulaşılamadı. Farklı bir operatör kartı seçiniz! (Kalan deneme hakkı: 1)</div>';
+      rehberSoyle("İstediğimiz sonuca ulaşamadık. Son 1 hakkınız kaldı, tekrar deneyiniz.", "dusun");
+      bildir("Yanlış operatör. Senaryoyu dikkatle inceleyiniz ve tekrar deneyiniz. (Kalan hak: 1)", "kotu");
+
+      // Kart yuvasını temizle ki öğrenci yeni kart deneyebilsin
+      y.textContent = "[ Operatör Kartı ]";
+      y.classList.remove("dolu");
+      yerlesenOperator = null;
+      $("btn-ara").disabled = true;
+    } else {
+      // 2. HATA: 2 hak doldu! Doğru cevap açıklanır ve soru tamamlanır.
+      g.tamamlandi = true;
+      g.kazanildi = false;
+      g.secilenCevap = yerlesenOperator;
+      kilit = true;
+      gorevBeklemede = true;
+
+      // Yuvaya doğru cevabı yerleştir
+      y.textContent = g.dogruCevap;
+      y.classList.add("dolu");
+
+      var sk2 = $("sonuc-kutusu");
+      sk2.innerHTML = '<div class="sonuc-satir">' +
+                        '<div style="color:var(--yanlis);font-weight:700;font-size:1.08rem;margin-bottom:0.25rem;">❌ 2 deneme hakkınız doldu!</div>' +
+                        '<div class="sonuc-baslik">' + g.sonucBaslik + '</div>' +
+                        '<div class="sonuc-adres">' + g.sonucAdres + '</div>' +
+                        '<div class="sonuc-ozet">' + g.sonucOzet + '</div>' +
+                        '<div class="sonuc-bilgi-notu">⚡ Doğru Operatör: <b>' + g.dogruCevap + '</b> — ' + g.aciklama + '</div>' +
+                      '</div>';
+
+      rehberSoyle("2 deneme hakkınız doldu. Doğru çözümü inceleyip 'İleri' butonuna basınız.", "dusun");
+      bildir("2 deneme hakkınız doldu. Doğru operatör: " + g.dogruCevap, "kotu");
+      $("btn-ileri").disabled = false;
+      $("btn-ileri").classList.add("vurgulu");
+      $("btn-ara").disabled = true;
+      if(window.__FAST){ setTimeout(sonrakiGorev, 200); }
+    }
   }
 }
 
@@ -874,13 +985,23 @@ function temizleSecim(){
 }
 
 function sonrakiGorev(){
-  gorevIndeks++;
-  if(gorevIndeks >= GOREVLER.length){
+  if(gorevIndeks < GOREVLER.length - 1){
+    gorevIndeks++;
+    bildirimTemizle();
+    gorevYukle();
+  } else {
     oyunuBitir();
-    return;
   }
-  bildirimTemizle();
-  gorevYukle();
+}
+
+function oncekiGorev(){
+  if(gorevIndeks > 0){
+    gorevIndeks--;
+    bildirimTemizle();
+    gorevYukle();
+  } else {
+    ekranAc(0);
+  }
 }
 
 function skorGuncelle(){
@@ -900,7 +1021,7 @@ function oyunuBitir(){
     d.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="' + (i < yildiz ? "#F59E0B" : "#E2E8F0") + '"/></svg>';
     kap.appendChild(d);
   }
-  $("son-puan").textContent = "Toplam Puanınız: " + puan + " / 140";
+  $("son-puan").textContent = "Toplam Puanınız: " + puan + " / " + (GOREVLER.length * 10);
   $("son-yildiz-yazi").textContent = "Kazanılan Yıldız: " + yildiz + " / " + GOREVLER.length + " — Arama Operatörleri Uzmanı Başarı Rozeti";
   ekranAc(2);
   sesCal("dogru");
@@ -910,15 +1031,56 @@ function oyunuBaslat(){
   gorevIndeks = 0;
   yildiz = 0;
   puan = 0;
-  gorevYanlis = 0;
   kilit = false;
   oyunBitti = false;
   seciliKart = null;
   yerlesenOperator = null;
+  for(var j = 0; j < GOREVLER.length; j++){
+    GOREVLER[j].tamamlandi = false;
+    GOREVLER[j].kalanHak = 2;
+    GOREVLER[j].secilenCevap = null;
+    GOREVLER[j].kazanildi = false;
+    GOREVLER[j].kazanilanPuan = 0;
+  }
   skorGuncelle();
   bildirimTemizle();
   gorevYukle();
 }
+
+/* ============ TAM EKRAN MODU ============ */
+function tamEkranDegistir(){
+  var doc = document;
+  var fsEl = doc.fullscreenElement || doc.webkitFullscreenElement || doc.mozFullScreenElement || doc.msFullscreenElement;
+  if(!fsEl){
+    var el = doc.documentElement;
+    if(el.requestFullscreen){ el.requestFullscreen(); }
+    else if(el.webkitRequestFullscreen){ el.webkitRequestFullscreen(); }
+    else if(el.mozRequestFullScreen){ el.mozRequestFullScreen(); }
+    else if(el.msRequestFullscreen){ el.msRequestFullscreen(); }
+  } else {
+    if(doc.exitFullscreen){ doc.exitFullscreen(); }
+    else if(doc.webkitExitFullscreen){ doc.webkitExitFullscreen(); }
+    else if(doc.mozCancelFullScreen){ doc.mozCancelFullScreen(); }
+    else if(doc.msExitFullscreen){ doc.msExitFullscreen(); }
+  }
+}
+function tamEkranGuncelle(){
+  var doc = document;
+  var aktifMi = !!(doc.fullscreenElement || doc.webkitFullscreenElement || doc.mozFullScreenElement || doc.msFullscreenElement);
+  var btn = $("btn-tam-ekran");
+  if(!btn) return;
+  btn.setAttribute("aria-pressed", aktifMi ? "true" : "false");
+  btn.setAttribute("aria-label", aktifMi ? "Tam ekrandan çıkınız" : "Ekranı kaplayınız");
+  btn.setAttribute("title", aktifMi ? "Tam Ekrandan Çık" : "Ekranı Kapla");
+  var ik1 = $("ikon-tam-ekran");
+  var ik2 = $("ikon-kucult-ekran");
+  if(ik1) ik1.style.display = aktifMi ? "none" : "";
+  if(ik2) ik2.style.display = aktifMi ? "" : "none";
+}
+document.addEventListener("fullscreenchange", tamEkranGuncelle);
+document.addEventListener("webkitfullscreenchange", tamEkranGuncelle);
+document.addEventListener("mozfullscreenchange", tamEkranGuncelle);
+document.addEventListener("MSFullscreenChange", tamEkranGuncelle);
 
 /* ============ OLAYLAR VE DÜĞMELER ============ */
 geribildirim = $("geribildirim");
@@ -932,14 +1094,33 @@ $("btn-ses").addEventListener("click", function(){
   $("ses-dalga").style.display = sesAcik ? "" : "none";
   $("ses-cizgi").style.display = sesAcik ? "none" : "";
 });
+$("btn-tam-ekran").addEventListener("click", tamEkranDegistir);
 $("btn-buyut").addEventListener("click", function(){
   if(yaziOlcek < 130){ yaziOlcek += 10; document.documentElement.style.fontSize = yaziOlcek + "%"; }
 });
 $("btn-kucult").addEventListener("click", function(){
   if(yaziOlcek > 90){ yaziOlcek -= 10; document.documentElement.style.fontSize = yaziOlcek + "%"; }
 });
-$("btn-geri").addEventListener("click", function(){ if(aktif > 0) ekranAc(aktif - 1); });
-$("btn-ileri").addEventListener("click", function(){ if(gorevBeklemede){ sonrakiGorev(); } else if(aktif === 1 && oyunBitti){ ekranAc(2); } });
+$("btn-bildirim-kapat").addEventListener("click", function(e){
+  e.preventDefault();
+  bildirimTemizle();
+});
+$("btn-geri").addEventListener("click", function(){
+  if(aktif === 1){
+    oncekiGorev();
+  } else if(aktif === 2){
+    ekranAc(1);
+  }
+});
+$("btn-ileri").addEventListener("click", function(){
+  if(aktif === 1){
+    if(gorevBeklemede || GOREVLER[gorevIndeks].tamamlandi){
+      sonrakiGorev();
+    }
+  } else if(aktif === 0){
+    sesCal("tik"); oyunuBaslat(); ekranAc(1);
+  }
+});
 $("btn-basla").addEventListener("click", function(){ sesCal("tik"); oyunuBaslat(); ekranAc(1); });
 $("btn-yeniden").addEventListener("click", function(){ oyunuBaslat(); ekranAc(0); });
 
