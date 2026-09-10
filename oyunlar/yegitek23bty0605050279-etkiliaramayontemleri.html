@@ -907,7 +907,7 @@ function asama2AramaYap(){
 
     if(g.kalanHak === 1){
       // 1. HATA: Cevap gösterilmez! Yönlendirici dönüt verilir, 1 hak kalır.
-      $("sonuc-kutusu").innerHTML = '<div style="color:var(--yanlis);font-weight:700;text-align:center;padding:0.6rem;">Aranan sonuca ulaşılamadı.</div>';
+      $("sonuc-kutusu").innerHTML = '<div style="color:var(--yanlis);font-weight:700;text-align:center;padding:0.6rem;">Aranan sonuca ulaşılamadı. Farklı bir operatör kartı seçiniz!</div>';
       rehberSoyle("İstediğimiz sonuca ulaşamadık. Tekrar deneyiniz.", "dusun");
       bildir("Yanlış operatör. Senaryoyu dikkatle inceleyiniz ve tekrar deneyiniz.", "kotu");
 
