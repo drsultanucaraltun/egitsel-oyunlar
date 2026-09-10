@@ -896,7 +896,7 @@ function asama2AramaYap(){
     $("btn-ileri").disabled = false;
     $("btn-ileri").classList.add("vurgulu");
     rehberSoyle("Harika! Aradığınız doğru sonuç bulundu.", "sevinc");
-    bildir("Tebrikler! Doğru operatörü buldunuz.", "iyi");
+    bildirimTemizle();
     if(window.__FAST){ setTimeout(sonrakiGorev, 200); }
   } else {
     sesCal("yanlis");
