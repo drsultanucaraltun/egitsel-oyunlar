@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Sultan UÇAR ALTUN">
 <meta name="color-scheme" content="light only">
 <title>Girdi Avcısı Robot — BİLGİBOT Veri Yakalama Oyunu</title>
 <style>
@@ -593,6 +594,24 @@ b,strong{font-weight:700}
   cursor:not-allowed;
 }
 
+.senaryo-yazar{
+  font-size:1.05rem;
+  font-weight:700;
+  color:#1E3A8A;
+  background:#EFF6FF;
+  border:2px solid #BFDBFE;
+  border-radius:99px;
+  padding:0.35rem 1.2rem;
+  margin-top:-0.2rem;
+  margin-bottom:0.4rem;
+}
+.altbar-yazar{
+  font-size:0.95rem;
+  font-weight:700;
+  color:#64748B;
+  text-align:center;
+}
+
 @keyframes sarsil{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 </style>
 </head>
@@ -641,6 +660,7 @@ b,strong{font-weight:700}
     <section class="ekran acik" id="ekran-giris" aria-labelledby="giris-baslik">
       <span class="kazanim-rozet">YEĞİTEK 6. SINIF • BTY.6.5.1 YAPAY ZEKÂ GİRDİLERİ</span>
       <h2 id="giris-baslik">BİLGİBOT Girdi Avı Oyunu</h2>
+      <div class="senaryo-yazar">Senaryo Yazarı: Sultan UÇAR ALTUN</div>
 
       <svg id="giris-svg" viewBox="0 0 320 180" role="img" aria-label="Girdi yakalayan BİLGİBOT robot çizimi">
         <rect x="120" y="35" width="80" height="70" rx="18" fill="#FFFFFF" stroke="#2563EB" stroke-width="4"/>
@@ -767,6 +787,7 @@ b,strong{font-weight:700}
           <li><b>Etkili Girdi:</b> Net ifadeleri, doğru etiketleri ve güncel verileri toplayarak modeli 500.000 veriye ulaştırdınız.</li>
           <li><b>Günlük Hayat:</b> Yemek malzemesi, navigasyon adresi, müzik geçmişi ve klavye harflerini başarıyla ayırt ettiniz.</li>
         </ul>
+        <p style="margin-top:0.6rem;padding-top:0.5rem;border-top:1.5px dashed var(--cizgi);text-align:right;font-size:0.95rem;font-weight:700;color:var(--vurgu);">Senaryo Yazarı: Sultan UÇAR ALTUN</p>
       </div>
 
       <button class="tekrar-btn" id="btn-tekrar" type="button">Yeniden Oyna</button>
@@ -776,6 +797,7 @@ b,strong{font-weight:700}
   <!-- ============ ALT BAR ============ -->
   <footer id="altbar">
     <button class="nav-btn" id="btn-geri" type="button" disabled>Geri</button>
+    <span class="altbar-yazar">Senaryo Yazarı: Sultan UÇAR ALTUN</span>
     <button class="nav-btn" id="btn-ileri" type="button" disabled>İleri</button>
   </footer>
 </div>
