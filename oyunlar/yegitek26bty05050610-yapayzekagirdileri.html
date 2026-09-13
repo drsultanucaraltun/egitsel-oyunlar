@@ -155,47 +155,119 @@ b,strong{font-weight:700}
 #btn-basla:hover{filter:brightness(1.08);transform:translateY(-2px)}
 #btn-basla:active{transform:translateY(4px);box-shadow:0 2px 0 #1E40AF}
 
-/* ============ OYUN ŞERİDİ ============ */
+/* ============ OYUN ŞERİDİ (YÖNERGE) ============ */
 #gorev-serit{
   flex:0 0 auto;
   display:flex;
   align-items:center;
-  gap:0.8rem;
+  gap:0.75rem;
   padding:0.25rem 0.2rem;
 }
 .kademe-etiket{
-  font-size:1.05rem;
-  font-weight:700;
-  background:var(--vurgu);
+  font-size:1.1rem;
+  font-weight:800;
+  background:#000000;
   color:#FFFFFF;
-  padding:0.3rem 0.85rem;
-  border-radius:10px;
+  padding:0.4rem 0.95rem;
+  border-radius:12px;
   white-space:nowrap;
+  box-shadow:0 3px 8px rgba(0,0,0,0.18);
 }
 #hedef-gorev-kutusu{
   flex:1;
   min-width:0;
-  background:var(--panel);
-  border:2px solid var(--vurgu);
-  border-radius:12px;
-  padding:0.35rem 0.8rem;
+  background:#FFFFFF;
+  border:3px solid #000000;
+  border-radius:14px;
+  padding:0.4rem 1rem;
   display:flex;
   align-items:center;
-  gap:0.6rem;
+  gap:0.75rem;
+  box-shadow:0 3px 10px rgba(0,0,0,0.08);
 }
-.hedef-vurgu-yazi{font-size:1.15rem;font-weight:700;color:var(--vurgu)}
-.hedef-ipucu-yazi{font-size:0.95rem;color:var(--gri);font-weight:700}
+.hedef-vurgu-yazi{
+  font-size:1.25rem;
+  font-weight:900;
+  color:#000000;
+  white-space:nowrap;
+}
+.hedef-ipucu-yazi{
+  font-size:1.15rem;
+  color:#000000;
+  font-weight:700;
+}
 .adim-cubugu-dis{
   flex:0 0 120px;
-  height:14px;
-  background:var(--panel);
-  border:2px solid var(--cizgi);
+  height:16px;
+  background:#FFFFFF;
+  border:2.5px solid #000000;
   border-radius:8px;
   overflow:hidden;
 }
 .adim-cubugu-ic{height:100%;width:0;background:linear-gradient(90deg,#2563EB,#059669);transition:width .35s}
 
-/* ============ ARCADE OYUN SAHASI ============ */
+/* ============ ORTA OYUN GÖVDESİ & YAN BUTONLAR ============ */
+#oyun-orta-govde{
+  flex:1 1 auto;
+  min-height:0;
+  display:flex;
+  align-items:stretch;
+  gap:0.65rem;
+  position:relative;
+}
+.yan-kontrol-btn{
+  flex:0 0 4.6rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:0.4rem;
+  background:linear-gradient(180deg, #FFFFFF 0%, #EFF6FF 100%);
+  color:#1E3A8A;
+  border:3px solid #2563EB;
+  border-radius:18px;
+  cursor:pointer;
+  padding:0.5rem 0.2rem;
+  box-shadow:0 6px 16px rgba(37,99,235,0.18);
+  transition:all 0.12s ease;
+  user-select:none;
+  -webkit-user-select:none;
+  touch-action:manipulation;
+}
+.yan-kontrol-btn:hover{
+  background:#DBEAFE;
+  border-color:#1D4ED8;
+  color:#1D4ED8;
+  transform:scale(1.02);
+}
+.yan-kontrol-btn:active{
+  background:#2563EB;
+  color:#FFFFFF;
+  transform:scale(0.97);
+}
+.yan-btn-ok{
+  width:36px;
+  height:36px;
+  stroke:currentColor;
+  flex:0 0 auto;
+}
+.yan-btn-yazi{
+  font-size:1.15rem;
+  font-weight:900;
+  letter-spacing:0.5px;
+}
+.yan-btn-tus{
+  font-size:0.85rem;
+  font-weight:700;
+  opacity:0.85;
+}
+@media (max-width: 600px){
+  .yan-kontrol-btn{flex:0 0 3.6rem;}
+  .yan-btn-yazi{font-size:1rem;}
+  .yan-btn-tus{display:none;}
+}
+
+/* ARCADE PİSTİ */
 #oyun-alani{
   flex:1 1 auto;
   min-height:0;
@@ -281,47 +353,31 @@ b,strong{font-weight:700}
   box-shadow:0 0 12px rgba(56,189,248,0.6);
 }
 
-/* Dokunmatik Kontrol Paneli */
-#kontrol-paneli{
+/* ============ DÖNÜT PANELİ (ESKİ BUTON SATIRI) ============ */
+#donut-paneli{
   flex:0 0 auto;
+  min-height:48px;
   display:flex;
-  gap:0.8rem;
   align-items:center;
-  justify-content:space-between;
-  padding:0.4rem 0.2rem;
+  margin:0.3rem 0;
 }
-.kontrol-btn{
-  flex:1;
-  min-height:56px;
-  font-size:1.25rem;
-  font-weight:700;
-  background:var(--panel);
-  color:var(--vurgu);
-  border:3px solid var(--cizgi);
-  border-radius:16px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:0.6rem;
-  box-shadow:0 4px 10px rgba(37,99,235,0.08);
-  transition:all 0.1s;
-}
-.kontrol-btn:hover{background:var(--vurgu-acik);border-color:var(--vurgu)}
-.kontrol-btn:active{transform:scale(0.97)}
 
 /* Canlı Skor & Durum Çubuğu */
 .oyun-alt-bilgi{
   flex:0 0 auto;
   background:var(--panel);
-  border:2px solid var(--cizgi);
+  border:2px solid #CBD5E1;
   border-radius:12px;
-  padding:0.4rem 0.8rem;
+  padding:0.4rem 0.9rem;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  font-size:0.95rem;
-  font-weight:700;
+  font-size:1.05rem;
+  font-weight:800;
+  color:#000000;
 }
+#alt-hedef-sayac{color:#000000;font-weight:800;}
+#alt-model-durum{color:#000000;font-weight:800;}
 
 /* ============ BİTİŞ EKRANI ============ */
 #ekran-son{
@@ -361,28 +417,28 @@ b,strong{font-weight:700}
 }
 .tekrar-btn:hover{background:var(--vurgu);color:#FFFFFF}
 
-/* ============ GERİ BİLDİRİM ============ */
+/* ============ GERİ BİLDİRİM (DÖNÜT ŞERİDİ) ============ */
 #bildirim-serit{
-  position:absolute;
-  left:50%;
-  bottom:6.5rem;
-  transform:translateX(-50%);
-  max-width:min(94%,46rem);
+  width:100%;
+  min-height:46px;
   font-size:1.15rem;
   font-weight:700;
   border-radius:14px;
-  padding:0.6rem 1.2rem;
-  display:none;
+  padding:0.45rem 1.2rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   text-align:center;
-  z-index:70;
-  box-shadow:0 10px 30px rgba(0,0,0,0.3);
   line-height:1.35;
-  pointer-events:none;
+  background:#FFFFFF;
+  color:#000000;
+  border:2.5px solid #000000;
+  box-shadow:0 3px 10px rgba(0,0,0,0.06);
+  transition:all 0.18s ease;
 }
-#bildirim-serit.goster{display:block}
-#bildirim-serit.iyi{background:var(--dogru-acik);color:var(--dogru);border:3px solid var(--dogru)}
-#bildirim-serit.kotu{background:var(--hata-acik);color:var(--hata);border:3px solid var(--hata)}
-#bildirim-serit.uyari{background:var(--uyari-acik);color:var(--uyari);border:3px solid var(--uyari)}
+#bildirim-serit.iyi{background:var(--dogru-acik);color:var(--dogru);border:3px solid var(--dogru);box-shadow:0 4px 14px rgba(5,150,105,0.22)}
+#bildirim-serit.kotu{background:var(--hata-acik);color:var(--hata);border:3px solid var(--hata);box-shadow:0 4px 14px rgba(220,38,38,0.22)}
+#bildirim-serit.uyari{background:var(--uyari-acik);color:var(--uyari);border:3px solid var(--uyari);box-shadow:0 4px 14px rgba(217,119,6,0.22)}
 
 /* ============ ALT BAR ============ */
 #altbar{
@@ -499,7 +555,8 @@ b,strong{font-weight:700}
     </section>
 
     <!-- OYUN EKRANI -->
-    <section class="ekran" id="ekran-oyun" aria-labelledby="gorev-baslik">
+    <section class="ekran" id="ekran-oyun" aria-labelledby="hedef-yazi">
+      <!-- YÖNERGE ŞERİDİ (YÜKSEK KONTRAST SİYAH) -->
       <div id="gorev-serit">
         <span class="kademe-etiket" id="kademe-etiket">Bölüm 1 / 3</span>
         <div id="hedef-gorev-kutusu">
@@ -511,54 +568,62 @@ b,strong{font-weight:700}
         </div>
       </div>
 
-      <!-- ARCADE SAHASI -->
-      <div id="oyun-alani" tabindex="0" role="region" aria-label="Robot oyun pisti">
-        <!-- 3 Şerit Kılavuzu -->
-        <div class="seritler-kapsayici">
-          <div class="serit-cizgi" id="serit-0" style="cursor:pointer;pointer-events:auto"></div>
-          <div class="serit-cizgi" id="serit-1" style="cursor:pointer;pointer-events:auto"></div>
-          <div class="serit-cizgi" id="serit-2" style="cursor:pointer;pointer-events:auto"></div>
-        </div>
+      <!-- ORTA GÖVDE: YAN KONTROL BUTONLARI VE PİST -->
+      <div id="oyun-orta-govde">
+        <button class="yan-kontrol-btn" id="btn-sol" type="button" aria-label="Robotu sola hareket ettiriniz">
+          <svg viewBox="0 0 24 24" class="yan-btn-ok" aria-hidden="true"><path d="M15 19l-7-7 7-7" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="yan-btn-yazi">SOL</span>
+          <span class="yan-btn-tus">(◀ / A)</span>
+        </button>
 
-        <!-- Düşen Kapsül -->
-        <div id="veri-kapsulu" aria-hidden="true">
-          <div class="kapsul-govde" id="kapsul-govde">
-            <div id="kapsul-ikon-alani"></div>
-            <div class="kapsul-metin" id="kapsul-metin">Veri Başlığı</div>
+        <!-- ARCADE SAHASI -->
+        <div id="oyun-alani" tabindex="0" role="region" aria-label="Robot oyun pisti">
+          <!-- 3 Şerit Kılavuzu -->
+          <div class="seritler-kapsayici">
+            <div class="serit-cizgi" id="serit-0" style="cursor:pointer;pointer-events:auto"></div>
+            <div class="serit-cizgi" id="serit-1" style="cursor:pointer;pointer-events:auto"></div>
+            <div class="serit-cizgi" id="serit-2" style="cursor:pointer;pointer-events:auto"></div>
+          </div>
+
+          <!-- Düşen Kapsül -->
+          <div id="veri-kapsulu" aria-hidden="true">
+            <div class="kapsul-govde" id="kapsul-govde">
+              <div id="kapsul-ikon-alani"></div>
+              <div class="kapsul-metin" id="kapsul-metin">Veri Başlığı</div>
+            </div>
+          </div>
+
+          <!-- Oyuncu Robot BİLGİBOT -->
+          <div id="robot-oyuncu" aria-label="BİLGİBOT Oyuncu">
+            <div class="robot-sepet"></div>
+            <svg id="robot-svg-oyuncu" viewBox="0 0 100 85">
+              <rect x="18" y="15" width="64" height="56" rx="16" fill="#FFFFFF" stroke="#2563EB" stroke-width="4"/>
+              <line x1="50" y1="2" x2="50" y2="15" stroke="#2563EB" stroke-width="4"/>
+              <circle id="bot-anten-oyuncu" cx="50" cy="2" r="6" fill="#10B981"/>
+              <circle cx="38" cy="38" r="6" fill="#1E293B"/>
+              <circle cx="62" cy="38" r="6" fill="#1E293B"/>
+              <path id="bot-agiz-oyuncu" d="M38 56 q12 8 24 0" fill="none" stroke="#2563EB" stroke-width="4" stroke-linecap="round"/>
+              <rect x="30" y="74" width="40" height="11" rx="5" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+            </svg>
           </div>
         </div>
 
-        <!-- Oyuncu Robot BİLGİBOT -->
-        <div id="robot-oyuncu" aria-label="BİLGİBOT Oyuncu">
-          <div class="robot-sepet"></div>
-          <svg id="robot-svg-oyuncu" viewBox="0 0 100 85">
-            <rect x="18" y="15" width="64" height="56" rx="16" fill="#FFFFFF" stroke="#2563EB" stroke-width="4"/>
-            <line x1="50" y1="2" x2="50" y2="15" stroke="#2563EB" stroke-width="4"/>
-            <circle id="bot-anten-oyuncu" cx="50" cy="2" r="6" fill="#10B981"/>
-            <circle cx="38" cy="38" r="6" fill="#1E293B"/>
-            <circle cx="62" cy="38" r="6" fill="#1E293B"/>
-            <path id="bot-agiz-oyuncu" d="M38 56 q12 8 24 0" fill="none" stroke="#2563EB" stroke-width="4" stroke-linecap="round"/>
-            <rect x="30" y="74" width="40" height="11" rx="5" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
-          </svg>
-        </div>
+        <button class="yan-kontrol-btn" id="btn-sag" type="button" aria-label="Robotu sağa hareket ettiriniz">
+          <svg viewBox="0 0 24 24" class="yan-btn-ok" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="yan-btn-yazi">SAĞ</span>
+          <span class="yan-btn-tus">(▶ / D)</span>
+        </button>
       </div>
 
-      <!-- KONTROL BUTONLARI -->
-      <div id="kontrol-paneli">
-        <button class="kontrol-btn" id="btn-sol" type="button" aria-label="Robotu sola hareket ettiriniz">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          SOLA GİT (A / ◀)
-        </button>
-        <button class="kontrol-btn" id="btn-sag" type="button" aria-label="Robotu sağa hareket ettiriniz">
-          SAĞA GİT (D / ▶)
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
+      <!-- DÖNÜT PANELİ (ESKİ BUTON SATIRI) -->
+      <div id="donut-paneli">
+        <div id="bildirim-serit" role="status" aria-live="assertive">BİLGİBOT'u yön tuşları veya yan butonlarla hareket ettirerek hedef veriyi toplayınız.</div>
       </div>
 
       <!-- ALT BİLGİ VE MODEL İBRESİ -->
       <div class="oyun-alt-bilgi">
         <span id="alt-hedef-sayac">Kalan Hedef: 5</span>
-        <span id="alt-model-durum" style="color:var(--vurgu)">Model Durumu: 100.000 Veri (%35 Başarı)</span>
+        <span id="alt-model-durum">Model Durumu: 100.000 Veri (%35 Başarı)</span>
       </div>
     </section>
 
@@ -583,8 +648,6 @@ b,strong{font-weight:700}
 
       <button class="tekrar-btn" id="btn-tekrar" type="button">Yeniden Oyna</button>
     </section>
-
-    <div id="bildirim-serit" role="status" aria-live="assertive"></div>
   </main>
 
   <!-- ============ ALT BAR ============ -->
@@ -633,21 +696,22 @@ function sesCal(tur){
 /* ============ GERİ BİLDİRİM ============ */
 var gbTimer = null;
 var bildirimEl = $("bildirim-serit");
+var VARSAYILAN_DONUT = "BİLGİBOT'u yön tuşları (◀ / ▶) veya yan butonlarla hareket ettiriniz.";
 function bildir(metin, tur, kalici){
   bildirimEl.textContent = metin;
-  bildirimEl.className = "goster " + tur;
+  bildirimEl.className = tur;
   if(gbTimer){ clearTimeout(gbTimer); gbTimer = null; }
   if(!kalici){
     gbTimer = setTimeout(function(){
       bildirimEl.className = "";
-      bildirimEl.textContent = "";
-    }, window.__FAST ? 300 : 3000);
+      bildirimEl.textContent = VARSAYILAN_DONUT;
+    }, window.__FAST ? 300 : 3500);
   }
 }
 function bildirimTemizle(){
   if(gbTimer){ clearTimeout(gbTimer); gbTimer = null; }
   bildirimEl.className = "";
-  bildirimEl.textContent = "";
+  bildirimEl.textContent = VARSAYILAN_DONUT;
 }
 
 /* ============ OYUN DURUMU ============ */
