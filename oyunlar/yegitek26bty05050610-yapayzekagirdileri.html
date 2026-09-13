@@ -365,18 +365,19 @@ b,strong{font-weight:700}
 #bildirim-serit{
   position:absolute;
   left:50%;
-  top:0.45rem;
+  bottom:6.5rem;
   transform:translateX(-50%);
   max-width:min(94%,46rem);
   font-size:1.15rem;
   font-weight:700;
   border-radius:14px;
-  padding:0.55rem 1.2rem;
+  padding:0.6rem 1.2rem;
   display:none;
   text-align:center;
-  z-index:60;
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  z-index:70;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
   line-height:1.35;
+  pointer-events:none;
 }
 #bildirim-serit.goster{display:block}
 #bildirim-serit.iyi{background:var(--dogru-acik);color:var(--dogru);border:3px solid var(--dogru)}
@@ -674,8 +675,9 @@ var IKONLAR = {
   metin: '<svg viewBox="0 0 24 24" class="kapsul-ikon"><rect x="3" y="5" width="18" height="14" rx="3" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/><path d="M7 9h10M7 12h7M7 15h4" stroke="#1E293B" stroke-width="2" stroke-linecap="round"/></svg>',
   sayisal: '<svg viewBox="0 0 24 24" class="kapsul-ikon"><rect x="3" y="3" width="18" height="18" rx="4" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/><path d="M8 8v8M12 8v8M16 8v8M6 12h12" stroke="#1E293B" stroke-width="2" stroke-linecap="round"/></svg>',
   sensor: '<svg viewBox="0 0 24 24" class="kapsul-ikon"><circle cx="12" cy="12" r="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/><path d="M12 8v4l3 3" stroke="#1E293B" stroke-width="2" stroke-linecap="round"/><path d="M4 4l3 3M20 4l-3 3" stroke="#2563EB" stroke-width="2"/></svg>',
-  etkili: '<svg viewBox="0 0 24 24" class="kapsul-ikon"><circle cx="12" cy="12" r="9" fill="#DCFCE7" stroke="#059669" stroke-width="2"/><path d="M8 12l3 3 5-5" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-  kusurlu: '<svg viewBox="0 0 24 24" class="kapsul-ikon"><circle cx="12" cy="12" r="9" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/><path d="M12 8v5M12 16v1" stroke="#D97706" stroke-width="2.5" stroke-linecap="round"/></svg>',
+  veri: '<svg viewBox="0 0 24 24" class="kapsul-ikon"><rect x="3" y="3" width="18" height="18" rx="4" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/><path d="M7 8h10M7 12h10M7 16h6" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/></svg>',
+  etkili: '<svg viewBox="0 0 24 24" class="kapsul-ikon"><rect x="3" y="3" width="18" height="18" rx="4" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/><path d="M7 8h10M7 12h10M7 16h6" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/></svg>',
+  kusurlu: '<svg viewBox="0 0 24 24" class="kapsul-ikon"><rect x="3" y="3" width="18" height="18" rx="4" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/><path d="M7 8h10M7 12h10M7 16h6" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/></svg>',
   yemek: '<svg viewBox="0 0 24 24" class="kapsul-ikon"><ellipse cx="12" cy="15" rx="8" ry="4" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/><path d="M5 15 c0 -5 14 -5 14 0" fill="#F59E0B"/></svg>',
   navigasyon: '<svg viewBox="0 0 24 24" class="kapsul-ikon"><circle cx="12" cy="10" r="4" fill="#EF4444"/><path d="M12 2 C8 2 5 6 5 10 c0 6 7 12 7 12 s7 -6 7 -12 c0 -4 -3 -8 -7 -8 z" fill="none" stroke="#EF4444" stroke-width="2"/></svg>',
   muzik: '<svg viewBox="0 0 24 24" class="kapsul-ikon"><circle cx="7" cy="17" r="3" fill="#A855F7"/><circle cx="17" cy="15" r="3" fill="#A855F7"/><path d="M10 17 V7 h10 v8" stroke="#A855F7" stroke-width="2" fill="none"/></svg>',
@@ -693,7 +695,7 @@ var BOLUM1_GOREVLER = [
     digerKartlar: [
       { ad: "Kedi ve yüz fotoğrafları", tur: "goruntu", dogruMu: false, aciklama: "Bu görüntü girdisidir, ses girdisi yakalayınız!" },
       { ad: "Sıcaklık nem ölçümü (24°C)", tur: "sayisal", dogruMu: false, aciklama: "Bu sayısal veridir, ses girdisi yakalayınız!" },
-      { ad: "Video Kaydı (Çeldirici)", tur: "kusurlu", dogruMu: false, aciklama: "Çeldirici! Temel girdi türleri: Ses, Görüntü, Metin, Sayısal ve Sensör." }
+      { ad: "Video / Film Kaydı", tur: "veri", dogruMu: false, aciklama: "Çeldirici! Temel girdi türleri: Ses, Görüntü, Metin, Sayısal ve Sensör." }
     ]
   },
   {
@@ -729,22 +731,22 @@ var BOLUM1_GOREVLER = [
     dogruKart: { ad: "Akıllı saat adım sayısı ve nabız verisi", tur: "sensor", dogruMu: true, aciklama: "Harika! Cihaz sensörlerinden gelen veriler 'Sensör Verisi'dir." },
     digerKartlar: [
       { ad: "Sesli asistana söylenen ses", tur: "ses", dogruMu: false, aciklama: "Bu ses girdisidir, sensör verisi yakalayınız!" },
-      { ad: "Eski video kaseti", tur: "kusurlu", dogruMu: false, aciklama: "Çeldirici! Sensör verisi yakalayınız." }
+      { ad: "Video kaset kaydı", tur: "veri", dogruMu: false, aciklama: "Çeldirici! Sensör verisi yakalayınız." }
     ]
   }
 ];
 
 /* BÖLÜM 2: ETKİLİ GİRDİ YAKALA (KUSURLUDAN KAÇ!) */
 var BOLUM2_HAVUZ = [
-  { ad: 'Komut: "Gelecek cumartesi saat 17.00\'de bize gel."', tur: "etkili", dogruMu: true, aciklama: "Net İfade: Açık ve net komutlar modeli doğru eğitir!" },
-  { ad: 'Komut: "Bu cumartesi el."', tur: "kusurlu", dogruMu: false, aciklama: "Kusurlu Girdi! Muğlak ve anlaşılmaz ifadelerden kaçınınız!" },
-  { ad: 'Kedi fotoğrafına "Kedi" etiketi basmak', tur: "etkili", dogruMu: true, aciklama: "Doğru Etiketleme: Verinin anlamı doğru işaretlenmelidir." },
-  { ad: 'Kedi fotoğrafına yanlışlıkla "Köpek" etiketi basmak', tur: "kusurlu", dogruMu: false, aciklama: "Hatalı Etiketleme! Kediye köpek derseniz yapay zekâ yanılır!" },
-  { ad: "Farklı ırklardan çeşitli kedi fotoğrafları", tur: "etkili", dogruMu: true, aciklama: "Çeşitli Kaynaklar: Zengin veri yapay zekâyı başarılı kılar." },
-  { ad: "Yalnızca tek bir sokaktaki beyaz kediler", tur: "kusurlu", dogruMu: false, aciklama: "Kısıtlı Kaynak! Model diğer kedi türlerini tanıyamaz!" },
-  { ad: "Bugüne ait güncel hava ölçümleri", tur: "etkili", dogruMu: true, aciklama: "Güncellik: Güncel veriler doğru tahmin üretir." },
-  { ad: "10 yıl öncesinin eski hava verisi", tur: "kusurlu", dogruMu: false, aciklama: "Eski Veri! Güncel olmayan verileri yakalamayınız!" },
-  { ad: "Sade ve konuyla ilgili öz veri", tur: "etkili", dogruMu: true, aciklama: "Sadelik: Gereksiz bilgilerden arındırılmış veri faydalıdır." }
+  { ad: 'Komut: "Gelecek cumartesi saat 17.00\'de bize gel."', tur: "veri", dogruMu: true, aciklama: "Net İfade: Açık ve net komutlar modeli doğru eğitir!" },
+  { ad: 'Komut: "Bu cumartesi el."', tur: "veri", dogruMu: false, aciklama: "Kusurlu Girdi! Muğlak ve anlaşılmaz ifadelerden kaçınınız!" },
+  { ad: 'Kedi fotoğrafına "Kedi" etiketi basmak', tur: "veri", dogruMu: true, aciklama: "Doğru Etiketleme: Verinin anlamı doğru işaretlenmelidir." },
+  { ad: 'Kedi fotoğrafına "Köpek" etiketi basmak', tur: "veri", dogruMu: false, aciklama: "Hatalı Etiketleme! Kediye köpek derseniz yapay zekâ yanılır!" },
+  { ad: "Farklı ırklardan çeşitli kedi fotoğrafları", tur: "veri", dogruMu: true, aciklama: "Çeşitli Kaynaklar: Zengin veri yapay zekâyı başarılı kılar." },
+  { ad: "Yalnızca tek bir sokaktaki beyaz kediler", tur: "veri", dogruMu: false, aciklama: "Kısıtlı Kaynak! Model diğer kedi türlerini tanıyamaz!" },
+  { ad: "Bugüne ait güncel hava ölçümleri", tur: "veri", dogruMu: true, aciklama: "Güncellik: Güncel veriler doğru tahmin üretir." },
+  { ad: "10 yıl öncesinin eski hava verisi", tur: "veri", dogruMu: false, aciklama: "Eski Veri! Güncel olmayan verileri yakalamayınız!" },
+  { ad: "Sade ve konuyla ilgili öz veri", tur: "veri", dogruMu: true, aciklama: "Sadelik: Gereksiz bilgilerden arındırılmış veri faydalıdır." }
 ];
 
 /* BÖLÜM 3: GÜNLÜK HAYAT METAFORLARI */
@@ -832,10 +834,10 @@ function yeniKapsulFirlat(){
   kapsulEl.style.left = (kapsulSerit * 33.33) + "%";
   kapsulEl.style.top = kapsulY + "px";
   $("kapsul-metin").textContent = mevcutKapsulVerisi.ad;
-  $("kapsul-ikon-alani").innerHTML = IKONLAR[mevcutKapsulVerisi.tur] || IKONLAR.etkili;
+  $("kapsul-ikon-alani").innerHTML = IKONLAR[mevcutKapsulVerisi.tur] || IKONLAR.veri;
 
   var govde = $("kapsul-govde");
-  govde.style.borderColor = mevcutKapsulVerisi.dogruMu ? "#10B981" : "#F59E0B";
+  govde.style.borderColor = "#38BDF8";
 
   animasyonDongusu();
 }
