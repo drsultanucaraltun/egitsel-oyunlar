@@ -119,8 +119,8 @@ b,strong{font-weight:700}
   100%{transform:translateY(0) scale(1) rotate(0)}
 }
 
-/* Alt Bölüm: Kategori Kutuları Grid'i (Tüm kutular eşit genişlikte) */
-#kategoriler-alani{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:repeat(5, 1fr);gap:0.6rem;align-items:stretch}
+/* Alt Bölüm: Kategori Kutuları Grid'i (4 Kutu, Eşit Genişlik) */
+#kategoriler-alani{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:repeat(4, 1fr);gap:0.65rem;align-items:stretch}
 
 /* Tek Kategori Kutusu */
 .kategori-kutu{
@@ -234,7 +234,7 @@ b,strong{font-weight:700}
 
 @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
 @media (max-width:1024px){
-  #kategoriler-alani{grid-template-columns:repeat(3,1fr)}
+  #kategoriler-alani{grid-template-columns:repeat(2,1fr)}
   .kart{width:6.4rem;height:6.2rem}
 }
 </style>
@@ -243,7 +243,7 @@ b,strong{font-weight:700}
 <div id="uygulama">
 
   <header id="ustbar">
-    <h1>Yapay Zekâ Veri Ayıklayıcı</h1>
+    <h1>Görsel Yapay Zekâ: Hayvan Tanıma</h1>
     <div id="skorlar">
       <span class="skor-kutu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="#D97706"/></svg><span id="skor-yildiz">0 / 1</span></span>
       <span class="skor-kutu"><span>Puan:</span><span id="skor-puan">0</span></span>
@@ -258,31 +258,36 @@ b,strong{font-weight:700}
 
     <!-- ============ GİRİŞ EKRANI ============ -->
     <section class="ekran acik" id="ekran-giris" aria-labelledby="giris-baslik">
-      <h2 id="giris-baslik">Akıllı Veri ve Kategori Ayıklayıcı</h2>
-      <svg id="giris-gorsel" viewBox="0 0 340 160" role="img" aria-label="Kategorilere ayrılan veriler illüstrasyonu">
-        <rect x="20" y="30" width="80" height="90" rx="14" fill="#EFF6FF" stroke="#2563EB" stroke-width="3"/>
-        <text x="60" y="80" font-size="12" font-weight="700" fill="#2563EB" text-anchor="middle">Meyveler</text>
-        <circle cx="60" cy="52" r="14" fill="#DCFCE7"/>
-        <text x="60" y="56" font-size="12" text-anchor="middle">🍎</text>
+      <h2 id="giris-baslik">Yapay Zekâ Hayvan Sınıflandırma Laboratuvarı</h2>
+      <svg id="giris-gorsel" viewBox="0 0 360 140" role="img" aria-label="Hayvan modelleri illüstrasyonu">
+        <rect x="10" y="20" width="75" height="100" rx="14" fill="#FEF3C7" stroke="#D97706" stroke-width="3"/>
+        <text x="47" y="75" font-size="12" font-weight="700" fill="#D97706" text-anchor="middle">Kedi</text>
+        <circle cx="47" cy="48" r="14" fill="#FFFFFF"/>
+        <text x="47" y="53" font-size="14" text-anchor="middle">🐱</text>
 
-        <rect x="130" y="30" width="80" height="90" rx="14" fill="#EFF6FF" stroke="#2563EB" stroke-width="3"/>
-        <text x="170" y="80" font-size="12" font-weight="700" fill="#2563EB" text-anchor="middle">Sıcaklık</text>
-        <circle cx="170" cy="52" r="14" fill="#FEF3C7"/>
-        <text x="170" y="56" font-size="12" text-anchor="middle">🌡️</text>
+        <rect x="98" y="20" width="75" height="100" rx="14" fill="#EFF6FF" stroke="#2563EB" stroke-width="3"/>
+        <text x="135" y="75" font-size="12" font-weight="700" fill="#2563EB" text-anchor="middle">Köpek</text>
+        <circle cx="135" cy="48" r="14" fill="#FFFFFF"/>
+        <text x="135" y="53" font-size="14" text-anchor="middle">🐶</text>
 
-        <rect x="240" y="30" width="80" height="90" rx="14" fill="#FEE2E2" stroke="#B91C1C" stroke-width="3" stroke-dasharray="4 4"/>
-        <text x="280" y="80" font-size="11" font-weight="700" fill="#B91C1C" text-anchor="middle">Duramaz!</text>
-        <text x="280" y="56" font-size="16" text-anchor="middle">🍕 ❌</text>
+        <rect x="186" y="20" width="75" height="100" rx="14" fill="#FFEDD5" stroke="#EA580C" stroke-width="3"/>
+        <text x="223" y="75" font-size="12" font-weight="700" fill="#EA580C" text-anchor="middle">Aslan</text>
+        <circle cx="223" cy="48" r="14" fill="#FFFFFF"/>
+        <text x="223" y="53" font-size="14" text-anchor="middle">🦁</text>
+
+        <rect x="274" y="20" width="75" height="100" rx="14" fill="#FEE2E2" stroke="#7C3AED" stroke-width="3" stroke-dasharray="4 4"/>
+        <text x="311" y="75" font-size="11" font-weight="700" fill="#7C3AED" text-anchor="middle">Karantina</text>
+        <text x="311" y="53" font-size="14" text-anchor="middle">🦓 ❌</text>
       </svg>
-      <p>Yapay zekâ sistemleri <b>kendisine sunulan girdi verilerinden</b> öğrenir. Kategoriye uymayan ya da hatalı bir veri o kategoride bulunursa yapay zekâ yanlış öğrenir.</p>
-      <p>Görsel kartları doğru kategorilere sürükleyiniz veya seçip kutuya tıklayınız. <b>Hatalı veya kategoriye uymayan veriler eklendiğinde model doğruluğu düşer!</b> Hatalı verileri doğru yerlerine veya Karantina Kutusuna taşıyarak model doğruluğunu %100'e ulaştırınız.</p>
+      <p>Görsel tanıma yapan yapay zekâ sistemleri kendilerine sunulan fotoğraf ve resimlerden öğrenir. Bir modelin eğitim setine kategoriye uymayan bir hayvan görseli girerse (örneğin kedi modeline köpek, aslan modeline kaplan veya tavuk eklenirse) yapay zekâ yanlış öğrenir ve doğruluğu düşer.</p>
+      <p>Farklı ırk ve cinslerdeki <b>kedi, köpek ve aslan</b> resimlerini doğru kutulara yerleştiriniz. Bu üç gruba ait olmayan diğer hayvanları (kuş, tavuk, zebra, kaplan vb.) <b>Karantina Kutusuna</b> ayıklayınız. Hatalı verileri düzelterek model doğruluğunu %100'e ulaştırınız!</p>
       <button id="btn-basla" type="button">Başlamak için tıklayınız.</button>
     </section>
 
     <!-- ============ OYUN EKRANI ============ -->
     <section class="ekran" id="ekran-oyun" aria-labelledby="yonerge-metin">
       <div id="yonerge-seridi">
-        <div id="yonerge-metin" aria-live="polite">Kartı seçip uygun kategoriye yerleştiriniz. Yanlış veriler model doğruluğunu düşürür!</div>
+        <div id="yonerge-metin" aria-live="polite">Kedi, köpek ve aslanları uygun modellere yerleştiriniz. Kategori dışı hayvanları karantinaya ayıklayınız!</div>
         <div id="model-durum">
           <span>Model Doğruluğu:</span>
           <div id="model-cubuk-dis"><div id="model-cubuk-ic"></div></div>
@@ -307,15 +312,16 @@ b,strong{font-weight:700}
 
     <!-- ============ SON EKRAN ============ -->
     <section class="ekran" id="ekran-son" aria-labelledby="son-baslik">
-      <h2 id="son-baslik">Tebrikler! Tüm Veri Seti Başarıyla Ayıklandı</h2>
+      <h2 id="son-baslik">Tebrikler! Hayvan Modelleri Başarıyla Eğitildi</h2>
       <div id="son-yildizlar" aria-hidden="true"></div>
       <div id="son-puan"></div>
       <div class="ozet-kutu">
         <strong>Öğrendiklerimiz & Yapay Zekâ İlkeleri:</strong>
         <ul>
-          <li><b>Hatalı Veri Modeli Bozar:</b> Kategoriye uymayan ya da hatalı veriler (ör. meyveye pizza, uykuya 25 saat, sıcaklığa 150°C) eklendiğinde yapay zekânın model doğruluğu hızla düştü.</li>
-          <li><b>Veri Ayıklama Doğruluğu Artırır:</b> Hatalı veriler tespit edilip karantinaya taşındığında ve doğru kategorilere yerleştirildiğinde model doğruluğu yeniden yükselerek %100'e ulaştı.</li>
-          <li><b>Temiz Veri, Güvenilir Sonuç:</b> Yapay zekâ ancak girdi verileri doğru, tutarlı ve temiz olduğunda güvenilir tahminler üretebilir.</li>
+          <li><b>Görsel Sınıflandırma:</b> Farklı kedi cinsleri (Van, Siyam, Tekir), köpek ırkları (Kangal, Haski, Dalmaçyalı) ve aslan türleri kendi modellerine başarıyla öğretildi.</li>
+          <li><b>Kategori Dışı Veri Tehdidi:</b> Kedi veya aslan modeline kaplan, zebra, tavuk veya kuş eklendiğinde model doğruluğu hızla düştü.</li>
+          <li><b>Veri Ayıklama ve Karantina:</b> Hatalı hayvanlar ayıklanıp karantinaya taşındığında modeller temizlendi ve doğruluk %100'e ulaştı.</li>
+          <li><b>Temiz Veri, Doğru Tanıma:</b> Yapay zekâ ancak girdi verileri doğru etiketlenip temizlendiğinde hayvanları güvenle tanıyabilir.</li>
         </ul>
       </div>
       <button class="ikincil-buton" id="btn-yeniden" type="button">Etkinliği Yeniden Başlat</button>
@@ -338,87 +344,82 @@ b,strong{font-weight:700}
 </div>
 
 <script>
-/* ============ GÖRSEL SVG ÇİZİMLERİ ============ */
+/* ============ GÖRSEL SVG ÇİZİMLERİ (HAYVANLAR) ============ */
 var CIZIMLER = {
-  elma: '<svg viewBox="0 0 60 60"><path d="M30 18 C20 18 16 28 20 42 C24 50 30 52 30 50 C30 52 36 50 40 42 C44 28 40 18 30 18 Z" fill="#EF4444"/><rect x="29" y="10" width="3" height="9" rx="1.5" fill="#78350F"/><path d="M32 12 Q44 8 40 18 Q32 19 32 12 Z" fill="#22C55E"/></svg>',
-  muz: '<svg viewBox="0 0 60 60"><path d="M16 42 Q30 48 44 22 Q40 38 22 46 Z" fill="#EAB308" stroke="#CA8A04" stroke-width="1.5"/><rect x="42" y="19" width="3" height="5" rx="1" fill="#78350F"/></svg>',
-  cilek: '<svg viewBox="0 0 60 60"><path d="M30 20 C18 20 16 32 24 46 C27 51 30 52 30 52 C30 52 33 51 36 46 C44 32 42 20 30 20 Z" fill="#DC2626"/><polygon points="30,16 24,22 36,22" fill="#16A34A"/><circle cx="26" cy="30" r="1.2" fill="#FEF08A"/><circle cx="34" cy="30" r="1.2" fill="#FEF08A"/><circle cx="30" cy="38" r="1.2" fill="#FEF08A"/><circle cx="27" cy="44" r="1" fill="#FEF08A"/><circle cx="33" cy="44" r="1" fill="#FEF08A"/></svg>',
-  karpuz: '<svg viewBox="0 0 60 60"><path d="M14 26 C16 46 44 46 46 26 Z" fill="#16A34A"/><path d="M17 26 C19 43 41 43 43 26 Z" fill="#EF4444"/><circle cx="24" cy="32" r="1.5" fill="#1E293B"/><circle cx="30" cy="36" r="1.5" fill="#1E293B"/><circle cx="36" cy="32" r="1.5" fill="#1E293B"/></svg>',
-  portakal: '<svg viewBox="0 0 60 60"><circle cx="30" cy="32" r="18" fill="#F97316"/><rect x="29" y="10" width="3" height="6" rx="1" fill="#78350F"/><path d="M31 12 Q42 10 38 18 Z" fill="#22C55E"/></svg>',
-  kiraz: '<svg viewBox="0 0 60 60"><circle cx="22" cy="40" r="10" fill="#DC2626"/><circle cx="38" cy="38" r="10" fill="#DC2626"/><path d="M22 32 Q26 16 34 12 Q36 24 38 30" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round"/><rect x="32" y="10" width="6" height="4" rx="2" fill="#16A34A"/></svg>',
+  /* KEDİLER */
+  kedi_tekir: '<svg viewBox="0 0 60 60"><polygon points="16,24 20,8 30,20" fill="#94A3B8"/><polygon points="44,24 40,8 30,20" fill="#94A3B8"/><polygon points="18,22 21,11 28,19" fill="#F472B6"/><polygon points="42,22 39,11 32,19" fill="#F472B6"/><circle cx="30" cy="34" r="18" fill="#CBD5E1"/><path d="M26,18 L26,24 M30,17 L30,25 M34,18 L34,24" stroke="#64748B" stroke-width="2" stroke-linecap="round"/><circle cx="23" cy="32" r="3.2" fill="#16A34A"/><circle cx="37" cy="32" r="3.2" fill="#16A34A"/><polygon points="30,37 27,34 33,34" fill="#F43F5E"/><path d="M27,39 Q30,42 33,39" stroke="#475569" stroke-width="1.6" fill="none"/><line x1="12" y1="36" x2="22" y2="37" stroke="#475569" stroke-width="1.4"/><line x1="48" y1="36" x2="38" y2="37" stroke="#475569" stroke-width="1.4"/></svg>',
+  kedi_van: '<svg viewBox="0 0 60 60"><polygon points="16,24 20,8 30,20" fill="#F1F5F9"/><polygon points="44,24 40,8 30,20" fill="#F1F5F9"/><polygon points="18,22 21,11 28,19" fill="#FDA4AF"/><polygon points="42,22 39,11 32,19" fill="#FDA4AF"/><circle cx="30" cy="34" r="18" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/><circle cx="23" cy="32" r="3.6" fill="#0284C7"/><circle cx="37" cy="32" r="3.6" fill="#D97706"/><polygon points="30,37 27,34 33,34" fill="#FB7185"/><path d="M27,39 Q30,42 33,39" stroke="#94A3B8" stroke-width="1.6" fill="none"/><line x1="12" y1="37" x2="22" y2="37" stroke="#CBD5E1" stroke-width="1.4"/><line x1="48" y1="37" x2="38" y2="37" stroke="#CBD5E1" stroke-width="1.4"/></svg>',
+  kedi_siyam: '<svg viewBox="0 0 60 60"><polygon points="16,24 20,8 30,20" fill="#451A03"/><polygon points="44,24 40,8 30,20" fill="#451A03"/><circle cx="30" cy="34" r="18" fill="#FEF3C7"/><ellipse cx="30" cy="35" rx="12" ry="10" fill="#78350F"/><circle cx="24" cy="33" r="3.2" fill="#38BDF8"/><circle cx="36" cy="33" r="3.2" fill="#38BDF8"/><polygon points="30,38 27,35 33,35" fill="#1E293B"/><path d="M27,40 Q30,42 33,40" stroke="#1E293B" stroke-width="1.5" fill="none"/></svg>',
+  kedi_sarman: '<svg viewBox="0 0 60 60"><polygon points="16,24 20,8 30,20" fill="#F97316"/><polygon points="44,24 40,8 30,20" fill="#F97316"/><polygon points="18,22 21,11 28,19" fill="#FED7AA"/><polygon points="42,22 39,11 32,19" fill="#FED7AA"/><circle cx="30" cy="34" r="18" fill="#FB923C"/><path d="M26,18 L26,24 M30,17 L30,25 M34,18 L34,24" stroke="#C2410C" stroke-width="2" stroke-linecap="round"/><circle cx="23" cy="32" r="3.2" fill="#15803D"/><circle cx="37" cy="32" r="3.2" fill="#15803D"/><polygon points="30,37 27,34 33,34" fill="#F43F5E"/><path d="M27,39 Q30,42 33,39" stroke="#7C2D12" stroke-width="1.6" fill="none"/></svg>',
+  kedi_kara: '<svg viewBox="0 0 60 60"><polygon points="16,24 20,8 30,20" fill="#1E293B"/><polygon points="44,24 40,8 30,20" fill="#1E293B"/><polygon points="18,22 21,11 28,19" fill="#475569"/><polygon points="42,22 39,11 32,19" fill="#475569"/><circle cx="30" cy="34" r="18" fill="#0F172A"/><circle cx="23" cy="32" r="3.8" fill="#FACC15"/><circle cx="37" cy="32" r="3.8" fill="#FACC15"/><ellipse cx="23" cy="32" rx="1.2" ry="3.2" fill="#0F172A"/><ellipse cx="37" cy="32" rx="1.2" ry="3.2" fill="#0F172A"/><polygon points="30,38 28,35 32,35" fill="#FB7185"/></svg>',
+  kedi_yavru: '<svg viewBox="0 0 60 60"><polygon points="14,22 18,6 28,18" fill="#E2E8F0"/><polygon points="46,22 42,6 32,18" fill="#E2E8F0"/><polygon points="16,20 19,9 26,17" fill="#F472B6"/><polygon points="44,20 41,9 34,17" fill="#F472B6"/><circle cx="30" cy="35" r="16" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/><circle cx="23" cy="33" r="4.2" fill="#0284C7"/><circle cx="37" cy="33" r="4.2" fill="#0284C7"/><circle cx="24.5" cy="31.5" r="1.5" fill="#FFFFFF"/><circle cx="38.5" cy="31.5" r="1.5" fill="#FFFFFF"/><polygon points="30,38 28,36 32,36" fill="#F43F5E"/></svg>',
 
-  pizza: '<svg viewBox="0 0 60 60"><polygon points="30,12 14,48 46,48" fill="#F59E0B"/><path d="M14 48 Q30 54 46 48" stroke="#B45309" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="30" cy="28" r="3.2" fill="#DC2626"/><circle cx="24" cy="38" r="2.8" fill="#DC2626"/><circle cx="36" cy="38" r="2.8" fill="#DC2626"/></svg>',
-  hamburger: '<svg viewBox="0 0 60 60"><path d="M16 28 C16 16 44 16 44 28 Z" fill="#F59E0B"/><rect x="14" y="30" width="32" height="6" rx="3" fill="#78350F"/><path d="M14 36 Q22 40 30 36 Q38 40 46 36" stroke="#22C55E" stroke-width="2.5" fill="none"/><rect x="16" y="40" width="28" height="6" rx="3" fill="#F59E0B"/></svg>',
-  dondurma: '<svg viewBox="0 0 60 60"><polygon points="30,50 20,30 40,30" fill="#D97706"/><circle cx="30" cy="24" r="10" fill="#EC4899"/><circle cx="24" cy="28" r="6" fill="#F43F5E"/><circle cx="36" cy="28" r="6" fill="#FB7185"/></svg>',
+  /* KÖPEKLER */
+  kopek_kangal: '<svg viewBox="0 0 60 60"><ellipse cx="14" cy="24" rx="6" ry="12" fill="#78350F" transform="rotate(-15 14 24)"/><ellipse cx="46" cy="24" rx="6" ry="12" fill="#78350F" transform="rotate(15 46 24)"/><circle cx="30" cy="32" r="18" fill="#E2D9C8"/><ellipse cx="30" cy="38" rx="10" ry="8" fill="#1E293B"/><circle cx="23" cy="28" r="3.2" fill="#78350F"/><circle cx="37" cy="28" r="3.2" fill="#78350F"/><ellipse cx="30" cy="36" rx="4" ry="3" fill="#000000"/><path d="M26,41 Q30,45 34,41" stroke="#000000" stroke-width="2" fill="none"/></svg>',
+  kopek_dalmacyali: '<svg viewBox="0 0 60 60"><ellipse cx="14" cy="26" rx="5" ry="12" fill="#0F172A" transform="rotate(-15 14 26)"/><ellipse cx="46" cy="26" rx="5" ry="12" fill="#0F172A" transform="rotate(15 46 26)"/><circle cx="30" cy="32" r="18" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/><circle cx="20" cy="22" r="2.5" fill="#0F172A"/><circle cx="38" cy="20" r="3" fill="#0F172A"/><circle cx="22" cy="40" r="2.2" fill="#0F172A"/><circle cx="23" cy="30" r="3" fill="#451A03"/><circle cx="37" cy="30" r="3" fill="#451A03"/><ellipse cx="30" cy="37" rx="4.5" ry="3.5" fill="#0F172A"/></svg>',
+  kopek_golden: '<svg viewBox="0 0 60 60"><ellipse cx="13" cy="26" rx="6" ry="13" fill="#D97706" transform="rotate(-15 13 26)"/><ellipse cx="47" cy="26" rx="6" ry="13" fill="#D97706" transform="rotate(15 47 26)"/><circle cx="30" cy="32" r="18" fill="#FBBF24"/><ellipse cx="30" cy="38" rx="10" ry="8" fill="#FDE68A"/><circle cx="23" cy="29" r="3.2" fill="#78350F"/><circle cx="37" cy="29" r="3.2" fill="#78350F"/><ellipse cx="30" cy="36" rx="4.5" ry="3.5" fill="#1E293B"/><path d="M26,40 Q30,44 34,40" stroke="#78350F" stroke-width="2" fill="none"/><path d="M28,42 Q30,47 32,42" fill="#F43F5E"/></svg>',
+  kopek_haski: '<svg viewBox="0 0 60 60"><polygon points="14,22 18,6 28,18" fill="#475569"/><polygon points="46,22 42,6 32,18" fill="#475569"/><circle cx="30" cy="32" r="18" fill="#F1F5F9"/><path d="M14,24 Q30,14 46,24 Q30,30 14,24 Z" fill="#334155"/><circle cx="23" cy="30" r="3.5" fill="#38BDF8"/><circle cx="37" cy="30" r="3.5" fill="#38BDF8"/><circle cx="23" cy="30" r="1.5" fill="#0F172A"/><circle cx="37" cy="30" r="1.5" fill="#0F172A"/><ellipse cx="30" cy="38" rx="4.5" ry="3.5" fill="#0F172A"/></svg>',
+  kopek_av: '<svg viewBox="0 0 60 60"><ellipse cx="13" cy="26" rx="6" ry="13" fill="#78350F" transform="rotate(-15 13 26)"/><ellipse cx="47" cy="26" rx="6" ry="13" fill="#78350F" transform="rotate(15 47 26)"/><circle cx="30" cy="32" r="18" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/><path d="M18,18 Q30,28 42,18 Z" fill="#92400E"/><circle cx="23" cy="29" r="3" fill="#451A03"/><circle cx="37" cy="29" r="3.2" fill="#451A03"/><ellipse cx="30" cy="37" rx="4.5" ry="3.5" fill="#1E293B"/></svg>',
+  kopek_yavru: '<svg viewBox="0 0 60 60"><ellipse cx="14" cy="28" rx="6" ry="10" fill="#B45309" transform="rotate(-20 14 28)"/><ellipse cx="46" cy="28" rx="6" ry="10" fill="#B45309" transform="rotate(20 46 28)"/><circle cx="30" cy="34" r="16" fill="#FDE68A"/><circle cx="23" cy="32" r="3.8" fill="#1E293B"/><circle cx="37" cy="32" r="3.8" fill="#1E293B"/><circle cx="24" cy="30.5" r="1.2" fill="#FFFFFF"/><circle cx="38" cy="30.5" r="1.2" fill="#FFFFFF"/><ellipse cx="30" cy="39" rx="4" ry="3" fill="#78350F"/></svg>',
 
-  sicaklik_22: '<svg viewBox="0 0 60 60"><rect x="18" y="14" width="8" height="26" rx="4" fill="#FFFFFF" stroke="#2563EB" stroke-width="2"/><circle cx="22" cy="42" r="7" fill="#2563EB"/><rect x="20" y="26" width="4" height="14" fill="#2563EB"/><circle cx="42" cy="22" r="9" fill="#F59E0B"/><path d="M42 9 v4 M42 31 v4 M29 22 h4 M51 22 h4" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/></svg>',
-  sicaklik_eksi8: '<svg viewBox="0 0 60 60"><rect x="18" y="14" width="8" height="26" rx="4" fill="#FFFFFF" stroke="#0284C7" stroke-width="2"/><circle cx="22" cy="42" r="7" fill="#0284C7"/><rect x="20" y="34" width="4" height="8" fill="#0284C7"/><path d="M42 16 v16 M34 24 h16 M36 18 l12 12 M36 30 l12 -12" stroke="#0284C7" stroke-width="1.8" stroke-linecap="round"/></svg>',
-  sicaklik_34: '<svg viewBox="0 0 60 60"><rect x="18" y="14" width="8" height="26" rx="4" fill="#FFFFFF" stroke="#EF4444" stroke-width="2"/><circle cx="22" cy="42" r="7" fill="#EF4444"/><rect x="20" y="18" width="4" height="22" fill="#EF4444"/><circle cx="42" cy="24" r="10" fill="#DC2626"/></svg>',
-  sicaklik_0: '<svg viewBox="0 0 60 60"><rect x="18" y="14" width="8" height="26" rx="4" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="2"/><circle cx="22" cy="42" r="7" fill="#0EA5E9"/><rect x="20" y="30" width="4" height="12" fill="#0EA5E9"/><rect x="36" y="20" width="14" height="14" rx="3" fill="#E0F2FE" stroke="#0EA5E9" stroke-width="1.5"/></svg>',
+  /* ASLANLAR */
+  aslan_erkek: '<svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="24" fill="#B45309"/><circle cx="30" cy="32" r="15" fill="#FBBF24"/><polygon points="17,16 20,8 26,15" fill="#FBBF24"/><polygon points="43,16 40,8 34,15" fill="#FBBF24"/><circle cx="24" cy="29" r="3" fill="#451A03"/><circle cx="36" cy="29" r="3" fill="#451A03"/><ellipse cx="30" cy="35" rx="8" ry="6" fill="#FEF3C7"/><polygon points="30,36 27,33 33,33" fill="#78350F"/><path d="M26,38 Q30,41 34,38" stroke="#78350F" stroke-width="1.8" fill="none"/></svg>',
+  aslan_disi: '<svg viewBox="0 0 60 60"><circle cx="17" cy="18" r="6" fill="#D97706"/><circle cx="43" cy="18" r="6" fill="#D97706"/><circle cx="17" cy="18" r="3.5" fill="#FDE68A"/><circle cx="43" cy="18" r="3.5" fill="#FDE68A"/><circle cx="30" cy="33" r="18" fill="#F59E0B"/><ellipse cx="30" cy="38" rx="10" ry="7" fill="#FEF3C7"/><circle cx="23" cy="29" r="3.2" fill="#78350F"/><circle cx="37" cy="29" r="3.2" fill="#78350F"/><polygon points="30,36 26,32 34,32" fill="#B45309"/><path d="M26,39 Q30,42 34,39" stroke="#78350F" stroke-width="1.8" fill="none"/></svg>',
+  aslan_kukreyen: '<svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="24" fill="#92400E"/><circle cx="30" cy="31" r="15" fill="#F59E0B"/><circle cx="24" cy="27" r="2.8" fill="#451A03"/><circle cx="36" cy="27" r="2.8" fill="#451A03"/><ellipse cx="30" cy="37" rx="7" ry="6" fill="#451A03"/><polygon points="30,34 27,31 33,31" fill="#78350F"/><polygon points="27,34 28,37 29,34" fill="#FFFFFF"/><polygon points="31,34 32,37 33,34" fill="#FFFFFF"/></svg>',
+  aslan_yavru: '<svg viewBox="0 0 60 60"><circle cx="16" cy="18" r="6" fill="#F59E0B"/><circle cx="44" cy="18" r="6" fill="#F59E0B"/><circle cx="30" cy="33" r="16" fill="#FBBF24"/><circle cx="23" cy="30" r="3.8" fill="#451A03"/><circle cx="37" cy="30" r="3.8" fill="#451A03"/><ellipse cx="30" cy="37" rx="8" ry="6" fill="#FEF3C7"/><polygon points="30,36 27,33 33,33" fill="#B45309"/></svg>',
+  aslan_beyaz: '<svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="24" fill="#E2E8F0"/><circle cx="30" cy="32" r="15" fill="#FFFFFF"/><circle cx="24" cy="29" r="3" fill="#0284C7"/><circle cx="36" cy="29" r="3" fill="#0284C7"/><ellipse cx="30" cy="35" rx="8" ry="6" fill="#F8FAFC"/><polygon points="30,36 27,33 33,33" fill="#94A3B8"/></svg>',
+  aslan_yatan: '<svg viewBox="0 0 60 60"><circle cx="28" cy="26" r="18" fill="#B45309"/><ellipse cx="36" cy="42" rx="18" ry="10" fill="#F59E0B"/><circle cx="26" cy="26" r="11" fill="#FBBF24"/><circle cx="22" cy="23" r="2.2" fill="#451A03"/><circle cx="30" cy="23" r="2.2" fill="#451A03"/><polygon points="26,28 24,26 28,26" fill="#78350F"/></svg>',
 
-  sicaklik_150: '<svg viewBox="0 0 60 60"><rect x="18" y="14" width="8" height="26" rx="4" fill="#FEE2E2" stroke="#DC2626" stroke-width="2"/><circle cx="22" cy="42" r="7" fill="#DC2626"/><rect x="20" y="16" width="4" height="24" fill="#DC2626"/><path d="M22 8 q4 -4 0 -8" stroke="#DC2626" stroke-width="2" fill="none"/><text x="44" y="28" font-size="10" font-weight="700" fill="#DC2626">150°</text><polygon points="42,34 38,44 48,44" fill="#F59E0B"/><text x="43" y="43" font-size="9" font-weight="700" fill="#000" text-anchor="middle">!</text></svg>',
-  sicaklik_eksi120: '<svg viewBox="0 0 60 60"><rect x="18" y="14" width="8" height="26" rx="4" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/><circle cx="22" cy="42" r="7" fill="#0284C7"/><text x="42" y="34" font-size="9" font-weight="700" fill="#0284C7" text-anchor="middle">-120°</text><text x="42" y="48" font-size="12" text-anchor="middle">⚠️</text></svg>',
-
-  uyku_8: '<svg viewBox="0 0 60 60"><rect x="12" y="30" width="36" height="18" rx="5" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/><rect x="16" y="24" width="14" height="9" rx="3" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/><path d="M40 14 a9 9 0 1 1 -8 8 a7 7 0 0 0 8 -8 z" fill="#F59E0B"/></svg>',
-  uyku_9: '<svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="18" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/><text x="30" y="36" font-size="14" font-weight="700" fill="#2563EB" text-anchor="middle">9s</text></svg>',
-  uyku_7: '<svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="18" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/><text x="30" y="36" font-size="14" font-weight="700" fill="#D97706" text-anchor="middle">7s</text></svg>',
-  uyku_6: '<svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="18" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/><text x="30" y="36" font-size="14" font-weight="700" fill="#7C3AED" text-anchor="middle">6s</text></svg>',
-
-  uyku_25: '<svg viewBox="0 0 60 60"><circle cx="30" cy="34" r="16" fill="#FEE2E2" stroke="#DC2626" stroke-width="2.5"/><line x1="30" y1="34" x2="30" y2="24" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round"/><line x1="30" y1="34" x2="38" y2="34" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round"/><text x="30" y="55" font-size="10" font-weight="700" fill="#DC2626" text-anchor="middle">25:00 ⛔</text></svg>',
-  uyku_48: '<svg viewBox="0 0 60 60"><circle cx="30" cy="32" r="18" fill="#FEE2E2" stroke="#DC2626" stroke-width="2.5"/><text x="30" y="36" font-size="11" font-weight="700" fill="#DC2626" text-anchor="middle">48 Saat</text><text x="30" y="48" font-size="10" text-anchor="middle">❌</text></svg>',
-
-  yuz_net1: '<svg viewBox="0 0 60 60"><rect x="10" y="10" width="40" height="40" rx="8" fill="#FFFFFF" stroke="#16A34A" stroke-width="2"/><circle cx="30" cy="26" r="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/><path d="M18 44 c0 -6 6 -9 12 -9 s12 3 12 9" fill="#2563EB"/><circle cx="42" cy="18" r="4" fill="#16A34A"/><path d="M40 18 l2 2 4 -4" stroke="#FFFFFF" stroke-width="1.5" fill="none"/></svg>',
-  yuz_net2: '<svg viewBox="0 0 60 60"><rect x="10" y="10" width="40" height="40" rx="8" fill="#FFFFFF" stroke="#0D9488" stroke-width="2"/><circle cx="30" cy="26" r="8" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.5"/><path d="M18 44 c0 -6 6 -9 12 -9 s12 3 12 9" fill="#0D9488"/></svg>',
-  yuz_gulen: '<svg viewBox="0 0 60 60"><rect x="10" y="10" width="40" height="40" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="2"/><circle cx="30" cy="30" r="14" fill="#FEF08A"/><circle cx="25" cy="27" r="2" fill="#1E293B"/><circle cx="35" cy="27" r="2" fill="#1E293B"/><path d="M24 35 q6 6 12 0" stroke="#1E293B" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
-
-  yuz_bulanik: '<svg viewBox="0 0 60 60" style="filter:blur(1px);transform:rotate(180deg)"><rect x="10" y="10" width="40" height="40" rx="8" fill="#FEE2E2" stroke="#DC2626" stroke-width="2"/><circle cx="30" cy="26" r="8" fill="#94A3B8"/><path d="M18 44 c0 -6 6 -9 12 -9 s12 3 12 9" fill="#94A3B8"/></svg>',
-  yuz_karanlik: '<svg viewBox="0 0 60 60"><rect x="10" y="10" width="40" height="40" rx="8" fill="#1E293B" stroke="#DC2626" stroke-width="2"/><circle cx="30" cy="28" r="8" fill="#334155"/><text x="30" y="44" font-size="14" font-weight="700" fill="#EF4444" text-anchor="middle">?</text></svg>'
+  /* DİĞER HAYVANLAR (HATALI / KARANTİNA) */
+  hayvan_kus: '<svg viewBox="0 0 60 60"><circle cx="32" cy="26" r="12" fill="#0284C7"/><ellipse cx="26" cy="38" rx="16" ry="12" fill="#38BDF8"/><polygon points="42,24 54,27 42,30" fill="#F59E0B"/><circle cx="35" cy="23" r="2.5" fill="#000000"/><circle cx="36" cy="22" r="1" fill="#FFFFFF"/><polygon points="12,42 6,48 16,46" fill="#0369A1"/></svg>',
+  hayvan_tavuk: '<svg viewBox="0 0 60 60"><ellipse cx="28" cy="36" rx="16" ry="14" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/><circle cx="34" cy="24" r="11" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/><path d="M30,14 Q32,8 35,13 Q38,8 41,14" fill="#DC2626"/><polygon points="42,24 52,27 42,30" fill="#F59E0B"/><path d="M38,30 Q40,36 36,34" fill="#DC2626"/><circle cx="37" cy="22" r="2.5" fill="#000000"/></svg>',
+  hayvan_zebra: '<svg viewBox="0 0 60 60"><polygon points="16,22 18,8 24,18" fill="#1E293B"/><polygon points="44,22 42,8 36,18" fill="#1E293B"/><circle cx="30" cy="32" r="18" fill="#FFFFFF" stroke="#1E293B" stroke-width="1.5"/><path d="M16,26 L22,28 M14,32 L22,33 M16,38 L24,37 M44,26 L38,28 M46,32 L38,33 M44,38 L36,37 M30,14 L30,22" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="30" cy="40" rx="6" ry="4" fill="#1E293B"/><circle cx="23" cy="28" r="3" fill="#0F172A"/><circle cx="37" cy="28" r="3" fill="#0F172A"/></svg>',
+  hayvan_kaplan: '<svg viewBox="0 0 60 60"><circle cx="16" cy="18" r="5" fill="#C2410C"/><circle cx="44" cy="18" r="5" fill="#C2410C"/><circle cx="30" cy="33" r="18" fill="#EA580C"/><path d="M14,24 L22,26 M14,30 L22,31 M14,36 L24,35 M46,24 L38,26 M46,30 L38,31 M46,36 L36,35 M27,16 L30,22 L33,16" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/><circle cx="23" cy="30" r="3.2" fill="#FACC15"/><circle cx="37" cy="30" r="3.2" fill="#FACC15"/><circle cx="23" cy="30" r="1.5" fill="#000000"/><circle cx="37" cy="30" r="1.5" fill="#000000"/><polygon points="30,37 27,34 33,34" fill="#1E293B"/></svg>',
+  hayvan_zurafa: '<svg viewBox="0 0 60 60"><line x1="24" y1="18" x2="22" y2="8" stroke="#B45309" stroke-width="2"/><circle cx="22" cy="8" r="2" fill="#B45309"/><line x1="36" y1="18" x2="38" y2="8" stroke="#B45309" stroke-width="2"/><circle cx="38" cy="8" r="2" fill="#B45309"/><ellipse cx="30" cy="32" rx="14" ry="18" fill="#FBBF24"/><circle cx="25" cy="22" r="3" fill="#B45309"/><circle cx="35" cy="35" r="3.5" fill="#B45309"/><circle cx="26" cy="42" r="2.5" fill="#B45309"/><circle cx="24" cy="28" r="2.8" fill="#1E293B"/><circle cx="36" cy="28" r="2.8" fill="#1E293B"/><ellipse cx="30" cy="42" rx="8" ry="5" fill="#FDE68A"/></svg>',
+  hayvan_penguen: '<svg viewBox="0 0 60 60"><ellipse cx="30" cy="34" rx="15" ry="20" fill="#0F172A"/><ellipse cx="30" cy="38" rx="10" ry="14" fill="#FFFFFF"/><polygon points="30,28 26,24 34,24" fill="#F97316"/><circle cx="25" cy="22" r="2.2" fill="#FFFFFF"/><circle cx="35" cy="22" r="2.2" fill="#FFFFFF"/><circle cx="25" cy="22" r="1.2" fill="#000000"/><circle cx="35" cy="22" r="1.2" fill="#000000"/><polygon points="23,52 20,56 26,56" fill="#F97316"/><polygon points="37,52 34,56 40,56" fill="#F97316"/></svg>'
 };
 
-/* ============ KATEGORİLER ============ */
+/* ============ KATEGORİLER (4 KUTU) ============ */
 var KATEGORILER = [
-  { id: "meyve", ad: "Meyve Modeli", kural: "Sadece Meyveler", renk: "#16A34A", ikon: "elma", kabul: ["elma", "muz", "cilek", "karpuz", "portakal", "kiraz"] },
-  { id: "sicaklik", ad: "Sıcaklık Modeli", kural: "-30°C ile +50°C", renk: "#2563EB", ikon: "sicaklik_22", kabul: ["sicaklik_22", "sicaklik_eksi8", "sicaklik_34", "sicaklik_0"] },
-  { id: "uyku", ad: "Uyku Modeli", kural: "0 - 24 Saat Arası", renk: "#D97706", ikon: "uyku_8", kabul: ["uyku_8", "uyku_9", "uyku_7", "uyku_6"] },
-  { id: "yuz", ad: "Yüz Tanıma", kural: "Net Portreler", renk: "#0D9488", ikon: "yuz_net1", kabul: ["yuz_net1", "yuz_net2", "yuz_gulen"] },
-  { id: "karantina", ad: "Karantina Kutusu", kural: "Hatalı / Ayıklanan Veri", renk: "#7C3AED", ikon: "pizza", karantina: true, kabul: ["pizza", "hamburger", "dondurma", "sicaklik_150", "sicaklik_eksi120", "uyku_25", "uyku_48", "yuz_bulanik", "yuz_karanlik"] }
+  { id: "kedi", ad: "Kedi Modeli", kural: "Farklı Kedi Cinsleri", renk: "#D97706", ikon: "kedi_tekir" },
+  { id: "kopek", ad: "Köpek Modeli", kural: "Farklı Köpek Irkları", renk: "#2563EB", ikon: "kopek_kangal" },
+  { id: "aslan", ad: "Aslan Modeli", kural: "Yeleli & Dişi Aslanlar", renk: "#EA580C", ikon: "aslan_erkek" },
+  { id: "karantina", ad: "Karantina Kutusu", kural: "Kategori Dışı Hayvanlar", renk: "#7C3AED", ikon: "hayvan_zebra", karantina: true }
 ];
 
-/* ============ TÜM KART HAVUZU (TOPLAM 21 KART) ============ */
+/* ============ TÜM KART HAVUZU (TOPLAM 24 KART) ============ */
 var TUM_KARTLAR = [
-  /* Meyveler & Meyve Hataları */
-  { id: "elma", ad: "Elma", cizim: "elma", dogruKutu: "meyve", hataNedeni: "Elma bir meyvedir; sıcaklık veya uyku kutusuna ait değildir." },
-  { id: "muz", ad: "Muz", cizim: "muz", dogruKutu: "meyve", hataNedeni: "Muz bir meyvedir." },
-  { id: "cilek", ad: "Çilek", cizim: "cilek", dogruKutu: "meyve", hataNedeni: "Çilek bir meyvedir." },
-  { id: "karpuz", ad: "Karpuz", cizim: "karpuz", dogruKutu: "meyve", hataNedeni: "Karpuz bir meyvedir." },
-  { id: "portakal", ad: "Portakal", cizim: "portakal", dogruKutu: "meyve", hataNedeni: "Portakal bir meyvedir." },
-  { id: "kiraz", ad: "Kiraz", cizim: "kiraz", dogruKutu: "meyve", hataNedeni: "Kiraz bir meyvedir." },
-  { id: "pizza", ad: "Pizza", cizim: "pizza", dogruKutu: "karantina", duramazKutu: "meyve", hataNedeni: "Kategori Hatası: Pizza meyve değildir! Yapay zekâya girerse pizzayı meyve olarak öğrenir. Karantinaya atınız!" },
-  { id: "hamburger", ad: "Hamburger", cizim: "hamburger", dogruKutu: "karantina", duramazKutu: "meyve", hataNedeni: "Kategori Hatası: Hamburger bir meyve değildir! Yapay zekâyı bozar. Karantinaya atınız!" },
-  { id: "dondurma", ad: "Dondurma", cizim: "dondurma", dogruKutu: "karantina", duramazKutu: "meyve", hataNedeni: "Kategori Hatası: Dondurma tatlıdır, meyve değildir! Karantinaya atınız!" },
+  /* KEDİLER (6 KART) */
+  { id: "kedi_tekir", ad: "Tekir Kedi", cizim: "kedi_tekir", dogruKutu: "kedi", hataNedeni: "Tekir bir evcil kedi cinsidir; köpek veya aslan modeline eklenemez." },
+  { id: "kedi_van", ad: "Van Kedisi", cizim: "kedi_van", dogruKutu: "kedi", hataNedeni: "Van kedisi renkli gözleriyle ünlü bir kedi ırkıdır. Kedi modeline aittir." },
+  { id: "kedi_siyam", ad: "Siyam Kedisi", cizim: "kedi_siyam", dogruKutu: "kedi", hataNedeni: "Siyam kedisi bir evcil kedidir; köpek veya aslan modelini bozar." },
+  { id: "kedi_sarman", ad: "Sarman Kedi", cizim: "kedi_sarman", dogruKutu: "kedi", hataNedeni: "Sarman kedi evcil kedi modeline aittir." },
+  { id: "kedi_kara", ad: "Kara Kedi", cizim: "kedi_kara", dogruKutu: "kedi", hataNedeni: "Kara kedi bir evcil kedi cinsidir." },
+  { id: "kedi_yavru", ad: "Yavru Kedi", cizim: "kedi_yavru", dogruKutu: "kedi", hataNedeni: "Yavru kedi evcil kedi modeline yerleştirilmelidir." },
 
-  /* Sıcaklık & Sıcaklık Hataları */
-  { id: "sicaklik_22", ad: "22°C (Ilıman)", cizim: "sicaklik_22", dogruKutu: "sicaklik", hataNedeni: "Normal bir hava sıcaklığıdır." },
-  { id: "sicaklik_eksi8", ad: "-8°C (Soğuk)", cizim: "sicaklik_eksi8", dogruKutu: "sicaklik", hataNedeni: "Kış sıcaklığıdır, mantıklı sınır aralığındadır." },
-  { id: "sicaklik_34", ad: "34°C (Sıcak)", cizim: "sicaklik_34", dogruKutu: "sicaklik", hataNedeni: "Yaz sıcaklığıdır, mantıklı aralıktadır." },
-  { id: "sicaklik_0", ad: "0°C (Donma)", cizim: "sicaklik_0", dogruKutu: "sicaklik", hataNedeni: "0 derece normal hava sıcaklığı sınırları içindedir." },
-  { id: "sicaklik_150", ad: "150°C (Sensör)", cizim: "sicaklik_150", dogruKutu: "karantina", duramazKutu: "sicaklik", hataNedeni: "Sınır Hatası: 150°C hava sıcaklığı olamaz! Sensör arızalıdır. Karantinaya ayıklayınız!" },
-  { id: "sicaklik_eksi120", ad: "-120°C (Hatalı)", cizim: "sicaklik_eksi120", dogruKutu: "karantina", duramazKutu: "sicaklik", hataNedeni: "Sınır Hatası: Dünyada -120°C hava sıcaklığı kaydedilemez! Karantinaya ayıklayınız!" },
+  /* KÖPEKLER (6 KART) */
+  { id: "kopek_kangal", ad: "Kangal Çoban", cizim: "kopek_kangal", dogruKutu: "kopek", hataNedeni: "Kangal ünlü bir çoban köpeği ırkıdır; kedi veya aslan değildir!" },
+  { id: "kopek_dalmacyali", ad: "Dalmaçyalı", cizim: "kopek_dalmacyali", dogruKutu: "kopek", hataNedeni: "Dalmaçyalı benekli bir köpek ırkıdır. Köpek modeline yerleştiriniz." },
+  { id: "kopek_golden", ad: "Golden Retriever", cizim: "kopek_golden", dogruKutu: "kopek", hataNedeni: "Golden Retriever bir köpek ırkıdır; kedi modeline konamaz." },
+  { id: "kopek_haski", ad: "Sibirya Kurdu", cizim: "kopek_haski", dogruKutu: "kopek", hataNedeni: "Haski (Sibirya Kurdu) bir köpek ırkıdır; aslan modelini bozar." },
+  { id: "kopek_av", ad: "Av Köpeği", cizim: "kopek_av", dogruKutu: "kopek", hataNedeni: "Av köpeği köpek modeline yerleştirilmelidir." },
+  { id: "kopek_yavru", ad: "Yavru Köpek", cizim: "kopek_yavru", dogruKutu: "kopek", hataNedeni: "Yavru köpek köpek modeline aittir." },
 
-  /* Uyku & Uyku Hataları */
-  { id: "uyku_8", ad: "8 Saat Uyku", cizim: "uyku_8", dogruKutu: "uyku", hataNedeni: "Sağlıklı ve mantıklı bir günlük uyku süresidir." },
-  { id: "uyku_9", ad: "9 Saat Uyku", cizim: "uyku_9", dogruKutu: "uyku", hataNedeni: "Normal bir uyku süresidir." },
-  { id: "uyku_7", ad: "7 Saat Uyku", cizim: "uyku_7", dogruKutu: "uyku", hataNedeni: "Mantıklı bir günlük uyku değeridir." },
-  { id: "uyku_6", ad: "6 Saat Uyku", cizim: "uyku_6", dogruKutu: "uyku", hataNedeni: "Mantıklı uyku süresi sınırları içindedir." },
-  { id: "uyku_25", ad: "25 Saat Uyku", cizim: "uyku_25", dogruKutu: "karantina", duramazKutu: "uyku", hataNedeni: "Mantık Hatası: Bir gün 24 saattir. 25 saat uyumak mantık dışıdır! Karantinaya ayıklayınız!" },
-  { id: "uyku_48", ad: "48 Saat Uyku", cizim: "uyku_48", dogruKutu: "karantina", duramazKutu: "uyku", hataNedeni: "Mantık Hatası: Günlük uyku 24 saati aşamaz! Karantinaya ayıklayınız!" },
+  /* ASLANLAR (6 KART) */
+  { id: "aslan_erkek", ad: "Yeleli Aslan", cizim: "aslan_erkek", dogruKutu: "aslan", hataNedeni: "Yeleli aslan büyük yırtıcı aslan modeline aittir; ev kedisi değildir!" },
+  { id: "aslan_disi", ad: "Dişi Aslan", cizim: "aslan_disi", dogruKutu: "aslan", hataNedeni: "Dişi aslan yelesiz bir aslandır; evcil kedi değil Aslan modeline aittir!" },
+  { id: "aslan_kukreyen", ad: "Kükreyen Aslan", cizim: "aslan_kukreyen", dogruKutu: "aslan", hataNedeni: "Kükreyen aslan vahşi aslan modeline eklenmelidir." },
+  { id: "aslan_yavru", ad: "Aslan Yavrusu", cizim: "aslan_yavru", dogruKutu: "aslan", hataNedeni: "Aslan yavrusu aslan modelinin eğitim verisidir." },
+  { id: "aslan_beyaz", ad: "Beyaz Aslan", cizim: "aslan_beyaz", dogruKutu: "aslan", hataNedeni: "Beyaz aslan nadir bir aslan türüdür. Aslan modeline yerleştiriniz." },
+  { id: "aslan_yatan", ad: "Yatan Aslan", cizim: "aslan_yatan", dogruKutu: "aslan", hataNedeni: "Yatan aslan aslan modeline aittir." },
 
-  /* Yüz Tanıma & Kalite Hataları */
-  { id: "yuz_net1", ad: "Net Portre", cizim: "yuz_net1", dogruKutu: "yuz", hataNedeni: "Net ve aydınlık doğru bir portredir." },
-  { id: "yuz_net2", ad: "Net Profil", cizim: "yuz_net2", dogruKutu: "yuz", hataNedeni: "Yüksek kaliteli temiz yüz girdisidir." },
-  { id: "yuz_gulen", ad: "Gülen Portre", cizim: "yuz_gulen", dogruKutu: "yuz", hataNedeni: "Net ve tanımlanabilir bir yüz görüntüsüdür." },
-  { id: "yuz_bulanik", ad: "Bulanık & Ters", cizim: "yuz_bulanik", dogruKutu: "karantina", duramazKutu: "yuz", hataNedeni: "Kalite Hatası: Bulanık ve ters görüntüler tanınamaz, kalitesiz girdidir! Karantinaya ayıklayınız!" },
-  { id: "yuz_karanlik", ad: "Karanlık Girdi", cizim: "yuz_karanlik", dogruKutu: "karantina", duramazKutu: "yuz", hataNedeni: "Kalite Hatası: Aşırı karanlık görüntüde yüz seçilemez! Karantinaya ayıklayınız!" }
+  /* HATALI VERİLER - DİĞER HAYVANLAR (6 KART) */
+  { id: "hayvan_kus", ad: "Renkli Kuş", cizim: "hayvan_kus", dogruKutu: "karantina", hataNedeni: "Kategori Hatası: Kuş bir kanatlıdır! Kedi, köpek veya aslan modeline girerse yapay zekâ bozulur. Karantinaya alınız!" },
+  { id: "hayvan_tavuk", ad: "Tavuk", cizim: "hayvan_tavuk", dogruKutu: "karantina", hataNedeni: "Kategori Hatası: Tavuk bir kümes hayvanıdır! Kedi veya köpek değildir. Karantinaya ayıklayınız!" },
+  { id: "hayvan_zebra", ad: "Çizgili Zebra", cizim: "hayvan_zebra", dogruKutu: "karantina", hataNedeni: "Kategori Hatası: Zebra otçul bir memelidir! Kedi, köpek veya aslan modeline uymaz. Karantinaya atınız!" },
+  { id: "hayvan_kaplan", ad: "Çizgili Kaplan", cizim: "hayvan_kaplan", dogruKutu: "karantina", hataNedeni: "Kategori Hatası: Kaplan bir kedigildir ama aslan veya evcil kedi değildir! Çizgili kaplan aslan modeline girerse yapay zekâyı bozar. Karantinaya ayıklayınız!" },
+  { id: "hayvan_zurafa", ad: "Zürafa", cizim: "hayvan_zurafa", dogruKutu: "karantina", hataNedeni: "Kategori Hatası: Zürafa uzun boyunlu otçul bir hayvandır; yırtıcı veya evcil etçil modellerine uymaz. Karantinaya atınız!" },
+  { id: "hayvan_penguen", ad: "Penguen", cizim: "hayvan_penguen", dogruKutu: "karantina", hataNedeni: "Kategori Hatası: Penguen bir kutup kuşudur; kedi, köpek veya aslan modellerini bozar. Karantinaya ayıklayınız!" }
 ];
 
 /* ============ DURUM ============ */
