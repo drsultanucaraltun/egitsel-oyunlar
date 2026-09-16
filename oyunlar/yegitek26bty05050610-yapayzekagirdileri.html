@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="Sultan UÇAR ALTUN">
 <meta name="color-scheme" content="light only">
 <title>Girdi Avcısı Robot — BİLGİBOT Veri Yakalama Oyunu</title>
 <style>
@@ -301,35 +300,61 @@ b,strong{font-weight:700}
 }
 .serit-cizgi:last-child{border-right:none}
 
-/* Düşen Veri Kapsülü */
-#veri-kapsulu{
+/* Düşen Veri Kapsülleri (3 Şerit Seçim Alanı) */
+#dalga-kapsulleri{
   position:absolute;
-  left:0;
-  top:-120px;
+  inset:0;
+  pointer-events:none;
+  z-index:20;
+}
+.veri-kapsulu{
+  position:absolute;
+  top:-140px;
   width:33.33%;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  padding:0.4rem;
-  transition:top 0.04s linear;
-  z-index:20;
+  padding:0.3rem 0.25rem;
+  box-sizing:border-box;
+  pointer-events:auto;
+  cursor:pointer;
+  transition:top 0.035s linear;
 }
+#kapsul-0{ left:0%; }
+#kapsul-1{ left:33.33%; }
+#kapsul-2{ left:66.66%; }
+
 .kapsul-govde{
-  background:linear-gradient(135deg,#FFFFFF,#F1F5F9);
+  background:linear-gradient(135deg,#FFFFFF,#F8FAFC);
   border:3px solid #38BDF8;
-  border-radius:18px;
-  padding:0.6rem 0.9rem;
-  max-width:92%;
+  border-radius:14px;
+  padding:0.45rem 0.4rem;
+  width:94%;
+  box-sizing:border-box;
   display:flex;
   flex-direction:column;
   align-items:center;
   text-align:center;
-  gap:0.35rem;
-  box-shadow:0 8px 24px rgba(0,0,0,0.4), 0 0 16px rgba(56,189,248,0.3);
+  gap:0.3rem;
+  box-shadow:0 6px 18px rgba(0,0,0,0.35);
+  transition:border-color .15s, transform .2s, opacity .2s;
 }
-.kapsul-ikon{width:42px;height:42px;flex:0 0 auto}
-.kapsul-metin{font-size:1.05rem;font-weight:700;color:#0F172A;line-height:1.25}
+.kapsul-ikon-alani{display:flex;align-items:center;justify-content:center}
+.kapsul-ikon{width:36px;height:36px;flex:0 0 auto}
+.kapsul-metin{
+  font-size:0.92rem;
+  font-weight:700;
+  color:#0F172A;
+  line-height:1.2;
+  word-break:break-word;
+}
+
+@media (max-width: 600px){
+  .kapsul-govde{ padding:0.3rem 0.2rem; border-radius:10px; border-width:2px; }
+  .kapsul-ikon{ width:26px; height:26px; }
+  .kapsul-metin{ font-size:0.75rem; line-height:1.15; }
+}
 
 /* BİLGİBOT Oyuncu Robotu */
 #robot-oyuncu{
@@ -594,23 +619,132 @@ b,strong{font-weight:700}
   cursor:not-allowed;
 }
 
-.senaryo-yazar{
-  font-size:1.05rem;
-  font-weight:700;
-  color:#1E3A8A;
-  background:#EFF6FF;
+#ustbar-bolum-kutusu{
+  background:rgba(37,99,235,0.08);
   border:2px solid #BFDBFE;
-  border-radius:99px;
-  padding:0.35rem 1.2rem;
-  margin-top:-0.2rem;
-  margin-bottom:0.4rem;
+  padding:0.25rem 0.65rem;
+  border-radius:10px;
 }
-.altbar-yazar{
-  font-size:0.95rem;
-  font-weight:700;
-  color:#64748B;
-  text-align:center;
+#ustbar-hak-kutusu{
+  background:rgba(220,38,38,0.08);
+  border:2px solid #FECACA;
+  padding:0.25rem 0.65rem;
+  border-radius:10px;
 }
+#hak-sayac{letter-spacing:2px}
+
+/* ============ DOĞRU CEVAPLAR MODALI (2 HATA HAKKI DOLDUĞUNDA) ============ */
+.modal-arkaplan{
+  position:fixed;
+  inset:0;
+  background:rgba(15,23,42,0.8);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  padding:1rem;
+}
+.modal-arkaplan.acik{
+  display:flex;
+  animation:modalAcil .2s ease-out;
+}
+@keyframes modalAcil{
+  from{opacity:0;transform:scale(0.95)}
+  to{opacity:1;transform:scale(1)}
+}
+.modal-kutu{
+  background:#FFFFFF;
+  border:4px solid #EF4444;
+  border-radius:22px;
+  max-width:38rem;
+  width:100%;
+  max-height:90vh;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 20px 45px rgba(0,0,0,0.4);
+  overflow:hidden;
+}
+.modal-ust{
+  background:linear-gradient(135deg,#FEF2F2,#FEE2E2);
+  border-bottom:2px solid #FCA5A5;
+  padding:1rem 1.3rem;
+  display:flex;
+  align-items:center;
+  gap:0.9rem;
+}
+.modal-ikon-uyari{
+  font-size:2.4rem;
+  flex:0 0 auto;
+  line-height:1;
+}
+.modal-ust h3{
+  font-size:1.4rem;
+  font-weight:900;
+  color:#991B1B;
+  margin-bottom:0.2rem;
+}
+.modal-aciklama{
+  font-size:0.98rem;
+  font-weight:600;
+  color:#7F1D1D;
+  line-height:1.3;
+}
+.modal-icerik{
+  padding:1rem 1.3rem;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  gap:0.55rem;
+}
+.cevap-karti{
+  background:#F8FAFC;
+  border:2px solid #E2E8F0;
+  border-left:5px solid #2563EB;
+  border-radius:12px;
+  padding:0.55rem 0.85rem;
+  font-size:1rem;
+  line-height:1.35;
+  color:#1E293B;
+}
+.cevap-karti strong{
+  color:#1D4ED8;
+}
+.cevap-not{
+  background:#EFF6FF;
+  border:2px dashed #93C5FD;
+  border-radius:12px;
+  padding:0.6rem 0.85rem;
+  font-size:0.92rem;
+  line-height:1.35;
+  color:#1E40AF;
+  margin-top:0.2rem;
+}
+.modal-alt{
+  background:#F8FAFC;
+  border-top:2px solid #E2E8F0;
+  padding:0.85rem 1.3rem;
+  display:flex;
+  justify-content:flex-end;
+}
+.modal-gec-btn{
+  background:linear-gradient(135deg,#2563EB,#1D4ED8);
+  color:#FFFFFF;
+  border:none;
+  border-radius:14px;
+  padding:0.75rem 1.8rem;
+  font-size:1.12rem;
+  font-weight:800;
+  display:inline-flex;
+  align-items:center;
+  gap:0.6rem;
+  box-shadow:0 4px 14px rgba(37,99,235,0.3);
+  cursor:pointer;
+  transition:all 0.12s;
+}
+.modal-gec-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.modal-gec-btn:active{transform:translateY(2px)}
 
 @keyframes sarsil{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 </style>
@@ -630,13 +764,17 @@ b,strong{font-weight:700}
     </div>
 
     <div id="skor-alani">
-      <span class="skor-bilesen">
-        <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="#F59E0B"/></svg>
-        <span id="yildiz-sayac">0 / 3</span>
+      <span class="skor-bilesen" id="ustbar-bolum-kutusu">
+        <span style="color:#2563EB;">Bölüm:</span>
+        <span id="ustbar-bolum-sayac">3-1 (1 / 3)</span>
+      </span>
+      <span class="skor-bilesen" id="ustbar-hak-kutusu">
+        <span style="color:#DC2626;">Hak:</span>
+        <span id="hak-sayac">❤️❤️</span>
       </span>
       <span class="skor-bilesen">
-        <span>Laboratuvar Puanı:</span>
-        <span id="puan-sayac">0</span>
+        <span>Puan:</span>
+        <span id="puan-sayac">0 / 100</span>
       </span>
     </div>
 
@@ -660,7 +798,6 @@ b,strong{font-weight:700}
     <section class="ekran acik" id="ekran-giris" aria-labelledby="giris-baslik">
       <span class="kazanim-rozet">YEĞİTEK 6. SINIF • BTY.6.5.1 YAPAY ZEKÂ GİRDİLERİ</span>
       <h2 id="giris-baslik">BİLGİBOT Girdi Avı Oyunu</h2>
-      <div class="senaryo-yazar">Senaryo Yazarı: Sultan UÇAR ALTUN</div>
 
       <svg id="giris-svg" viewBox="0 0 320 180" role="img" aria-label="Girdi yakalayan BİLGİBOT robot çizimi">
         <rect x="120" y="35" width="80" height="70" rx="18" fill="#FFFFFF" stroke="#2563EB" stroke-width="4"/>
@@ -680,7 +817,7 @@ b,strong{font-weight:700}
         <p><b>Robotunuz BİLGİBOT'u kontrol ederek doğru girdileri yakalayınız!</b></p>
         <ul>
           <li><b>1. Bölüm (Girdi Türü Avı):</b> Hedef gösterilen girdi türünü (Metin, Ses, Görüntü, Sayısal veya Sensör) yakalayınız! Çeldirici videolardan kaçınız.</li>
-          <li><b>2. Bölüm (Kaliteli Girdi Avı):</b> Net ifadeleri, doğru etiketleri ve güncel verileri yakalayarak modeli 500.000 veriye ulaştırınız; kusurlu verilerden kaçınız!</li>
+          <li><b>2. Bölüm (Kaliteli Girdi Avı):</b> Net ifadeleri, doğru etiketleri ve güncel verileri yakalayarak yapay zekâ modelini eğitiniz; kusurlu verilerden kaçınız!</li>
           <li><b>3. Bölüm (Günlük Hayat Girdileri):</b> Yemek tarifi malzemesi, navigasyon adresi, müzik geçmişi ve klavye harflerini yakalayınız!</li>
         </ul>
         <p style="margin-top:0.5rem;font-size:1rem;color:var(--vurgu)">
@@ -725,11 +862,25 @@ b,strong{font-weight:700}
             <div class="serit-cizgi" id="serit-2" style="cursor:pointer;pointer-events:auto"></div>
           </div>
 
-          <!-- Düşen Kapsül -->
-          <div id="veri-kapsulu" aria-hidden="true">
-            <div class="kapsul-govde" id="kapsul-govde">
-              <div id="kapsul-ikon-alani"></div>
-              <div class="kapsul-metin" id="kapsul-metin">Veri Başlığı</div>
+          <!-- 3 Şerit Kapsülleri (Seçim Alanı) -->
+          <div id="dalga-kapsulleri" aria-hidden="true">
+            <div class="veri-kapsulu" id="kapsul-0" role="button" aria-label="Sol şerit girdisi">
+              <div class="kapsul-govde" id="kapsul-govde-0">
+                <div class="kapsul-ikon-alani" id="kapsul-ikon-0"></div>
+                <div class="kapsul-metin" id="kapsul-metin-0"></div>
+              </div>
+            </div>
+            <div class="veri-kapsulu" id="kapsul-1" role="button" aria-label="Orta şerit girdisi">
+              <div class="kapsul-govde" id="kapsul-govde-1">
+                <div class="kapsul-ikon-alani" id="kapsul-ikon-1"></div>
+                <div class="kapsul-metin" id="kapsul-metin-1"></div>
+              </div>
+            </div>
+            <div class="veri-kapsulu" id="kapsul-2" role="button" aria-label="Sağ şerit girdisi">
+              <div class="kapsul-govde" id="kapsul-govde-2">
+                <div class="kapsul-ikon-alani" id="kapsul-ikon-2"></div>
+                <div class="kapsul-metin" id="kapsul-metin-2"></div>
+              </div>
             </div>
           </div>
 
@@ -766,7 +917,7 @@ b,strong{font-weight:700}
       <!-- ALT BİLGİ VE MODEL İBRESİ -->
       <div class="oyun-alt-bilgi">
         <span id="alt-hedef-sayac">Kalan Hedef: 5</span>
-        <span id="alt-model-durum">Model Durumu: 100.000 Veri (%35 Başarı)</span>
+        <span id="alt-model-durum">Girdi Türleri Avı</span>
       </div>
     </section>
 
@@ -784,20 +935,42 @@ b,strong{font-weight:700}
         <p><b>Yapay Zekâ Girdileri senaryosundaki tüm kuralları aksiyonla pekiştirdiniz:</b></p>
         <ul>
           <li><b>Girdi Türleri:</b> Metin, Ses, Görüntü, Sayısal ve Sensör verilerini doğru zamanda yakaladınız; video çeldiricisinden kaçtınız.</li>
-          <li><b>Etkili Girdi:</b> Net ifadeleri, doğru etiketleri ve güncel verileri toplayarak modeli 500.000 veriye ulaştırdınız.</li>
+          <li><b>Etkili Girdi:</b> Net ifadeleri, doğru etiketleri ve güncel verileri toplayarak yapay zekâ modelini başarıyla eğittiniz.</li>
           <li><b>Günlük Hayat:</b> Yemek malzemesi, navigasyon adresi, müzik geçmişi ve klavye harflerini başarıyla ayırt ettiniz.</li>
         </ul>
-        <p style="margin-top:0.6rem;padding-top:0.5rem;border-top:1.5px dashed var(--cizgi);text-align:right;font-size:0.95rem;font-weight:700;color:var(--vurgu);">Senaryo Yazarı: Sultan UÇAR ALTUN</p>
       </div>
 
       <button class="tekrar-btn" id="btn-tekrar" type="button">Yeniden Oyna</button>
     </section>
   </main>
+ 
+  <!-- ============ DOĞRU CEVAPLAR MODALI (2 HATA HAKKI DOLDUĞUNDA) ============ -->
+  <div id="cevap-modal" class="modal-arkaplan" role="dialog" aria-modal="true" aria-labelledby="modal-baslik">
+    <div class="modal-kutu">
+      <div class="modal-ust">
+        <div class="modal-ikon-uyari">⚠️</div>
+        <div>
+          <h3 id="modal-baslik">2 Yanlış Hakkınız Doldu!</h3>
+          <p class="modal-aciklama">Bu bölüm için tanınan 2 hata hakkı tamamlandı. Konuyu daha iyi kavramak için bu bölümün doğru cevaplarını inceleyiniz:</p>
+        </div>
+      </div>
+      
+      <div class="modal-icerik" id="modal-cevap-listesi">
+        <!-- Dinamik olarak o bölümün doğru cevapları doldurulur -->
+      </div>
+
+      <div class="modal-alt">
+        <button type="button" id="btn-modal-gec" class="modal-gec-btn">
+          <span id="modal-btn-metin">Sonraki Bölüme Geç</span>
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- ============ ALT BAR ============ -->
   <footer id="altbar">
     <button class="nav-btn" id="btn-geri" type="button" disabled>Geri</button>
-    <span class="altbar-yazar">Senaryo Yazarı: Sultan UÇAR ALTUN</span>
     <button class="nav-btn" id="btn-ileri" type="button" disabled>İleri</button>
   </footer>
 </div>
@@ -862,20 +1035,31 @@ function bildirimTemizle(){
 /* ============ OYUN DURUMU ============ */
 var aktifEkran = 0;
 var aktifBolum = 0;
+var bolumPuanlari = [0, 0, 0];
 var toplamPuan = 0;
 var yildizlar = [false, false, false];
 var yaziOlcek = 100;
+var bolumHataSayisi = 0;
+var bolumKodlari = ["3-1", "3-2", "3-3"];
 
 /* Robot Konumu (0: Sol, 1: Orta, 2: Sağ) */
 var robotSerit = 1;
 var animasyonId = null;
 var kapsulAktif = false;
-var kapsulY = -120;
-var kapsulSerit = 1;
-var kapsulHiz = 2.4;
-var mevcutKapsulVerisi = null;
+var kapsulY = -140;
+var kapsulHiz = 1.7;
+var mevcutDalgaKartlari = [null, null, null];
 var hedefSayisi = 0;
 var gerekenHedef = 5;
+
+function hakGuncelle(){
+  var kalan = Math.max(0, 2 - bolumHataSayisi);
+  var kalpler = "";
+  for(var i = 0; i < 2; i++){
+    kalpler += (i < kalan ? "❤️" : "🖤");
+  }
+  $("hak-sayac").textContent = kalpler;
+}
 
 /* ============ SVG İKONLAR ============ */
 var IKONLAR = {
@@ -946,16 +1130,20 @@ var BOLUM1_GOREVLER = [
 ];
 
 /* BÖLÜM 2: ETKİLİ GİRDİ YAKALA (KUSURLUDAN KAÇ!) */
-var BOLUM2_HAVUZ = [
+var BOLUM2_DOGRULAR = [
   { ad: 'Komut: "Gelecek cumartesi saat 17.00\'de bize gel."', tur: "veri", dogruMu: true, aciklama: "Net İfade: Açık ve net komutlar modeli doğru eğitir!" },
-  { ad: 'Komut: "Bu cumartesi el."', tur: "veri", dogruMu: false, aciklama: "Kusurlu Girdi! Muğlak ve anlaşılmaz ifadelerden kaçınınız!" },
   { ad: 'Kedi fotoğrafına "Kedi" etiketi basmak', tur: "veri", dogruMu: true, aciklama: "Doğru Etiketleme: Verinin anlamı doğru işaretlenmelidir." },
-  { ad: 'Kedi fotoğrafına "Köpek" etiketi basmak', tur: "veri", dogruMu: false, aciklama: "Hatalı Etiketleme! Kediye köpek derseniz yapay zekâ yanılır!" },
   { ad: "Farklı ırklardan çeşitli kedi fotoğrafları", tur: "veri", dogruMu: true, aciklama: "Çeşitli Kaynaklar: Zengin veri yapay zekâyı başarılı kılar." },
-  { ad: "Yalnızca tek bir sokaktaki beyaz kediler", tur: "veri", dogruMu: false, aciklama: "Kısıtlı Kaynak! Model diğer kedi türlerini tanıyamaz!" },
   { ad: "Bugüne ait güncel hava ölçümleri", tur: "veri", dogruMu: true, aciklama: "Güncellik: Güncel veriler doğru tahmin üretir." },
-  { ad: "10 yıl öncesinin eski hava verisi", tur: "veri", dogruMu: false, aciklama: "Eski Veri! Güncel olmayan verileri yakalamayınız!" },
   { ad: "Sade ve konuyla ilgili öz veri", tur: "veri", dogruMu: true, aciklama: "Sadelik: Gereksiz bilgilerden arındırılmış veri faydalıdır." }
+];
+
+var BOLUM2_CELDIRICILER = [
+  { ad: 'Komut: "Bu cumartesi el."', tur: "veri", dogruMu: false, aciklama: "Kusurlu Girdi! Muğlak ve anlaşılmaz ifadelerden kaçınınız!" },
+  { ad: 'Kedi fotoğrafına "Köpek" etiketi basmak', tur: "veri", dogruMu: false, aciklama: "Hatalı Etiketleme! Kediye köpek derseniz yapay zekâ yanılır!" },
+  { ad: "Yalnızca tek bir sokaktaki beyaz kediler", tur: "veri", dogruMu: false, aciklama: "Kısıtlı Kaynak! Model diğer kedi türlerini tanıyamaz!" },
+  { ad: "10 yıl öncesinin eski hava verisi", tur: "veri", dogruMu: false, aciklama: "Eski Veri! Güncel olmayan verileri yakalamayınız!" },
+  { ad: "Konu dışı ve karmaşık dağınık veriler", tur: "veri", dogruMu: false, aciklama: "Gereksiz Veri! Konu dışı bilgiler modeli yanıltır!" }
 ];
 
 /* BÖLÜM 3: GÜNLÜK HAYAT METAFORLARI */
@@ -1008,45 +1196,55 @@ function robotuTasi(seritIndex){
   sesCal("tik");
 }
 
-/* ============ KAPSÜL DÜŞME ANİMASYONU ============ */
+/* ============ KAPSÜL DÜŞME VE SEÇİM ANİMASYONU ============ */
 function yeniKapsulFirlat(){
   if(aktifEkran !== 1) return;
   var alan = $("oyun-alani");
   if(!alan) return;
 
-  kapsulSerit = Math.floor(Math.random() * 3);
-  kapsulY = -120;
+  kapsulY = -140;
   kapsulAktif = true;
 
-  // Kapsül Verisini Seç
+  // 1. Hedefe göre 3 kartı belirle (1 doğru hedef + 2 çeldirici)
+  var kartlar = [];
   if(aktifBolum === 0){
-    var gorev = BOLUM1_GOREVLER[hedefSayisi];
-    // %50 ihtimalle doğru kart, %50 diğer kart
-    if(Math.random() < 0.55){
-      mevcutKapsulVerisi = gorev.dogruKart;
-    } else {
-      mevcutKapsulVerisi = gorev.digerKartlar[Math.floor(Math.random() * gorev.digerKartlar.length)];
-    }
+    var g1 = BOLUM1_GOREVLER[hedefSayisi];
+    kartlar = [g1.dogruKart, g1.digerKartlar[0], g1.digerKartlar[1]];
   } else if(aktifBolum === 1){
-    mevcutKapsulVerisi = BOLUM2_HAVUZ[Math.floor(Math.random() * BOLUM2_HAVUZ.length)];
+    var dogru2 = BOLUM2_DOGRULAR[hedefSayisi];
+    var c1 = BOLUM2_CELDIRICILER[hedefSayisi % BOLUM2_CELDIRICILER.length];
+    var c2 = BOLUM2_CELDIRICILER[(hedefSayisi + 2) % BOLUM2_CELDIRICILER.length];
+    kartlar = [dogru2, c1, c2];
   } else if(aktifBolum === 2){
-    var gorev3 = BOLUM3_GOREVLER[hedefSayisi];
-    if(Math.random() < 0.55){
-      mevcutKapsulVerisi = gorev3.dogruKart;
-    } else {
-      mevcutKapsulVerisi = gorev3.digerKartlar[Math.floor(Math.random() * gorev3.digerKartlar.length)];
-    }
+    var g3 = BOLUM3_GOREVLER[hedefSayisi];
+    kartlar = [g3.dogruKart, g3.digerKartlar[0], g3.digerKartlar[1]];
   }
 
-  // Arayüzü Güncelle
-  var kapsulEl = $("veri-kapsulu");
-  kapsulEl.style.left = (kapsulSerit * 33.33) + "%";
-  kapsulEl.style.top = kapsulY + "px";
-  $("kapsul-metin").textContent = mevcutKapsulVerisi.ad;
-  $("kapsul-ikon-alani").innerHTML = IKONLAR[mevcutKapsulVerisi.tur] || IKONLAR.veri;
+  // 2. 3 kartı 3 şeride rastgele dağıt (Öğrencinin aradan doğru olanı seçebilmesi için)
+  var sira = [0, 1, 2];
+  for(var i = sira.length - 1; i > 0; i--){
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = sira[i]; sira[i] = sira[j]; sira[j] = temp;
+  }
+  mevcutDalgaKartlari = [ kartlar[sira[0]], kartlar[sira[1]], kartlar[sira[2]] ];
 
-  var govde = $("kapsul-govde");
-  govde.style.borderColor = "#38BDF8";
+  // 3. 3 kapsülü arayüzde konumlandır ve metinleri yükle
+  for(var s = 0; s < 3; s++){
+    var kEl = $("kapsul-" + s);
+    var govEl = $("kapsul-govde-" + s);
+    var metinEl = $("kapsul-metin-" + s);
+    var ikonEl = $("kapsul-ikon-" + s);
+    var kart = mevcutDalgaKartlari[s];
+
+    kEl.style.top = kapsulY + "px";
+    govEl.className = "kapsul-govde";
+    govEl.style.opacity = "1";
+    govEl.style.transform = "";
+    govEl.style.borderColor = "#38BDF8";
+
+    metinEl.textContent = kart.ad;
+    ikonEl.innerHTML = IKONLAR[kart.tur] || IKONLAR.veri;
+  }
 
   animasyonDongusu();
 }
@@ -1059,21 +1257,20 @@ function animasyonDongusu(){
   var carpismaY = alanYukseklik - 110;
 
   kapsulY += kapsulHiz;
-  var kapsulEl = $("veri-kapsulu");
-  kapsulEl.style.top = kapsulY + "px";
-
-  // Çarpışma / Yakalama Kontrolü
-  if(kapsulY >= carpismaY && kapsulY <= carpismaY + 45){
-    if(kapsulSerit === robotSerit){
-      kapsulYakalandi();
-      return;
-    }
+  for(var s = 0; s < 3; s++){
+    $("kapsul-" + s).style.top = kapsulY + "px";
   }
 
-  // Ekrandan Çıkma Kontrolü
+  // Çarpışma Kontrolü (Robotun bulunduğu şeritteki kapsül yakalanır)
+  if(kapsulY >= carpismaY && kapsulY <= carpismaY + 45){
+    kapsulYakalandi();
+    return;
+  }
+
+  // Ekrandan çıkma kontrolü (kaçırılırsa yeniden düşür)
   if(kapsulY > alanYukseklik){
     kapsulAktif = false;
-    setTimeout(function(){ yeniKapsulFirlat(); }, 250);
+    setTimeout(function(){ yeniKapsulFirlat(); }, 300);
     return;
   }
 
@@ -1084,65 +1281,79 @@ function kapsulYakalandi(){
   kapsulAktif = false;
   if(animasyonId){ cancelAnimationFrame(animasyonId); animasyonId = null; }
 
-  var kapsulEl = $("veri-kapsulu");
-  var govdeEl = $("kapsul-govde");
+  var secilenKart = mevcutDalgaKartlari[robotSerit];
+  if(!secilenKart) return;
+
+  var govdeEl = $("kapsul-govde-" + robotSerit);
   var robotEl = $("robot-oyuncu");
   var sepetEl = document.querySelector(".robot-sepet");
   var antenEl = $("bot-anten-oyuncu");
   var agizEl = $("bot-agiz-oyuncu");
   var carpismaEl = $("carpisma-efekti");
 
-  // Çarpışma Efektini Konumlandır (Robot Sepeti hizasında)
   var alan = $("oyun-alani");
   var alanYukseklik = alan.clientHeight || 340;
   var carpismaY = alanYukseklik - 105;
-  carpismaEl.style.left = (kapsulSerit * 33.33 + 16.66) + "%";
+  carpismaEl.style.left = (robotSerit * 33.33 + 16.66) + "%";
   carpismaEl.style.top = carpismaY + "px";
 
-  if(mevcutKapsulVerisi.dogruMu){
+  // Yakalanmayan diğer iki kapsülü hafifçe soldur
+  for(var s = 0; s < 3; s++){
+    if(s !== robotSerit){
+      $("kapsul-govde-" + s).style.opacity = "0.25";
+    }
+  }
+
+  if(secilenKart.dogruMu){
     // Doğru Yakalama!
     sesCal("yakala");
-    toplamPuan += 15;
     hedefSayisi++;
+    if(aktifBolum === 0){
+      bolumPuanlari[0] = Math.min(35, hedefSayisi * 7);
+    } else if(aktifBolum === 1){
+      bolumPuanlari[1] = Math.min(35, hedefSayisi * 7);
+    } else if(aktifBolum === 2){
+      bolumPuanlari[2] = (hedefSayisi >= 4 ? 30 : hedefSayisi * 7);
+    }
     skorGuncelle();
 
-    // 1. Kapsül temas efekti: Yeşil parlayıp robot sepetine doğru küçülerek emilir
     govdeEl.className = "kapsul-govde temas-dogru";
-
-    // 2. Robot zıplama ve sepet parlama efekti
     robotEl.className = "robot-zipla";
     if(sepetEl){ sepetEl.className = "robot-sepet sepet-parla"; }
     if(antenEl){ antenEl.setAttribute("fill", "#10B981"); }
     if(agizEl){ agizEl.setAttribute("d", "M32 52 q18 16 36 0"); }
 
-    // 3. Çarpışma patlama/rozet efekti
-    carpismaEl.innerHTML = '<div class="carpisma-halka dogru"></div><div class="carpisma-rozet dogru">✨ +15 PUAN! ✨</div>';
+    carpismaEl.innerHTML = '<div class="carpisma-halka dogru"></div><div class="carpisma-rozet dogru">✨ DOĞRU GİRDİ! ✨</div>';
     carpismaEl.className = "aktif";
 
-    bildir("✓ YAKALANDI! " + mevcutKapsulVerisi.aciklama, "iyi");
+    bildir("✓ YAKALANDI! " + secilenKart.aciklama, "iyi");
     robotDurumunuGuncelle();
 
     if(hedefSayisi >= gerekenHedef){
       setTimeout(function(){
         temasEfektleriniSifirla();
         bolumTamamla();
-      }, 420);
+      }, 450);
       return;
     }
+
+    setTimeout(function(){
+      temasEfektleriniSifirla();
+      yeniKapsulFirlat();
+    }, 550);
+
   } else {
     // Hatalı Yakalama!
     sesCal("yanlis");
+    bolumHataSayisi++;
+    hakGuncelle();
 
-    // 1. Kapsül temas efekti: Kırmızı parlayıp geri seker
     govdeEl.className = "kapsul-govde temas-yanlis";
-
-    // 2. Robot sarsılma ve sepet hata efekti
     robotEl.className = "robot-sarsil";
     if(sepetEl){ sepetEl.className = "robot-sepet sepet-hata"; }
     if(antenEl){ antenEl.setAttribute("fill", "#DC2626"); }
     if(agizEl){ agizEl.setAttribute("d", "M36 62 q14 -12 28 0"); }
 
-    // 3. Çarpışma hata rozet efekti
     carpismaEl.innerHTML = '<div class="carpisma-halka yanlis"></div><div class="carpisma-rozet yanlis">⚠️ DİKKAT!</div>';
     carpismaEl.className = "aktif";
 
@@ -1150,37 +1361,50 @@ function kapsulYakalandi(){
     pist.style.borderColor = "#EF4444";
     setTimeout(function(){ pist.style.borderColor = "#38BDF8"; }, 400);
 
-    bildir("✗ DİKKAT! " + mevcutKapsulVerisi.aciklama, "uyari");
+    if(bolumHataSayisi >= 2){
+      // 2 HATA HAKKI DOLDU!
+      bildir("✗ 2 Yanlış Hakkınız Doldu!", "uyari", true);
+      yildizlar[aktifBolum] = false;
+      skorGuncelle();
+      setTimeout(function(){
+        temasEfektleriniSifirla();
+        cevapModaliniAc(aktifBolum);
+      }, 600);
+      return;
+    } else {
+      bildir("✗ DİKKAT! " + secilenKart.aciklama + " (Kalan Hata Hakkınız: 1)", "uyari");
+      setTimeout(function(){
+        temasEfektleriniSifirla();
+        yeniKapsulFirlat();
+      }, 700);
+    }
   }
-
-  // 450ms sonra kapsülü ve robot durumunu sıfırla, yeni kapsüle geç
-  setTimeout(function(){
-    temasEfektleriniSifirla();
-    yeniKapsulFirlat();
-  }, 450);
 }
 
 function temasEfektleriniSifirla(){
-  var kapsulEl = $("veri-kapsulu");
-  kapsulEl.style.top = "-140px";
-
-  var govdeEl = $("kapsul-govde");
-  govdeEl.className = "kapsul-govde";
-  govdeEl.style.transform = "";
-  govdeEl.style.opacity = "";
-  govdeEl.style.borderColor = "#38BDF8";
+  for(var s = 0; s < 3; s++){
+    var kEl = $("kapsul-" + s);
+    if(kEl) kEl.style.top = "-140px";
+    var gEl = $("kapsul-govde-" + s);
+    if(gEl){
+      gEl.className = "kapsul-govde";
+      gEl.style.transform = "";
+      gEl.style.opacity = "1";
+      gEl.style.borderColor = "#38BDF8";
+    }
+  }
 
   var robotEl = $("robot-oyuncu");
-  robotEl.className = "";
+  if(robotEl) robotEl.className = "";
 
   var sepetEl = document.querySelector(".robot-sepet");
-  if(sepetEl){ sepetEl.className = "robot-sepet"; }
+  if(sepetEl) sepetEl.className = "robot-sepet";
 
   var antenEl = $("bot-anten-oyuncu");
-  if(antenEl){ antenEl.setAttribute("fill", "#10B981"); }
+  if(antenEl) antenEl.setAttribute("fill", "#10B981");
 
   var agizEl = $("bot-agiz-oyuncu");
-  if(agizEl){ agizEl.setAttribute("d", "M38 56 q12 8 24 0"); }
+  if(agizEl) agizEl.setAttribute("d", "M38 56 q12 8 24 0");
 
   var carpismaEl = $("carpisma-efekti");
   if(carpismaEl){
@@ -1200,10 +1424,7 @@ function robotDurumunuGuncelle(){
       $("ipucu-yazi").textContent = "— " + g.ipucu;
     }
   } else if(aktifBolum === 1){
-    var veriSayisi = 100000 + (hedefSayisi * 80000);
-    var basari = 35 + (hedefSayisi * 13);
-    if(basari > 98) basari = 98;
-    $("alt-model-durum").textContent = "Model Durumu: " + veriSayisi.toLocaleString("tr-TR") + " Veri (%" + basari + " Başarı)";
+    $("alt-model-durum").textContent = "Model Durumu: Kaliteli Veriler Toplanıyor";
     $("alt-hedef-sayac").textContent = "Toplanan Kaliteli Veri: " + hedefSayisi + " / " + gerekenHedef;
   } else if(aktifBolum === 2){
     $("alt-hedef-sayac").textContent = "Kalan Günlük Hayat Girdisi: " + (gerekenHedef - hedefSayisi);
@@ -1226,11 +1447,16 @@ function bolumTamamla(){
 /* ============ BÖLÜM YÜKLEME ============ */
 function bolumuBaslat(bolumIdx){
   aktifBolum = bolumIdx;
+  bolumHataSayisi = 0;
+  bolumPuanlari[bolumIdx] = 0;
+  hakGuncelle();
+  skorGuncelle();
   hedefSayisi = 0;
   robotSerit = 1;
   robotuTasi(1);
 
-  $("kademe-etiket").textContent = "Bölüm " + (bolumIdx + 1) + " / 3";
+  $("kademe-etiket").textContent = "Bölüm " + bolumKodlari[bolumIdx] + " (" + (bolumIdx + 1) + " / 3)";
+  $("ustbar-bolum-sayac").textContent = bolumKodlari[bolumIdx] + " (" + (bolumIdx + 1) + " / 3)";
   $("btn-ileri").disabled = true;
 
   if(bolumIdx === 0){
@@ -1240,10 +1466,10 @@ function bolumuBaslat(bolumIdx){
     $("ipucu-yazi").textContent = "— " + g1.ipucu;
     $("alt-model-durum").textContent = "Girdi Türleri Avı";
   } else if(bolumIdx === 1){
-    gerekenHedef = 5;
+    gerekenHedef = BOLUM2_DOGRULAR.length;
     $("hedef-yazi").textContent = "HEDEF: ETKİLİ GİRDİLERİ YAKALA";
     $("ipucu-yazi").textContent = "— Net ifadeleri, doğru etiketleri ve güncel verileri yakalayınız!";
-    $("alt-model-durum").textContent = "Model Durumu: 100.000 Veri (%35 Başarı)";
+    $("alt-model-durum").textContent = "Model Durumu: Kaliteli Veriler Toplanıyor";
   } else if(bolumIdx === 2){
     gerekenHedef = BOLUM3_GOREVLER.length;
     var g3 = BOLUM3_GOREVLER[0];
@@ -1257,10 +1483,48 @@ function bolumuBaslat(bolumIdx){
 }
 
 function skorGuncelle(){
-  var ySayisi = 0;
-  for(var i = 0; i < yildizlar.length; i++){ if(yildizlar[i]) ySayisi++; }
-  $("yildiz-sayac").textContent = ySayisi + " / 3";
-  $("puan-sayac").textContent = toplamPuan;
+  toplamPuan = bolumPuanlari[0] + bolumPuanlari[1] + bolumPuanlari[2];
+  if(toplamPuan > 100) toplamPuan = 100;
+  $("puan-sayac").textContent = toplamPuan + " / 100";
+  $("ustbar-bolum-sayac").textContent = bolumKodlari[aktifBolum] + " (" + (aktifBolum + 1) + " / 3)";
+}
+
+/* ============ DOĞRU CEVAPLAR MODALI ============ */
+function cevapModaliniAc(bolumIdx){
+  var modal = $("cevap-modal");
+  var liste = $("modal-cevap-listesi");
+  var btnMetin = $("modal-btn-metin");
+
+  var html = "";
+  if(bolumIdx === 0){
+    html += '<div class="cevap-karti"><strong>🎧 Ses Girdisi:</strong> Mikrofonla kaydedilen insan veya ortam sesi.</div>';
+    html += '<div class="cevap-karti"><strong>📷 Görüntü Girdisi:</strong> Kamera veya sensörle çekilen fotoğraf ve resimler.</div>';
+    html += '<div class="cevap-karti"><strong>📝 Metin Girdisi:</strong> Klavyeyle yazılan e-posta, mesaj veya komut cümleleri.</div>';
+    html += '<div class="cevap-karti"><strong>🔢 Sayısal Veri Girdisi:</strong> Sıcaklık, yaş, puan gibi doğrudan ölçülen sayılar.</div>';
+    html += '<div class="cevap-karti"><strong>🚨 Sensör Girdisi:</strong> Hareket algılayıcı, nabız ölçer gibi çevresel sinyaller.</div>';
+    html += '<div class="cevap-not"><strong>💡 Bilgi Notu:</strong> Video tek başına bir temel girdi türü değildir; hareketli görüntü ve sesin birleşimidir.</div>';
+  } else if(bolumIdx === 1){
+    html += '<div class="cevap-karti"><strong>✓ Net İfade:</strong> Gelecek cumartesi saat 17.00\'de bize gel komutu açık ve anlaşılırdır.</div>';
+    html += '<div class="cevap-karti"><strong>✓ Doğru Etiketleme:</strong> Kedi fotoğrafına "Kedi" etiketi basmak modeli doğru eğitir.</div>';
+    html += '<div class="cevap-karti"><strong>✓ Çeşitli Kaynaklar:</strong> Farklı ırklardan çeşitli kedi fotoğrafları zengin veri sağlar.</div>';
+    html += '<div class="cevap-karti"><strong>✓ Güncellik:</strong> Bugüne ait güncel hava ölçümleri doğru tahmin üretir.</div>';
+    html += '<div class="cevap-karti"><strong>✓ Sadelik:</strong> Sade ve konuyla ilgili öz veriler yapay zekâyı hızlandırır.</div>';
+    html += '<div class="cevap-not"><strong>💡 Bilgi Notu:</strong> Yanıltıcı başlıklar, eski tarihler ve eksik etiketler modeli hatalı eğitir.</div>';
+  } else if(bolumIdx === 2){
+    html += '<div class="cevap-karti"><strong>🍲 Yemek Tarifi Girdisi ➔</strong> Yemeğin kendine özgü doğru malzemeleri</div>';
+    html += '<div class="cevap-karti"><strong>🗺️ Navigasyon Girdisi ➔</strong> Doğru ev adresi ve konum bilgisi</div>';
+    html += '<div class="cevap-karti"><strong>🎵 Müzik Önerisi Girdisi ➔</strong> Uygulamada dinlediğiniz şarkı geçmişi</div>';
+    html += '<div class="cevap-karti"><strong>⌨️ Otomatik Düzeltme Girdisi ➔</strong> Klavyede yazılan harfler ve heceler</div>';
+    html += '<div class="cevap-not"><strong>💡 Bilgi Notu:</strong> Doğru girdi olmadan hiçbir yapay zekâ sistemi doğru sonuç üretemez.</div>';
+  }
+
+  liste.innerHTML = html;
+  if(bolumIdx < 2){
+    btnMetin.textContent = "Sonraki Bölüme Geç";
+  } else {
+    btnMetin.textContent = "Sonuç Ekranına Geç";
+  }
+  modal.classList.add("acik");
 }
 
 /* ============ EKRAN GEÇİŞİ ============ */
@@ -1286,7 +1550,7 @@ function oyunSonu(){
     yDiv.innerHTML += ySvg;
     if(yildizlar[i]) ySayisi++;
   }
-  $("son-skor-yazi").textContent = "Toplam Skorunuz: " + toplamPuan + " (Kazanılan Yıldız: " + ySayisi + " / 3)";
+  $("son-skor-yazi").textContent = "Toplam Skorunuz: " + toplamPuan + " / 100 (Kazanılan Yıldız: " + ySayisi + " / 3)";
 }
 
 /* ============ ETKİLEŞİM DİNLEYİCİLERİ ============ */
@@ -1321,6 +1585,7 @@ $("btn-geri").addEventListener("click", function(){
 
 $("btn-tekrar").addEventListener("click", function(){
   sesCal("tik");
+  bolumPuanlari = [0, 0, 0];
   toplamPuan = 0;
   yildizlar = [false, false, false];
   skorGuncelle();
@@ -1335,6 +1600,20 @@ $("btn-sag").addEventListener("click", function(){ robotuTasi(robotSerit + 1); }
 $("serit-0").addEventListener("click", function(){ robotuTasi(0); });
 $("serit-1").addEventListener("click", function(){ robotuTasi(1); });
 $("serit-2").addEventListener("click", function(){ robotuTasi(2); });
+
+$("kapsul-0").addEventListener("click", function(){ robotuTasi(0); });
+$("kapsul-1").addEventListener("click", function(){ robotuTasi(1); });
+$("kapsul-2").addEventListener("click", function(){ robotuTasi(2); });
+
+$("btn-modal-gec").addEventListener("click", function(){
+  sesCal("tik");
+  $("cevap-modal").classList.remove("acik");
+  if(aktifBolum < 2){
+    bolumuBaslat(aktifBolum + 1);
+  } else {
+    oyunSonu();
+  }
+});
 
 document.addEventListener("keydown", function(e){
   if(aktifEkran !== 1) return;
@@ -1360,6 +1639,7 @@ $("btn-ses").addEventListener("click", function(){
   $("ses-cizgi").style.display = sesAcik ? "none" : "";
 });
 
+hakGuncelle();
 skorGuncelle();
 </script>
 </body>
