@@ -279,8 +279,8 @@ b,strong{font-weight:700}
         <text x="311" y="75" font-size="11" font-weight="700" fill="#7C3AED" text-anchor="middle">Karantina</text>
         <text x="311" y="53" font-size="14" text-anchor="middle">🦓 ❌</text>
       </svg>
-      <p>Görsel tanıma yapan yapay zekâ sistemleri kendilerine sunulan fotoğraf ve resimlerden öğrenir. Bir modelin eğitim setine kategoriye uymayan bir hayvan görseli girerse (örneğin kedi modeline köpek, aslan modeline kaplan veya tavuk eklenirse) yapay zekâ yanlış öğrenir ve doğruluğu düşer.</p>
-      <p>Farklı ırk ve cinslerdeki <b>kedi, köpek ve aslan</b> resimlerini doğru kutulara yerleştiriniz. Bu üç gruba ait olmayan diğer hayvanları (kuş, tavuk, zebra, kaplan vb.) <b>Karantina Kutusuna</b> ayıklayınız. Hatalı verileri düzelterek model doğruluğunu %100'e ulaştırınız!</p>
+      <p>Görsel tanıma yapan yapay zekâ sistemleri kendilerine sunulan fotoğraf ve resimlerden öğrenir. Bir modelin eğitim setine kategoriye uymayan bir hayvan görseli girerse (örneğin kedi modeline köpek, aslan modeline kaplan veya tavuk eklenirse) yapay zekâ yanlış öğrenir ve model uygunluğu düşer.</p>
+      <p>Farklı ırk ve cinslerdeki <b>kedi, köpek ve aslan</b> resimlerini doğru kutulara yerleştiriniz. Bu üç gruba ait olmayan diğer hayvanları (kuş, tavuk, zebra, kaplan vb.) <b>Karantina Kutusuna</b> ayıklayınız. Hatalı verileri düzelterek model uygunluğunu %100'e ulaştırınız!</p>
       <button id="btn-basla" type="button">Başlamak için tıklayınız.</button>
     </section>
 
@@ -289,7 +289,7 @@ b,strong{font-weight:700}
       <div id="yonerge-seridi">
         <div id="yonerge-metin" aria-live="polite">Kedi, köpek ve aslanları uygun modellere yerleştiriniz. Kategori dışı hayvanları karantinaya ayıklayınız!</div>
         <div id="model-durum">
-          <span>Model Doğruluğu:</span>
+          <span>Model Uygunluğu:</span>
           <div id="model-cubuk-dis"><div id="model-cubuk-ic"></div></div>
           <span id="model-yuzde">%50</span>
         </div>
@@ -490,7 +490,7 @@ function bildir(metin, tur){
   gbZamanlayici = setTimeout(function(){
     gb.className = "";
     gb.innerHTML = "";
-  }, tur === "kotu" ? 3400 : 1800);
+  }, 2000);
 }
 
 function bildirimTemizle(){
@@ -799,29 +799,17 @@ function kutuyaYerlestir(kartId, kutuId, kutuEl){
     setTimeout(function(){ kutuEl.classList.remove("kabul"); }, 350);
 
     var artis = yeniDogruluk - oncekiDogruluk;
-    var artisMetin = (artis > 0 ? " (%" + oncekiDogruluk + " ➔ %" + yeniDogruluk + ")" : " (%" + yeniDogruluk + ")");
-
-    if(eskiKutuId){
-      bildir('<b>✓ Harika! Model Doğruluğu Arttı' + artisMetin + '</b><br><small>' + kartVeri.ad + ' doğru kategoriye taşındı, yapay zekâ modeli temizlendi!</small>', "iyi");
+    if(artis > 0){
+      bildir("Model uygunluğu arttı: %" + yeniDogruluk, "iyi");
     } else {
-      if(kutuId === "karantina"){
-        bildir('<b>🛡️ Model Doğruluğu Arttı' + artisMetin + '</b><br><small>' + kartVeri.ad + ' karantinaya ayıklandı, yapay zekâ korundu.</small>', "iyi");
-      } else {
-        bildir('<b>✓ Temiz Veri Eklendi' + artisMetin + '</b><br><small>' + kartVeri.ad + ' ' + hedefAd + ' modeline başarıyla eklendi.</small>', "iyi");
-      }
+      bildir("Model uygunluğu: %" + yeniDogruluk, "iyi");
     }
   } else {
     sesCal("firlat");
     kutuEl.classList.add("duramaz");
     setTimeout(function(){ kutuEl.classList.remove("duramaz"); }, 450);
 
-    var azalis = oncekiDogruluk - yeniDogruluk;
-    var azalisMetin = (azalis > 0 ? " (%" + oncekiDogruluk + " ➔ %" + yeniDogruluk + ")" : " (%" + yeniDogruluk + ")");
-
-    var hataMetni = '<b>⚠️ Model Doğruluğu Düştü' + azalisMetin + '!</b><br><small>' +
-      (kartVeri.hataNedeni || (kartVeri.ad + ' bu modele uygun değil!')) +
-      '<br>Düzeltmek için bu karta tıklayıp/sürükleyip doğru kutusuna (veya Karantinaya) taşıyınız.</small>';
-    bildir(hataMetni, "kotu");
+    bildir("Model uygunluğu düştü: %" + yeniDogruluk, "kotu");
   }
 
   // 5. Oyun bitiş kontrolü
@@ -903,16 +891,16 @@ function kontrolOyunBitis(){
     yildiz = 1;
     skorGuncelle();
     $("btn-ileri").disabled = false;
-    if(ym) ym.textContent = "🎉 Harika! Tüm veriler başarıyla ayıklandı, model doğruluğu %100'e ulaştı!";
-    bildir("<b>🎉 TEBRİKLER! %100 MODEL DOĞRULUĞU</b><br><small>Tüm veriler temizlendi, yapay zekâ modeli mükemmel eğitildi!</small>", "iyi");
+    if(ym) ym.textContent = "🎉 Harika! Tüm veriler başarıyla ayıklandı, model uygunluğu %100'e ulaştı!";
+    bildir("Tebrikler! Model uygunluğu: %100", "iyi");
     setTimeout(oyunuBitir, 1500);
   } else if(kalanKartSayisi === 0 && yanlisSayisi > 0){
     $("btn-ileri").disabled = true;
-    if(ym) ym.textContent = "⚠️ Kutularda " + yanlisSayisi + " adet hatalı veri var! Doğruluğu %100 yapmak için kırmızı işaretli kartları doğru kutularına taşıyınız.";
+    if(ym) ym.textContent = "⚠️ Kutularda " + yanlisSayisi + " adet hatalı veri var! Uygunluğu %100 yapmak için kırmızı işaretli kartları doğru kutularına taşıyınız.";
   } else if(yanlisSayisi > 0){
-    if(ym) ym.textContent = "⚠️ Dikkat: Kutuda hatalı veri var (" + yanlisSayisi + " adet)! Kırmızı kartları doğru kutulara taşıyarak doğruluğu artırabilirsiniz.";
+    if(ym) ym.textContent = "⚠️ Dikkat: Kutuda hatalı veri var (" + yanlisSayisi + " adet)! Kırmızı kartları doğru kutulara taşıyarak uygunluğu artırabilirsiniz.";
   } else {
-    if(ym) ym.textContent = "Kartı seçip uygun kategoriye yerleştiriniz. Hatalı veriler model doğruluğunu düşürür!";
+    if(ym) ym.textContent = "Kartı seçip uygun kategoriye yerleştiriniz. Hatalı veriler model uygunluğunu düşürür!";
   }
 }
 
@@ -920,7 +908,7 @@ function oyunuBitir(){
   ekranAc(2);
   var kap = $("son-yildizlar");
   kap.innerHTML = '<div><svg viewBox="0 0 24 24"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="#D97706"/></svg></div>';
-  $("son-puan").textContent = "Model Doğruluğu: %100 • Toplam Puan: " + puan;
+  $("son-puan").textContent = "Model Uygunluğu: %100 • Toplam Puan: " + puan;
   konfetiPatlat();
 }
 
