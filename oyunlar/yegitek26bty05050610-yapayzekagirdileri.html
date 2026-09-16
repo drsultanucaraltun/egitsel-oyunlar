@@ -508,22 +508,7 @@ b,strong{font-weight:700}
   margin:0.3rem 0;
 }
 
-/* Canlı Skor & Durum Çubuğu */
-.oyun-alt-bilgi{
-  flex:0 0 auto;
-  background:var(--panel);
-  border:2px solid #CBD5E1;
-  border-radius:12px;
-  padding:0.4rem 0.9rem;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  font-size:1.05rem;
-  font-weight:800;
-  color:#000000;
-}
-#alt-hedef-sayac{color:#000000;font-weight:800;}
-#alt-model-durum{color:#000000;font-weight:800;}
+
 
 /* ============ BİTİŞ EKRANI ============ */
 #ekran-son{
@@ -912,12 +897,6 @@ b,strong{font-weight:700}
       <!-- DÖNÜT PANELİ (ESKİ BUTON SATIRI) -->
       <div id="donut-paneli">
         <div id="bildirim-serit" role="status" aria-live="assertive">BİLGİBOT'u yön tuşları veya yan butonlarla hareket ettirerek hedef veriyi toplayınız.</div>
-      </div>
-
-      <!-- ALT BİLGİ VE MODEL İBRESİ -->
-      <div class="oyun-alt-bilgi">
-        <span id="alt-hedef-sayac">Kalan Hedef: 5</span>
-        <span id="alt-model-durum">Girdi Türleri Avı</span>
       </div>
     </section>
 
@@ -1417,17 +1396,14 @@ function robotDurumunuGuncelle(){
   $("adim-cubugu-ic").style.width = ((hedefSayisi / gerekenHedef) * 100) + "%";
 
   if(aktifBolum === 0){
-    $("alt-hedef-sayac").textContent = "Kalan Hedef: " + (gerekenHedef - hedefSayisi);
     if(hedefSayisi < BOLUM1_GOREVLER.length){
       var g = BOLUM1_GOREVLER[hedefSayisi];
       $("hedef-yazi").textContent = "HEDEF: " + g.hedefAd;
       $("ipucu-yazi").textContent = "— " + g.ipucu;
     }
   } else if(aktifBolum === 1){
-    $("alt-model-durum").textContent = "Model Durumu: Kaliteli Veriler Toplanıyor";
-    $("alt-hedef-sayac").textContent = "Toplanan Kaliteli Veri: " + hedefSayisi + " / " + gerekenHedef;
+    // Kaliteli Girdi Avı
   } else if(aktifBolum === 2){
-    $("alt-hedef-sayac").textContent = "Kalan Günlük Hayat Girdisi: " + (gerekenHedef - hedefSayisi);
     if(hedefSayisi < BOLUM3_GOREVLER.length){
       var g3 = BOLUM3_GOREVLER[hedefSayisi];
       $("hedef-yazi").textContent = "HEDEF: " + g3.hedefAd;
@@ -1464,18 +1440,15 @@ function bolumuBaslat(bolumIdx){
     var g1 = BOLUM1_GOREVLER[0];
     $("hedef-yazi").textContent = "HEDEF: " + g1.hedefAd;
     $("ipucu-yazi").textContent = "— " + g1.ipucu;
-    $("alt-model-durum").textContent = "Girdi Türleri Avı";
   } else if(bolumIdx === 1){
     gerekenHedef = BOLUM2_DOGRULAR.length;
     $("hedef-yazi").textContent = "HEDEF: ETKİLİ GİRDİLERİ YAKALA";
     $("ipucu-yazi").textContent = "— Net ifadeleri, doğru etiketleri ve güncel verileri yakalayınız!";
-    $("alt-model-durum").textContent = "Model Durumu: Kaliteli Veriler Toplanıyor";
   } else if(bolumIdx === 2){
     gerekenHedef = BOLUM3_GOREVLER.length;
     var g3 = BOLUM3_GOREVLER[0];
     $("hedef-yazi").textContent = "HEDEF: " + g3.hedefAd;
     $("ipucu-yazi").textContent = "— " + g3.ipucu;
-    $("alt-model-durum").textContent = "Günlük Hayat Girdi Metaforları";
   }
 
   robotDurumunuGuncelle();
