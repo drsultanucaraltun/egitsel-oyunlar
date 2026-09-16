@@ -76,7 +76,7 @@ b,strong{font-weight:700}
 #yonerge-metin{font-size:1.15rem;font-weight:700;color:var(--murekkep);flex:1}
 #model-durum{display:flex;align-items:center;gap:0.5rem;font-size:0.95rem;font-weight:700;color:var(--gri);white-space:nowrap}
 #model-cubuk-dis{width:130px;height:14px;background:var(--gri-acik);border-radius:7px;overflow:hidden;border:1px solid var(--cizgi)}
-#model-cubuk-ic{width:0;height:100%;background:var(--dogru);transition:width .3s}
+#model-cubuk-ic{width:0;height:100%;background:var(--dogru);transition:width .35s ease, background-color .35s ease}
 
 /* OYUN İÇ DÜZENİ */
 #oyun-alani{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;gap:0.6rem;padding-top:0.4rem}
@@ -144,14 +144,44 @@ b,strong{font-weight:700}
 .kutu-ikon{width:26px;height:26px;flex:0 0 auto}
 .kutu-baslik-metin{font-size:0.95rem;font-weight:700;color:var(--kutu-renk, var(--murekkep));line-height:1.2}
 .kutu-kural{font-size:0.75rem;font-weight:700;color:var(--gri);background:var(--gri-acik);padding:0.1rem 0.4rem;border-radius:6px;display:inline-block;margin-top:0.1rem}
-.kutu-sayac{margin-left:auto;font-size:0.85rem;font-weight:700;color:var(--gri);white-space:nowrap}
+.kutu-sayac{font-size:0.85rem;font-weight:700;color:var(--gri);white-space:nowrap}
+.kutu-hata-sayac{
+  font-size:0.75rem;font-weight:700;color:#DC2626;background:#FEE2E2;
+  padding:0.1rem 0.4rem;border-radius:6px;display:none;white-space:nowrap;
+}
+.kutu-hata-sayac.var{display:inline-block}
 
 /* Kutunun İçi / Yuva */
 .kutu-yuva{
   flex:1 1 auto;min-height:0;background:var(--gri-acik);border-radius:10px;
   padding:0.35rem;display:flex;flex-wrap:wrap;gap:0.35rem;align-content:flex-start;overflow-y:auto;
 }
-.kutu-yuva .kart{width:5.2rem;height:5rem;cursor:default;box-shadow:none;border-width:2px;animation:none}
+.kutu-yuva .kart{
+  width:5.2rem;height:5.2rem;cursor:grab;box-shadow:0 2px 5px rgba(0,0,0,0.06);border-width:2px;animation:none;
+  position:relative;
+}
+.kutu-yuva .kart:hover{border-color:var(--vurgu);transform:translateY(-2px);box-shadow:0 4px 8px rgba(37,99,235,0.18)}
+.kutu-yuva .kart[aria-pressed="true"]{
+  border-color:var(--odak);background:#F3E8FF;
+  box-shadow:0 0 0 3px rgba(124,58,237,0.35);transform:translateY(-3px);
+}
+.kutu-yuva .kart.hatali-yerlesim{
+  border:2.5px dashed var(--yanlis) !important;
+  background:#FEF2F2 !important;
+  animation:hataliNabiz 2s infinite ease-in-out;
+}
+@keyframes hataliNabiz{
+  0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,0.35)}
+  50%{box-shadow:0 0 0 4px rgba(220,38,38,0.22)}
+}
+.kart-uyari-rozet{
+  position:absolute;top:-6px;right:-6px;
+  background:#DC2626;color:#FFFFFF;border-radius:99px;
+  font-size:0.75rem;width:19px;height:19px;
+  display:inline-flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 4px rgba(0,0,0,0.25);
+  font-weight:700;z-index:5;pointer-events:none;
+}
 .kutu-yuva .kart svg{width:2.3rem;height:2.3rem}
 .kutu-yuva .kart .kart-ad{font-size:0.68rem}
 
@@ -245,18 +275,18 @@ b,strong{font-weight:700}
         <text x="280" y="56" font-size="16" text-anchor="middle">🍕 ❌</text>
       </svg>
       <p>Yapay zekâ sistemleri <b>kendisine sunulan girdi verilerinden</b> öğrenir. Kategoriye uymayan ya da hatalı bir veri o kategoride bulunursa yapay zekâ yanlış öğrenir.</p>
-      <p>Görsel kartları doğru kategorilere sürükleyiniz veya seçip kutuya tıklayınız. <b>Uymayan ve hatalı veriler o kategoride duramaz!</b> Onları Karantina Kutusuna ayıklayınız. Havuzdaki kartlar eksildikçe yeni veriler akacaktır.</p>
+      <p>Görsel kartları doğru kategorilere sürükleyiniz veya seçip kutuya tıklayınız. <b>Hatalı veya kategoriye uymayan veriler eklendiğinde model doğruluğu düşer!</b> Hatalı verileri doğru yerlerine veya Karantina Kutusuna taşıyarak model doğruluğunu %100'e ulaştırınız.</p>
       <button id="btn-basla" type="button">Başlamak için tıklayınız.</button>
     </section>
 
     <!-- ============ OYUN EKRANI ============ -->
     <section class="ekran" id="ekran-oyun" aria-labelledby="yonerge-metin">
       <div id="yonerge-seridi">
-        <div id="yonerge-metin" aria-live="polite">Kartı seçip uygun kategoriye yerleştiriniz. Hatalı veriler o kategoride duramaz!</div>
+        <div id="yonerge-metin" aria-live="polite">Kartı seçip uygun kategoriye yerleştiriniz. Yanlış veriler model doğruluğunu düşürür!</div>
         <div id="model-durum">
           <span>Model Doğruluğu:</span>
           <div id="model-cubuk-dis"><div id="model-cubuk-ic"></div></div>
-          <span id="model-yuzde">%0</span>
+          <span id="model-yuzde">%50</span>
         </div>
       </div>
 
@@ -281,11 +311,11 @@ b,strong{font-weight:700}
       <div id="son-yildizlar" aria-hidden="true"></div>
       <div id="son-puan"></div>
       <div class="ozet-kutu">
-        <strong>Temiz Veri İlkemiz:</strong>
+        <strong>Öğrendiklerimiz & Yapay Zekâ İlkeleri:</strong>
         <ul>
-          <li><b>Farklı veri kategoride duramaz:</b> Meyve kategorisine pizza veya hamburger, uykuya 25 saat, sıcaklığa 150°C giremez. Girdiğinde yapay zekâ sistemi bozulur!</li>
-          <li><b>Karantina ve Ayıklama:</b> Mantıksız ve kategori dışı veriler başarıyla elendi; yapay zekâ modeli temiz veriyle eğitildi.</li>
-          <li><b>Temiz Veri, Doğru Sonuç:</b> Yapay zekâ ancak girdi verileri doğru ve tutarlı olduğunda güvenilir tahminler üretebilir.</li>
+          <li><b>Hatalı Veri Modeli Bozar:</b> Kategoriye uymayan ya da hatalı veriler (ör. meyveye pizza, uykuya 25 saat, sıcaklığa 150°C) eklendiğinde yapay zekânın model doğruluğu hızla düştü.</li>
+          <li><b>Veri Ayıklama Doğruluğu Artırır:</b> Hatalı veriler tespit edilip karantinaya taşındığında ve doğru kategorilere yerleştirildiğinde model doğruluğu yeniden yükselerek %100'e ulaştı.</li>
+          <li><b>Temiz Veri, Güvenilir Sonuç:</b> Yapay zekâ ancak girdi verileri doğru, tutarlı ve temiz olduğunda güvenilir tahminler üretebilir.</li>
         </ul>
       </div>
       <button class="ikincil-buton" id="btn-yeniden" type="button">Etkinliği Yeniden Başlat</button>
@@ -468,16 +498,46 @@ function bildirimTemizle(){
   gb.className = "";
   gb.innerHTML = "";
 }
-
-/* ============ EKRAN GEÇİŞİ ============ */
 function ekranAc(i){
   aktifEkran = i;
   ekranlar.forEach(function(id, k){
     $(id).classList.toggle("acik", k === i);
   });
   $("btn-geri").disabled = (i === 0);
-  $("btn-ileri").disabled = !(i === 1 && kalanKartSayisi === 0);
+  var dogruluk = hesaplaModelDogrulugu();
+  $("btn-ileri").disabled = !(i === 1 && kalanKartSayisi === 0 && dogruluk === 100);
   bildirimTemizle();
+}
+
+/* ============ YARDIMCI VE SEÇİM YÖNETİMİ ============ */
+function secimleriTemizle(){
+  seciliKartId = null;
+  var secililer = document.querySelectorAll('.kart[aria-pressed="true"]');
+  for(var i = 0; i < secililer.length; i++){
+    secililer[i].setAttribute("aria-pressed", "false");
+  }
+}
+
+function kartNerede(kartId){
+  for(var i = 0; i < KATEGORILER.length; i++){
+    var kid = KATEGORILER[i].id;
+    if(yerlesenKartlar[kid] && yerlesenKartlar[kid].indexOf(kartId) !== -1){
+      return kid;
+    }
+  }
+  return null;
+}
+
+function kartSec(kartId, btn){
+  if(kilit) return;
+  if(seciliKartId === kartId){
+    secimleriTemizle();
+    return;
+  }
+  secimleriTemizle();
+  seciliKartId = kartId;
+  btn.setAttribute("aria-pressed", "true");
+  sesCal("tik");
 }
 
 /* ============ OYUN VE HAVUZ KURULUMU ============ */
@@ -507,7 +567,10 @@ function oyunuKur(){
         '<div class="kutu-baslik-metin">' + k.ad + '</div>' +
         '<span class="kutu-kural">' + k.kural + '</span>' +
       '</div>' +
-      '<span class="kutu-sayac" id="sayac-' + k.id + '">0</span>' +
+      '<div style="margin-left:auto;display:flex;align-items:center;gap:0.35rem">' +
+        '<span class="kutu-hata-sayac" id="hata-' + k.id + '"></span>' +
+        '<span class="kutu-sayac" id="sayac-' + k.id + '">0</span>' +
+      '</div>' +
     '</div>' +
     '<div class="kutu-yuva" id="yuva-' + k.id + '"></div>';
 
@@ -570,6 +633,7 @@ function havuzKartEkle(k){
   btn.innerHTML = (CIZIMLER[k.cizim] || '') + '<span class="kart-ad">' + k.ad + '</span>';
 
   btn.addEventListener("dragstart", function(e){
+    secimleriTemizle();
     seciliKartId = k.id;
     btn.classList.add("suruklenen");
     e.dataTransfer.setData("text/plain", k.id);
@@ -579,12 +643,14 @@ function havuzKartEkle(k){
     btn.classList.remove("suruklenen");
   });
 
-  btn.addEventListener("click", function(){
+  btn.addEventListener("click", function(e){
+    e.stopPropagation();
     kartSec(k.id, btn);
   });
   btn.addEventListener("keydown", function(e){
     if(e.key === "Enter" || e.key === " "){
       e.preventDefault();
+      e.stopPropagation();
       kartSec(k.id, btn);
     }
   });
@@ -592,21 +658,89 @@ function havuzKartEkle(k){
   havuz.appendChild(btn);
 }
 
-function kartSec(kartId, btn){
-  if(kilit) return;
-  var hepsi = $("kart-havuzu").querySelectorAll(".kart");
-  if(seciliKartId === kartId){
-    seciliKartId = null;
-    btn.setAttribute("aria-pressed", "false");
-    return;
+function kutuKartOlustur(k, kutuId, dogruMu){
+  var btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "kart" + (dogruMu ? "" : " hatali-yerlesim");
+  btn.setAttribute("draggable", "true");
+  btn.setAttribute("data-kart-id", k.id);
+  btn.setAttribute("aria-pressed", "false");
+  btn.setAttribute("aria-label", k.ad + (dogruMu ? " (Doğru yerleşim)" : " (Hatalı yerleşim! Taşımak için seçiniz)"));
+  if(!dogruMu){
+    btn.setAttribute("title", "Hatalı veri! Taşımak için tıklayınız veya sürükleyiniz.");
   }
-  hepsi.forEach(function(b){ b.setAttribute("aria-pressed", "false"); });
-  seciliKartId = kartId;
-  btn.setAttribute("aria-pressed", "true");
-  sesCal("tik");
+
+  var rozetHtml = dogruMu ? '' : '<span class="kart-uyari-rozet" aria-hidden="true">⚠️</span>';
+  btn.innerHTML = rozetHtml + (CIZIMLER[k.cizim] || '') + '<span class="kart-ad">' + k.ad + '</span>';
+
+  btn.addEventListener("dragstart", function(e){
+    secimleriTemizle();
+    seciliKartId = k.id;
+    btn.classList.add("suruklenen");
+    e.dataTransfer.setData("text/plain", k.id);
+    e.dataTransfer.effectAllowed = "move";
+  });
+  btn.addEventListener("dragend", function(){
+    btn.classList.remove("suruklenen");
+  });
+
+  btn.addEventListener("click", function(e){
+    e.stopPropagation();
+    kartSec(k.id, btn);
+  });
+  btn.addEventListener("keydown", function(e){
+    if(e.key === "Enter" || e.key === " "){
+      e.preventDefault();
+      e.stopPropagation();
+      kartSec(k.id, btn);
+    }
+  });
+
+  return btn;
 }
 
-/* ============ KUTUYA YERLEŞTİRME & "BURADA DURAMAZ!" MANTIĞI ============ */
+/* ============ MODEL DOĞRULUĞU HESABI ============ */
+function hesaplaModelDogrulugu(){
+  var dogruSayisi = 0;
+  var yanlisSayisi = 0;
+
+  for(var i = 0; i < KATEGORILER.length; i++){
+    var kid = KATEGORILER[i].id;
+    var kartlar = yerlesenKartlar[kid] || [];
+    for(var j = 0; j < kartlar.length; j++){
+      var kId = kartlar[j];
+      var kVeri = null;
+      for(var m = 0; m < TUM_KARTLAR.length; m++){
+        if(TUM_KARTLAR[m].id === kId){ kVeri = TUM_KARTLAR[m]; break; }
+      }
+      if(kVeri){
+        if(kVeri.dogruKutu === kid){
+          dogruSayisi++;
+        } else {
+          yanlisSayisi++;
+        }
+      }
+    }
+  }
+
+  // Model başlangıç bazı: %50
+  // Her doğru yerleşen kart katkısı: 50% * (dogru / toplam)
+  // Her hatalı veri cezası: her yanlış kart için -12%
+  var dogruKatki = Math.round((dogruSayisi / toplamKartSayisi) * 50);
+  var ceza = yanlisSayisi * 12;
+  var dogruluk = 50 + dogruKatki - ceza;
+
+  if(dogruluk < 0) dogruluk = 0;
+  if(dogruluk > 100) dogruluk = 100;
+
+  if(kalanKartSayisi === 0 && yanlisSayisi === 0 && dogruSayisi === toplamKartSayisi){
+    dogruluk = 100;
+  }
+
+  return dogruluk;
+}
+
+/* ============ KUTUYA YERLEŞTİRME & DİNAMİK DOĞRULUK MANTIĞI ============ */
 function kutuyaYerlestir(kartId, kutuId, kutuEl){
   if(kilit) return;
   var kartVeri = null;
@@ -615,94 +749,177 @@ function kutuyaYerlestir(kartId, kutuId, kutuEl){
   }
   if(!kartVeri) return;
 
-  var kartEl = $("kart-havuzu").querySelector('[data-kart-id="' + kartId + '"]');
-  if(!kartEl) return;
+  var eskiKutuId = kartNerede(kartId);
 
-  var kutuVeri = null;
-  for(var j = 0; j < KATEGORILER.length; j++){
-    if(KATEGORILER[j].id === kutuId){ kutuVeri = KATEGORILER[j]; break; }
+  // Aynı kutuya tekrar bırakıldıysa işlem yapma
+  if(eskiKutuId === kutuId){
+    secimleriTemizle();
+    return;
   }
 
-  // KONTROL: Bu kart bu kutunun kabul listesinde var mı?
-  var kabulMu = kutuVeri.kabul.indexOf(kartId) !== -1;
+  var oncekiDogruluk = hesaplaModelDogrulugu();
+  var dogruMu = (kartVeri.dogruKutu === kutuId);
 
-  if(kabulMu){
-    // DOĞRU YERLEŞİM: Kutuya kabul edildi ve yerleşti!
+  // 1. Eski konumdan kaldır
+  if(eskiKutuId){
+    var idx = yerlesenKartlar[eskiKutuId].indexOf(kartId);
+    if(idx !== -1) yerlesenKartlar[eskiKutuId].splice(idx, 1);
+    var eskiDom = $("yuva-" + eskiKutuId).querySelector('[data-kart-id="' + kartId + '"]');
+    if(eskiDom && eskiDom.parentNode) eskiDom.parentNode.removeChild(eskiDom);
+  } else {
+    var havuzDom = $("kart-havuzu").querySelector('[data-kart-id="' + kartId + '"]');
+    if(havuzDom && havuzDom.parentNode) havuzDom.parentNode.removeChild(havuzDom);
+    kalanKartSayisi--;
+    if(kartKuyrugu.length > 0){
+      havuzKartEkle(kartKuyrugu.shift());
+    }
+  }
+
+  // 2. Hedef kutuya ekle
+  yerlesenKartlar[kutuId].push(kartId);
+  var yeniDom = kutuKartOlustur(kartVeri, kutuId, dogruMu);
+  $("yuva-" + kutuId).appendChild(yeniDom);
+
+  secimleriTemizle();
+
+  // 3. Doğruluk ve sayaçları güncelle
+  var yeniDogruluk = hesaplaModelDogrulugu();
+  sayaclariGuncelle();
+
+  // 4. Ses ve geri bildirim
+  var hedefKutuBaslik = kutuEl.querySelector(".kutu-baslik-metin");
+  var hedefAd = hedefKutuBaslik ? hedefKutuBaslik.textContent : "";
+
+  if(dogruMu){
     sesCal("dogru");
     puan += 10;
     skorGuncelle();
     kutuEl.classList.add("kabul");
     setTimeout(function(){ kutuEl.classList.remove("kabul"); }, 350);
 
-    // Kartı havuzdan kaldırıp kutu yuvasına yerleştir
-    kartEl.parentNode.removeChild(kartEl);
-    seciliKartId = null;
+    var artis = yeniDogruluk - oncekiDogruluk;
+    var artisMetin = (artis > 0 ? " (%" + oncekiDogruluk + " ➔ %" + yeniDogruluk + ")" : " (%" + yeniDogruluk + ")");
 
-    var yerlesen = document.createElement("div");
-    yerlesen.className = "kart";
-    yerlesen.innerHTML = (CIZIMLER[kartVeri.cizim] || '') + '<span class="kart-ad">' + kartVeri.ad + '</span>';
-    $("yuva-" + kutuId).appendChild(yerlesen);
-
-    yerlesenKartlar[kutuId].push(kartId);
-    kalanKartSayisi--;
-
-    // Eksildikçe havuzda yeni kart belirsin!
-    if(kartKuyrugu.length > 0){
-      havuzKartEkle(kartKuyrugu.shift());
-    }
-
-    sayaclariGuncelle();
-
-    if(kutuVeri.karantina){
-      bildir('<b>🛡️ Hatalı Veri Karantinaya Alındı!</b><br><small>' + kartVeri.ad + ' ayıklandı, yapay zekâ korundu.</small>', "iyi");
+    if(eskiKutuId){
+      bildir('<b>✓ Harika! Model Doğruluğu Arttı' + artisMetin + '</b><br><small>' + kartVeri.ad + ' doğru kategoriye taşındı, yapay zekâ modeli temizlendi!</small>', "iyi");
     } else {
-      bildir('<b>✓ Temiz Veri Kabul Edildi:</b><br><small>' + kartVeri.ad + ' doğru kategoriye yerleşti.</small>', "iyi");
-    }
-
-    // Oyun bitti mi?
-    if(kalanKartSayisi === 0){
-      kilit = true;
-      yildiz = 1;
-      skorGuncelle();
-      setTimeout(oyunuBitir, 1200);
+      if(kutuId === "karantina"){
+        bildir('<b>🛡️ Model Doğruluğu Arttı' + artisMetin + '</b><br><small>' + kartVeri.ad + ' karantinaya ayıklandı, yapay zekâ korundu.</small>', "iyi");
+      } else {
+        bildir('<b>✓ Temiz Veri Eklendi' + artisMetin + '</b><br><small>' + kartVeri.ad + ' ' + hedefAd + ' modeline başarıyla eklendi.</small>', "iyi");
+      }
     }
   } else {
-    // BURADA DURAMAZ! Hatalı / yabancı veri o kategoride barınamaz!
     sesCal("firlat");
     kutuEl.classList.add("duramaz");
-    kartEl.classList.add("firlayan");
+    setTimeout(function(){ kutuEl.classList.remove("duramaz"); }, 450);
 
-    var hataMetni = '<b>⛔ BU VERİ BURADA DURAMAZ!</b><br>' + (kartVeri.hataNedeni || "Bu veri bu kategorinin şartlarına uymuyor!");
+    var azalis = oncekiDogruluk - yeniDogruluk;
+    var azalisMetin = (azalis > 0 ? " (%" + oncekiDogruluk + " ➔ %" + yeniDogruluk + ")" : " (%" + yeniDogruluk + ")");
+
+    var hataMetni = '<b>⚠️ Model Doğruluğu Düştü' + azalisMetin + '!</b><br><small>' +
+      (kartVeri.hataNedeni || (kartVeri.ad + ' bu modele uygun değil!')) +
+      '<br>Düzeltmek için bu karta tıklayıp/sürükleyip doğru kutusuna (veya Karantinaya) taşıyınız.</small>';
     bildir(hataMetni, "kotu");
-
-    setTimeout(function(){
-      kutuEl.classList.remove("duramaz");
-      kartEl.classList.remove("firlayan");
-      kartEl.setAttribute("aria-pressed", "false");
-      seciliKartId = null;
-    }, 550);
   }
+
+  // 5. Oyun bitiş kontrolü
+  kontrolOyunBitis();
 }
 
 function sayaclariGuncelle(){
   $("kalan-sayac").textContent = "Kalan: " + kalanKartSayisi + " / " + toplamKartSayisi;
+
+  var toplamYanlis = 0;
+
   KATEGORILER.forEach(function(k){
     var el = $("sayac-" + k.id);
-    if(el && yerlesenKartlar[k.id]) el.textContent = yerlesenKartlar[k.id].length;
+    var hataEl = $("hata-" + k.id);
+    var kartlar = yerlesenKartlar[k.id] || [];
+    if(el) el.textContent = kartlar.length;
+
+    var buKutuYanlis = 0;
+    for(var j = 0; j < kartlar.length; j++){
+      for(var m = 0; m < TUM_KARTLAR.length; m++){
+        if(TUM_KARTLAR[m].id === kartlar[j] && TUM_KARTLAR[m].dogruKutu !== k.id){
+          buKutuYanlis++;
+          break;
+        }
+      }
+    }
+    toplamYanlis += buKutuYanlis;
+
+    if(hataEl){
+      if(buKutuYanlis > 0){
+        hataEl.textContent = "⚠️ " + buKutuYanlis + " Hatalı";
+        hataEl.classList.add("var");
+      } else {
+        hataEl.classList.remove("var");
+      }
+    }
   });
 
-  // Model doğruluk çubuğu
-  var yerlesenSayi = toplamKartSayisi - kalanKartSayisi;
-  var oran = Math.round(yerlesenSayi / toplamKartSayisi * 100);
-  $("model-cubuk-ic").style.width = oran + "%";
-  $("model-yuzde").textContent = "%" + oran;
+  var dogruluk = hesaplaModelDogrulugu();
+  $("model-cubuk-ic").style.width = dogruluk + "%";
+  $("model-yuzde").textContent = "%" + dogruluk;
+
+  if(toplamYanlis > 0 || dogruluk < 50){
+    $("model-cubuk-ic").style.background = "#DC2626";
+    $("model-yuzde").style.color = "#DC2626";
+  } else if(dogruluk >= 80){
+    $("model-cubuk-ic").style.background = "var(--dogru)";
+    $("model-yuzde").style.color = "var(--dogru)";
+  } else {
+    $("model-cubuk-ic").style.background = "var(--vurgu)";
+    $("model-yuzde").style.color = "var(--murekkep)";
+  }
+}
+
+function kontrolOyunBitis(){
+  var yanlisSayisi = 0;
+  var dogruSayisi = 0;
+  for(var i = 0; i < KATEGORILER.length; i++){
+    var kid = KATEGORILER[i].id;
+    var kartlar = yerlesenKartlar[kid] || [];
+    for(var j = 0; j < kartlar.length; j++){
+      var kId = kartlar[j];
+      for(var m = 0; m < TUM_KARTLAR.length; m++){
+        if(TUM_KARTLAR[m].id === kId){
+          if(TUM_KARTLAR[m].dogruKutu === kid){
+            dogruSayisi++;
+          } else {
+            yanlisSayisi++;
+          }
+          break;
+        }
+      }
+    }
+  }
+
+  var ym = $("yonerge-metin");
+  if(kalanKartSayisi === 0 && yanlisSayisi === 0 && dogruSayisi === toplamKartSayisi){
+    kilit = true;
+    yildiz = 1;
+    skorGuncelle();
+    $("btn-ileri").disabled = false;
+    if(ym) ym.textContent = "🎉 Harika! Tüm veriler başarıyla ayıklandı, model doğruluğu %100'e ulaştı!";
+    bildir("<b>🎉 TEBRİKLER! %100 MODEL DOĞRULUĞU</b><br><small>Tüm veriler temizlendi, yapay zekâ modeli mükemmel eğitildi!</small>", "iyi");
+    setTimeout(oyunuBitir, 1500);
+  } else if(kalanKartSayisi === 0 && yanlisSayisi > 0){
+    $("btn-ileri").disabled = true;
+    if(ym) ym.textContent = "⚠️ Kutularda " + yanlisSayisi + " adet hatalı veri var! Doğruluğu %100 yapmak için kırmızı işaretli kartları doğru kutularına taşıyınız.";
+  } else if(yanlisSayisi > 0){
+    if(ym) ym.textContent = "⚠️ Dikkat: Kutuda hatalı veri var (" + yanlisSayisi + " adet)! Kırmızı kartları doğru kutulara taşıyarak doğruluğu artırabilirsiniz.";
+  } else {
+    if(ym) ym.textContent = "Kartı seçip uygun kategoriye yerleştiriniz. Hatalı veriler model doğruluğunu düşürür!";
+  }
 }
 
 function oyunuBitir(){
   ekranAc(2);
   var kap = $("son-yildizlar");
   kap.innerHTML = '<div><svg viewBox="0 0 24 24"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="#D97706"/></svg></div>';
-  $("son-puan").textContent = "Toplam Puanınız: " + puan + " / " + (toplamKartSayisi * 10);
+  $("son-puan").textContent = "Model Doğruluğu: %100 • Toplam Puan: " + puan;
   konfetiPatlat();
 }
 
@@ -801,7 +1018,7 @@ $("btn-geri").addEventListener("click", function(){
 });
 
 $("btn-ileri").addEventListener("click", function(){
-  if(aktifEkran === 1 && kalanKartSayisi === 0) ekranAc(2);
+  if(aktifEkran === 1 && kalanKartSayisi === 0 && hesaplaModelDogrulugu() === 100) ekranAc(2);
 });
 
 $("btn-basla").addEventListener("click", function(){
