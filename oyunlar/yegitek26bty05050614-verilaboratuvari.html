@@ -119,8 +119,8 @@ b,strong{font-weight:700}
   100%{transform:translateY(0) scale(1) rotate(0)}
 }
 
-/* Alt Bölüm: Kategori Kutuları Grid'i */
-#kategoriler-alani{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:repeat(4, 1fr) 1.25fr;gap:0.6rem;align-items:stretch}
+/* Alt Bölüm: Kategori Kutuları Grid'i (Tüm kutular eşit genişlikte) */
+#kategoriler-alani{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:repeat(5, 1fr);gap:0.6rem;align-items:stretch}
 
 /* Tek Kategori Kutusu */
 .kategori-kutu{
@@ -192,21 +192,21 @@ b,strong{font-weight:700}
   background:#FAF5FF;
 }
 
-/* ============ MERKEZİ FEEDBACK ÇUBUĞU ============ */
+/* ============ DÖNÜT (GERİ BİLDİRİM) ÇUBUĞU ============ */
 #geribildirim{
-  position:absolute;left:50%;top:50%;transform:translate(-50%, -50%);
-  max-width:min(90%,38rem);width:auto;font-size:1.2rem;font-weight:700;border-radius:18px;
-  padding:1rem 1.8rem;display:none;text-align:center;z-index:60;
-  box-shadow:0 12px 36px rgba(0,0,0,0.28);pointer-events:none;
-  line-height:1.45;
+  position:absolute;left:50%;bottom:1.4rem;top:auto;transform:translateX(-50%);
+  max-width:min(92%,42rem);width:auto;font-size:1.15rem;font-weight:700;border-radius:16px;
+  padding:0.8rem 1.8rem;display:none;text-align:center;z-index:60;
+  box-shadow:0 8px 26px rgba(0,0,0,0.28);pointer-events:none;
+  line-height:1.4;
 }
-#geribildirim.goster{display:block;animation:popMerkez .22s cubic-bezier(0.18, 0.89, 0.32, 1.28)}
+#geribildirim.goster{display:block;animation:popAlt .22s cubic-bezier(0.18, 0.89, 0.32, 1.28)}
 #geribildirim.iyi{background:var(--dogru);color:#FFFFFF;border:3px solid #14532D}
 #geribildirim.kotu{background:var(--yanlis);color:#FFFFFF;border:3px solid #7F1D1D}
 
-@keyframes popMerkez{
-  from{opacity:0;transform:translate(-50%, -42%) scale(0.85)}
-  to{opacity:1;transform:translate(-50%, -50%) scale(1)}
+@keyframes popAlt{
+  from{opacity:0;transform:translate(-50%, 18px) scale(0.92)}
+  to{opacity:1;transform:translate(-50%, 0) scale(1)}
 }
 
 /* ============ SON EKRAN ============ */
@@ -321,7 +321,7 @@ b,strong{font-weight:700}
       <button class="ikincil-buton" id="btn-yeniden" type="button">Etkinliği Yeniden Başlat</button>
     </section>
 
-    <!-- Sayfanın Ortasında Konumlanan Feedback Bildirim Kutusu -->
+    <!-- Ekranın Altında Konumlanan Dönüt Bildirim Kutusu -->
     <div id="geribildirim" role="alert" aria-live="assertive"></div>
   </main>
 
