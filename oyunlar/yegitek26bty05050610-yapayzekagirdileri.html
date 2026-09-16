@@ -604,140 +604,6 @@ b,strong{font-weight:700}
   cursor:not-allowed;
 }
 
-#ustbar-hak-kutusu{
-  background:rgba(220,38,38,0.08);
-  border:2px solid #FECACA;
-  padding:0.25rem 0.65rem;
-  border-radius:10px;
-}
-#hak-sayac{display:inline-flex;align-items:center;gap:4px;font-size:1.25rem;}
-.kalp-parlak{
-  display:inline-block;
-  opacity:1;
-  filter:drop-shadow(0 0 3px rgba(239,68,68,0.6));
-  transition:all 0.25s ease;
-}
-.kalp-soluk{
-  display:inline-block;
-  opacity:0.22;
-  filter:grayscale(60%);
-  transform:scale(0.9);
-  transition:all 0.25s ease;
-}
-
-/* ============ DOĞRU CEVAPLAR MODALI (2 HATA HAKKI DOLDUĞUNDA) ============ */
-.modal-arkaplan{
-  position:fixed;
-  inset:0;
-  background:rgba(15,23,42,0.8);
-  backdrop-filter:blur(4px);
-  -webkit-backdrop-filter:blur(4px);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-  padding:1rem;
-}
-.modal-arkaplan.acik{
-  display:flex;
-  animation:modalAcil .2s ease-out;
-}
-@keyframes modalAcil{
-  from{opacity:0;transform:scale(0.95)}
-  to{opacity:1;transform:scale(1)}
-}
-.modal-kutu{
-  background:#FFFFFF;
-  border:4px solid #EF4444;
-  border-radius:22px;
-  max-width:38rem;
-  width:100%;
-  max-height:90vh;
-  display:flex;
-  flex-direction:column;
-  box-shadow:0 20px 45px rgba(0,0,0,0.4);
-  overflow:hidden;
-}
-.modal-ust{
-  background:linear-gradient(135deg,#FEF2F2,#FEE2E2);
-  border-bottom:2px solid #FCA5A5;
-  padding:1rem 1.3rem;
-  display:flex;
-  align-items:center;
-  gap:0.9rem;
-}
-.modal-ikon-uyari{
-  font-size:2.4rem;
-  flex:0 0 auto;
-  line-height:1;
-}
-.modal-ust h3{
-  font-size:1.4rem;
-  font-weight:900;
-  color:#991B1B;
-  margin-bottom:0.2rem;
-}
-.modal-aciklama{
-  font-size:0.98rem;
-  font-weight:600;
-  color:#7F1D1D;
-  line-height:1.3;
-}
-.modal-icerik{
-  padding:1rem 1.3rem;
-  overflow-y:auto;
-  display:flex;
-  flex-direction:column;
-  gap:0.55rem;
-}
-.cevap-karti{
-  background:#F8FAFC;
-  border:2px solid #E2E8F0;
-  border-left:5px solid #2563EB;
-  border-radius:12px;
-  padding:0.55rem 0.85rem;
-  font-size:1rem;
-  line-height:1.35;
-  color:#1E293B;
-}
-.cevap-karti strong{
-  color:#1D4ED8;
-}
-.cevap-not{
-  background:#EFF6FF;
-  border:2px dashed #93C5FD;
-  border-radius:12px;
-  padding:0.6rem 0.85rem;
-  font-size:0.92rem;
-  line-height:1.35;
-  color:#1E40AF;
-  margin-top:0.2rem;
-}
-.modal-alt{
-  background:#F8FAFC;
-  border-top:2px solid #E2E8F0;
-  padding:0.85rem 1.3rem;
-  display:flex;
-  justify-content:flex-end;
-}
-.modal-gec-btn{
-  background:linear-gradient(135deg,#2563EB,#1D4ED8);
-  color:#FFFFFF;
-  border:none;
-  border-radius:14px;
-  padding:0.75rem 1.8rem;
-  font-size:1.12rem;
-  font-weight:800;
-  display:inline-flex;
-  align-items:center;
-  gap:0.6rem;
-  box-shadow:0 4px 14px rgba(37,99,235,0.3);
-  cursor:pointer;
-  transition:all 0.12s;
-}
-.modal-gec-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
-.modal-gec-btn:active{transform:translateY(2px)}
-
 @keyframes sarsil{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 </style>
 </head>
@@ -756,10 +622,6 @@ b,strong{font-weight:700}
     </div>
 
     <div id="skor-alani">
-      <span class="skor-bilesen" id="ustbar-hak-kutusu">
-        <span style="color:#DC2626;">Hak:</span>
-        <span id="hak-sayac"><span class="kalp-parlak" aria-hidden="true">❤️</span><span class="kalp-parlak" aria-hidden="true">❤️</span></span>
-      </span>
       <span class="skor-bilesen">
         <span>Puan:</span>
         <span id="puan-sayac">0 / 100</span>
@@ -934,30 +796,6 @@ b,strong{font-weight:700}
     </section>
   </main>
  
-  <!-- ============ DOĞRU CEVAPLAR MODALI (2 HATA HAKKI DOLDUĞUNDA) ============ -->
-  <div id="cevap-modal" class="modal-arkaplan" role="dialog" aria-modal="true" aria-labelledby="modal-baslik">
-    <div class="modal-kutu">
-      <div class="modal-ust">
-        <div class="modal-ikon-uyari">⚠️</div>
-        <div>
-          <h3 id="modal-baslik">2 Yanlış Hakkınız Doldu!</h3>
-          <p class="modal-aciklama">Konuyu daha iyi kavramak için bu bölümün doğru cevaplarını inceleyiniz:</p>
-        </div>
-      </div>
-      
-      <div class="modal-icerik" id="modal-cevap-listesi">
-        <!-- Dinamik olarak o bölümün doğru cevapları doldurulur -->
-      </div>
-
-      <div class="modal-alt">
-        <button type="button" id="btn-modal-gec" class="modal-gec-btn">
-          <span id="modal-btn-metin">Sonraki Bölüme Geç</span>
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-
   <!-- ============ ALT BAR ============ -->
   <footer id="altbar">
     <button class="nav-btn" id="btn-geri" type="button" disabled>Geri</button>
@@ -1029,7 +867,6 @@ var bolumPuanlari = [0, 0, 0];
 var toplamPuan = 0;
 var yildizlar = [false, false, false];
 var yaziOlcek = 100;
-var bolumHataSayisi = 0;
 var bolumKodlari = ["3-1", "3-2", "3-3"];
 
 /* Robot Konumu (0: Sol, 1: Orta, 2: Sağ) */
@@ -1041,15 +878,6 @@ var kapsulHiz = 1.7;
 var mevcutDalgaKartlari = [null, null, null];
 var hedefSayisi = 0;
 var gerekenHedef = 5;
-
-function hakGuncelle(){
-  var kalan = Math.max(0, 2 - bolumHataSayisi);
-  var html = "";
-  for(var i = 0; i < 2; i++){
-    html += (i < kalan ? '<span class="kalp-parlak" aria-hidden="true">❤️</span>' : '<span class="kalp-soluk" aria-hidden="true">❤️</span>');
-  }
-  $("hak-sayac").innerHTML = html;
-}
 
 /* ============ SVG İKONLAR ============ */
 var IKONLAR = {
@@ -1335,8 +1163,6 @@ function kapsulYakalandi(){
   } else {
     // Hatalı Yakalama!
     sesCal("yanlis");
-    bolumHataSayisi++;
-    hakGuncelle();
 
     govdeEl.className = "kapsul-govde temas-yanlis";
     robotEl.className = "robot-sarsil";
@@ -1351,23 +1177,11 @@ function kapsulYakalandi(){
     pist.style.borderColor = "#EF4444";
     setTimeout(function(){ pist.style.borderColor = "#38BDF8"; }, 400);
 
-    if(bolumHataSayisi >= 2){
-      // 2 HATA HAKKI DOLDU!
-      bildir("✗ 2 Yanlış Hakkınız Doldu!", "uyari", true);
-      yildizlar[aktifBolum] = false;
-      skorGuncelle();
-      setTimeout(function(){
-        temasEfektleriniSifirla();
-        cevapModaliniAc(aktifBolum);
-      }, 600);
-      return;
-    } else {
-      bildir("✗ DİKKAT! " + secilenKart.aciklama + " (Kalan Hata Hakkınız: 1)", "uyari");
-      setTimeout(function(){
-        temasEfektleriniSifirla();
-        yeniKapsulFirlat();
-      }, 700);
-    }
+    bildir("✗ DİKKAT! " + secilenKart.aciklama, "uyari");
+    setTimeout(function(){
+      temasEfektleriniSifirla();
+      yeniKapsulFirlat();
+    }, 700);
   }
 }
 
@@ -1434,9 +1248,7 @@ function bolumTamamla(){
 /* ============ BÖLÜM YÜKLEME ============ */
 function bolumuBaslat(bolumIdx){
   aktifBolum = bolumIdx;
-  bolumHataSayisi = 0;
   bolumPuanlari[bolumIdx] = 0;
-  hakGuncelle();
   skorGuncelle();
   bildirimTemizle();
   hedefSayisi = 0;
@@ -1470,41 +1282,6 @@ function skorGuncelle(){
   toplamPuan = bolumPuanlari[0] + bolumPuanlari[1] + bolumPuanlari[2];
   if(toplamPuan > 100) toplamPuan = 100;
   $("puan-sayac").textContent = toplamPuan + " / 100";
-}
-
-/* ============ DOĞRU CEVAPLAR MODALI ============ */
-function cevapModaliniAc(bolumIdx){
-  var modal = $("cevap-modal");
-  var liste = $("modal-cevap-listesi");
-  var btnMetin = $("modal-btn-metin");
-
-  var html = "";
-  if(bolumIdx === 0){
-    html += '<div class="cevap-karti"><strong>🎧 Ses Girdisi:</strong> Mikrofonla kaydedilen insan veya ortam sesi.</div>';
-    html += '<div class="cevap-karti"><strong>📷 Görüntü Girdisi:</strong> Kamera veya sensörle çekilen fotoğraf ve resimler.</div>';
-    html += '<div class="cevap-karti"><strong>📝 Metin Girdisi:</strong> Klavyeyle yazılan e-posta, mesaj veya komut cümleleri.</div>';
-    html += '<div class="cevap-karti"><strong>🔢 Sayısal Veri Girdisi:</strong> Sıcaklık, yaş, puan gibi doğrudan ölçülen sayılar.</div>';
-    html += '<div class="cevap-karti"><strong>🚨 Sensör Girdisi:</strong> Hareket algılayıcı, nabız ölçer gibi çevresel sinyaller.</div>';
-  } else if(bolumIdx === 1){
-    html += '<div class="cevap-karti"><strong>✓ Net İfade:</strong> "Gelecek cumartesi saat 17.00\'de bize gel." komutu açık ve anlaşılırdır.</div>';
-    html += '<div class="cevap-karti"><strong>✓ Doğru Etiketleme:</strong> Kedi fotoğrafına "Kedi" etiketi basmak modeli doğru eğitir.</div>';
-    html += '<div class="cevap-karti"><strong>✓ Çeşitli Kaynaklar:</strong> Farklı ırklardan çeşitli kedi fotoğrafları zengin veri sağlar.</div>';
-    html += '<div class="cevap-karti"><strong>✓ Güncellik:</strong> Bugüne ait güncel hava ölçümleri doğru tahmin üretir.</div>';
-    html += '<div class="cevap-karti"><strong>✓ Sadelik:</strong> Sade ve konuyla ilgili öz veriler yapay zekâyı hızlandırır.</div>';
-  } else if(bolumIdx === 2){
-    html += '<div class="cevap-karti"><strong>🍲 Yemek Tarifi Girdisi ➔</strong> Yemeğin kendine özgü doğru malzemeleri</div>';
-    html += '<div class="cevap-karti"><strong>🗺️ Navigasyon Girdisi ➔</strong> Doğru ev adresi ve konum bilgisi</div>';
-    html += '<div class="cevap-karti"><strong>🎵 Müzik Önerisi Girdisi ➔</strong> Uygulamada dinlediğiniz şarkı geçmişi</div>';
-    html += '<div class="cevap-karti"><strong>⌨️ Otomatik Düzeltme Girdisi ➔</strong> Klavyede yazılan harfler ve heceler</div>';
-  }
-
-  liste.innerHTML = html;
-  if(bolumIdx < 2){
-    btnMetin.textContent = "Sonraki Bölüme Geç";
-  } else {
-    btnMetin.textContent = "Sonuç Ekranına Geç";
-  }
-  modal.classList.add("acik");
 }
 
 /* ============ EKRAN GEÇİŞİ ============ */
@@ -1585,17 +1362,6 @@ $("kapsul-0").addEventListener("click", function(){ robotuTasi(0); });
 $("kapsul-1").addEventListener("click", function(){ robotuTasi(1); });
 $("kapsul-2").addEventListener("click", function(){ robotuTasi(2); });
 
-$("btn-modal-gec").addEventListener("click", function(){
-  sesCal("tik");
-  $("cevap-modal").classList.remove("acik");
-  bildirimTemizle();
-  if(aktifBolum < 2){
-    bolumuBaslat(aktifBolum + 1);
-  } else {
-    oyunSonu();
-  }
-});
-
 document.addEventListener("keydown", function(e){
   if(aktifEkran !== 1) return;
   if(e.key === "ArrowLeft" || e.key === "a" || e.key === "A"){
@@ -1660,7 +1426,6 @@ $("btn-tam-ekran").addEventListener("click", function(){
   tamEkranDegistir();
 });
 
-hakGuncelle();
 skorGuncelle();
 </script>
 </body>
