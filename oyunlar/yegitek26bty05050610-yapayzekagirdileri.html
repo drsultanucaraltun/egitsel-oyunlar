@@ -933,7 +933,7 @@ b,strong{font-weight:700}
         <div class="modal-ikon-uyari">⚠️</div>
         <div>
           <h3 id="modal-baslik">2 Yanlış Hakkınız Doldu!</h3>
-          <p class="modal-aciklama">Bu bölüm için tanınan 2 hata hakkı tamamlandı. Konuyu daha iyi kavramak için bu bölümün doğru cevaplarını inceleyiniz:</p>
+          <p class="modal-aciklama">Konuyu daha iyi kavramak için bu bölümün doğru cevaplarını inceleyiniz:</p>
         </div>
       </div>
       
@@ -1430,6 +1430,7 @@ function bolumuBaslat(bolumIdx){
   bolumPuanlari[bolumIdx] = 0;
   hakGuncelle();
   skorGuncelle();
+  bildirimTemizle();
   hedefSayisi = 0;
   robotSerit = 1;
   robotuTasi(1);
@@ -1476,20 +1477,17 @@ function cevapModaliniAc(bolumIdx){
     html += '<div class="cevap-karti"><strong>📝 Metin Girdisi:</strong> Klavyeyle yazılan e-posta, mesaj veya komut cümleleri.</div>';
     html += '<div class="cevap-karti"><strong>🔢 Sayısal Veri Girdisi:</strong> Sıcaklık, yaş, puan gibi doğrudan ölçülen sayılar.</div>';
     html += '<div class="cevap-karti"><strong>🚨 Sensör Girdisi:</strong> Hareket algılayıcı, nabız ölçer gibi çevresel sinyaller.</div>';
-    html += '<div class="cevap-not"><strong>💡 Bilgi Notu:</strong> Video tek başına bir temel girdi türü değildir; hareketli görüntü ve sesin birleşimidir.</div>';
   } else if(bolumIdx === 1){
     html += '<div class="cevap-karti"><strong>✓ Net İfade:</strong> "Gelecek cumartesi saat 17.00\'de bize gel." komutu açık ve anlaşılırdır.</div>';
     html += '<div class="cevap-karti"><strong>✓ Doğru Etiketleme:</strong> Kedi fotoğrafına "Kedi" etiketi basmak modeli doğru eğitir.</div>';
     html += '<div class="cevap-karti"><strong>✓ Çeşitli Kaynaklar:</strong> Farklı ırklardan çeşitli kedi fotoğrafları zengin veri sağlar.</div>';
     html += '<div class="cevap-karti"><strong>✓ Güncellik:</strong> Bugüne ait güncel hava ölçümleri doğru tahmin üretir.</div>';
     html += '<div class="cevap-karti"><strong>✓ Sadelik:</strong> Sade ve konuyla ilgili öz veriler yapay zekâyı hızlandırır.</div>';
-    html += '<div class="cevap-not"><strong>💡 Bilgi Notu:</strong> Yanıltıcı başlıklar, eski tarihler ve eksik etiketler modeli hatalı eğitir.</div>';
   } else if(bolumIdx === 2){
     html += '<div class="cevap-karti"><strong>🍲 Yemek Tarifi Girdisi ➔</strong> Yemeğin kendine özgü doğru malzemeleri</div>';
     html += '<div class="cevap-karti"><strong>🗺️ Navigasyon Girdisi ➔</strong> Doğru ev adresi ve konum bilgisi</div>';
     html += '<div class="cevap-karti"><strong>🎵 Müzik Önerisi Girdisi ➔</strong> Uygulamada dinlediğiniz şarkı geçmişi</div>';
     html += '<div class="cevap-karti"><strong>⌨️ Otomatik Düzeltme Girdisi ➔</strong> Klavyede yazılan harfler ve heceler</div>';
-    html += '<div class="cevap-not"><strong>💡 Bilgi Notu:</strong> Doğru girdi olmadan hiçbir yapay zekâ sistemi doğru sonuç üretemez.</div>';
   }
 
   liste.innerHTML = html;
@@ -1582,6 +1580,7 @@ $("kapsul-2").addEventListener("click", function(){ robotuTasi(2); });
 $("btn-modal-gec").addEventListener("click", function(){
   sesCal("tik");
   $("cevap-modal").classList.remove("acik");
+  bildirimTemizle();
   if(aktifBolum < 2){
     bolumuBaslat(aktifBolum + 1);
   } else {
