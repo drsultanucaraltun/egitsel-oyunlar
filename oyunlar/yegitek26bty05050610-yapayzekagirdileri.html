@@ -668,11 +668,11 @@ b,strong{font-weight:700}
       </svg>
 
       <div class="giris-kutusu">
-        <p><b>Robotunuz BİLGİBOT'u kontrol ederek doğru girdileri yakalayınız!</b></p>
+        <p><b>Robotunuz BİLGİBOT'u kontrol ederek doğru girdileri yakalayınız.</b></p>
         <ul>
-          <li><b>1. Bölüm (Girdi Türü Avı):</b> Hedef gösterilen girdi türünü (Metin, Ses, Görüntü, Sayısal veya Sensör) yakalayınız! Çeldirici videolardan kaçınız.</li>
-          <li><b>2. Bölüm (Kaliteli Girdi Avı):</b> Net ifadeleri, doğru etiketleri ve güncel verileri yakalayarak yapay zekâ modelini eğitiniz; kusurlu verilerden kaçınız!</li>
-          <li><b>3. Bölüm (Günlük Hayat Girdileri):</b> Yemek tarifi malzemesi, navigasyon adresi, müzik geçmişi ve klavye harflerini yakalayınız!</li>
+          <li><b>1. Bölüm (Girdi Türü Avı):</b> Hedef gösterilen girdi türünü (Metin, Ses, Görüntü, Sayısal veya Sensör) yakalayınız. Çeldirici videolardan kaçınız.</li>
+          <li><b>2. Bölüm (Kaliteli Girdi Avı):</b> Net ifadeleri, doğru etiketleri ve güncel verileri yakalayarak yapay zekâ modelini eğitiniz; kusurlu verilerden kaçınız.</li>
+          <li><b>3. Bölüm (Günlük Hayat Girdileri):</b> Yemek tarifi malzemesi, navigasyon adresi, müzik geçmişi ve klavye harflerini yakalayınız.</li>
         </ul>
         <p style="margin-top:0.5rem;font-size:1rem;color:var(--vurgu)">
           <b>Kontroller:</b> Klavyede <b>Sol / Sağ Ok Tuşları</b> (veya A / D) ile ya da ekrandaki büyük <b>[ ◀ SOL ] / [ SAĞ ▶ ]</b> butonlarıyla robotu hareket ettiriniz. Şeritlere tıklayarak da robotu yönlendirebilirsiniz.
@@ -692,7 +692,7 @@ b,strong{font-weight:700}
         <span class="kademe-etiket" id="kademe-etiket">Bölüm 1 / 3</span>
         <div id="hedef-gorev-kutusu">
           <span class="hedef-vurgu-yazi" id="hedef-yazi">HEDEF: Ses Girdisi</span>
-          <span class="hedef-ipucu-yazi" id="ipucu-yazi">— Mikrofonla kaydedilen sesi yakala!</span>
+          <span class="hedef-ipucu-yazi" id="ipucu-yazi">— Mikrofon ile kaydedilen sesi yakalayınız.</span>
         </div>
         <div class="adim-cubugu-dis" role="progressbar" aria-label="Bölüm durumu" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0">
           <div class="adim-cubugu-ic" id="adim-cubugu-ic"></div>
@@ -897,47 +897,47 @@ var IKONLAR = {
 var BOLUM1_GOREVLER = [
   {
     hedefAd: "SES GİRDİSİ",
-    ipucu: "Mikrofon ile kaydedilen sesi yakalayınız!",
+    ipucu: "Mikrofon ile kaydedilen sesi yakalayınız.",
     dogruKart: { ad: '"Yarın hava nasıl?" sesli sorusu', tur: "ses", dogruMu: true, aciklama: "Harika! Mikrofonla kaydedilen sesler 'Ses Girdisi'dir." },
     digerKartlar: [
-      { ad: "Kedi ve yüz fotoğrafları", tur: "goruntu", dogruMu: false, aciklama: "Bu görüntü girdisidir, ses girdisi yakalayınız!" },
-      { ad: "Sıcaklık nem ölçümü (24°C)", tur: "sayisal", dogruMu: false, aciklama: "Bu sayısal veridir, ses girdisi yakalayınız!" },
+      { ad: "Kedi ve yüz fotoğrafları", tur: "goruntu", dogruMu: false, aciklama: "Bu görüntü girdisidir, ses girdisi yakalayınız." },
+      { ad: "Sıcaklık nem ölçümü (24°C)", tur: "sayisal", dogruMu: false, aciklama: "Bu sayısal veridir, ses girdisi yakalayınız." },
       { ad: "Video / Film Kaydı", tur: "veri", dogruMu: false, aciklama: "Çeldirici! Temel girdi türleri: Ses, Görüntü, Metin, Sayısal ve Sensör." }
     ]
   },
   {
     hedefAd: "GÖRÜNTÜ GİRDİSİ",
-    ipucu: "Yüz tanıma ve fotoğrafları yakalayınız!",
+    ipucu: "Yüz tanıma ve fotoğrafları yakalayınız.",
     dogruKart: { ad: "Yüz tanıma kedi/insan fotoğrafları", tur: "goruntu", dogruMu: true, aciklama: "Harika! Fotoğraf ve resimler görüntü girdisidir." },
     digerKartlar: [
-      { ad: "Klavyeyle yazılan soru metni", tur: "metin", dogruMu: false, aciklama: "Bu metin girdisidir, görüntü girdisi yakalayınız!" },
-      { ad: "Akıllı saat kalp atış hızı", tur: "sensor", dogruMu: false, aciklama: "Bu sensör verisidir, görüntü girdisi yakalayınız!" }
+      { ad: "Klavyeyle yazılan soru metni", tur: "metin", dogruMu: false, aciklama: "Bu metin girdisidir, görüntü girdisi yakalayınız." },
+      { ad: "Akıllı saat kalp atış hızı", tur: "sensor", dogruMu: false, aciklama: "Bu sensör verisidir, görüntü girdisi yakalayınız." }
     ]
   },
   {
     hedefAd: "METİN GİRDİSİ",
-    ipucu: "Klavyeyle yazılan kelime ve cümleleri yakalayınız!",
+    ipucu: "Klavyeyle yazılan kelime ve cümleleri yakalayınız.",
     dogruKart: { ad: "Dil modellerine klavyeyle yazılan sorular", tur: "metin", dogruMu: true, aciklama: "Harika! Yazılan kelimeler ve cümleler 'Metin Girdisi'dir." },
     digerKartlar: [
-      { ad: "Sesli asistana sesli komut", tur: "ses", dogruMu: false, aciklama: "Bu ses girdisidir, metin girdisi yakalayınız!" },
-      { ad: "Sıcaklık ve nem değerleri", tur: "sayisal", dogruMu: false, aciklama: "Bu sayısal veridir, metin girdisi yakalayınız!" }
+      { ad: "Sesli asistana sesli komut", tur: "ses", dogruMu: false, aciklama: "Bu ses girdisidir, metin girdisi yakalayınız." },
+      { ad: "Sıcaklık ve nem değerleri", tur: "sayisal", dogruMu: false, aciklama: "Bu sayısal veridir, metin girdisi yakalayınız." }
     ]
   },
   {
     hedefAd: "SAYISAL VERİ GİRDİSİ",
-    ipucu: "Hava tahmini sıcaklık ve nem ölçümlerini yakalayınız!",
+    ipucu: "Hava tahmini sıcaklık ve nem ölçümlerini yakalayınız.",
     dogruKart: { ad: "Hava tahmini sıcaklık ve nem ölçümleri", tur: "sayisal", dogruMu: true, aciklama: "Harika! Sayılar ve ölçümler 'Sayısal Veri Girdisi'dir." },
     digerKartlar: [
-      { ad: "Yüz tanıma kedi resmi", tur: "goruntu", dogruMu: false, aciklama: "Bu görüntü girdisidir, sayısal veri yakalayınız!" },
-      { ad: "Klavyeyle yazılan cümle", tur: "metin", dogruMu: false, aciklama: "Bu metin girdisidir, sayısal veri yakalayınız!" }
+      { ad: "Yüz tanıma kedi resmi", tur: "goruntu", dogruMu: false, aciklama: "Bu görüntü girdisidir, sayısal veri yakalayınız." },
+      { ad: "Klavyeyle yazılan cümle", tur: "metin", dogruMu: false, aciklama: "Bu metin girdisidir, sayısal veri yakalayınız." }
     ]
   },
   {
     hedefAd: "SENSÖR VERİSİ",
-    ipucu: "Akıllı saat adım ve nabız ölçümünü yakalayınız!",
+    ipucu: "Akıllı saat adım ve nabız ölçümünü yakalayınız.",
     dogruKart: { ad: "Akıllı saat adım sayısı ve nabız verisi", tur: "sensor", dogruMu: true, aciklama: "Harika! Cihaz sensörlerinden gelen veriler 'Sensör Verisi'dir." },
     digerKartlar: [
-      { ad: "Sesli asistana söylenen ses", tur: "ses", dogruMu: false, aciklama: "Bu ses girdisidir, sensör verisi yakalayınız!" },
+      { ad: "Sesli asistana söylenen ses", tur: "ses", dogruMu: false, aciklama: "Bu ses girdisidir, sensör verisi yakalayınız." },
       { ad: "Video kaset kaydı", tur: "veri", dogruMu: false, aciklama: "Çeldirici! Sensör verisi yakalayınız." }
     ]
   }
@@ -945,7 +945,7 @@ var BOLUM1_GOREVLER = [
 
 /* BÖLÜM 2: ETKİLİ GİRDİ YAKALA (KUSURLUDAN KAÇ!) */
 var BOLUM2_DOGRULAR = [
-  { ad: 'Komut: "Gelecek cumartesi saat 17.00\'de bize gel."', tur: "veri", dogruMu: true, aciklama: "Net İfade: Açık ve net komutlar modeli doğru eğitir!" },
+  { ad: 'Komut: "Gelecek cumartesi saat 17.00\'de bize gel."', tur: "veri", dogruMu: true, aciklama: "Net İfade: Açık ve net komutlar modeli doğru eğitir." },
   { ad: 'Kedi fotoğrafına "Kedi" etiketi basmak', tur: "veri", dogruMu: true, aciklama: "Doğru Etiketleme: Verinin anlamı doğru işaretlenmelidir." },
   { ad: "Farklı ırklardan çeşitli kedi fotoğrafları", tur: "veri", dogruMu: true, aciklama: "Çeşitli Kaynaklar: Zengin veri yapay zekâyı başarılı kılar." },
   { ad: "Bugüne ait güncel hava ölçümleri", tur: "veri", dogruMu: true, aciklama: "Güncellik: Güncel veriler doğru tahmin üretir." },
@@ -953,49 +953,49 @@ var BOLUM2_DOGRULAR = [
 ];
 
 var BOLUM2_CELDIRICILER = [
-  { ad: 'Komut: "Bu cumartesi el."', tur: "veri", dogruMu: false, aciklama: "Kusurlu Girdi! Muğlak ve anlaşılmaz ifadelerden kaçınınız!" },
-  { ad: 'Kedi fotoğrafına "Köpek" etiketi basmak', tur: "veri", dogruMu: false, aciklama: "Hatalı Etiketleme! Kediye köpek derseniz yapay zekâ yanılır!" },
-  { ad: "Yalnızca tek bir sokaktaki beyaz kediler", tur: "veri", dogruMu: false, aciklama: "Kısıtlı Kaynak! Model diğer kedi türlerini tanıyamaz!" },
-  { ad: "10 yıl öncesinin eski hava verisi", tur: "veri", dogruMu: false, aciklama: "Eski Veri! Güncel olmayan verileri yakalamayınız!" },
-  { ad: "Konu dışı ve karmaşık dağınık veriler", tur: "veri", dogruMu: false, aciklama: "Gereksiz Veri! Konu dışı bilgiler modeli yanıltır!" }
+  { ad: 'Komut: "Bu cumartesi el."', tur: "veri", dogruMu: false, aciklama: "Kusurlu Girdi! Muğlak ve anlaşılmaz ifadelerden kaçınınız." },
+  { ad: 'Kedi fotoğrafına "Köpek" etiketi basmak', tur: "veri", dogruMu: false, aciklama: "Hatalı Etiketleme! Kediye köpek derseniz yapay zekâ yanılır." },
+  { ad: "Yalnızca tek bir sokaktaki beyaz kediler", tur: "veri", dogruMu: false, aciklama: "Kısıtlı Kaynak! Model diğer kedi türlerini tanıyamaz." },
+  { ad: "10 yıl öncesinin eski hava verisi", tur: "veri", dogruMu: false, aciklama: "Eski Veri! Güncel olmayan verileri yakalamayınız." },
+  { ad: "Konu dışı ve karmaşık dağınık veriler", tur: "veri", dogruMu: false, aciklama: "Gereksiz Veri! Konu dışı bilgiler modeli yanıltır." }
 ];
 
 /* BÖLÜM 3: GÜNLÜK HAYAT METAFORLARI */
 var BOLUM3_GOREVLER = [
   {
     hedefAd: "YEMEK TARİFİ İÇİN GİRDİ",
-    ipucu: "Yemek tarifindeki doğru malzemeleri yakalayınız!",
-    dogruKart: { ad: "Yemeğin kendine özgü doğru malzemeleri", tur: "yemek", dogruMu: true, aciklama: "Yemek tarifinde malzemeler, yapay zekâda ise girdiler vardır!" },
+    ipucu: "Yemek tarifindeki doğru malzemeleri yakalayınız.",
+    dogruKart: { ad: "Yemeğin kendine özgü doğru malzemeleri", tur: "yemek", dogruMu: true, aciklama: "Yemek tarifinde malzemeler, yapay zekâda ise girdiler vardır." },
     digerKartlar: [
-      { ad: "Harfler ve heceler", tur: "klavye", dogruMu: false, aciklama: "Bu klavye girdisidir, yemek malzemesini yakalayınız!" },
-      { ad: "Eski dinleme listesi", tur: "muzik", dogruMu: false, aciklama: "Bu müzik girdisidir, yemek malzemesini yakalayınız!" }
+      { ad: "Harfler ve heceler", tur: "klavye", dogruMu: false, aciklama: "Bu klavye girdisidir, yemek malzemesini yakalayınız." },
+      { ad: "Eski dinleme listesi", tur: "muzik", dogruMu: false, aciklama: "Bu müzik girdisidir, yemek malzemesini yakalayınız." }
     ]
   },
   {
     hedefAd: "NAVİGASYON İÇİN GİRDİ",
-    ipucu: "Doğru ev adresini ve konumu yakalayınız!",
-    dogruKart: { ad: "Doğru ev adresi ve konum bilgisi", tur: "navigasyon", dogruMu: true, aciklama: "Doğru adres girilirse navigasyon hedefe ulaştırır!" },
+    ipucu: "Doğru ev adresini ve konumu yakalayınız.",
+    dogruKart: { ad: "Doğru ev adresi ve konum bilgisi", tur: "navigasyon", dogruMu: true, aciklama: "Doğru adres girilirse navigasyon hedefe ulaştırır." },
     digerKartlar: [
-      { ad: "Tencereye atılan tuz", tur: "yemek", dogruMu: false, aciklama: "Bu yemek girdisidir, adres bilgisini yakalayınız!" },
-      { ad: "Yazılan kelime harfleri", tur: "klavye", dogruMu: false, aciklama: "Bu klavye girdisidir, konum girdisini yakalayınız!" }
+      { ad: "Tencereye atılan tuz", tur: "yemek", dogruMu: false, aciklama: "Bu yemek girdisidir, adres bilgisini yakalayınız." },
+      { ad: "Yazılan kelime harfleri", tur: "klavye", dogruMu: false, aciklama: "Bu klavye girdisidir, konum girdisini yakalayınız." }
     ]
   },
   {
     hedefAd: "MÜZİK ÖNERİSİ İÇİN GİRDİ",
-    ipucu: "Dinlediğiniz şarkı geçmişini yakalayınız!",
-    dogruKart: { ad: "Uygulamada dinlediğiniz şarkı geçmişi", tur: "muzik", dogruMu: true, aciklama: "Ne kadar çok müzik dinlerseniz yapay zekâ o kadar öğrenir!" },
+    ipucu: "Dinlediğiniz şarkı geçmişini yakalayınız.",
+    dogruKart: { ad: "Uygulamada dinlediğiniz şarkı geçmişi", tur: "muzik", dogruMu: true, aciklama: "Ne kadar çok müzik dinlerseniz yapay zekâ o kadar öğrenir." },
     digerKartlar: [
-      { ad: "Ev adresi konumu", tur: "navigasyon", dogruMu: false, aciklama: "Bu navigasyon girdisidir, dinlenen şarkıları yakalayınız!" },
-      { ad: "Yemek tuzu ve biberi", tur: "yemek", dogruMu: false, aciklama: "Bu yemek girdisidir, müzik geçmişini yakalayınız!" }
+      { ad: "Ev adresi konumu", tur: "navigasyon", dogruMu: false, aciklama: "Bu navigasyon girdisidir, dinlenen şarkıları yakalayınız." },
+      { ad: "Yemek tuzu ve biberi", tur: "yemek", dogruMu: false, aciklama: "Bu yemek girdisidir, müzik geçmişini yakalayınız." }
     ]
   },
   {
     hedefAd: "OTOMATİK DÜZELTME İÇİN GİRDİ",
-    ipucu: "Klavyede basılan harfleri yakalayınız!",
-    dogruKart: { ad: "Klavyede yazılan harfler ve heceler", tur: "klavye", dogruMu: true, aciklama: "Otomatik düzeltme harfleri girdi alır ve kelimeyi tahmin eder!" },
+    ipucu: "Klavyede basılan harfleri yakalayınız.",
+    dogruKart: { ad: "Klavyede yazılan harfler ve heceler", tur: "klavye", dogruMu: true, aciklama: "Otomatik düzeltme harfleri girdi alır ve kelimeyi tahmin eder." },
     digerKartlar: [
-      { ad: "Sevilen müzik listesi", tur: "muzik", dogruMu: false, aciklama: "Bu müzik girdisidir, harfleri yakalayınız!" },
-      { ad: "Yol adresi", tur: "navigasyon", dogruMu: false, aciklama: "Bu navigasyon girdisidir, klavye harflerini yakalayınız!" }
+      { ad: "Sevilen müzik listesi", tur: "muzik", dogruMu: false, aciklama: "Bu müzik girdisidir, harfleri yakalayınız." },
+      { ad: "Yol adresi", tur: "navigasyon", dogruMu: false, aciklama: "Bu navigasyon girdisidir, klavye harflerini yakalayınız." }
     ]
   }
 ];
@@ -1262,7 +1262,7 @@ function bolumuBaslat(bolumIdx){
   } else if(bolumIdx === 1){
     gerekenHedef = BOLUM2_DOGRULAR.length;
     $("hedef-yazi").textContent = "HEDEF: ETKİLİ GİRDİLERİ YAKALA";
-    $("ipucu-yazi").textContent = "— Net ifadeleri, doğru etiketleri ve güncel verileri yakalayınız!";
+    $("ipucu-yazi").textContent = "— Net ifadeleri, doğru etiketleri ve güncel verileri yakalayınız.";
   } else if(bolumIdx === 2){
     gerekenHedef = BOLUM3_GOREVLER.length;
     var g3 = BOLUM3_GOREVLER[0];
