@@ -54,6 +54,7 @@ b,strong{font-weight:700}
   flex:0 0 auto;
   display:flex;
   align-items:center;
+  justify-content:space-between;
   gap:0.8rem;
   padding:0.45rem 1.2rem;
   background:var(--panel);
@@ -1271,7 +1272,6 @@ function bolumuBaslat(bolumIdx){
 function skorGuncelle(){
   toplamPuan = bolumPuanlari[0] + bolumPuanlari[1] + bolumPuanlari[2];
   if(toplamPuan > 100) toplamPuan = 100;
-  $("puan-sayac").textContent = toplamPuan + " / 100";
 }
 
 /* ============ EKRAN GEÇİŞİ ============ */
