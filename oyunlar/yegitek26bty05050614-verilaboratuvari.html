@@ -221,13 +221,13 @@ b,strong{font-weight:700}
     <button class="arac" id="btn-kucult" type="button" aria-label="Yazıları küçültünüz">A−</button>
     <button class="arac" id="btn-buyut" type="button" aria-label="Yazıları büyütünüz">A+</button>
     <button class="arac" id="btn-ses" type="button" aria-pressed="true" aria-label="Sesi kapatınız"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="#1E293B"/><path id="ses-dalga" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11" fill="none" stroke="#1E293B" stroke-width="2" stroke-linecap="round"/><line id="ses-cizgi" x1="4" y1="4" x2="21" y2="21" stroke="#B91C1C" stroke-width="2.6" stroke-linecap="round" style="display:none"/></svg></button>
+    <button class="arac" id="btn-tam-ekran" type="button" aria-pressed="false" aria-label="Tam ekran yapınız"><svg id="ikon-tam-ekran" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path id="yol-tam-ekran" d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="#1E293B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   </header>
 
   <main id="sahnealani">
 
     <!-- ============ GİRİŞ EKRANI ============ -->
     <section class="ekran acik" id="ekran-giris" aria-labelledby="giris-baslik">
-      <div id="giris-rozet">Bilişim Teknolojileri ve Yazılım • 6. Sınıf • YEGITEK26BTY05050614</div>
       <h2 id="giris-baslik">Akıllı Veri ve Kategori Ayıklayıcı</h2>
       <svg id="giris-gorsel" viewBox="0 0 340 160" role="img" aria-label="Kategorilere ayrılan veriler illüstrasyonu">
         <rect x="20" y="30" width="80" height="90" rx="14" fill="#EFF6FF" stroke="#2563EB" stroke-width="3"/>
@@ -755,6 +755,46 @@ $("btn-kucult").addEventListener("click", function(){
     document.documentElement.style.fontSize = yaziOlcek + "%";
   }
 });
+
+function tamEkranGuncelle(){
+  var tamMi = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+  var btn = $("btn-tam-ekran");
+  if(!btn) return;
+  btn.setAttribute("aria-pressed", tamMi ? "true" : "false");
+  btn.setAttribute("aria-label", tamMi ? "Tam ekrandan çıkınız" : "Tam ekran yapınız");
+  var yol = $("yol-tam-ekran");
+  if(yol){
+    if(tamMi){
+      yol.setAttribute("d", "M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5");
+    } else {
+      yol.setAttribute("d", "M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5");
+    }
+  }
+}
+
+$("btn-tam-ekran").addEventListener("click", function(){
+  try{
+    var tamMi = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+    if(!tamMi){
+      var hedef = document.documentElement;
+      if(hedef.requestFullscreen){ hedef.requestFullscreen(); }
+      else if(hedef.webkitRequestFullscreen){ hedef.webkitRequestFullscreen(); }
+      else if(hedef.mozRequestFullScreen){ hedef.mozRequestFullScreen(); }
+      else if(hedef.msRequestFullscreen){ hedef.msRequestFullscreen(); }
+    } else {
+      if(document.exitFullscreen){ document.exitFullscreen(); }
+      else if(document.webkitExitFullscreen){ document.webkitExitFullscreen(); }
+      else if(document.mozCancelFullScreen){ document.mozCancelFullScreen(); }
+      else if(document.msExitFullscreen){ document.msExitFullscreen(); }
+    }
+  }catch(e){}
+  sesCal("tik");
+});
+
+document.addEventListener("fullscreenchange", tamEkranGuncelle);
+document.addEventListener("webkitfullscreenchange", tamEkranGuncelle);
+document.addEventListener("mozfullscreenchange", tamEkranGuncelle);
+document.addEventListener("MSFullscreenChange", tamEkranGuncelle);
 
 $("btn-geri").addEventListener("click", function(){
   if(aktifEkran > 0) ekranAc(aktifEkran - 1);
