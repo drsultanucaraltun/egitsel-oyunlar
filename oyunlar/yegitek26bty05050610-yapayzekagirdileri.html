@@ -945,11 +945,11 @@ var BOLUM1_GOREVLER = [
 
 /* BÖLÜM 2: ETKİLİ GİRDİ YAKALA (KUSURLUDAN KAÇ!) */
 var BOLUM2_DOGRULAR = [
-  { ad: 'Komut: "Gelecek cumartesi saat 17.00\'de bize gel."', tur: "veri", dogruMu: true, aciklama: "Net İfade: Açık ve net komutlar modeli doğru eğitir." },
-  { ad: 'Kedi fotoğrafına "Kedi" etiketi basmak', tur: "veri", dogruMu: true, aciklama: "Doğru Etiketleme: Verinin anlamı doğru işaretlenmelidir." },
-  { ad: "Farklı ırklardan çeşitli kedi fotoğrafları", tur: "veri", dogruMu: true, aciklama: "Çeşitli Kaynaklar: Zengin veri yapay zekâyı başarılı kılar." },
-  { ad: "Bugüne ait güncel hava ölçümleri", tur: "veri", dogruMu: true, aciklama: "Güncellik: Güncel veriler doğru tahmin üretir." },
-  { ad: "Sade ve konuyla ilgili öz veri", tur: "veri", dogruMu: true, aciklama: "Sadelik: Gereksiz bilgilerden arındırılmış veri faydalıdır." }
+  { ad: 'Komut: "Gelecek cumartesi saat 17.00\'de bize gel."', tur: "veri", dogruMu: true, aciklama: "Net İfade: Açık ve net komutlar modeli doğru eğitir.", ipucu: "Komutlar açık ve eksiksiz olmalıdır; belirsiz ifadeler yapay zekâyı yanıltır." },
+  { ad: 'Kedi fotoğrafına "Kedi" etiketi basmak', tur: "veri", dogruMu: true, aciklama: "Doğru Etiketleme: Verinin anlamı doğru işaretlenmelidir.", ipucu: "Veriye konan etiket doğruysa yapay zekâ doğru, yanlışsa yanlış öğrenir." },
+  { ad: "Farklı ırklardan çeşitli kedi fotoğrafları", tur: "veri", dogruMu: true, aciklama: "Çeşitli Kaynaklar: Zengin veri yapay zekâyı başarılı kılar.", ipucu: "Tek tip veriden öğrenen model dar kalır; çeşitli veri modeli güçlendirir." },
+  { ad: "Bugüne ait güncel hava ölçümleri", tur: "veri", dogruMu: true, aciklama: "Güncellik: Güncel veriler doğru tahmin üretir.", ipucu: "Eski veriyle eğitilen model hatalı sonuçlar üretir; veri güncel olmalıdır." },
+  { ad: "Sade ve konuyla ilgili öz veri", tur: "veri", dogruMu: true, aciklama: "Sadelik: Gereksiz bilgilerden arındırılmış veri faydalıdır.", ipucu: "Gereksiz ve konu dışı veriler modeli yanıltır; veri öz ve odaklı olmalıdır." }
 ];
 
 var BOLUM2_CELDIRICILER = [
@@ -1029,6 +1029,7 @@ function yeniKapsulFirlat(){
     var c1 = BOLUM2_CELDIRICILER[hedefSayisi % BOLUM2_CELDIRICILER.length];
     var c2 = BOLUM2_CELDIRICILER[(hedefSayisi + 2) % BOLUM2_CELDIRICILER.length];
     kartlar = [dogru2, c1, c2];
+    $("ipucu-yazi").textContent = "— " + dogru2.ipucu;
   } else if(aktifBolum === 2){
     var g3 = BOLUM3_GOREVLER[hedefSayisi];
     kartlar = [g3.dogruKart, g3.digerKartlar[0], g3.digerKartlar[1]];
