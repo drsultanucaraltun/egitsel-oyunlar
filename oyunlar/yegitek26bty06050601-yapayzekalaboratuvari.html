@@ -134,21 +134,21 @@ b,strong{font-weight:700}
 
 /* İstasyon 2: Prompt Konsolu */
 #istasyon-prompt{flex:1 1 auto;min-height:0;display:flex;gap:0.8rem;align-items:stretch}
-.prompt-panel{flex:1 1 0;background:var(--panel);border:3px solid var(--cizgi);border-radius:16px;padding:0.8rem;display:flex;flex-direction:column;gap:0.6rem}
+.prompt-panel{flex:1 1 0;background:var(--panel);border:3px solid var(--cizgi);border-radius:16px;padding:0.8rem;display:flex;flex-direction:column;gap:0.6rem;overflow-y:auto}
 .prompt-panel-baslik{font-size:1.2rem;font-weight:700;color:var(--vurgu);display:flex;align-items:center;gap:0.4rem}
 .prompt-kart{
   background:var(--panel);
   border:2px solid var(--cizgi);
   border-radius:12px;
-  padding:0.7rem;
-  font-size:1.05rem;
+  padding:0.65rem 0.8rem;
+  font-size:1.02rem;
   font-weight:700;
   text-align:left;
   cursor:pointer;
   transition:all .2s;
   display:flex;
   flex-direction:column;
-  gap:0.3rem;
+  gap:0.25rem;
 }
 .prompt-kart:hover{border-color:var(--vurgu);background:var(--vurgu-acik)}
 .prompt-kart[aria-pressed="true"]{border-color:var(--vurgu);background:var(--vurgu-acik);box-shadow:0 0 0 2px var(--vurgu)}
@@ -169,12 +169,11 @@ b,strong{font-weight:700}
   position:relative;
 }
 #prompt-monitor-baslik{font-size:1rem;color:#94A3B8;border-bottom:1px solid #334155;padding-bottom:0.4rem;display:flex;justify-content:space-between}
-#prompt-monitor-cikti{flex:1;font-size:1.05rem;line-height:1.5;color:#F1F5F9;white-space:pre-wrap;display:flex;align-items:center;justify-content:center;text-align:center}
-#prompt-monitor-gorsel{max-width:100%;max-height:140px;border-radius:8px;display:none}
+#prompt-monitor-cikti{flex:1;font-size:1.02rem;line-height:1.45;color:#F1F5F9;white-space:pre-wrap;display:flex;align-items:center;justify-content:center;text-align:center}
 #btn-calistir{
   background:var(--dogru);
   color:var(--panel);
-  font-size:1.25rem;
+  font-size:1.2rem;
   font-weight:700;
   border:none;
   border-radius:14px;
@@ -185,33 +184,9 @@ b,strong{font-weight:700}
   justify-content:center;
   gap:0.5rem;
 }
-#btn-calistir:disabled{background:#E4E8F0;color:var(--gri);cursor:not-allowed}
+#btn-calistir:disabled{background:#334155;color:#64748B;cursor:not-allowed}
 
-/* İstasyon 3: Değerlendirme Ölçütleri */
-#istasyon-olcutler{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0.65rem;align-items:stretch}
-.olcut-kutu{
-  background:var(--panel);
-  border:3px dashed var(--cizgi);
-  border-radius:16px;
-  padding:0.6rem;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:0.35rem;
-  cursor:pointer;
-  transition:all .2s;
-  position:relative;
-}
-.olcut-kutu:hover{border-color:var(--vurgu)}
-.olcut-kutu.uzerinde{border-color:var(--vurgu);background:var(--vurgu-acik);border-style:solid}
-.olcut-kutu.kilitli{border-color:var(--dogru);background:var(--dogru-acik);border-style:solid;cursor:default}
-.olcut-kutu.hatali{border-color:var(--yanlis);background:var(--yanlis-acik)}
-.olcut-baslik{font-size:1.15rem;font-weight:700;display:flex;align-items:center;gap:0.35rem}
-.olcut-ikon{width:36px;height:36px;flex:0 0 auto}
-.olcut-yuva{flex:1;width:100%;display:flex;align-items:center;justify-content:center;text-align:center;font-size:0.88rem;color:var(--gri);border-radius:10px;background:#F8FAFC;padding:0.3rem 0.5rem;line-height:1.3}
-.olcut-kutu.kilitli .olcut-yuva{background:var(--panel);color:var(--dogru);font-weight:700;border:2px solid var(--dogru)}
-
-/* İstasyon 4: Hukuk ve Etik Kalkanı */
+/* İstasyon 3: Hukuk ve Etik Kalkanı */
 #istasyon-hukuk{flex:1 1 auto;min-height:0;display:flex;gap:0.8rem;align-items:stretch}
 #vaka-listesi{flex:1.1 1 0;display:flex;flex-direction:column;gap:0.5rem;overflow-y:auto}
 .vaka-kart{
@@ -227,7 +202,7 @@ b,strong{font-weight:700}
 }
 .vaka-kart:hover{border-color:var(--vurgu);background:var(--vurgu-acik)}
 .vaka-kart[aria-pressed="true"]{border-color:var(--vurgu);background:var(--vurgu-acik);box-shadow:0 0 0 2px var(--vurgu)}
-.vaka-kart.cozuldu{border-color:var(--dogru);background:var(--dogru-acik);cursor:default;opacity:0.85}
+.vaka-kart.cozuldu{border-color:var(--dogru);background:var(--dogru-acik);cursor:default;opacity:0.9}
 .vaka-baslik{font-size:1rem;font-weight:700;display:flex;align-items:center;gap:0.4rem}
 .vaka-metin{font-size:0.88rem;color:var(--murekkep);line-height:1.25}
 
@@ -243,7 +218,7 @@ b,strong{font-weight:700}
   gap:0.6rem;
   justify-content:space-between;
 }
-#kalkan-gorsel{width:100%;max-width:140px;height:120px}
+#kalkan-gorsel{width:100%;max-width:130px;height:110px}
 #kural-secenekleri{width:100%;display:flex;flex-direction:column;gap:0.4rem}
 .kural-btn{
   background:var(--panel);
@@ -290,7 +265,6 @@ b,strong{font-weight:700}
 .kart[aria-pressed="true"]{background:var(--vurgu-acik);border-color:var(--vurgu);transform:translateY(-3px);box-shadow:0 4px 8px rgba(37,99,235,0.2)}
 .kart.suruklenen{opacity:.45}
 .kart.sarsil{animation:sarsil .3s}
-.kart.celdirici{border-color:#F59E0B}
 @keyframes sarsil{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
 
 /* ============ BİTİŞ EKRANI ============ */
@@ -351,7 +325,7 @@ b,strong{font-weight:700}
     <div id="skorlar">
       <span class="skor-kutu" aria-label="Kazanılan yıldız">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="#F59E0B"/></svg>
-        <span id="skor-yildiz">0 / 4</span>
+        <span id="skor-yildiz">0 / 3</span>
       </span>
       <span class="skor-kutu" aria-label="Toplam puan">
         <span>Puan:</span>
@@ -389,8 +363,8 @@ b,strong{font-weight:700}
         <circle cx="170" cy="130" r="8" fill="#15803D"/>
         <circle cx="250" cy="130" r="8" fill="#6D28D9"/>
       </svg>
-      <p>Yapay Zekâ Laboratuvarına hoş geldiniz! Amacınıza en uygun aracı belirleyip etkili komutlar vererek içerik üretecek, araçları değerlendirip etik kurallarla sistemi koruyacaksınız.</p>
-      <p>4 istasyonu başarıyla tamamlayınız ve <b>Yapay Zekâ Uzmanlık Sertifikanızı</b> alınız.</p>
+      <p>Yapay Zekâ Laboratuvarına hoş geldiniz! Amacınıza en uygun yapay zekâ aracını belirleyecek, etkili girdi (prompt) yazımını test edecek ve etik/hukuki güvenlik kalkanını tamamlayacaksınız.</p>
+      <p>3 istasyonu başarıyla tamamlayınız ve <b>Yapay Zekâ Uzmanlık Sertifikanızı</b> alınız.</p>
       <p>Kartları sürükleyerek veya önce <b>karta</b>, ardından <b>hedefe tıklayarak</b> yerleştirebilirsiniz.</p>
       <button id="btn-basla" type="button">Laboratuvara Giriş Yapınız</button>
     </section>
@@ -398,9 +372,9 @@ b,strong{font-weight:700}
     <!-- ============ OYUN EKRANI ============ -->
     <section class="ekran" id="ekran-oyun" aria-labelledby="gorev-metin">
       <div id="gorev-serit">
-        <span id="bolum-no">İstasyon 1 / 4</span>
+        <span id="bolum-no">İstasyon 1 / 3</span>
         <span id="gorev-metin" aria-live="polite"></span>
-        <div id="ilerleme-dis" role="progressbar" aria-label="İstasyon ilerlemesi" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0">
+        <div id="ilerleme-dis" role="progressbar" aria-label="İstasyon ilerlemesi" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0">
           <div id="ilerleme-ic"></div>
         </div>
       </div>
@@ -423,7 +397,7 @@ b,strong{font-weight:700}
         </div>
 
         <div id="sahne-ic">
-          <!-- Dinamik İstasyon İçeriği Buraya Yüklenecek -->
+          <!-- Dinamik İstasyon İçeriği -->
         </div>
       </div>
 
@@ -443,7 +417,7 @@ b,strong{font-weight:700}
       </svg>
       <div id="son-yildizlar" aria-hidden="true"></div>
       <div id="son-puan"></div>
-      <p id="son-ozet">Yapay zekâ araçlarını amacına uygun seçmeyi, etkili girdiler yazmayı, uygunluk/verimlilik ölçütleriyle değerlendirmeyi ve etik/hukuki sorumlulukları başarıyla kavradınız.</p>
+      <p id="son-ozet">Yapay zekâ araçlarını amacına uygun seçmeyi, açık ve ayrıntılı etkili girdiler (prompt) yazmayı ve etik/hukuki sorumlulukları başarıyla tamamladınız.</p>
       <button class="ikincil-buton" id="btn-yeniden" type="button">Laboratuvarı Yeniden Başlat</button>
     </section>
 
@@ -552,19 +526,19 @@ var BOLUMLER = [
   },
 
   /* -------------------------------------------------------------
-     İSTASYON 2: Etkili Girdi / Prompt Laboratuvarı (Sahne 07)
+     İSTASYON 2: Etkili Girdi / Prompt Laboratuvarı (5 Tur)
   ------------------------------------------------------------- */
   {
     tur: "prompt-lab",
-    baslik: "İstasyon 2: Etkili Girdi (Prompt) Yazma",
+    baslik: "İstasyon 2: Etkili Girdi (Prompt) Yazma Laboratuvarı",
     yonerge: "Yapay zekâdan hedefe uygun sonuç almak için en etkili komutu seçiniz ve 'Çalıştır' butonuna basınız.",
-    rehberGiris: "Unutmayınız: Girdiler net, seviye ve konu belirtilmiş olmalıdır.",
+    rehberGiris: "Unutmayınız: Girdiler net, konu, seviye, tarz ve sınırları belirlenmiş olmalıdır.",
     gorevler: [
       {
-        senaryo: "Görev A: Fen bilimleri dersi için Mars hakkında 6. sınıf seviyesinde kısa bilgi metni oluşturmak istiyorsunuz.",
+        senaryo: "Tur 1/5 (Bilim Araştırması): Fen bilimleri projeniz için Mars gezegeni hakkında 6. sınıf seviyesinde kısa bilgi metni oluşturmak istiyorsunuz.",
         secenekler: [
           {
-            id: "zayif",
+            id: "z1",
             turMetin: "Zayıf Girdi",
             metin: "Bir şey anlat.",
             etkiliMi: false,
@@ -572,20 +546,20 @@ var BOLUMLER = [
             cikti: "HATA: Yetersiz yönerge! Ne anlatmalıyım? Şiir mi, masal mı, hangi konu?"
           },
           {
-            id: "etkili",
+            id: "e1",
             turMetin: "Etkili Girdi",
             metin: "6. sınıf öğrencisinin seviyesine uygun, Mars gezegeni hakkında 5 cümlelik bir bilgi metni yaz.",
             etkiliMi: true,
             aciklama: "Harika! Konu (Mars), hedef kitle (6. sınıf) ve uzunluk (5 cümle) net olarak belirtilmiştir.",
-            cikti: "BAŞARILI ÇIKTI:\n1. Mars, Güneş sisteminde Güneşe en yakın dördüncü gezegendir.\n2. Yüzeyindeki demir oksit nedeniyle Kızıl Gezegen olarak adlandırılır.\n3. İnce bir atmosfere sahip olup yüzeyinde devasa volkanlar bulunur.\n4. Bilim insanları geçmişte Mars'ta su olup olmadığını araştırmaktadır.\n5. Gelecekte insanların Mars'a ayak basması hedeflenmektedir."
+            cikti: "BAŞARILI ÇIKTI:\n1. Mars, Güneş sisteminde dördüncü sırada bulunan komşu gezegenimizdir.\n2. Yüzeyindeki demir oksit tozu nedeniyle 'Kızıl Gezegen' olarak anılır.\n3. Güneş sisteminin en yüksek volkanı olan Olympus Dağı buradadır.\n4. İnce bir atmosfere sahiptir ve geceleri dondurucu derecede soğuktur.\n5. Bilim insanları geçmişte Mars'ta su olup olmadığını araştırmaktadır."
           }
         ]
       },
       {
-        senaryo: "Görev B: Okul duvar gazetesinde kullanmak üzere deniz ve gökyüzü temalı renkli bir görsel çizdirmek istiyorsunuz.",
+        senaryo: "Tur 2/5 (Görsel Tasarımı): Bilim fuarı duvar panosu için gökyüzü ve deniz temalı neşeli bir çizim ürettirmek istiyorsunuz.",
         secenekler: [
           {
-            id: "zayif",
+            id: "z2",
             turMetin: "Zayıf Girdi",
             metin: "Resim çiz.",
             etkiliMi: false,
@@ -593,12 +567,75 @@ var BOLUMLER = [
             cikti: "HATA: Konu, stil ve detay yok! Rastgele siyah-beyaz karalama üretildi."
           },
           {
-            id: "etkili",
+            id: "e2",
             turMetin: "Etkili Girdi",
             metin: "Mavi bir okyanusun üzerinde uçan renkli bir sıcak hava balonu çiz, çizgi film tarzında ve neşeli olsun.",
             etkiliMi: true,
             aciklama: "Tebrikler! Konu, renkler, atmosfer ve görsel tarz (çizgi film) açıkça tarif edilmiştir.",
-            cikti: "BAŞARILI ÇIKTI:\n[Görsel Çizildi]\nStil: Çizgi film illüstrasyonu\nİçerik: Dalgalı masmavi okyanus, gökyüzünde rengârenk balon ve güneş ışıkları."
+            cikti: "BAŞARILI ÇIKTI:\n[Görsel Çizildi]\nStil: Çizgi film illüstrasyonu\nDetay: Dalgalı masmavi okyanus, gökyüzünde rengârenk balon ve neşeli bulutlar."
+          }
+        ]
+      },
+      {
+        senaryo: "Tur 3/5 (Resmi E-Posta): Bilişim Teknolojileri öğretmeninize projenizle ilgili görüşme saati rica eden saygılı bir e-posta hazırlatmak istiyorsunuz.",
+        secenekler: [
+          {
+            id: "z3",
+            turMetin: "Zayıf Girdi",
+            metin: "Hocaya mesaj yaz.",
+            etkiliMi: false,
+            aciklama: "Üslup, hitap ve konu belirtilmediği için yapay zekâ uygun bir e-posta üretemez.",
+            cikti: "HATA: Üslup ve içerik belirsiz! 'Selam naber ne zaman buluşuyoz?' şeklinde saygısız ve kaba bir taslak çıktı."
+          },
+          {
+            id: "e3",
+            turMetin: "Etkili Girdi",
+            metin: "Bilişim Teknolojileri öğretmenime hitaben, yapay zekâ projem hakkında görüşmek için yarın uygun bir saat rica eden saygılı ve resmi bir e-posta metni yaz.",
+            etkiliMi: true,
+            aciklama: "Mükemmel! Alıcı (öğretmen), konu (proje görüşmesi), zaman (yarın) ve üslup (saygılı/resmi) açıkça belirtilmiştir.",
+            cikti: "BAŞARILI ÇIKTI:\nKonu: BTY Projesi Hakkında Görüşme Talebi\nSayın Öğretmenim,\nHazırladığım yapay zekâ projesinin ilerlemesini sizinle paylaşmak istiyorum. Yarın ders çıkışında uygun olduğunuz bir vakit varsa 10 dakikanızı rica edebilir miyim? Saygılarımla."
+          }
+        ]
+      },
+      {
+        senaryo: "Tur 4/5 (Kodlama Desteği): Klavyeden girilen bir sayının tek mi yoksa çift mi olduğunu ekrana yazdıran basit bir kod yazdırmak istiyorsunuz.",
+        secenekler: [
+          {
+            id: "z4",
+            turMetin: "Zayıf Girdi",
+            metin: "Kod yaz.",
+            etkiliMi: false,
+            aciklama: "Hangi dilde, ne işe yarayan bir kod yazılacağı belirtilmemiştir.",
+            cikti: "HATA: Hangi programlama dili? Kod ne yapacak? Yapay zekâ hedefsiz karışık sistem kodları üretti."
+          },
+          {
+            id: "e4",
+            turMetin: "Etkili Girdi",
+            metin: "Python dilinde, kullanıcının klavyeden girdiği sayının tek mi çift mi olduğunu ekrana yazdıran, açıklamalı ve anlaşılır bir kod yaz.",
+            etkiliMi: true,
+            aciklama: "Harika girdi! Programlama dili (Python), girdinin kaynağı (kullanıcı) ve yapılacak işlem net tarif edilmiştir.",
+            cikti: "BAŞARILI ÇIKTI:\n# Tek/Çift Sayı Belirleme Programı\nsayi = int(input('Bir sayı giriniz: '))\nif sayi % 2 == 0:\n    print('Bu sayı ÇİFTTİR.')\nelse:\n    print('Bu sayı TEKTİR.')"
+          }
+        ]
+      },
+      {
+        senaryo: "Tur 5/5 (Ders Çalışma Planı): Hafta sonu matematik sınavı için 'Kesirlerle İşlemler' konusunu 3 adımda özetleyen bir tekrar planı istiyorsunuz.",
+        secenekler: [
+          {
+            id: "z5",
+            turMetin: "Zayıf Girdi",
+            metin: "Ders çalıştır.",
+            etkiliMi: false,
+            aciklama: "Hangi ders, hangi konu ve nasıl bir format istendiği söylenmemiştir.",
+            cikti: "HATA: Hangi ders? Hangi sınıf düzeyi? Yapay zekâ hedeften uzak genel tavsiyeler üretti."
+          },
+          {
+            id: "e5",
+            turMetin: "Etkili Girdi",
+            metin: "6. sınıf matematik dersi 'Kesirlerle İşlemler' konusu için 3 maddelik, kolay anlaşılır bir hafta sonu sınav tekrar planı hazırla.",
+            etkiliMi: true,
+            aciklama: "Tebrikler! Sınıf düzeyi (6. sınıf), konu (Kesirler), format (3 madde) ve amaç (sınav tekrarı) açıkça tanımlanmıştır.",
+            cikti: "BAŞARILI ÇIKTI:\n1. Adım: Kesirlerde payda eşitleme kuralını hatırla ve 5 toplama/çıkarma alıştırması çöz.\n2. Adım: Çarpma ve bölme işlemlerinde sadeleştirme yöntemlerini tekrar et.\n3. Adım: Günlük hayatla ilgili 3 kesir problemini model çizerek yanıtla."
           }
         ]
       }
@@ -606,98 +643,48 @@ var BOLUMLER = [
   },
 
   /* -------------------------------------------------------------
-     İSTASYON 3: Kalite ve Değerlendirme Ölçütleri (Sahne 08, 12, 13)
-  ------------------------------------------------------------- */
-  {
-    tur: "olcut-esleme",
-    baslik: "İstasyon 3: Uygunluk ve Verimlilik Ölçütleri",
-    yonerge: "Aşağıdaki değerlendirme ölçütü çiplerini doğru tanımlarıyla eşleştiriniz.",
-    rehberGiris: "Her tanıma uygun değerlendirme ölçütünü takınız.",
-    olcutler: [
-      {
-        id: "uygunluk",
-        ad: "Uygunluk",
-        tanim: "Aracın seçilen amaca hizmet edip etmediğini gösteren ölçüttür.",
-        ikon: "hedef"
-      },
-      {
-        id: "hiz",
-        ad: "Hız",
-        tanim: "Aracın sonucu ne kadar kısa sürede ürettiğini gösteren ölçüttür.",
-        ikon: "simsek"
-      },
-      {
-        id: "dogruluk",
-        ad: "Doğruluk",
-        tanim: "Üretilen sonucun gerçeğe uygun olup olmadığını gösteren ölçüttür.",
-        ikon: "onay"
-      },
-      {
-        id: "verimlilik",
-        ad: "Verimlilik",
-        tanim: "Az girdiyle çok iş yapabilmeyi, tekrar düzeltme gerektirmemeyi gösteren ölçüttür.",
-        ikon: "cark"
-      },
-      {
-        id: "guvenilirlik",
-        ad: "Güvenilirlik",
-        tanim: "Aracın her denemede tutarlı sonuçlar üretip üretmediğini gösteren ölçüttür.",
-        ikon: "kalkan"
-      }
-    ],
-    kartlar: [
-      { no: 0, ad: "Uygunluk", hedef: "uygunluk", aciklama: "Uygunluk: Bilgi toplamak için metin tabanlı araç seçmek uygunluk ölçütüdür." },
-      { no: 1, ad: "Hız", hedef: "hiz", aciklama: "Hız: Aracın yanıt süresinin kısalığı çalışma temposunu artırır." },
-      { no: 2, ad: "Doğruluk", hedef: "dogruluk", aciklama: "Doğruluk: Yapay zekâ bazen hatalı bilgi üretebilir, mutlaka doğruluğu kontrol edilmelidir." },
-      { no: 3, ad: "Verimlilik", hedef: "verimlilik", aciklama: "Verimlilik: Az girdi ile hedeflenen işi hatasız ve ek düzeltme gerektirmeden tamamlamaktır." },
-      { no: 4, ad: "Güvenilirlik", hedef: "guvenilirlik", aciklama: "Güvenilirlik: Aracın kararlı ve tutarlı çıktılar sunmasıdır." },
-      { no: 5, ad: "Popülerlik", hedef: "celdirici", celdirici: true, aciklama: "Popülerlik bir değerlendirme ölçütü değildir. Bir aracın çok tanınması amacınıza uygun veya doğru olduğunu göstermez." }
-    ]
-  },
-
-  /* -------------------------------------------------------------
-     İSTASYON 4: Hukuk ve Etik Güvenlik Kalkanı (Sahne 09, 10, 14)
+     İSTASYON 3: Hukuk ve Etik Güvenlik Kalkanı (Sıralamaları Değişmiş ve Karışık)
   ------------------------------------------------------------- */
   {
     tur: "hukuk-etik",
-    baslik: "İstasyon 4: Yapay Zekâ, Hukuk ve Etik Kalkanı",
-    yonerge: "Laboratuvardaki vaka kartını seçiniz, ardından Güvenlik Kalkanı panelindeki doğru hukuki/etik kuralla eşleştiriniz.",
+    baslik: "İstasyon 3: Yapay Zekâ, Hukuk ve Etik Kalkanı",
+    yonerge: "Laboratuvardaki vaka kartını inceleyiniz, ardından Güvenlik Kalkanı panelindeki doğru hukuki/etik kuralla eşleştiriniz.",
     rehberGiris: "Yapay zekâyı sorumlu ve etik kurallara göre kullanmak herkesin görevidir.",
     vakalar: [
       {
         no: 0,
-        baslik: "Vaka 1: Sahte Haber Yayılması",
-        metin: "Yapay zekâ ile üretilen sahte bir haber sosyal medyada panik oluşturdu.",
+        baslik: "Vaka: Sahte Haber Yayılması",
+        metin: "Yapay zekâ aracı kullanılarak üretilen gerçek dışı bir haber sosyal medyada panik ve kargaşaya yol açtı.",
         kuralId: "yasal-yaptirim",
-        aciklama: "Sahte içerik üretenler ve bunu yayanlar yasal yaptırımlarla karşılaşabilir."
+        aciklama: "Toplumda paniğe yol açan sahte içerikleri üretenler ve yayanlar doğrudan yasal yaptırımlarla karşılaşır."
       },
       {
         no: 1,
-        baslik: "Vaka 2: Yanlış İlaç Önerisi",
-        metin: "Bir sağlık uygulaması yapay zekâ kullanarak yanlış bir ilaç önerdi ve bir kişiye zarar verdi.",
+        baslik: "Vaka: Hatalı Tıbbi Tavsiye",
+        metin: "Bir sağlık uygulaması yapay zekâ algoritmasıyla yanlış ilaç önerdi ve bir hastanın sağlığına zarar verdi.",
         kuralId: "gelistirici-sorumluluk",
-        aciklama: "Sistemi geliştiren şirkete para cezası verilebilir ve sorumlular yargılanabilir."
+        aciklama: "Zararlı tavsiye üreten sistemi geliştiren şirket ve sorumlular hakkında tazminat ve cezai dava açılabilir."
       },
       {
         no: 2,
-        baslik: "Vaka 3: Hatalı Yüz Tanıma",
-        metin: "Bir yüz tanıma sistemi güvenlik kamerasında masum bir kişiyi şüpheli olarak gösterdi.",
+        baslik: "Vaka: Yüz Tanımada Yanlış Teşhis",
+        metin: "Bir güvenlik kamerasının yüz tanıma sistemi masum bir vatandaşı aranan bir şüpheli olarak etiketledi.",
         kuralId: "tazminat-hak",
-        aciklama: "Mağdurun zararı tazmin edilmeli ve sistemi geliştirenler hukuken sorumlu tutulabilir."
+        aciklama: "Sistem hatalarından doğan mağduriyetler tazmin edilmeli ve algoritmalar denetlenmelidir."
       },
       {
         no: 3,
-        baslik: "Vaka 4: Kontrolsüz İçerik Kullanımı",
-        metin: "'Yapay zekâ her zaman doğru bilgi üretir, kontrol etmeye gerek yoktur' düşüncesi.",
+        baslik: "Vaka: Doğrulamadan İçerik Kullanma",
+        metin: "'Yapay zekâ ne söylerse doğrudur, araştırmaya gerek yoktur' diyerek ödevinde hatalı bilgiyi doğrudan sunma.",
         kuralId: "kullanici-sorumluluk",
-        aciklama: "Yapay zekâ yanılabileceğinden sonuçları kontrol etme sorumluluğu son kullanıcıdadır."
+        aciklama: "Yapay zekâ yanılabileceğinden üretilen bilginin doğruluğunu kontrol etme sorumluluğu son kullanıcıdadır."
       }
     ],
     kurallar: [
-      { id: "yasal-yaptirim", ad: "Yasal Yaptırım ve Hukuki Ceza" },
-      { id: "gelistirici-sorumluluk", ad: "Geliştirici Şirketin Sorumluluğu" },
-      { id: "tazminat-hak", ad: "Zararın Tazmini ve Sistem Sorumluluğu" },
-      { id: "kullanici-sorumluluk", ad: "Kullanıcının Doğruluk Kontrolü Sorumluluğu" }
+      { id: "tazminat-hak", ad: "Hatalı Sistem Denetimi & Zararın Tazmini" },
+      { id: "kullanici-sorumluluk", ad: "Kullanıcının Doğruluk Kontrolü Sorumluluğu" },
+      { id: "yasal-yaptirim", ad: "Sahte İçerik Üretimi ve Yayımına Yasal Yaptırım" },
+      { id: "gelistirici-sorumluluk", ad: "Geliştirici Şirketin Hukuki & Cezai Sorumluluğu" }
     ]
   }
 ];
@@ -709,13 +696,7 @@ var IKONLAR = {
   ses: '<svg class="terminal-ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3" fill="#EDE9FE" stroke="#6D28D9" stroke-width="2"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8" stroke="#6D28D9" stroke-width="2" stroke-linecap="round"/></svg>',
   arama: '<svg class="terminal-ikon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="#0284C7" stroke-width="2.5" stroke-linecap="round"/><path d="M8 11h6M11 8v6" stroke="#0284C7" stroke-width="1.8" stroke-linecap="round"/></svg>',
   analiz: '<svg class="terminal-ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="#F59E0B"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/></svg>',
-  tablo: '<svg class="terminal-ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" fill="#F1F5F9" stroke="#64748B" stroke-width="2"/><path d="M3 9h18M3 15h18M9 3v18" stroke="#64748B" stroke-width="1.8"/></svg>',
-
-  hedef: '<svg class="olcut-ikon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/><circle cx="12" cy="12" r="5" fill="#2563EB"/><circle cx="12" cy="12" r="2" fill="#FFFFFF"/></svg>',
-  simsek: '<svg class="olcut-ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h8l-1 8 11-12h-8l1-8z" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2" stroke-linejoin="round"/></svg>',
-  onay: '<svg class="olcut-ikon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/><path d="M8 12l3 3 5-5" fill="none" stroke="#15803D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-  cark: '<svg class="olcut-ikon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="#EDE9FE" stroke="#6D28D9" stroke-width="2"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="#6D28D9" stroke-width="2" stroke-linecap="round"/></svg>',
-  kalkan: '<svg class="olcut-ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 4v6c0 5.5-3.5 10-8 11-4.5-1-8-5.5-8-11V6l8-4z" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/></svg>'
+  tablo: '<svg class="terminal-ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" fill="#F1F5F9" stroke="#64748B" stroke-width="2"/><path d="M3 9h18M3 15h18M9 3v18" stroke="#64748B" stroke-width="1.8"/></svg>'
 };
 
 /* ============ DURUM DEĞİŞKENLERİ ============ */
@@ -736,7 +717,7 @@ var yaziOlcek = 100;
 var promptGorevNo = 0;
 var seciliPrompt = null;
 
-/* İstasyon 4 özel durumları */
+/* İstasyon 3 özel durumları */
 var seciliVaka = null;
 var cozulenVakalar = {};
 
@@ -847,8 +828,6 @@ function bolumYukle(){
   }else if(b.tur === "prompt-lab"){
     promptGorevNo = 0;
     kurPromptLab(b);
-  }else if(b.tur === "olcut-esleme"){
-    kurOlcutEsleme(b);
   }else if(b.tur === "hukuk-etik"){
     cozulenVakalar = {};
     kurHukukEtik(b);
@@ -904,7 +883,6 @@ function kurAracSecimi(b){
   sahne.appendChild(termKapsayici);
 
   kalanKart = b.kartlar.length;
-  // Kartları karıştırarak ekle
   var sira = [0, 1, 2, 3, 4];
   sira.sort(function(){ return 0.5 - Math.random(); });
 
@@ -995,12 +973,12 @@ function aracBırak(no, terminalId, d){
 }
 
 /* ----------------------------------------------------------------
-   2. İSTASYON: Etkili Girdi / Prompt Laboratuvarı
+   2. İSTASYON: Etkili Girdi / Prompt Laboratuvarı (5 Tur)
 ---------------------------------------------------------------- */
 function kurPromptLab(b){
   var sahne = $("sahne-ic");
   var havuz = $("havuz");
-  havuz.innerHTML = ""; // Bu istasyonda buton konsolu monitör içinde
+  havuz.innerHTML = "";
 
   var kapsayici = document.createElement("div");
   kapsayici.id = "istasyon-prompt";
@@ -1016,9 +994,10 @@ function kurPromptLab(b){
 
   var senaryoMetin = document.createElement("p");
   senaryoMetin.id = "prompt-senaryo-metni";
-  senaryoMetin.style.fontSize = "1.05rem";
+  senaryoMetin.style.fontSize = "1rem";
   senaryoMetin.style.fontWeight = "700";
   senaryoMetin.style.color = "var(--murekkep)";
+  senaryoMetin.style.lineHeight = "1.35";
   solPanel.appendChild(senaryoMetin);
 
   var secenekKutusu = document.createElement("div");
@@ -1030,7 +1009,7 @@ function kurPromptLab(b){
 
   var sagPanel = document.createElement("div");
   sagPanel.id = "prompt-monitor";
-  sagPanel.innerHTML = '<div id="prompt-monitor-baslik"><span>YAPAY ZEKÂ TERMİNALİ v6.0</span><span id="prompt-durum">HAZIR</span></div>' +
+  sagPanel.innerHTML = '<div id="prompt-monitor-baslik"><span>YAPAY ZEKÂ KONSOLU</span><span id="prompt-durum">HAZIR</span></div>' +
     '<div id="prompt-monitor-cikti">Lütfen sol taraftan bir girdi seçip "Komutu Çalıştır" butonuna basınız.</div>' +
     '<button id="btn-calistir" type="button" disabled>' +
     '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Komutu Gönder ve Çalıştır</button>';
@@ -1048,14 +1027,19 @@ function promptGorevGoster(){
   var g = b.gorevler[promptGorevNo];
   seciliPrompt = null;
   $("btn-calistir").disabled = true;
-  $("prompt-durum").textContent = "GÖREV " + (promptGorevNo + 1) + " / " + b.gorevler.length;
+  $("prompt-durum").textContent = "TUR " + (promptGorevNo + 1) + " / " + b.gorevler.length;
+  $("prompt-durum").style.color = "#94A3B8";
   $("prompt-senaryo-metni").textContent = g.senaryo;
   $("prompt-monitor-cikti").textContent = "Girdinizi seçiniz ve 'Komutu Gönder ve Çalıştır' butonuna basınız.";
 
   var kutu = $("prompt-secenek-kutusu");
   kutu.innerHTML = "";
 
-  g.secenekler.forEach(function(opt){
+  // Seçenekleri rastgele sırayla göster ki ezbere basılmasın
+  var secKarisik = g.secenekler.slice();
+  secKarisik.sort(function(){ return 0.5 - Math.random(); });
+
+  secKarisik.forEach(function(opt){
     var k = document.createElement("button");
     k.type = "button";
     k.className = "prompt-kart";
@@ -1116,131 +1100,12 @@ function calistirPrompt(){
 }
 
 /* ----------------------------------------------------------------
-   3. İSTASYON: Kalite ve Değerlendirme Ölçütleri
----------------------------------------------------------------- */
-function kurOlcutEsleme(b){
-  var sahne = $("sahne-ic");
-  var havuz = $("havuz");
-
-  var panel = document.createElement("div");
-  panel.id = "istasyon-olcutler";
-
-  b.olcutler.forEach(function(o){
-    var d = document.createElement("div");
-    d.className = "olcut-kutu";
-    d.setAttribute("data-id", o.id);
-    d.setAttribute("role", "button");
-    d.setAttribute("tabindex", "0");
-    d.setAttribute("aria-label", o.ad + " ölçütü panosu");
-    d.innerHTML = (IKONLAR[o.ikon] || "") +
-      '<div class="olcut-baslik">' + o.ad + '</div>' +
-      '<div class="olcut-yuva">' + o.tanim + '</div>';
-
-    d.addEventListener("dragover", function(e){
-      e.preventDefault();
-      if(!d.classList.contains("kilitli")) d.classList.add("uzerinde");
-    });
-    d.addEventListener("dragleave", function(){ d.classList.remove("uzerinde"); });
-    d.addEventListener("drop", function(e){
-      e.preventDefault();
-      d.classList.remove("uzerinde");
-      var no = e.dataTransfer.getData("text/plain");
-      if(no !== "") olcutBirak(parseInt(no, 10), o.id, d);
-    });
-    d.addEventListener("click", function(){
-      if(seciliKart !== null && !d.classList.contains("kilitli")){
-        olcutBirak(seciliKart, o.id, d);
-      }
-    });
-    d.addEventListener("keydown", function(e){
-      if((e.key === "Enter" || e.key === " ") && seciliKart !== null && !d.classList.contains("kilitli")){
-        e.preventDefault();
-        olcutBirak(seciliKart, o.id, d);
-      }
-    });
-    panel.appendChild(d);
-  });
-  sahne.appendChild(panel);
-
-  kalanKart = b.olcutler.length; // 5 doğru kart yerleşecek
-  var kartlarKarisik = b.kartlar.slice();
-  kartlarKarisik.sort(function(){ return 0.5 - Math.random(); });
-
-  kartlarKarisik.forEach(function(k){
-    var btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "kart" + (k.celdirici ? " celdirici" : "");
-    btn.textContent = k.ad;
-    btn.setAttribute("draggable", "true");
-    btn.setAttribute("aria-pressed", "false");
-    btn.setAttribute("data-no", k.no);
-    btn.setAttribute("aria-label", k.ad + " ölçüt kartı. Seçmek için tıklayınız, ardından panodaki tanıma tıklayınız.");
-
-    btn.addEventListener("dragstart", function(e){
-      seciliKart = k.no;
-      btn.classList.add("suruklenen");
-      e.dataTransfer.setData("text/plain", String(k.no));
-      e.dataTransfer.effectAllowed = "move";
-    });
-    btn.addEventListener("dragend", function(){ btn.classList.remove("suruklenen"); });
-    btn.addEventListener("click", function(){ kartSec(k.no, btn); });
-    havuz.appendChild(btn);
-  });
-}
-
-function olcutBirak(no, olcutId, d){
-  if(kilit) return;
-  var b = BOLUMLER[bolumIndeks];
-  var k = null;
-  for(var i = 0; i < b.kartlar.length; i++){
-    if(b.kartlar[i].no === no){ k = b.kartlar[i]; break; }
-  }
-  var btn = $("havuz").querySelector('[data-no="' + no + '"]');
-  if(!k || !btn) return;
-
-  if(k.hedef === olcutId){
-    sesCal("dogru");
-    d.classList.add("kilitli");
-    btn.parentNode.removeChild(btn);
-    seciliKart = null;
-    kalanKart--;
-    puan += bolumYanlis === 0 ? 10 : 5;
-    skorGuncelle();
-    rehberSoyle("Doğru ölçüt eşleşti!", "sevinc");
-    bildir("Doğru! " + k.aciklama, "iyi");
-
-    if(kalanKart === 0){
-      kilit = true;
-      setTimeout(istasyonTamamlandi, window.__FAST ? 350 : 1600);
-    }
-  }else{
-    sesCal("yanlis");
-    bolumYanlis++;
-    btn.classList.add("sarsil");
-    d.classList.add("hatali");
-    setTimeout(function(){
-      btn.classList.remove("sarsil");
-      d.classList.remove("hatali");
-    }, 450);
-    btn.setAttribute("aria-pressed", "false");
-    seciliKart = null;
-    if(k.celdirici){
-      rehberSoyle("Popülerlik bir yapay zekâ değerlendirme ölçütü değildir!", "sasir");
-      bildir("Dikkat! " + k.aciklama, "kotu");
-    }else{
-      rehberSoyle("Tanımı tekrar dikkatle okuyunuz.", "dusun");
-      bildir("Bu ölçüt bu tanıma ait değil. Lütfen tekrar deneyiniz.", "kotu");
-    }
-  }
-}
-
-/* ----------------------------------------------------------------
-   4. İSTASYON: Hukuk ve Etik Güvenlik Kalkanı
+   3. İSTASYON: Hukuk ve Etik Güvenlik Kalkanı (Sıralamaları Karışık)
 ---------------------------------------------------------------- */
 function kurHukukEtik(b){
   var sahne = $("sahne-ic");
   var havuz = $("havuz");
-  havuz.innerHTML = ""; // Vaka kartları sahne içinde listelenir
+  havuz.innerHTML = "";
 
   var kapsayici = document.createElement("div");
   kapsayici.id = "istasyon-hukuk";
@@ -1265,7 +1130,11 @@ function kurHukukEtik(b){
   kapsayici.appendChild(kalkanPanosu);
   sahne.appendChild(kapsayici);
 
-  b.vakalar.forEach(function(v){
+  // Vakaları karıştır
+  var vakalarKarisik = b.vakalar.slice();
+  vakalarKarisik.sort(function(){ return 0.5 - Math.random(); });
+
+  vakalarKarisik.forEach(function(v){
     var k = document.createElement("div");
     k.className = "vaka-kart";
     k.setAttribute("data-no", v.no);
@@ -1282,8 +1151,12 @@ function kurHukukEtik(b){
     vakaListesi.appendChild(k);
   });
 
+  // Kuralları da karıştır
   var kuralKutusu = kalkanPanosu.querySelector("#kural-secenekleri");
-  b.kurallar.forEach(function(r){
+  var kurallarKarisik = b.kurallar.slice();
+  kurallarKarisik.sort(function(){ return 0.5 - Math.random(); });
+
+  kurallarKarisik.forEach(function(r){
     var btn = document.createElement("button");
     btn.type = "button";
     btn.className = "kural-btn";
@@ -1305,14 +1178,18 @@ function vakaSec(no, kartEl){
   seciliVaka = no;
   kartEl.setAttribute("aria-pressed", "true");
   sesCal("tik");
-  rehberSoyle("Kalkan panelinden bu duruma uygun hukuki kuralı seçiniz.", "dusun");
+  rehberSoyle("Kalkan panelinden bu duruma uygun hukuki/etik kuralı seçiniz.", "dusun");
 }
 
 function kuralUygula(kuralId, btnEl){
   if(seciliVaka === null || kilit) return;
   var b = BOLUMLER[bolumIndeks];
-  var v = b.vakalar[seciliVaka];
+  var v = null;
+  for(var i = 0; i < b.vakalar.length; i++){
+    if(b.vakalar[i].no === seciliVaka){ v = b.vakalar[i]; break; }
+  }
   var vakaEl = $("vaka-listesi").querySelector('[data-no="' + seciliVaka + '"]');
+  if(!v || !vakaEl) return;
 
   if(v.kuralId === kuralId){
     sesCal("dogru");
