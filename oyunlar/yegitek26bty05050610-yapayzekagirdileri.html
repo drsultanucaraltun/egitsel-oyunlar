@@ -689,7 +689,7 @@ b,strong{font-weight:700}
     <section class="ekran" id="ekran-oyun" aria-labelledby="hedef-yazi">
       <!-- YÖNERGE ŞERİDİ (YÜKSEK KONTRAST SİYAH) -->
       <div id="gorev-serit">
-        <span class="kademe-etiket" id="kademe-etiket">Bölüm 1 / 3</span>
+        <span class="kademe-etiket" id="kademe-etiket">Bölüm 1</span>
         <div id="hedef-gorev-kutusu">
           <span class="hedef-vurgu-yazi" id="hedef-yazi">HEDEF: Ses Girdisi</span>
           <span class="hedef-ipucu-yazi" id="ipucu-yazi">— Mikrofon ile kaydedilen sesi yakalayınız.</span>
@@ -1251,7 +1251,7 @@ function bolumuBaslat(bolumIdx){
   robotSerit = 1;
   robotuTasi(1);
 
-  $("kademe-etiket").textContent = "Bölüm " + bolumKodlari[bolumIdx] + " (" + (bolumIdx + 1) + " / 3)";
+  $("kademe-etiket").textContent = "Bölüm " + (bolumIdx + 1);
   $("btn-ileri").disabled = true;
 
   if(bolumIdx === 0){
