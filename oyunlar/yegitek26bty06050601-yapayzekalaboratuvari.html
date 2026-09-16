@@ -73,38 +73,67 @@ b,strong{font-weight:700}
 #btn-basla:hover{transform:translateY(-2px)}
 
 /* ============ OYUN EKRANI ============ */
-#gorev-serit{flex:0 0 auto;display:flex;align-items:center;gap:0.8rem;padding:0.25rem 0.2rem}
-#bolum-no{font-size:1.15rem;font-weight:700;color:var(--gri);white-space:nowrap;background:var(--panel);border:2px solid var(--cizgi);border-radius:10px;padding:0.25rem 0.7rem}
-#gorev-metin{font-size:1.25rem;font-weight:700;flex:1;min-width:0}
-#ilerleme-dis{flex:0 0 auto;width:7rem;height:14px;border-radius:8px;background:var(--panel);border:2px solid var(--cizgi);overflow:hidden}
+#gorev-serit{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:0.8rem;
+  padding:0.4rem 0.8rem;
+  background:var(--panel);
+  border:2px solid var(--cizgi);
+  border-radius:14px;
+  box-shadow:0 2px 8px rgba(37,99,235,0.05);
+}
+#bolum-no{font-size:1.15rem;font-weight:700;color:var(--vurgu);white-space:nowrap;background:var(--vurgu-acik);border-radius:10px;padding:0.3rem 0.8rem}
+#gorev-metin{font-size:1.22rem;font-weight:700;flex:1;min-width:0;color:var(--murekkep)}
+#ilerleme-dis{flex:0 0 auto;width:7.5rem;height:14px;border-radius:8px;background:#F1F5F9;border:2px solid var(--cizgi);overflow:hidden}
 #ilerleme-ic{height:100%;width:0;background:var(--vurgu);transition:width .3s}
 
-#oyun-govde{flex:1 1 auto;min-height:0;display:flex;gap:1rem;padding-top:0.4rem}
-#rehber{flex:0 0 auto;width:9.5rem;display:flex;flex-direction:column;align-items:center;gap:0.4rem;background:var(--panel);border:2px solid var(--cizgi);border-radius:16px;padding:0.6rem 0.5rem;justify-content:center}
-#rehber svg{width:100%;max-width:6.5rem}
-#rehber-soz{font-size:0.95rem;font-weight:700;text-align:center;color:var(--murekkep);line-height:1.3;padding:0.2rem}
+/* Geri Bildirim Alanı (Yazıların üzerine gelmez, doğrudan bağımsız akış içindedir) */
+#geribildirim{
+  flex:0 0 auto;
+  min-height:2.4rem;
+  max-width:100%;
+  font-size:1.08rem;
+  font-weight:700;
+  border-radius:12px;
+  padding:0.4rem 1.2rem;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  margin:0.25rem 0 0.1rem;
+  box-sizing:border-box;
+  box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+#geribildirim.goster{display:flex}
+#geribildirim.iyi{background:var(--dogru-acik);color:var(--dogru);border:2px solid var(--dogru)}
+#geribildirim.kotu{background:var(--yanlis-acik);color:var(--yanlis);border:2px solid var(--yanlis)}
+#geribildirim.notr{background:var(--vurgu-acik);color:var(--murekkep);border:2px solid var(--vurgu)}
 
+#oyun-govde{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;gap:0.6rem;padding-top:0.3rem}
 #sahne-ic{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:0.6rem;min-height:0}
 
 /* İstasyon 1: Terminaller ve Kartlar */
 #istasyon-terminaller{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0.65rem;align-items:stretch}
 .terminal{
   background:var(--panel);
-  border:3px dashed var(--cizgi);
+  border:2px dashed var(--cizgi);
   border-radius:16px;
-  padding:0.5rem 0.6rem;
+  padding:0.55rem 0.65rem;
   display:flex;
   flex-direction:column;
   align-items:center;
   gap:0.35rem;
   min-height:0;
   cursor:pointer;
-  transition:border-color .2s, background .2s, transform .2s;
+  transition:border-color .2s, background .2s, transform .2s, box-shadow .2s;
   position:relative;
+  box-shadow:0 2px 6px rgba(0,0,0,0.03);
 }
-.terminal:hover{border-color:var(--vurgu)}
+.terminal:hover{border-color:var(--vurgu);box-shadow:0 4px 12px rgba(37,99,235,0.1);transform:translateY(-2px)}
 .terminal.uzerinde{border-color:var(--vurgu);background:var(--vurgu-acik);border-style:solid}
-.terminal.kilitli{border-style:solid;border-color:var(--dogru);background:var(--dogru-acik);cursor:default}
+.terminal.kilitli{border-style:solid;border-color:var(--dogru);background:var(--dogru-acik);box-shadow:0 4px 12px rgba(21,128,61,0.1);cursor:default;transform:none}
 .terminal.hatali{border-color:var(--yanlis);background:var(--yanlis-acik)}
 .terminal-baslik{font-size:1.15rem;font-weight:700;display:flex;align-items:center;gap:0.4rem;color:var(--murekkep)}
 .terminal-ikon{width:40px;height:40px;flex:0 0 auto}
@@ -278,13 +307,6 @@ b,strong{font-weight:700}
 .ikincil-buton{font-size:1.35rem;font-weight:700;background:var(--vurgu-acik);color:var(--vurgu);border:3px solid var(--vurgu);border-radius:14px;padding:0.7rem 2rem;min-height:60px;transition:background .2s}
 .ikincil-buton:hover{background:var(--vurgu);color:var(--panel)}
 
-/* ============ GERİ BİLDİRİM ============ */
-#geribildirim{position:absolute;left:50%;top:0.5rem;transform:translateX(-50%);max-width:min(92%,48rem);font-size:1.15rem;font-weight:700;border-radius:12px;padding:0.5rem 1.1rem;display:none;text-align:center;z-index:40;box-shadow:0 4px 14px rgba(0,0,0,0.12)}
-#geribildirim.goster{display:block}
-#geribildirim.iyi{background:var(--dogru-acik);color:var(--dogru);border:3px solid var(--dogru)}
-#geribildirim.kotu{background:var(--yanlis-acik);color:var(--yanlis);border:3px solid var(--yanlis)}
-#geribildirim.notr{background:var(--vurgu-acik);color:var(--murekkep);border:3px solid var(--vurgu)}
-
 /* ============ ALT BAR ============ */
 #altbar{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:0.4rem 1.2rem;background:var(--panel);border-top:3px solid var(--cizgi)}
 .gezinme{display:flex;align-items:center;gap:0.5rem;font-size:1.35rem;font-weight:700;min-height:60px;min-width:9rem;border-radius:14px;border:none;padding:0 1.3rem}
@@ -299,7 +321,6 @@ b,strong{font-weight:700}
   #ekran-giris p{font-size:1.15rem}
   #gorev-metin{font-size:1.15rem}
   .kart{font-size:0.95rem;min-height:44px}
-  #rehber{width:8rem}
   .terminal{padding:0.4rem}
   .terminal-baslik{font-size:1.05rem}
   .terminal-ikon{width:32px;height:32px}
@@ -379,23 +400,9 @@ b,strong{font-weight:700}
         </div>
       </div>
 
-      <div id="oyun-govde">
-        <div id="rehber">
-          <svg viewBox="0 0 100 110" role="img" aria-label="Rehber robot">
-            <rect x="18" y="24" width="64" height="56" rx="14" fill="#FFFFFF" stroke="#2563EB" stroke-width="4"/>
-            <line x1="50" y1="8" x2="50" y2="24" stroke="#2563EB" stroke-width="4"/>
-            <circle cx="50" cy="6" r="6" fill="#F59E0B"/>
-            <circle id="goz-sol" cx="38" cy="46" r="6" fill="#1E2A44"/>
-            <circle id="goz-sag" cx="62" cy="46" r="6" fill="#1E2A44"/>
-            <path id="agiz" d="M38 64 q12 8 24 0" fill="none" stroke="#1E2A44" stroke-width="4" stroke-linecap="round"/>
-            <rect x="28" y="84" width="44" height="16" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="3"/>
-            <circle cx="40" cy="92" r="3" fill="#15803D"/>
-            <circle cx="50" cy="92" r="3" fill="#F59E0B"/>
-            <circle cx="60" cy="92" r="3" fill="#2563EB"/>
-          </svg>
-          <div id="rehber-soz" aria-live="polite">Görevi okuyunuz.</div>
-        </div>
+      <div id="geribildirim" role="status" aria-live="assertive"></div>
 
+      <div id="oyun-govde">
         <div id="sahne-ic">
           <!-- Dinamik İstasyon İçeriği -->
         </div>
@@ -420,8 +427,6 @@ b,strong{font-weight:700}
       <p id="son-ozet">Yapay zekâ araçlarını amacına uygun seçmeyi, açık ve ayrıntılı etkili girdiler (prompt) yazmayı ve etik/hukuki sorumlulukları başarıyla tamamladınız.</p>
       <button class="ikincil-buton" id="btn-yeniden" type="button">Laboratuvarı Yeniden Başlat</button>
     </section>
-
-    <div id="geribildirim" role="status" aria-live="assertive"></div>
   </main>
 
   <footer id="altbar">
@@ -774,17 +779,7 @@ function bildirimTemizle(){
 }
 
 function rehberSoyle(metin, ifade){
-  $("rehber-soz").textContent = metin;
-  var agiz = $("agiz");
-  if(ifade === "sevinc"){
-    agiz.setAttribute("d", "M36 60 q14 16 28 0");
-  }else if(ifade === "dusun"){
-    agiz.setAttribute("d", "M40 68 h20");
-  }else if(ifade === "sasir"){
-    agiz.setAttribute("d", "M42 66 a8 8 0 1 0 16 0 a8 8 0 1 0 -16 0");
-  }else{
-    agiz.setAttribute("d", "M38 64 q12 8 24 0");
-  }
+  // Sol taraftaki robot kaldırıldı; yönlendirmeler görev şeridi ve dönüt alanı üzerinden sunulur.
 }
 
 /* ============ EKRAN GEÇİŞLERİ ============ */
