@@ -114,52 +114,7 @@ b,strong{font-weight:700}
 #oyun-govde{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;gap:0.6rem;padding-top:0.3rem}
 #sahne-ic{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:0.6rem;min-height:0}
 
-/* İstasyon 1: Terminaller ve Kartlar */
-#istasyon-terminaller{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0.65rem;align-items:stretch}
-.terminal{
-  background:var(--panel);
-  border:2px dashed var(--cizgi);
-  border-radius:16px;
-  padding:0.55rem 0.65rem;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:0.35rem;
-  min-height:0;
-  cursor:pointer;
-  transition:border-color .2s, background .2s, transform .2s, box-shadow .2s;
-  position:relative;
-  box-shadow:0 2px 6px rgba(0,0,0,0.03);
-}
-.terminal:hover{border-color:var(--vurgu);box-shadow:0 4px 12px rgba(37,99,235,0.1);transform:translateY(-2px)}
-.terminal.uzerinde{border-color:var(--vurgu);background:var(--vurgu-acik);border-style:solid}
-.terminal.kilitli{border-style:solid;border-color:var(--dogru);background:var(--dogru-acik);box-shadow:0 4px 12px rgba(21,128,61,0.1);cursor:default;transform:none}
-.terminal.hatali{border-color:var(--yanlis);background:var(--yanlis-acik)}
-.terminal-baslik{font-size:1.15rem;font-weight:700;display:flex;align-items:center;gap:0.4rem;color:var(--murekkep)}
-.terminal-ikon{width:40px;height:40px;flex:0 0 auto}
-.terminal-tanim{font-size:0.88rem;color:var(--gri);text-align:center;line-height:1.2}
-.terminal-ekran{
-  flex:1 1 auto;
-  width:100%;
-  background:#F8FAFC;
-  border:2px solid var(--cizgi);
-  border-radius:10px;
-  padding:0.35rem 0.5rem;
-  font-size:0.85rem;
-  font-weight:700;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  color:var(--gri);
-  overflow:hidden;
-}
-.terminal.kilitli .terminal-ekran{
-  background:var(--panel);
-  border-color:var(--dogru);
-  color:var(--dogru);
-}
+
 
 /* İstasyon 2: Prompt Konsolu */
 #istasyon-prompt{flex:1 1 auto;min-height:0;display:flex;gap:0.8rem;align-items:stretch}
@@ -215,56 +170,166 @@ b,strong{font-weight:700}
 }
 #btn-calistir:disabled{background:#334155;color:#64748B;cursor:not-allowed}
 
-/* İstasyon 3: Hukuk ve Etik Kalkanı */
-#istasyon-hukuk{flex:1 1 auto;min-height:0;display:flex;gap:0.8rem;align-items:stretch}
-#vaka-listesi{flex:1.1 1 0;display:flex;flex-direction:column;gap:0.5rem;overflow-y:auto}
-.vaka-kart{
+/* İstasyon 2: Hukuk ve Etik Kalkanı */
+#istasyon-hukuk{
+  flex:1 1 auto;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  gap:0.75rem;
+  overflow-y:auto;
+  padding:0.2rem;
+}
+
+#hukuk-ustbar{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   background:var(--panel);
   border:2px solid var(--cizgi);
-  border-radius:12px;
-  padding:0.55rem 0.8rem;
-  display:flex;
-  flex-direction:column;
-  gap:0.2rem;
-  cursor:pointer;
-  transition:all .2s;
+  border-radius:14px;
+  padding:0.6rem 1.2rem;
 }
-.vaka-kart:hover{border-color:var(--vurgu);background:var(--vurgu-acik)}
-.vaka-kart[aria-pressed="true"]{border-color:var(--vurgu);background:var(--vurgu-acik);box-shadow:0 0 0 2px var(--vurgu)}
-.vaka-kart.cozuldu{border-color:var(--dogru);background:var(--dogru-acik);cursor:default;opacity:0.9}
-.vaka-baslik{font-size:1rem;font-weight:700;display:flex;align-items:center;gap:0.4rem}
-.vaka-metin{font-size:0.88rem;color:var(--murekkep);line-height:1.25}
-
-#kalkan-panosu{
-  flex:0.9 1 0;
-  background:var(--panel);
-  border:3px solid var(--cizgi);
-  border-radius:16px;
-  padding:0.8rem;
+.hukuk-vaka-sayac{
+  font-size:1.15rem;
+  font-weight:700;
+  color:var(--vurgu);
   display:flex;
-  flex-direction:column;
+  align-items:center;
+  gap:0.5rem;
+}
+.hukuk-kalkan-durum{
+  display:flex;
   align-items:center;
   gap:0.6rem;
-  justify-content:space-between;
-}
-#kalkan-gorsel{width:100%;max-width:130px;height:110px}
-#kural-secenekleri{width:100%;display:flex;flex-direction:column;gap:0.4rem}
-.kural-btn{
-  background:var(--panel);
-  border:2px solid var(--cizgi);
-  border-radius:10px;
-  padding:0.55rem 0.7rem;
-  font-size:0.92rem;
+  font-size:1.05rem;
   font-weight:700;
-  text-align:left;
-  cursor:pointer;
-  transition:all .2s;
+  color:var(--murekkep);
+}
+.kalkan-minibar{
+  width:140px;
+  height:14px;
+  background:#E2E8F0;
+  border-radius:7px;
+  overflow:hidden;
+}
+.kalkan-minibar-dolum{
+  height:100%;
+  width:0%;
+  background:var(--dogru);
+  transition:width .3s ease;
+}
+
+#vaka-karti{
+  background:var(--panel);
+  border:3px solid var(--vurgu);
+  border-radius:16px;
+  padding:1.1rem 1.4rem;
+  display:flex;
+  flex-direction:column;
+  gap:0.5rem;
+  box-shadow:0 4px 12px rgba(37,99,235,0.08);
+}
+.vaka-etiket-satir{
   display:flex;
   align-items:center;
-  gap:0.4rem;
+  justify-content:space-between;
+  gap:0.5rem;
 }
-.kural-btn:hover{border-color:var(--vurgu);background:var(--vurgu-acik)}
-.kural-btn:disabled{background:#F1F5F9;color:var(--gri);cursor:not-allowed;border-color:var(--cizgi)}
+.vaka-rozet{
+  display:inline-flex;
+  align-items:center;
+  gap:0.4rem;
+  background:#FEF3C7;
+  color:#B45309;
+  font-size:0.95rem;
+  font-weight:700;
+  padding:0.25rem 0.65rem;
+  border-radius:8px;
+  border:1px solid #FDE68A;
+}
+.vaka-kart-baslik{
+  font-size:1.35rem;
+  font-weight:700;
+  color:var(--murekkep);
+}
+.vaka-aciklama-metin{
+  font-size:1.24rem;
+  line-height:1.55;
+  color:#1E293B;
+  background:#F8FAFC;
+  border-left:4px solid var(--vurgu);
+  padding:0.8rem 1.1rem;
+  border-radius:0 10px 10px 0;
+}
+
+.kural-soru-baslik{
+  font-size:1.15rem;
+  font-weight:700;
+  color:var(--murekkep);
+  display:flex;
+  align-items:center;
+  gap:0.45rem;
+  margin-top:0.2rem;
+}
+
+#kural-izgara{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0.75rem;
+  flex:1 1 auto;
+}
+.kural-secenek-btn{
+  background:var(--panel);
+  border:3px solid var(--cizgi);
+  border-radius:14px;
+  padding:0.9rem 1.1rem;
+  font-size:1.12rem;
+  font-weight:700;
+  color:var(--murekkep);
+  text-align:left;
+  cursor:pointer;
+  transition:all .18s ease;
+  display:flex;
+  align-items:center;
+  gap:0.65rem;
+  min-height:64px;
+  line-height:1.35;
+}
+.kural-secenek-btn:hover:not(:disabled){
+  border-color:var(--vurgu);
+  background:var(--vurgu-acik);
+  transform:translateY(-2px);
+}
+.kural-secenek-btn:focus-visible{
+  outline:3px solid var(--vurgu);
+}
+.kural-secenek-btn.dogru-secim{
+  border-color:var(--dogru);
+  background:var(--dogru-acik);
+  color:var(--dogru);
+}
+.kural-secenek-btn.yanlis-secim{
+  border-color:var(--yanlis);
+  background:var(--yanlis-acik);
+  animation:sarsil .35s;
+}
+.kural-secenek-btn:disabled{
+  opacity:0.75;
+  cursor:not-allowed;
+}
+.kural-ikon-kutusu{
+  flex:0 0 auto;
+  width:36px;
+  height:36px;
+  border-radius:8px;
+  background:var(--vurgu-acik);
+  color:var(--vurgu);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
 /* Havuz / Kart Bölmesi */
 #havuz{
@@ -321,9 +386,8 @@ b,strong{font-weight:700}
   #ekran-giris p{font-size:1.15rem}
   #gorev-metin{font-size:1.15rem}
   .kart{font-size:0.95rem;min-height:44px}
-  .terminal{padding:0.4rem}
-  .terminal-baslik{font-size:1.05rem}
-  .terminal-ikon{width:32px;height:32px}
+  .vaka-aciklama-metin{font-size:1.12rem;line-height:1.4}
+  .kural-secenek-btn{font-size:1.02rem;padding:0.65rem 0.85rem;min-height:54px}
   #ekran-son h2{font-size:1.8rem}
   #son-puan{font-size:1.25rem}
 }
@@ -346,7 +410,7 @@ b,strong{font-weight:700}
     <div id="skorlar">
       <span class="skor-kutu" aria-label="Kazanılan yıldız">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="#F59E0B"/></svg>
-        <span id="skor-yildiz">0 / 3</span>
+        <span id="skor-yildiz">0 / 2</span>
       </span>
       <span class="skor-kutu" aria-label="Toplam puan">
         <span>Puan:</span>
@@ -384,18 +448,17 @@ b,strong{font-weight:700}
         <circle cx="170" cy="130" r="8" fill="#15803D"/>
         <circle cx="250" cy="130" r="8" fill="#6D28D9"/>
       </svg>
-      <p>Yapay Zekâ Laboratuvarına hoş geldiniz! Amacınıza en uygun yapay zekâ aracını belirleyecek, etkili girdi (prompt) yazımını test edecek ve etik/hukuki güvenlik kalkanını tamamlayacaksınız.</p>
-      <p>3 istasyonu başarıyla tamamlayınız ve <b>Yapay Zekâ Uzmanlık Sertifikanızı</b> alınız.</p>
-      <p>Kartları sürükleyerek veya önce <b>karta</b>, ardından <b>hedefe tıklayarak</b> yerleştirebilirsiniz.</p>
+      <p>Yapay Zekâ Laboratuvarına hoş geldiniz! Etkili girdi (prompt) yazımını test edecek ve etik/hukuki güvenlik kalkanını tamamlayacaksınız.</p>
+      <p>2 istasyonu başarıyla tamamlayınız ve <b>Yapay Zekâ Uzmanlık Sertifikanızı</b> alınız.</p>
       <button id="btn-basla" type="button">Laboratuvara Giriş Yapınız</button>
     </section>
 
     <!-- ============ OYUN EKRANI ============ -->
     <section class="ekran" id="ekran-oyun" aria-labelledby="gorev-metin">
       <div id="gorev-serit">
-        <span id="bolum-no">İstasyon 1 / 3</span>
+        <span id="bolum-no">İstasyon 1 / 2</span>
         <span id="gorev-metin" aria-live="polite"></span>
-        <div id="ilerleme-dis" role="progressbar" aria-label="İstasyon ilerlemesi" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0">
+        <div id="ilerleme-dis" role="progressbar" aria-label="İstasyon ilerlemesi" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0">
           <div id="ilerleme-ic"></div>
         </div>
       </div>
@@ -424,7 +487,7 @@ b,strong{font-weight:700}
       </svg>
       <div id="son-yildizlar" aria-hidden="true"></div>
       <div id="son-puan"></div>
-      <p id="son-ozet">Yapay zekâ araçlarını amacına uygun seçmeyi, açık ve ayrıntılı etkili girdiler (prompt) yazmayı ve etik/hukuki sorumlulukları başarıyla tamamladınız.</p>
+      <p id="son-ozet">Yapay zekâ araçlarıyla açık ve ayrıntılı etkili girdiler (prompt) yazmayı ve etik/hukuki sorumlulukları başarıyla tamamladınız.</p>
       <button class="ikincil-buton" id="btn-yeniden" type="button">Laboratuvarı Yeniden Başlat</button>
     </section>
   </main>
@@ -445,98 +508,12 @@ b,strong{font-weight:700}
 /* ============ GÖREV VE İSTASYON VERİLERİ ============ */
 var BOLUMLER = [
   /* -------------------------------------------------------------
-     İSTASYON 1: Amaca Uygun Araç Seçimi (Sahne 04, 05, 06, 11)
-  ------------------------------------------------------------- */
-  {
-    tur: "arac-secimi",
-    baslik: "İstasyon 1: Doğru Aracı Belirleme",
-    yonerge: "Laboratuvardaki görev kartını okuyunuz ve amaca en uygun yapay zekâ terminaline yerleştiriniz.",
-    rehberGiris: "Görevi inceleyiniz ve en uygun aracı seçiniz.",
-    terminaller: [
-      {
-        id: "chatgpt",
-        ad: "ChatGPT",
-        tanim: "Metin üretimi, araştırma, bilgi toplama ve özetleme",
-        ikon: "metin"
-      },
-      {
-        id: "dalle",
-        ad: "DALL-E",
-        tanim: "Yazılı komutlara göre özgün resim/görsel üretme",
-        ikon: "gorsel"
-      },
-      {
-        id: "asistan",
-        ad: "Sesli Asistan",
-        tanim: "Sesli komutla hatırlatıcı kurma, arama ve bilgi",
-        ikon: "ses"
-      },
-      {
-        id: "copilot",
-        ad: "Copilot",
-        tanim: "Web sayfası özetleme ve eş zamanlı arama yapma",
-        ikon: "arama"
-      },
-      {
-        id: "gemini",
-        ad: "Gemini",
-        tanim: "Görsel analiz, nesne tanıma ve çok modlu işlem",
-        ikon: "analiz"
-      },
-      {
-        id: "hesap",
-        ad: "Hesap Tablosu",
-        tanim: "Hücreler ve formüllerle sayısal hesaplama (Geleneksel)",
-        ikon: "tablo",
-        celdirici: true
-      }
-    ],
-    kartlar: [
-      {
-        no: 0,
-        metin: "Bilim projesi için uzayda yaşam hakkında bilgi toplamak istiyorsunuz.",
-        hedef: "chatgpt",
-        aciklama: "ChatGPT metin tabanlı araştırma ve soru yanıtlama için en uygun araçtır.",
-        simulasyon: "✅ Araştırma tamamlandı: 'Mars atmosferi ve yaşam ihtimalleri raporu hazırlandı.'"
-      },
-      {
-        no: 1,
-        metin: "Posterinize özgün bir uzay görseli eklemek istiyorsunuz.",
-        hedef: "dalle",
-        aciklama: "DALL-E yazılan betimlemelere göre özgün görsel ve resimler üretir.",
-        simulasyon: "✅ Görsel çizildi: 'Yıldızlar arasında süzülen astronot resmi üretildi.'"
-      },
-      {
-        no: 2,
-        metin: "Elleriniz doluyken sesli komutla hızlıca bir hatırlatıcı kurmak istiyorsunuz.",
-        hedef: "asistan",
-        aciklama: "Sesli asistanlar eller serbest sesli komutları algılayarak hatırlatıcı kurar.",
-        simulasyon: "✅ Hatırlatıcı kuruldu: 'Bugün saat 16.00: Fen ödevini teslim et.'"
-      },
-      {
-        no: 3,
-        metin: "Bir web sayfasını özetlemek ve aynı anda internet araması yapmak istiyorsunuz.",
-        hedef: "copilot",
-        aciklama: "Copilot tarayıcı entegrasyonuyla web sayfalarını özetler ve canlı arama yapar.",
-        simulasyon: "✅ Web sayfası incelendi: '3 maddelik özet ve ilgili kaynak bağlantıları hazırlandı.'"
-      },
-      {
-        no: 4,
-        metin: "Bir fotoğrafı yükleyerek içindeki bilinmeyen nesneleri tanıtmasını istiyorsunuz.",
-        hedef: "gemini",
-        aciklama: "Gemini görsel ve metin girdilerini birlikte analiz edebilen çok modlu bir araçtır.",
-        simulasyon: "✅ Fotoğraf analiz edildi: 'Görseldeki bitki: Aloe Vera (Tıbbi Sarısabır).'"
-      }
-    ]
-  },
-
-  /* -------------------------------------------------------------
-     İSTASYON 2: Etkili Girdi / Prompt Laboratuvarı (5 Tur)
+     İSTASYON 1: Etkili Girdi / Prompt Laboratuvarı (5 Tur)
   ------------------------------------------------------------- */
   {
     tur: "prompt-lab",
-    baslik: "İstasyon 2: Etkili Girdi (Prompt) Yazma Laboratuvarı",
-    yonerge: "Yapay zekâdan hedefe uygun sonuç almak için en etkili komutu seçiniz ve 'Çalıştır' butonuna basınız.",
+    baslik: "İstasyon 1: Etkili Girdi (Prompt) Yazma Laboratuvarı",
+    yonerge: "Yapay zekâdan hedefe uygun sonuç almak için en etkili komutu seçiniz ve 'Komutu Gönder ve Çalıştır' butonuna basınız.",
     rehberGiris: "Unutmayınız: Girdiler net, konu, seviye, tarz ve sınırları belirlenmiş olmalıdır.",
     gorevler: [
       {
@@ -648,38 +625,38 @@ var BOLUMLER = [
   },
 
   /* -------------------------------------------------------------
-     İSTASYON 3: Hukuk ve Etik Güvenlik Kalkanı (Sıralamaları Değişmiş ve Karışık)
+     İSTASYON 2: Hukuk ve Etik Güvenlik Kalkanı (4 Vaka)
   ------------------------------------------------------------- */
   {
     tur: "hukuk-etik",
-    baslik: "İstasyon 3: Yapay Zekâ, Hukuk ve Etik Kalkanı",
-    yonerge: "Laboratuvardaki vaka kartını inceleyiniz, ardından Güvenlik Kalkanı panelindeki doğru hukuki/etik kuralla eşleştiriniz.",
+    baslik: "İstasyon 2: Yapay Zekâ, Hukuk ve Etik Kalkanı",
+    yonerge: "Vaka açıklamasını dikkatle okuyunuz ve duruma uygun hukuki / etik kuralı seçiniz.",
     rehberGiris: "Yapay zekâyı sorumlu ve etik kurallara göre kullanmak herkesin görevidir.",
     vakalar: [
       {
         no: 0,
-        baslik: "Vaka: Sahte Haber Yayılması",
+        baslik: "Sahte Haber Yayılması",
         metin: "Yapay zekâ aracı kullanılarak üretilen gerçek dışı bir haber sosyal medyada panik ve kargaşaya yol açtı.",
         kuralId: "yasal-yaptirim",
         aciklama: "Toplumda paniğe yol açan sahte içerikleri üretenler ve yayanlar doğrudan yasal yaptırımlarla karşılaşır."
       },
       {
         no: 1,
-        baslik: "Vaka: Hatalı Tıbbi Tavsiye",
+        baslik: "Hatalı Tıbbi Tavsiye",
         metin: "Bir sağlık uygulaması yapay zekâ algoritmasıyla yanlış ilaç önerdi ve bir hastanın sağlığına zarar verdi.",
         kuralId: "gelistirici-sorumluluk",
         aciklama: "Zararlı tavsiye üreten sistemi geliştiren şirket ve sorumlular hakkında tazminat ve cezai dava açılabilir."
       },
       {
         no: 2,
-        baslik: "Vaka: Yüz Tanımada Yanlış Teşhis",
+        baslik: "Yüz Tanımada Yanlış Teşhis",
         metin: "Bir güvenlik kamerasının yüz tanıma sistemi masum bir vatandaşı aranan bir şüpheli olarak etiketledi.",
         kuralId: "tazminat-hak",
         aciklama: "Sistem hatalarından doğan mağduriyetler tazmin edilmeli ve algoritmalar denetlenmelidir."
       },
       {
         no: 3,
-        baslik: "Vaka: Doğrulamadan İçerik Kullanma",
+        baslik: "Doğrulamadan İçerik Kullanma",
         metin: "'Yapay zekâ ne söylerse doğrudur, araştırmaya gerek yoktur' diyerek ödevinde hatalı bilgiyi doğrudan sunma.",
         kuralId: "kullanici-sorumluluk",
         aciklama: "Yapay zekâ yanılabileceğinden üretilen bilginin doğruluğunu kontrol etme sorumluluğu son kullanıcıdadır."
@@ -694,16 +671,6 @@ var BOLUMLER = [
   }
 ];
 
-/* ============ SVG İKON KÜTÜPHANESİ ============ */
-var IKONLAR = {
-  metin: '<svg class="terminal-ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/><path d="M14 2v6h6M8 13h8M8 17h5" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/></svg>',
-  gorsel: '<svg class="terminal-ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/><circle cx="8.5" cy="8.5" r="2" fill="#15803D"/><path d="M21 15l-5-5L5 21" stroke="#15803D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-  ses: '<svg class="terminal-ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3" fill="#EDE9FE" stroke="#6D28D9" stroke-width="2"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8" stroke="#6D28D9" stroke-width="2" stroke-linecap="round"/></svg>',
-  arama: '<svg class="terminal-ikon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="#0284C7" stroke-width="2.5" stroke-linecap="round"/><path d="M8 11h6M11 8v6" stroke="#0284C7" stroke-width="1.8" stroke-linecap="round"/></svg>',
-  analiz: '<svg class="terminal-ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="#F59E0B"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/></svg>',
-  tablo: '<svg class="terminal-ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" fill="#F1F5F9" stroke="#64748B" stroke-width="2"/><path d="M3 9h18M3 15h18M9 3v18" stroke="#64748B" stroke-width="1.8"/></svg>'
-};
-
 /* ============ DURUM DEĞİŞKENLERİ ============ */
 var ekranlar = ["ekran-giris", "ekran-oyun", "ekran-son"];
 var aktifEkran = 0;
@@ -711,20 +678,18 @@ var bolumIndeks = 0;
 var yildiz = 0;
 var puan = 0;
 var bolumYanlis = 0;
-var kalanKart = 0;
-var seciliKart = null;
 var kilit = false;
 var oyunBitti = false;
 var sesAcik = true;
 var yaziOlcek = 100;
 
-/* İstasyon 2 özel durumları */
+/* İstasyon 1 özel durumları */
 var promptGorevNo = 0;
 var seciliPrompt = null;
 
-/* İstasyon 3 özel durumları */
-var seciliVaka = null;
-var cozulenVakalar = {};
+/* İstasyon 2 özel durumları */
+var vakaSiraNo = 0;
+var vakaListesiAktif = [];
 
 function $(id){ return document.getElementById(id); }
 var geribildirim;
@@ -803,172 +768,29 @@ function bolumYukle(){
   var b = BOLUMLER[bolumIndeks];
   bolumYanlis = 0;
   kilit = false;
-  seciliKart = null;
   seciliPrompt = null;
-  seciliVaka = null;
 
   $("bolum-no").textContent = "İstasyon " + (bolumIndeks + 1) + " / " + BOLUMLER.length;
   $("gorev-metin").textContent = b.yonerge;
   $("ilerleme-dis").setAttribute("aria-valuenow", bolumIndeks);
   $("ilerleme-ic").style.width = (bolumIndeks / BOLUMLER.length * 100) + "%";
-  rehberSoyle(b.rehberGiris, "notr");
 
   var sahne = $("sahne-ic");
   var havuz = $("havuz");
   sahne.innerHTML = "";
   havuz.innerHTML = "";
 
-  if(b.tur === "arac-secimi"){
-    kurAracSecimi(b);
-  }else if(b.tur === "prompt-lab"){
+  if(b.tur === "prompt-lab"){
     promptGorevNo = 0;
     kurPromptLab(b);
   }else if(b.tur === "hukuk-etik"){
-    cozulenVakalar = {};
+    vakaSiraNo = 0;
     kurHukukEtik(b);
   }
 }
 
 /* ----------------------------------------------------------------
-   1. İSTASYON: Amaca Uygun Araç Seçimi
----------------------------------------------------------------- */
-function kurAracSecimi(b){
-  var sahne = $("sahne-ic");
-  var havuz = $("havuz");
-
-  var termKapsayici = document.createElement("div");
-  termKapsayici.id = "istasyon-terminaller";
-
-  b.terminaller.forEach(function(t){
-    var d = document.createElement("div");
-    d.className = "terminal";
-    d.setAttribute("data-id", t.id);
-    d.setAttribute("role", "button");
-    d.setAttribute("tabindex", "0");
-    d.setAttribute("aria-label", t.ad + " terminali: " + t.tanim);
-    d.innerHTML = (IKONLAR[t.ikon] || "") +
-      '<div class="terminal-baslik">' + t.ad + '</div>' +
-      '<div class="terminal-tanim">' + t.tanim + '</div>' +
-      '<div class="terminal-ekran">Boş - Görev Bekleniyor</div>';
-
-    d.addEventListener("dragover", function(e){
-      e.preventDefault();
-      if(!d.classList.contains("kilitli")) d.classList.add("uzerinde");
-    });
-    d.addEventListener("dragleave", function(){ d.classList.remove("uzerinde"); });
-    d.addEventListener("drop", function(e){
-      e.preventDefault();
-      d.classList.remove("uzerinde");
-      var no = e.dataTransfer.getData("text/plain");
-      if(no !== "") aracBırak(parseInt(no, 10), t.id, d);
-    });
-    d.addEventListener("click", function(){
-      if(seciliKart !== null && !d.classList.contains("kilitli")){
-        aracBırak(seciliKart, t.id, d);
-      }
-    });
-    d.addEventListener("keydown", function(e){
-      if((e.key === "Enter" || e.key === " ") && seciliKart !== null && !d.classList.contains("kilitli")){
-        e.preventDefault();
-        aracBırak(seciliKart, t.id, d);
-      }
-    });
-    termKapsayici.appendChild(d);
-  });
-  sahne.appendChild(termKapsayici);
-
-  kalanKart = b.kartlar.length;
-  var sira = [0, 1, 2, 3, 4];
-  sira.sort(function(){ return 0.5 - Math.random(); });
-
-  sira.forEach(function(idx){
-    var k = b.kartlar[idx];
-    var btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "kart";
-    btn.textContent = k.metin;
-    btn.setAttribute("draggable", "true");
-    btn.setAttribute("aria-pressed", "false");
-    btn.setAttribute("data-no", k.no);
-    btn.setAttribute("aria-label", "Görev: " + k.metin + ". Seçmek için tıklayınız, ardından uygun terminale tıklayınız.");
-
-    btn.addEventListener("dragstart", function(e){
-      seciliKart = k.no;
-      btn.classList.add("suruklenen");
-      e.dataTransfer.setData("text/plain", String(k.no));
-      e.dataTransfer.effectAllowed = "move";
-    });
-    btn.addEventListener("dragend", function(){ btn.classList.remove("suruklenen"); });
-    btn.addEventListener("click", function(){ kartSec(k.no, btn); });
-    havuz.appendChild(btn);
-  });
-}
-
-function kartSec(no, btn){
-  if(kilit) return;
-  var hepsi = $("havuz").children, i;
-  if(seciliKart === no){
-    seciliKart = null;
-    btn.setAttribute("aria-pressed", "false");
-    rehberSoyle("Görevi seçiniz.", "notr");
-    return;
-  }
-  for(i = 0; i < hepsi.length; i++){ hepsi[i].setAttribute("aria-pressed", "false"); }
-  seciliKart = no;
-  btn.setAttribute("aria-pressed", "true");
-  sesCal("tik");
-  rehberSoyle("Şimdi uygun yapay zekâ terminaline tıklayınız.", "dusun");
-}
-
-function aracBırak(no, terminalId, d){
-  if(kilit) return;
-  var b = BOLUMLER[bolumIndeks];
-  var k = null;
-  for(var i = 0; i < b.kartlar.length; i++){
-    if(b.kartlar[i].no === no){ k = b.kartlar[i]; break; }
-  }
-  var btn = $("havuz").querySelector('[data-no="' + no + '"]');
-  if(!k || !btn) return;
-
-  if(k.hedef === terminalId){
-    sesCal("dogru");
-    d.classList.add("kilitli");
-    d.querySelector(".terminal-ekran").textContent = k.simulasyon;
-    btn.parentNode.removeChild(btn);
-    seciliKart = null;
-    kalanKart--;
-    puan += bolumYanlis === 0 ? 10 : 5;
-    skorGuncelle();
-    rehberSoyle("Harika bir eşleştirme!", "sevinc");
-    bildir("Doğru araç seçildi! " + k.aciklama, "iyi");
-
-    if(kalanKart === 0){
-      kilit = true;
-      setTimeout(istasyonTamamlandi, window.__FAST ? 350 : 1600);
-    }
-  }else{
-    sesCal("yanlis");
-    bolumYanlis++;
-    btn.classList.add("sarsil");
-    d.classList.add("hatali");
-    setTimeout(function(){
-      btn.classList.remove("sarsil");
-      d.classList.remove("hatali");
-    }, 450);
-    btn.setAttribute("aria-pressed", "false");
-    seciliKart = null;
-    if(terminalId === "hesap"){
-      rehberSoyle("Hesap Tablosu bir yapay zekâ aracı değildir!", "sasir");
-      bildir("Yanlış araç! Hesap Tablosu geleneksel sayısal tablolama programıdır, yapay zekâ işlevlerini yerine getiremez.", "kotu");
-    }else{
-      rehberSoyle("Bu araç görevin amacına uygun değil.", "dusun");
-      bildir("Uygun olmayan araç! Görevin amacı ile aracın uzmanlık alanını tekrar karşılaştırınız.", "kotu");
-    }
-  }
-}
-
-/* ----------------------------------------------------------------
-   2. İSTASYON: Etkili Girdi / Prompt Laboratuvarı (5 Tur)
+   1. İSTASYON: Etkili Girdi / Prompt Laboratuvarı (5 Tur)
 ---------------------------------------------------------------- */
 function kurPromptLab(b){
   var sahne = $("sahne-ic");
@@ -1095,7 +917,7 @@ function calistirPrompt(){
 }
 
 /* ----------------------------------------------------------------
-   3. İSTASYON: Hukuk ve Etik Güvenlik Kalkanı (Sıralamaları Karışık)
+   2. İSTASYON: Hukuk ve Etik Güvenlik Kalkanı
 ---------------------------------------------------------------- */
 function kurHukukEtik(b){
   var sahne = $("sahne-ic");
@@ -1105,117 +927,125 @@ function kurHukukEtik(b){
   var kapsayici = document.createElement("div");
   kapsayici.id = "istasyon-hukuk";
 
-  var vakaListesi = document.createElement("div");
-  vakaListesi.id = "vaka-listesi";
+  // Üst Bar: Vaka Sayacı ve Kalkan Durumu
+  var ustbar = document.createElement("div");
+  ustbar.id = "hukuk-ustbar";
+  ustbar.innerHTML = '<div class="hukuk-vaka-sayac">' +
+      '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>' +
+      '<span id="vaka-sayac-yazi">Vaka 1 / 4</span>' +
+    '</div>' +
+    '<div class="hukuk-kalkan-durum">' +
+      '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' +
+      '<span>Güvenlik Kalkanı:</span>' +
+      '<div class="kalkan-minibar" role="progressbar" aria-label="Kalkan Gücü" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">' +
+        '<div class="kalkan-minibar-dolum" id="kalkan-dolum"></div>' +
+      '</div>' +
+      '<span id="kalkan-yuzde">%0</span>' +
+    '</div>';
+  kapsayici.appendChild(ustbar);
 
-  var kalkanPanosu = document.createElement("div");
-  kalkanPanosu.id = "kalkan-panosu";
-  kalkanPanosu.innerHTML = '<div style="font-size:1.15rem;font-weight:700;color:var(--vurgu);display:flex;align-items:center;gap:0.4rem;">' +
-    '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Etik Güvenlik Kalkanı</div>' +
-    '<svg id="kalkan-gorsel" viewBox="0 0 100 100" role="img" aria-label="Güvenlik Kalkanı">' +
-      '<circle cx="50" cy="50" r="44" fill="#DBEAFE" stroke="#2563EB" stroke-width="3"/>' +
-      '<path id="kalkan-enerji" d="M50 12l28 14v22c0 20-14 36-28 40-14-4-28-20-28-40V26l28-14z" fill="#2563EB" opacity="0.3"/>' +
-      '<path d="M50 18l22 11v17c0 16-11 28-22 32-11-4-22-16-22-32V29l22-11z" fill="#FFFFFF"/>' +
-      '<path d="M42 50l6 6 12-12" fill="none" stroke="#15803D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>' +
-    '</svg>' +
-    '<div style="font-size:0.95rem;color:var(--gri);text-align:center;">Önce soldan bir <b>Vaka</b> seçiniz, ardından panodaki uygun <b>Kurala</b> basınız.</div>' +
-    '<div id="kural-secenekleri"></div>';
+  // Vaka Kartı
+  var vakaKarti = document.createElement("div");
+  vakaKarti.id = "vaka-karti";
+  vakaKarti.innerHTML = '<div class="vaka-etiket-satir">' +
+      '<span class="vaka-rozet">🚨 İNCELENEN OLAY</span>' +
+    '</div>' +
+    '<h3 class="vaka-kart-baslik" id="vaka-kart-baslik"></h3>' +
+    '<div class="vaka-aciklama-metin" id="vaka-aciklama-metin"></div>';
+  kapsayici.appendChild(vakaKarti);
 
-  kapsayici.appendChild(vakaListesi);
-  kapsayici.appendChild(kalkanPanosu);
+  // Kural Seçim Başlığı
+  var soruBaslik = document.createElement("div");
+  soruBaslik.className = "kural-soru-baslik";
+  soruBaslik.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Bu duruma hangi hukuki veya etik kural uygulanmalıdır?';
+  kapsayici.appendChild(soruBaslik);
+
+  // 2x2 Kural Seçenek Izgarası
+  var kuralIzgara = document.createElement("div");
+  kuralIzgara.id = "kural-izgara";
+  kapsayici.appendChild(kuralIzgara);
+
   sahne.appendChild(kapsayici);
 
   // Vakaları karıştır
-  var vakalarKarisik = b.vakalar.slice();
-  vakalarKarisik.sort(function(){ return 0.5 - Math.random(); });
+  vakaListesiAktif = b.vakalar.slice();
+  vakaListesiAktif.sort(function(){ return 0.5 - Math.random(); });
 
-  vakalarKarisik.forEach(function(v){
-    var k = document.createElement("div");
-    k.className = "vaka-kart";
-    k.setAttribute("data-no", v.no);
-    k.setAttribute("role", "button");
-    k.setAttribute("tabindex", "0");
-    k.setAttribute("aria-pressed", "false");
-    k.innerHTML = '<div class="vaka-baslik"><svg width="18" height="18" viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2L1 21h22L12 2zm0 3.5L19.5 19h-15L12 5.5zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>' + v.baslik + '</div>' +
-      '<div class="vaka-metin">' + v.metin + '</div>';
+  vakaGoster();
+}
 
-    k.addEventListener("click", function(){ vakaSec(v.no, k); });
-    k.addEventListener("keydown", function(e){
-      if(e.key === "Enter" || e.key === " "){ e.preventDefault(); vakaSec(v.no, k); }
-    });
-    vakaListesi.appendChild(k);
-  });
+function vakaGoster(){
+  var b = BOLUMLER[bolumIndeks];
+  var v = vakaListesiAktif[vakaSiraNo];
+  if(!v) return;
 
-  // Kuralları da karıştır
-  var kuralKutusu = kalkanPanosu.querySelector("#kural-secenekleri");
+  $("vaka-sayac-yazi").textContent = "Vaka " + (vakaSiraNo + 1) + " / " + vakaListesiAktif.length;
+  $("vaka-kart-baslik").textContent = v.baslik;
+  $("vaka-aciklama-metin").textContent = v.metin;
+
+  var kalkanYuzde = Math.round((vakaSiraNo / vakaListesiAktif.length) * 100);
+  $("kalkan-dolum").style.width = kalkanYuzde + "%";
+  $("kalkan-yuzde").textContent = "%" + kalkanYuzde;
+
+  var izgara = $("kural-izgara");
+  izgara.innerHTML = "";
+
+  // Kuralları karıştır
   var kurallarKarisik = b.kurallar.slice();
   kurallarKarisik.sort(function(){ return 0.5 - Math.random(); });
 
   kurallarKarisik.forEach(function(r){
     var btn = document.createElement("button");
     btn.type = "button";
-    btn.className = "kural-btn";
+    btn.className = "kural-secenek-btn";
     btn.setAttribute("data-kural", r.id);
-    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' + r.ad;
-    btn.addEventListener("click", function(){ kuralUygula(r.id, btn); });
-    kuralKutusu.appendChild(btn);
+    btn.innerHTML = '<div class="kural-ikon-kutusu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>' +
+      '<span>' + r.ad + '</span>';
+
+    btn.addEventListener("click", function(){
+      kuralCevapla(r.id, btn);
+    });
+    izgara.appendChild(btn);
   });
 }
 
-function vakaSec(no, kartEl){
-  if(kilit || cozulenVakalar[no]) return;
-  var hepsi = $("vaka-listesi").children;
-  for(var i = 0; i < hepsi.length; i++){
-    if(!cozulenVakalar[hepsi[i].getAttribute("data-no")]){
-      hepsi[i].setAttribute("aria-pressed", "false");
-    }
-  }
-  seciliVaka = no;
-  kartEl.setAttribute("aria-pressed", "true");
-  sesCal("tik");
-  rehberSoyle("Kalkan panelinden bu duruma uygun hukuki/etik kuralı seçiniz.", "dusun");
-}
-
-function kuralUygula(kuralId, btnEl){
-  if(seciliVaka === null || kilit) return;
+function kuralCevapla(kuralId, btnEl){
+  if(kilit) return;
   var b = BOLUMLER[bolumIndeks];
-  var v = null;
-  for(var i = 0; i < b.vakalar.length; i++){
-    if(b.vakalar[i].no === seciliVaka){ v = b.vakalar[i]; break; }
-  }
-  var vakaEl = $("vaka-listesi").querySelector('[data-no="' + seciliVaka + '"]');
-  if(!v || !vakaEl) return;
+  var v = vakaListesiAktif[vakaSiraNo];
+  if(!v) return;
 
   if(v.kuralId === kuralId){
+    kilit = true;
     sesCal("dogru");
-    cozulenVakalar[seciliVaka] = true;
-    vakaEl.classList.add("cozuldu");
-    vakaEl.setAttribute("aria-pressed", "false");
-    vakaEl.innerHTML = '<div class="vaka-baslik">✅ ' + v.baslik + '</div><div class="vaka-metin">' + v.aciklama + '</div>';
-    btnEl.disabled = true;
-    seciliVaka = null;
+    btnEl.classList.add("dogru-secim");
+    btnEl.innerHTML = '<div class="kural-ikon-kutusu" style="background:#DCFCE7;color:#15803D"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div><span>' + btnEl.querySelector("span").textContent + '</span>';
+
     puan += bolumYanlis === 0 ? 10 : 5;
     skorGuncelle();
-    rehberSoyle("Kalkan güçlendirildi!", "sevinc");
-    bildir("Doğru kural uygulandı! " + v.aciklama, "iyi");
+    bildir("Doğru Kural! " + v.aciklama, "iyi", true);
 
-    var cozulduSayisi = 0;
-    for(var k in cozulenVakalar){ if(cozulenVakalar.hasOwnProperty(k)) cozulduSayisi++; }
+    vakaSiraNo++;
+    var yeniYuzde = Math.round((vakaSiraNo / vakaListesiAktif.length) * 100);
+    $("kalkan-dolum").style.width = yeniYuzde + "%";
+    $("kalkan-yuzde").textContent = "%" + yeniYuzde;
 
-    var opaklik = 0.3 + (cozulduSayisi / b.vakalar.length * 0.7);
-    $("kalkan-enerji").setAttribute("opacity", String(opaklik));
-
-    if(cozulduSayisi === b.vakalar.length){
-      kilit = true;
-      setTimeout(istasyonTamamlandi, window.__FAST ? 350 : 1800);
+    if(vakaSiraNo >= vakaListesiAktif.length){
+      setTimeout(istasyonTamamlandi, window.__FAST ? 350 : 2000);
+    }else{
+      setTimeout(function(){
+        kilit = false;
+        bolumYanlis = 0;
+        bildirimTemizle();
+        vakaGoster();
+      }, window.__FAST ? 350 : 2200);
     }
   }else{
     sesCal("yanlis");
     bolumYanlis++;
-    vakaEl.classList.add("sarsil");
-    setTimeout(function(){ vakaEl.classList.remove("sarsil"); }, 400);
-    rehberSoyle("Bu kural vakanın sorumluluk kapsamıyla uyuşmuyor.", "dusun");
-    bildir("Hatalı kural seçimi! Vakada sorumluluğun kimde olduğunu (geliştirici, kullanıcı veya kanun yaptırımı) tekrar değerlendiriniz.", "kotu");
+    btnEl.classList.add("yanlis-secim");
+    setTimeout(function(){ btnEl.classList.remove("yanlis-secim"); }, 400);
+    bildir("Hatalı kural seçimi! Vakadaki sorumluluğun kimde olduğunu (geliştirici, kullanıcı veya kanun yaptırımı) tekrar değerlendiriniz.", "kotu");
   }
 }
 
@@ -1260,10 +1090,8 @@ function oyunuBaslat(){
   bolumYanlis = 0;
   kilit = false;
   oyunBitti = false;
-  seciliKart = null;
   seciliPrompt = null;
-  seciliVaka = null;
-  cozulenVakalar = {};
+  vakaSiraNo = 0;
   skorGuncelle();
   bildirimTemizle();
   bolumYukle();
