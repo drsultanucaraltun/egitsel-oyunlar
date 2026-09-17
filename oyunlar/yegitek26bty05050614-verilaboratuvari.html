@@ -227,7 +227,14 @@ b,strong{font-weight:700}
 #ekran-son h2{font-size:2.5rem;font-weight:700;color:var(--vurgu)}
 #son-yildizlar{display:flex;gap:0.5rem;justify-content:center}
 #son-yildizlar svg{width:56px;height:56px}
-#son-puan{font-size:1.7rem;font-weight:700}
+#son-puan{font-size:1.75rem;font-weight:700;padding:0.4rem 1.8rem;border-radius:99px;display:inline-block;margin:0.2rem 0}
+#son-puan.tam{background:#DCFCE7;color:#15803D;border:3px solid #16A34A}
+#son-puan.orta{background:#FEF3C7;color:#B45309;border:3px solid #D97706}
+#son-puan.dusuk{background:#FEE2E2;color:#B91C1C;border:3px solid #DC2626}
+#son-aciklama{font-size:1.25rem;max-width:46rem;line-height:1.5;margin:0.2rem auto;font-weight:600;color:var(--murekkep)}
+.son-butonlar{display:flex;gap:0.8rem;flex-wrap:wrap;justify-content:center;margin-top:0.4rem}
+#btn-duzelt{background:#2563EB;color:#FFFFFF;border-color:#1D4ED8}
+#btn-duzelt:hover{background:#1D4ED8;color:#FFFFFF}
 .ozet-kutu{max-width:46rem;background:var(--panel);border:3px solid var(--cizgi);border-radius:16px;padding:1rem 1.6rem;text-align:left;font-size:1.15rem;line-height:1.55}
 .ozet-kutu ul{padding-left:1.2rem;margin-top:0.4rem}
 .ikincil-buton{font-size:1.35rem;font-weight:700;background:var(--vurgu-orta);color:var(--vurgu);border:3px solid var(--vurgu);border-radius:14px;padding:0.75rem 2.2rem;min-height:60px;transition:all .15s}
@@ -327,6 +334,7 @@ b,strong{font-weight:700}
       <h2 id="son-baslik">Tebrikler! Hayvan Modelleri Başarıyla Eğitildi</h2>
       <div id="son-yildizlar" aria-hidden="true"></div>
       <div id="son-puan"></div>
+      <p id="son-aciklama"></p>
       <div class="ozet-kutu">
         <strong>Öğrendiklerimiz & Yapay Zekâ İlkeleri:</strong>
         <ul>
@@ -336,7 +344,10 @@ b,strong{font-weight:700}
           <li><b>Temiz Veri, Doğru Tanıma:</b> Yapay zekâ ancak girdi verileri doğru etiketlenip temizlendiğinde hayvanları güvenle tanıyabilir.</li>
         </ul>
       </div>
-      <button class="ikincil-buton" id="btn-yeniden" type="button">Etkinliği Yeniden Başlat</button>
+      <div class="son-butonlar">
+        <button class="ikincil-buton" id="btn-yeniden" type="button">Etkinliği Yeniden Başlat</button>
+        <button class="ikincil-buton" id="btn-duzelt" type="button" style="display:none">Hatalı Verileri Düzelt (%100 Yap)</button>
+      </div>
     </section>
 
     <!-- Ekranın Altında Konumlanan Dönüt Bildirim Kutusu -->
@@ -519,8 +530,7 @@ function ekranAc(i){
     $(id).classList.toggle("acik", k === i);
   });
   $("btn-geri").disabled = (i === 0);
-  var dogruluk = hesaplaModelDogrulugu();
-  $("btn-ileri").disabled = !(i === 1 && kalanKartSayisi === 0 && dogruluk === 100);
+  $("btn-ileri").disabled = !(i === 1 && kalanKartSayisi === 0);
   bildirimTemizle();
 }
 
@@ -898,31 +908,80 @@ function kontrolOyunBitis(){
     }
   }
 
+  var dogruluk = hesaplaModelDogrulugu();
   var ym = $("yonerge-metin");
-  if(kalanKartSayisi === 0 && yanlisSayisi === 0 && dogruSayisi === toplamKartSayisi){
-    kilit = true;
-    yildiz = 1;
-    skorGuncelle();
+
+  if(kalanKartSayisi === 0){
     $("btn-ileri").disabled = false;
-    if(ym) ym.textContent = "🎉 Harika! Tüm veriler başarıyla ayıklandı, model uygunluğu %100'e ulaştı!";
-    bildir("Tebrikler! Model uygunluğu: %100", "iyi");
-    setTimeout(oyunuBitir, 1500);
-  } else if(kalanKartSayisi === 0 && yanlisSayisi > 0){
-    $("btn-ileri").disabled = true;
-    if(ym) ym.textContent = "⚠️ Kutularda " + yanlisSayisi + " adet hatalı veri var! Uygunluğu %100 yapmak için kırmızı işaretli kartları doğru kutularına taşıyınız.";
+    kilit = true;
+    if(dogruluk === 100){
+      yildiz = 1;
+      skorGuncelle();
+      if(ym) ym.textContent = "🎉 Harika! Tüm veriler başarıyla sınıflandırıldı, model uygunluğu %100'e ulaştı!";
+      bildir("Tebrikler! Model uygunluğu: %100", "iyi");
+      setTimeout(oyunuBitir, 1400);
+    } else {
+      yildiz = (dogruluk >= 80 ? 1 : 0);
+      skorGuncelle();
+      if(ym) ym.textContent = "Veri akışı tamamlandı! Model uygunluğu: %" + dogruluk + ". Sonuç ekranı açılıyor...";
+      bildir("Tüm veriler yerleşti. Uygunluk: %" + dogruluk, (dogruluk >= 60 ? "iyi" : "kotu"));
+      setTimeout(oyunuBitir, 1600);
+    }
   } else if(yanlisSayisi > 0){
-    if(ym) ym.textContent = "⚠️ Dikkat: Kutuda hatalı veri var (" + yanlisSayisi + " adet)! Kırmızı kartları doğru kutulara taşıyarak uygunluğu artırabilirsiniz.";
+    $("btn-ileri").disabled = true;
+    if(ym) ym.textContent = "⚠️ Dikkat: Kutularda " + yanlisSayisi + " adet hatalı veri var! Kırmızı kartları doğru kutulara taşıyarak uygunluğu artırabilirsiniz.";
   } else {
+    $("btn-ileri").disabled = true;
     if(ym) ym.textContent = "Kartı seçip uygun kategoriye yerleştiriniz. Hatalı veriler model uygunluğunu düşürür!";
   }
 }
 
 function oyunuBitir(){
   ekranAc(2);
+  var dogruluk = hesaplaModelDogrulugu();
+  var baslik = $("son-baslik");
   var kap = $("son-yildizlar");
-  kap.innerHTML = '<div><svg viewBox="0 0 24 24"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="#D97706"/></svg></div>';
-  $("son-puan").textContent = "Model Uygunluğu: %100";
-  konfetiPatlat();
+  var puanEl = $("son-puan");
+  var aciklamaEl = $("son-aciklama");
+  var duzeltBtn = $("btn-duzelt");
+
+  if(dogruluk === 100){
+    yildiz = 1;
+    if(baslik) baslik.textContent = "Tebrikler! Hayvan Modelleri Başarıyla Eğitildi";
+    if(kap) kap.innerHTML = '<div><svg viewBox="0 0 24 24"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="#D97706"/></svg></div>';
+    if(puanEl){
+      puanEl.textContent = "Model Uygunluğu: %100";
+      puanEl.className = "tam";
+    }
+    if(aciklamaEl){
+      aciklamaEl.textContent = "Harika iş çıkardınız! 24 hayvan verisinin tamamı doğru etiketlendi ve yapay zekâ modellerine sıfır hata ile aktarıldı. Bilgisayarlı görü sistemi hayvanları %100 doğrulukla tanıyabilir.";
+    }
+    if(duzeltBtn) duzeltBtn.style.display = "none";
+    konfetiPatlat();
+    sesCal("tebrik");
+  } else {
+    yildiz = (dogruluk >= 80 ? 1 : 0);
+    if(baslik){
+      baslik.textContent = (dogruluk >= 70 ? "Eğitim Tamamlandı: Model Uygunluğu Yüksek" : "Eğitim Tamamlandı: Model Uygunluğu Düşük");
+    }
+    if(kap){
+      if(yildiz === 1){
+        kap.innerHTML = '<div><svg viewBox="0 0 24 24"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="#D97706"/></svg></div>';
+      } else {
+        kap.innerHTML = '<div><svg viewBox="0 0 24 24"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="#94A3B8"/></svg></div>';
+      }
+    }
+    if(puanEl){
+      puanEl.textContent = "Model Uygunluğu: %" + dogruluk;
+      puanEl.className = (dogruluk >= 60 ? "orta" : "dusuk");
+    }
+    if(aciklamaEl){
+      aciklamaEl.textContent = "Verilerin bir kısmı yanlış kutulara yerleştirildiği için yapay zekâ modelinin öğrenme doğruluğu %" + dogruluk + " seviyesinde kaldı. Model doğruluğunu %100'e ulaştırmak için hatalı verileri düzeltebilir veya etkinliği yeniden başlatabilirsiniz.";
+    }
+    if(duzeltBtn) duzeltBtn.style.display = "inline-block";
+    sesCal("tamamla");
+  }
+  skorGuncelle();
 }
 
 function konfetiPatlat(){
@@ -1020,8 +1079,21 @@ $("btn-geri").addEventListener("click", function(){
 });
 
 $("btn-ileri").addEventListener("click", function(){
-  if(aktifEkran === 1 && kalanKartSayisi === 0 && hesaplaModelDogrulugu() === 100) ekranAc(2);
+  if(aktifEkran === 0) ekranAc(1);
+  else if(aktifEkran === 1 && kalanKartSayisi === 0) oyunuBitir();
 });
+
+var btnDuzelt = $("btn-duzelt");
+if(btnDuzelt){
+  btnDuzelt.addEventListener("click", function(){
+    kilit = false;
+    ekranAc(1);
+    var ym = $("yonerge-metin");
+    if(ym) ym.textContent = "Kutulardaki kırmızı işaretli (⚠️) kartları doğru kutulara taşıyarak model uygunluğunu %100 yapınız!";
+    bildir("Kırmızı kartları doğru kutulara taşıyınız!", "kotu");
+    sesCal("tik");
+  });
+}
 
 $("btn-basla").addEventListener("click", function(){
   sesCal("tik");
