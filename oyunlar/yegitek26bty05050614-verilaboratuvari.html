@@ -524,13 +524,34 @@ function bildirimTemizle(){
   gb.className = "";
   gb.innerHTML = "";
 }
+function btnIleriGuncelle(sonucMu){
+  var btn = $("btn-ileri");
+  if(!btn) return;
+  if(sonucMu){
+    btn.innerHTML = 'Sonuç Ekranı <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:1.25rem;height:1.25rem"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    btn.classList.add("sonuc-hazir");
+    btn.disabled = false;
+    btn.setAttribute("aria-label", "Model eğitim sonuç ekranını açınız");
+  } else {
+    btn.innerHTML = 'İleri <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:1.25rem;height:1.25rem"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    btn.classList.remove("sonuc-hazir");
+    btn.disabled = true;
+    btn.setAttribute("aria-label", "İleri");
+  }
+}
+
 function ekranAc(i){
   aktifEkran = i;
   ekranlar.forEach(function(id, k){
     $(id).classList.toggle("acik", k === i);
   });
   $("btn-geri").disabled = (i === 0);
-  $("btn-ileri").disabled = !(i === 1 && kalanKartSayisi === 0);
+  if(i === 1){
+    btnIleriGuncelle(kalanKartSayisi === 0);
+  } else {
+    btnIleriGuncelle(false);
+    $("btn-ileri").disabled = true;
+  }
   bildirimTemizle();
 }
 
@@ -912,27 +933,52 @@ function kontrolOyunBitis(){
   var ym = $("yonerge-metin");
 
   if(kalanKartSayisi === 0){
-    $("btn-ileri").disabled = false;
-    kilit = true;
-    if(dogruluk === 100){
-      yildiz = 1;
-      skorGuncelle();
-      if(ym) ym.textContent = "🎉 Harika! Tüm veriler başarıyla sınıflandırıldı, model uygunluğu %100'e ulaştı!";
-      bildir("Tebrikler! Model uygunluğu: %100", "iyi");
-      setTimeout(oyunuBitir, 1400);
-    } else {
-      yildiz = (dogruluk >= 80 ? 1 : 0);
-      skorGuncelle();
-      if(ym) ym.textContent = "Veri akışı tamamlandı! Model uygunluğu: %" + dogruluk + ". Sonuç ekranı açılıyor...";
-      bildir("Tüm veriler yerleşti. Uygunluk: %" + dogruluk, (dogruluk >= 60 ? "iyi" : "kotu"));
-      setTimeout(oyunuBitir, 1600);
+    kilit = false;
+    yildiz = (dogruluk >= 80 ? 1 : 0);
+    skorGuncelle();
+    btnIleriGuncelle(true);
+
+    var havuz = $("kart-havuzu");
+    if(havuz){
+      var mesajHtml = '';
+      if(dogruluk === 100){
+        mesajHtml = '🎉 <strong>Tüm veriler başarıyla sınıflandırıldı! (Model Uygunluğu: %100)</strong>';
+      } else {
+        mesajHtml = '📊 <strong>Tüm veriler yerleştirildi. Model Uygunluğu: %' + dogruluk + '</strong>' +
+          (yanlisSayisi > 0 ? '<div class="havuz-ipucu">⚠️ Kutulardaki kırmızı kartları doğru kutulara taşıyarak modeli %100 yapabilir veya doğrudan sonuçları görebilirsiniz.</div>' : '');
+      }
+
+      havuz.innerHTML = '<div class="havuz-tamamlandi">' +
+        '<div class="havuz-mesaj">' + mesajHtml + '</div>' +
+        '<button type="button" id="btn-panodan-bitir" class="btn-sonuc-paneli">' +
+          'Sonuç Ekranını Gör' +
+          '<svg viewBox="0 0 24 24" fill="none" style="width:1.3rem;height:1.3rem;margin-left:0.35rem" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+        '</button>' +
+      '</div>';
+
+      var pBitir = $("btn-panodan-bitir");
+      if(pBitir){
+        pBitir.addEventListener("click", function(){
+          sesCal("tik");
+          oyunuBitir();
+        });
+      }
     }
-  } else if(yanlisSayisi > 0){
-    $("btn-ileri").disabled = true;
-    if(ym) ym.textContent = "⚠️ Dikkat: Kutularda " + yanlisSayisi + " adet hatalı veri var! Kırmızı kartları doğru kutulara taşıyarak uygunluğu artırabilirsiniz.";
+
+    if(dogruluk === 100){
+      if(ym) ym.textContent = "🎉 Harika! Tüm veriler başarıyla sınıflandırıldı (Model Uygunluğu: %100). Sonucu görmek için butona tıklayınız.";
+      bildir("Model uygunluğu: %100! Sonuç butonuna tıklayınız.", "iyi");
+    } else {
+      if(ym) ym.textContent = "Veri akışı tamamlandı (Model Uygunluğu: %" + dogruluk + "). Hatalı verileri düzeltebilir veya sonuç ekranına geçebilirsiniz.";
+      bildir("Tüm veriler yerleşti. Uygunluk: %" + dogruluk, (dogruluk >= 60 ? "iyi" : "kotu"));
+    }
   } else {
-    $("btn-ileri").disabled = true;
-    if(ym) ym.textContent = "Kartı seçip uygun kategoriye yerleştiriniz. Hatalı veriler model uygunluğunu düşürür!";
+    btnIleriGuncelle(false);
+    if(yanlisSayisi > 0){
+      if(ym) ym.textContent = "⚠️ Dikkat: Kutularda " + yanlisSayisi + " adet hatalı veri var! Kırmızı kartları doğru kutulara taşıyarak uygunluğu artırabilirsiniz.";
+    } else {
+      if(ym) ym.textContent = "Kartı seçip uygun kategoriye yerleştiriniz. Hatalı veriler model uygunluğunu düşürür!";
+    }
   }
 }
 
@@ -1007,6 +1053,8 @@ function skorGuncelle(){
 function oyunuBaslat(){
   puan = 0;
   yildiz = 0;
+  kilit = false;
+  btnIleriGuncelle(false);
   skorGuncelle();
   oyunuKur();
 }
