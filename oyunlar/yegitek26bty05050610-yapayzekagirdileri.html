@@ -1161,14 +1161,14 @@ function kapsulYakalandi(){
     if(antenEl){ antenEl.setAttribute("fill", "#DC2626"); }
     if(agizEl){ agizEl.setAttribute("d", "M36 62 q14 -12 28 0"); }
 
-    carpismaEl.innerHTML = '<div class="carpisma-halka yanlis"></div><div class="carpisma-rozet yanlis">⚠️ DİKKAT!</div>';
+    carpismaEl.innerHTML = '<div class="carpisma-halka yanlis"></div><div class="carpisma-rozet yanlis">⚠️ Dikkat!</div>';
     carpismaEl.className = "aktif";
 
     var pist = $("oyun-alani");
     pist.style.borderColor = "#EF4444";
     setTimeout(function(){ pist.style.borderColor = "#38BDF8"; }, 400);
 
-    bildir("✗ DİKKAT! " + secilenKart.aciklama, "uyari");
+    bildir("✗ Dikkat! " + secilenKart.aciklama, "uyari");
     setTimeout(function(){
       temasEfektleriniSifirla();
       yeniKapsulFirlat();
