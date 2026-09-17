@@ -245,7 +245,6 @@ b,strong{font-weight:700}
   <header id="ustbar">
     <div id="skorlar">
       <span class="skor-kutu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="#D97706"/></svg><span id="skor-yildiz">0 / 1</span></span>
-      <span class="skor-kutu"><span>Puan:</span><span id="skor-puan">0</span></span>
     </div>
     <button class="arac" id="btn-kucult" type="button" aria-label="Yazıları küçültünüz">A−</button>
     <button class="arac" id="btn-buyut" type="button" aria-label="Yazıları büyütünüz">A+</button>
@@ -791,7 +790,6 @@ function kutuyaYerlestir(kartId, kutuId, kutuEl){
 
   if(dogruMu){
     sesCal("dogru");
-    puan += 10;
     skorGuncelle();
     kutuEl.classList.add("kabul");
     setTimeout(function(){ kutuEl.classList.remove("kabul"); }, 350);
@@ -906,7 +904,7 @@ function oyunuBitir(){
   ekranAc(2);
   var kap = $("son-yildizlar");
   kap.innerHTML = '<div><svg viewBox="0 0 24 24"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="#D97706"/></svg></div>';
-  $("son-puan").textContent = "Model Uygunluğu: %100 • Toplam Puan: " + puan;
+  $("son-puan").textContent = "Model Uygunluğu: %100";
   konfetiPatlat();
 }
 
@@ -926,8 +924,8 @@ function konfetiPatlat(){
 }
 
 function skorGuncelle(){
-  $("skor-yildiz").textContent = yildiz + " / 1";
-  $("skor-puan").textContent = puan;
+  var sy = $("skor-yildiz");
+  if(sy) sy.textContent = yildiz + " / 1";
 }
 
 function oyunuBaslat(){
