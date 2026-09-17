@@ -667,7 +667,7 @@ b,strong{font-weight:700}
         <p><b>Robotunuz BİLGİBOT'u kontrol ederek doğru girdileri yakalayınız.</b></p>
         <ul>
           <li><b>1. Bölüm (Girdi Türü Avı):</b> Hedef gösterilen girdi türünü (Metin, Ses, Görüntü, Sayısal veya Sensör) yakalayınız. Çeldirici videolardan kaçınız.</li>
-          <li><b>2. Bölüm (Kaliteli Girdi Avı):</b> Net ifadeleri, doğru etiketleri ve güncel verileri yakalayarak yapay zekâ modelini eğitiniz; kusurlu verilerden kaçınız.</li>
+          <li><b>2. Bölüm (Kaliteli Girdi Avı):</b> Net ifadeleri, doğru etiketleri ve güncel verileri yakalayarak yapay zekâ modelini eğitiniz, kusurlu verilerden kaçınız.</li>
           <li><b>3. Bölüm (Günlük Hayat Girdileri):</b> Yemek tarifi malzemesi, navigasyon adresi, müzik geçmişi ve klavye harflerini yakalayınız.</li>
         </ul>
         <p style="margin-top:0.5rem;font-size:1rem;color:var(--vurgu)">
@@ -892,11 +892,11 @@ var BOLUM1_GOREVLER = [
   {
     hedefAd: "SES GİRDİSİ",
     ipucu: "Mikrofon ile kaydedilen sesi yakalayınız.",
-    dogruKart: { ad: '"Yarın hava nasıl?" sesli sorusu', tur: "ses", dogruMu: true, aciklama: "Harika! Mikrofonla kaydedilen sesler ses girdisidir." },
+    dogruKart: { ad: '"Yarın hava nasıl?" sesli sorusu', tur: "ses", dogruMu: true, aciklama: "Harika! Mikrofonla kaydedilen sesler 'Ses Girdisi'dir." },
     digerKartlar: [
       { ad: "Kedi ve yüz fotoğrafları", tur: "goruntu", dogruMu: false, aciklama: "Bu görüntü girdisidir, ses girdisi yakalayınız." },
       { ad: "Sıcaklık nem ölçümü (24°C)", tur: "sayisal", dogruMu: false, aciklama: "Bu sayısal veridir, ses girdisi yakalayınız." },
-      { ad: "Video / Film Kaydı", tur: "veri", dogruMu: false, aciklama: "Çeldirici! Temel girdi türleri: Ses, Görüntü, Metin, Sayısal ve Sensör." }
+      { ad: "Video / Film Kaydı", tur: "veri", dogruMu: false, aciklama: "Çeldirici! Temel girdi türleri: Ses, görüntü, metin, sayısal ve sensör." }
     ]
   },
   {
@@ -911,7 +911,7 @@ var BOLUM1_GOREVLER = [
   {
     hedefAd: "METİN GİRDİSİ",
     ipucu: "Klavyeyle yazılan kelime ve cümleleri yakalayınız.",
-    dogruKart: { ad: "Dil modellerine klavyeyle yazılan sorular", tur: "metin", dogruMu: true, aciklama: "Harika! Yazılan kelimeler ve cümleler metin girdisidir." },
+    dogruKart: { ad: "Dil modellerine klavyeyle yazılan sorular", tur: "metin", dogruMu: true, aciklama: "Harika! Yazılan kelimeler ve cümleler 'Metin Girdisi'dir." },
     digerKartlar: [
       { ad: "Sesli asistana sesli komut", tur: "ses", dogruMu: false, aciklama: "Bu ses girdisidir, metin girdisi yakalayınız." },
       { ad: "Sıcaklık ve nem değerleri", tur: "sayisal", dogruMu: false, aciklama: "Bu sayısal veridir, metin girdisi yakalayınız." }
@@ -920,7 +920,7 @@ var BOLUM1_GOREVLER = [
   {
     hedefAd: "SAYISAL VERİ GİRDİSİ",
     ipucu: "Hava tahmini sıcaklık ve nem ölçümlerini yakalayınız.",
-    dogruKart: { ad: "Hava tahmini sıcaklık ve nem ölçümleri", tur: "sayisal", dogruMu: true, aciklama: "Harika! Sayılar ve ölçümler sayısal veri girdisidir." },
+    dogruKart: { ad: "Hava tahmini sıcaklık ve nem ölçümleri", tur: "sayisal", dogruMu: true, aciklama: "Harika! Sayılar ve ölçümler 'Sayısal Veri Girdisi'dir." },
     digerKartlar: [
       { ad: "Yüz tanıma kedi resmi", tur: "goruntu", dogruMu: false, aciklama: "Bu görüntü girdisidir, sayısal veri yakalayınız." },
       { ad: "Klavyeyle yazılan cümle", tur: "metin", dogruMu: false, aciklama: "Bu metin girdisidir, sayısal veri yakalayınız." }
@@ -929,7 +929,7 @@ var BOLUM1_GOREVLER = [
   {
     hedefAd: "SENSÖR VERİSİ",
     ipucu: "Akıllı saat adım ve nabız ölçümünü yakalayınız.",
-    dogruKart: { ad: "Akıllı saat adım sayısı ve nabız verisi", tur: "sensor", dogruMu: true, aciklama: "Harika! Cihaz sensörlerinden gelen veriler sensör verisidir." },
+    dogruKart: { ad: "Akıllı saat adım sayısı ve nabız verisi", tur: "sensor", dogruMu: true, aciklama: "Harika! Cihaz sensörlerinden gelen veriler 'Sensör Verisi'dir." },
     digerKartlar: [
       { ad: "Sesli asistana söylenen ses", tur: "ses", dogruMu: false, aciklama: "Bu ses girdisidir, sensör verisi yakalayınız." },
       { ad: "Video kaset kaydı", tur: "veri", dogruMu: false, aciklama: "Çeldirici! Sensör verisi yakalayınız." }
@@ -1233,7 +1233,7 @@ function bolumTamamla(){
   skorGuncelle();
   $("btn-ileri").disabled = false;
   sesCal("dogru");
-  bildir("Tebrikler! Bölüm görevini başarıyla tamamladınız. İleri butonuna basınız.", "iyi", true);
+  bildir("Tebrikler! Bölüm görevini başarıyla tamamladınız. \"İleri\" butonuna basınız.", "iyi", true);
 }
 
 /* ============ BÖLÜM YÜKLEME ============ */
