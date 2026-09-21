@@ -322,7 +322,7 @@ b,strong{font-weight:700}
         <div class="giris-model-kart" style="border-color:#EA580C;background:#FFF7ED">
           <div class="giris-model-foto-kapsayici" id="giris-onizleme-aslan"></div>
           <span class="giris-model-baslik" style="color:#EA580C">Aslan Modeli</span>
-          <span class="giris-model-alt">Yeleli, Dişi, Yavru...</span>
+          <span class="giris-model-alt">Yeleli, dişi, yavru...</span>
         </div>
         <div class="giris-model-kart karantina" style="border-color:#7C3AED;background:#FAF5FF;border-style:dashed">
           <div class="giris-model-foto-kapsayici" id="giris-onizleme-karantina"></div>
@@ -437,43 +437,43 @@ for (var fKey in FOTOGRAFLAR) {
 
 /* ============ KATEGORİLER (4 KUTU) ============ */
 var KATEGORILER = [
-  { id: "kedi", ad: "Kedi Modeli", kural: "Farklı Kedi Cinsleri", renk: "#D97706", ikon: "kedi_tekir" },
-  { id: "kopek", ad: "Köpek Modeli", kural: "Farklı Köpek Irkları", renk: "#2563EB", ikon: "kopek_kangal" },
-  { id: "aslan", ad: "Aslan Modeli", kural: "Yeleli & Dişi Aslanlar", renk: "#EA580C", ikon: "aslan_erkek" },
-  { id: "karantina", ad: "Karantina Kutusu", kural: "Kategori Dışı Hayvanlar", renk: "#7C3AED", ikon: "hayvan_zebra", karantina: true }
+  { id: "kedi", ad: "Kedi Modeli", kural: "Farklı kedi cinsleri", renk: "#D97706", ikon: "kedi_tekir" },
+  { id: "kopek", ad: "Köpek Modeli", kural: "Farklı köpek ırkları", renk: "#2563EB", ikon: "kopek_kangal" },
+  { id: "aslan", ad: "Aslan Modeli", kural: "Yeleli ve dişi aslanlar", renk: "#EA580C", ikon: "aslan_erkek" },
+  { id: "karantina", ad: "Karantina Kutusu", kural: "Kategori dışı hayvanlar", renk: "#7C3AED", ikon: "hayvan_zebra", karantina: true }
 ];
 
 /* ============ TÜM KART HAVUZU (TOPLAM 24 KART) ============ */
 var TUM_KARTLAR = [
   /* KEDİLER (6 KART) */
-  { id: "kedi_tekir", ad: "Tekir Kedi", cizim: "kedi_tekir", dogruKutu: "kedi", hataNedeni: "Tekir bir evcil kedi cinsidir; köpek veya aslan modeline eklenemez." },
-  { id: "kedi_van", ad: "Van Kedisi", cizim: "kedi_van", dogruKutu: "kedi", hataNedeni: "Van kedisi renkli gözleriyle ünlü bir kedi ırkıdır. Kedi modeline aittir." },
-  { id: "kedi_siyam", ad: "Siyam Kedisi", cizim: "kedi_siyam", dogruKutu: "kedi", hataNedeni: "Siyam kedisi bir evcil kedidir; köpek veya aslan modelini bozar." },
-  { id: "kedi_sarman", ad: "Sarman Kedi", cizim: "kedi_sarman", dogruKutu: "kedi", hataNedeni: "Sarman kedi evcil kedi modeline aittir." },
-  { id: "kedi_kara", ad: "Kara Kedi", cizim: "kedi_kara", dogruKutu: "kedi", hataNedeni: "Kara kedi bir evcil kedi cinsidir." },
-  { id: "kedi_yavru", ad: "Yavru Kedi", cizim: "kedi_yavru", dogruKutu: "kedi", hataNedeni: "Yavru kedi evcil kedi modeline yerleştirilmelidir." },
+  { id: "kedi_tekir", ad: "Tekir kedi", cizim: "kedi_tekir", dogruKutu: "kedi", hataNedeni: "Tekir bir evcil kedi cinsidir; köpek veya aslan modeline eklenemez." },
+  { id: "kedi_van", ad: "Van kedisi", cizim: "kedi_van", dogruKutu: "kedi", hataNedeni: "Van kedisi renkli gözleriyle ünlü bir kedi ırkıdır. Kedi modeline aittir." },
+  { id: "kedi_siyam", ad: "Siyam kedisi", cizim: "kedi_siyam", dogruKutu: "kedi", hataNedeni: "Siyam kedisi bir evcil kedidir; köpek veya aslan modelini bozar." },
+  { id: "kedi_sarman", ad: "Sarman kedi", cizim: "kedi_sarman", dogruKutu: "kedi", hataNedeni: "Sarman kedi evcil kedi modeline aittir." },
+  { id: "kedi_kara", ad: "Kara kedi", cizim: "kedi_kara", dogruKutu: "kedi", hataNedeni: "Kara kedi bir evcil kedi cinsidir." },
+  { id: "kedi_yavru", ad: "Yavru kedi", cizim: "kedi_yavru", dogruKutu: "kedi", hataNedeni: "Yavru kedi evcil kedi modeline yerleştirilmelidir." },
 
   /* KÖPEKLER (6 KART) */
-  { id: "kopek_kangal", ad: "Kangal Çoban", cizim: "kopek_kangal", dogruKutu: "kopek", hataNedeni: "Kangal ünlü bir çoban köpeği ırkıdır; kedi veya aslan değildir!" },
+  { id: "kopek_kangal", ad: "Kangal çoban", cizim: "kopek_kangal", dogruKutu: "kopek", hataNedeni: "Kangal ünlü bir çoban köpeği ırkıdır; kedi veya aslan değildir!" },
   { id: "kopek_dalmacyali", ad: "Dalmaçyalı", cizim: "kopek_dalmacyali", dogruKutu: "kopek", hataNedeni: "Dalmaçyalı benekli bir köpek ırkıdır. Köpek modeline yerleştiriniz." },
-  { id: "kopek_golden", ad: "Golden Retriever", cizim: "kopek_golden", dogruKutu: "kopek", hataNedeni: "Golden Retriever bir köpek ırkıdır; kedi modeline konamaz." },
-  { id: "kopek_haski", ad: "Sibirya Kurdu", cizim: "kopek_haski", dogruKutu: "kopek", hataNedeni: "Haski (Sibirya Kurdu) bir köpek ırkıdır; aslan modelini bozar." },
-  { id: "kopek_av", ad: "Av Köpeği", cizim: "kopek_av", dogruKutu: "kopek", hataNedeni: "Av köpeği köpek modeline yerleştirilmelidir." },
-  { id: "kopek_yavru", ad: "Yavru Köpek", cizim: "kopek_yavru", dogruKutu: "kopek", hataNedeni: "Yavru köpek köpek modeline aittir." },
+  { id: "kopek_golden", ad: "Golden retriever", cizim: "kopek_golden", dogruKutu: "kopek", hataNedeni: "Golden retriever bir köpek ırkıdır; kedi modeline konamaz." },
+  { id: "kopek_haski", ad: "Sibirya kurdu", cizim: "kopek_haski", dogruKutu: "kopek", hataNedeni: "Haski (Sibirya kurdu) bir köpek ırkıdır; aslan modelini bozar." },
+  { id: "kopek_av", ad: "Av köpeği", cizim: "kopek_av", dogruKutu: "kopek", hataNedeni: "Av köpeği köpek modeline yerleştirilmelidir." },
+  { id: "kopek_yavru", ad: "Yavru köpek", cizim: "kopek_yavru", dogruKutu: "kopek", hataNedeni: "Yavru köpek köpek modeline aittir." },
 
   /* ASLANLAR (6 KART) */
-  { id: "aslan_erkek", ad: "Yeleli Aslan", cizim: "aslan_erkek", dogruKutu: "aslan", hataNedeni: "Yeleli aslan büyük yırtıcı aslan modeline aittir; ev kedisi değildir!" },
-  { id: "aslan_disi", ad: "Dişi Aslan", cizim: "aslan_disi", dogruKutu: "aslan", hataNedeni: "Dişi aslan yelesiz bir aslandır; evcil kedi değil Aslan modeline aittir!" },
-  { id: "aslan_kukreyen", ad: "Kükreyen Aslan", cizim: "aslan_kukreyen", dogruKutu: "aslan", hataNedeni: "Kükreyen aslan vahşi aslan modeline eklenmelidir." },
-  { id: "aslan_yavru", ad: "Aslan Yavrusu", cizim: "aslan_yavru", dogruKutu: "aslan", hataNedeni: "Aslan yavrusu aslan modelinin eğitim verisidir." },
-  { id: "aslan_beyaz", ad: "Beyaz Aslan", cizim: "aslan_beyaz", dogruKutu: "aslan", hataNedeni: "Beyaz aslan nadir bir aslan türüdür. Aslan modeline yerleştiriniz." },
-  { id: "aslan_yatan", ad: "Yatan Aslan", cizim: "aslan_yatan", dogruKutu: "aslan", hataNedeni: "Yatan aslan aslan modeline aittir." },
+  { id: "aslan_erkek", ad: "Yeleli aslan", cizim: "aslan_erkek", dogruKutu: "aslan", hataNedeni: "Yeleli aslan büyük yırtıcı aslan modeline aittir; ev kedisi değildir!" },
+  { id: "aslan_disi", ad: "Dişi aslan", cizim: "aslan_disi", dogruKutu: "aslan", hataNedeni: "Dişi aslan yelesiz bir aslandır; evcil kedi değil aslan modeline aittir!" },
+  { id: "aslan_kukreyen", ad: "Kükreyen aslan", cizim: "aslan_kukreyen", dogruKutu: "aslan", hataNedeni: "Kükreyen aslan vahşi aslan modeline eklenmelidir." },
+  { id: "aslan_yavru", ad: "Yavru aslan", cizim: "aslan_yavru", dogruKutu: "aslan", hataNedeni: "Aslan yavrusu aslan modelinin eğitim verisidir." },
+  { id: "aslan_beyaz", ad: "Beyaz aslan", cizim: "aslan_beyaz", dogruKutu: "aslan", hataNedeni: "Beyaz aslan nadir bir aslan türüdür. Aslan modeline yerleştiriniz." },
+  { id: "aslan_yatan", ad: "Yatan aslan", cizim: "aslan_yatan", dogruKutu: "aslan", hataNedeni: "Yatan aslan aslan modeline aittir." },
 
   /* HATALI VERİLER - DİĞER HAYVANLAR (6 KART) */
-  { id: "hayvan_kus", ad: "Renkli Kuş", cizim: "hayvan_kus", dogruKutu: "karantina", hataNedeni: "Kategori Hatası: Kuş bir kanatlıdır! Kedi, köpek veya aslan modeline girerse yapay zekâ bozulur. Karantinaya alınız!" },
+  { id: "hayvan_kus", ad: "Renkli kuş", cizim: "hayvan_kus", dogruKutu: "karantina", hataNedeni: "Kategori Hatası: Kuş bir kanatlıdır! Kedi, köpek veya aslan modeline girerse yapay zekâ bozulur. Karantinaya alınız!" },
   { id: "hayvan_tavuk", ad: "Tavuk", cizim: "hayvan_tavuk", dogruKutu: "karantina", hataNedeni: "Kategori Hatası: Tavuk bir kümes hayvanıdır! Kedi veya köpek değildir. Karantinaya ayıklayınız!" },
-  { id: "hayvan_zebra", ad: "Çizgili Zebra", cizim: "hayvan_zebra", dogruKutu: "karantina", hataNedeni: "Kategori Hatası: Zebra otçul bir memelidir! Kedi, köpek veya aslan modeline uymaz. Karantinaya atınız!" },
-  { id: "hayvan_kaplan", ad: "Çizgili Kaplan", cizim: "hayvan_kaplan", dogruKutu: "karantina", hataNedeni: "Kategori Hatası: Kaplan bir kedigildir ama aslan veya evcil kedi değildir! Çizgili kaplan aslan modeline girerse yapay zekâyı bozar. Karantinaya ayıklayınız!" },
+  { id: "hayvan_zebra", ad: "Çizgili zebra", cizim: "hayvan_zebra", dogruKutu: "karantina", hataNedeni: "Kategori Hatası: Zebra otçul bir memelidir! Kedi, köpek veya aslan modeline uymaz. Karantinaya atınız!" },
+  { id: "hayvan_kaplan", ad: "Çizgili kaplan", cizim: "hayvan_kaplan", dogruKutu: "karantina", hataNedeni: "Kategori Hatası: Kaplan bir kedigildir ama aslan veya evcil kedi değildir! Çizgili kaplan aslan modeline girerse yapay zekâyı bozar. Karantinaya ayıklayınız!" },
   { id: "hayvan_zurafa", ad: "Zürafa", cizim: "hayvan_zurafa", dogruKutu: "karantina", hataNedeni: "Kategori Hatası: Zürafa uzun boyunlu otçul bir hayvandır; yırtıcı veya evcil etçil modellerine uymaz. Karantinaya atınız!" },
   { id: "hayvan_penguen", ad: "Penguen", cizim: "hayvan_penguen", dogruKutu: "karantina", hataNedeni: "Kategori Hatası: Penguen bir kutup kuşudur; kedi, köpek veya aslan modellerini bozar. Karantinaya ayıklayınız!" }
 ];
