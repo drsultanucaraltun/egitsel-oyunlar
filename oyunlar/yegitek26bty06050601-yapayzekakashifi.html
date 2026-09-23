@@ -561,9 +561,8 @@ b,strong{font-weight:700}
   padding:1.5rem;
 }
 #ekran-son h2{font-size:2.3rem;font-weight:700;color:var(--vurgu-koyu)}
-#son-rozet{width:88px;height:88px}
-#son-yildizlar{display:flex;gap:0.45rem;justify-content:center}
-#son-yildizlar svg{width:44px;height:44px}
+#son-yildizlar{display:flex;flex-wrap:wrap;gap:0.45rem;justify-content:center;max-width:440px;margin:0 auto}
+#son-yildizlar svg{width:32px;height:32px}
 #son-yildiz-bilgi{font-size:1.7rem;font-weight:700;color:var(--sari)}
 #son-ozet-kutu{
   background:var(--panel);
@@ -653,7 +652,7 @@ b,strong{font-weight:700}
     <div id="skorlar">
       <span class="skor-kutu" aria-label="Kazanılan Yıldız">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="#F59E0B"/></svg>
-        <span id="skor-yildiz">0 / 3</span>
+        <span id="skor-yildiz">0 / 12</span>
       </span>
     </div>
     <button class="arac-btn" id="btn-kucult" type="button" aria-label="Yazıları küçültünüz">A−</button>
@@ -864,7 +863,7 @@ b,strong{font-weight:700}
       </svg>
       <h2 id="son-baslik">Tebrikler! Okyanus Görevini Başarıyla Tamamladınız</h2>
       <div id="son-yildizlar" aria-label="Kazanılan Yıldızlar"></div>
-      <div id="son-yildiz-bilgi">Kazanılan Yıldız: 0 / 3</div>
+      <div id="son-yildiz-bilgi">Kazanılan Yıldız: 0 / 12</div>
 
       <div id="son-ozet-kutu">
         <p><b>✓ Amaca Uygun Araçlar:</b> Canlıları fotoğrafla tanımak için kamerayı, sensörleri onarmak için kod modülünü, afiş çizimi için DALL-E'yi ve ses komutları için asistanı ustalıkla seçtiniz.</p>
@@ -1138,7 +1137,7 @@ function ekranAc(i){
 }
 
 function skorGuncelle(){
-  $("skor-yildiz").textContent = yildiz + " / 3";
+  $("skor-yildiz").textContent = yildiz + " / 12";
 }
 
 /* ============ 1. BÖLÜM: ARAÇ SEÇİMİ ============ */
@@ -1147,6 +1146,7 @@ function bolum1Yukle(){
   soruKalanHak = 2;
   gorevYanlis = 0;
   kilit = false;
+  $("btn-ileri").disabled = true;
   
   $("b1-vitrin").style.display = "flex";
   $("b2-sahne").style.display = "none";
@@ -1195,7 +1195,9 @@ function modulTikla(aracTuru, btn){
       btn.style.background = "#DCFCE7";
       btn.style.boxShadow = "0 0 0 3px #15803D";
     }
+    yildiz++;
     skorGuncelle();
+    $("btn-ileri").disabled = false;
 
     if(h.id === "pano"){
       var cizim = $("pano-cizim");
@@ -1205,12 +1207,11 @@ function modulTikla(aracTuru, btn){
       if(lamba){ lamba.setAttribute("fill", "#15803D"); }
     }
 
-    bildir(h.basariMesaj, "iyi", function(){
+    bildir(h.basariMesaj + " (★ +1 Yıldız)", "iyi", function(){
       bolum1Indeks++;
       if(bolum1Indeks >= BOLUM1_HEDEFLER.length){
-        yildiz = 1;
-        skorGuncelle();
-        bildir("1. Bölüm tamamlandı! Bir yıldız kazandınız.", "iyi", function(){
+        $("btn-ileri").disabled = false;
+        bildir("1. Bölüm tamamlandı! Toplam " + yildiz + " / 12 yıldızınız var.", "iyi", function(){
           bolum2Baslat();
         });
       } else {
@@ -1235,9 +1236,11 @@ function modulTikla(aracTuru, btn){
     }, 500);
 
     if(soruKalanHak === 1){
+      $("btn-ileri").disabled = true;
       bildir("Uyumsuz araç! 1 hakkınız kaldı. " + h.hataMesaj, "kotu");
     } else {
       kilit = true;
+      $("btn-ileri").disabled = false;
       var dogruBtn = $("modul-" + h.dogruArac);
       if(dogruBtn){
         dogruBtn.style.borderColor = "#15803D";
@@ -1255,9 +1258,8 @@ function modulTikla(aracTuru, btn){
       bildir("2 hakkınız bitti! Doğru araç: " + dogruAd + ". " + h.hataMesaj, "kotu", function(){
         bolum1Indeks++;
         if(bolum1Indeks >= BOLUM1_HEDEFLER.length){
-          yildiz = 1;
-          skorGuncelle();
-          bildir("1. Bölüm tamamlandı! Bir yıldız kazandınız.", "iyi", function(){
+          $("btn-ileri").disabled = false;
+          bildir("1. Bölüm tamamlandı! Toplam " + yildiz + " / 12 yıldızınız var.", "iyi", function(){
             bolum2Baslat();
           });
         } else {
@@ -1289,6 +1291,7 @@ function bolum2Yukle(){
   soruKalanHak = 2;
   gorevYanlis = 0;
   kilit = false;
+  $("btn-ileri").disabled = true;
 
   $("b1-vitrin").style.display = "none";
   $("b2-sahne").style.display = "flex";
@@ -1347,14 +1350,15 @@ function kapsulSec(kapsul, kEl){
     kEl.style.borderColor = "#15803D";
     kEl.style.background = "#DCFCE7";
     kEl.style.boxShadow = "0 0 0 3px #15803D";
+    yildiz++;
     skorGuncelle();
+    $("btn-ileri").disabled = false;
 
-    bildir(kapsul.sonuc, "iyi", function(){
+    bildir(kapsul.sonuc + " (★ +1 Yıldız)", "iyi", function(){
       bolum2Indeks++;
       if(bolum2Indeks >= BOLUM2_VERILER.length){
-        yildiz = 2;
-        skorGuncelle();
-        bildir("2. Bölüm tamamlandı! İkinci yıldızınızı kazandınız.", "iyi", function(){
+        $("btn-ileri").disabled = false;
+        bildir("2. Bölüm tamamlandı! Toplam " + yildiz + " / 12 yıldızınız var.", "iyi", function(){
           bolum3Baslat();
         });
       } else {
@@ -1373,9 +1377,11 @@ function kapsulSec(kapsul, kEl){
     kEl.classList.add("sarsil");
 
     if(soruKalanHak === 1){
+      $("btn-ileri").disabled = true;
       bildir("Kusurlu Girdi! " + kapsul.kusur + " 1 hakkınız kaldı, diğer seçenekleri inceleyiniz.", "kotu");
     } else {
       kilit = true;
+      $("btn-ileri").disabled = false;
       var veri = BOLUM2_VERILER[bolum2Indeks];
       var dogruKapsul = null;
       for(var k=0; k<veri.kapsuller.length; k++){
@@ -1393,9 +1399,8 @@ function kapsulSec(kapsul, kEl){
       bildir("2 hakkınız bitti! Doğru girdi: " + (dogruKapsul ? dogruKapsul.aciklama : ""), "kotu", function(){
         bolum2Indeks++;
         if(bolum2Indeks >= BOLUM2_VERILER.length){
-          yildiz = 2;
-          skorGuncelle();
-          bildir("2. Bölüm tamamlandı! İkinci yıldızınızı kazandınız.", "iyi", function(){
+          $("btn-ileri").disabled = false;
+          bildir("2. Bölüm tamamlandı! Toplam " + yildiz + " / 12 yıldızınız var.", "iyi", function(){
             bolum3Baslat();
           });
         } else {
@@ -1416,6 +1421,7 @@ function bolum3Baslat(){
 function bolum3Yukle(){
   gorevYanlis = 0;
   kilit = false;
+  $("btn-ileri").disabled = true;
 
   $("b1-vitrin").style.display = "none";
   $("b2-sahne").style.display = "none";
@@ -1465,14 +1471,15 @@ function radarKararVer(ogrenciOnayladi){
     secilenBtn.style.borderColor = "#15803D";
     secilenBtn.style.background = "#DCFCE7";
     secilenBtn.style.boxShadow = "0 0 0 3px #15803D";
+    yildiz++;
     skorGuncelle();
+    $("btn-ileri").disabled = false;
 
-    bildir(v.aciklama, "iyi", function(){
+    bildir(v.aciklama + " (★ +1 Yıldız)", "iyi", function(){
       bolum3Indeks++;
       if(bolum3Indeks >= BOLUM3_VERILER.length){
-        yildiz = 3;
-        skorGuncelle();
-        bildir("Tüm okyanus görevlerini başarıyla tamamladınız!", "iyi", function(){
+        $("btn-ileri").disabled = false;
+        bildir("Tüm okyanus görevlerini tamamladınız! Toplam " + yildiz + " / 12 yıldız kazandınız.", "iyi", function(){
           oyunuBitir();
         });
       } else {
@@ -1489,15 +1496,15 @@ function radarKararVer(ogrenciOnayladi){
     digerBtn.style.borderColor = "#15803D";
     digerBtn.style.background = "#DCFCE7";
     digerBtn.style.boxShadow = "0 0 0 3px #15803D";
+    $("btn-ileri").disabled = false;
 
     var dogruKararMetni = v.onayDogru ? "Onayla (Uygun)" : "Durdur / Reddet (Sakıncalı)";
     var aciklamaTemiz = v.aciklama.replace(/^Doğru karar!\s*/, "");
     bildir("Yanlış karar! Doğru cevap: '" + dogruKararMetni + "' olmalıydı. " + aciklamaTemiz, "kotu", function(){
       bolum3Indeks++;
       if(bolum3Indeks >= BOLUM3_VERILER.length){
-        yildiz = 3;
-        skorGuncelle();
-        bildir("Tüm okyanus görevlerini başarıyla tamamladınız!", "iyi", function(){
+        $("btn-ileri").disabled = false;
+        bildir("Tüm okyanus görevlerini tamamladınız! Toplam " + yildiz + " / 12 yıldız kazandınız.", "iyi", function(){
           oyunuBitir();
         });
       } else {
@@ -1510,19 +1517,31 @@ function radarKararVer(ogrenciOnayladi){
 /* ============ OYUN SONU VE SIFIRLAMA ============ */
 function oyunuBitir(){
   oyunBitti = true;
-  yildiz = 3;
   skorGuncelle();
   $("btn-ileri").disabled = false;
   $("ilerleme-ic").style.width = "100%";
 
   var kap = $("son-yildizlar");
   kap.innerHTML = "";
-  for(var i=0; i<3; i++){
+  for(var i=0; i<12; i++){
     var star = document.createElement("div");
-    star.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="#F59E0B"/></svg>';
+    var renk = (i < yildiz) ? "#F59E0B" : "#CBD5E1";
+    star.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="' + renk + '"/></svg>';
     kap.appendChild(star);
   }
-  $("son-yildiz-bilgi").textContent = "Kazanılan Yıldız: 3 / 3";
+  $("son-yildiz-bilgi").textContent = "Kazanılan Yıldız: " + yildiz + " / 12";
+
+  var baslikEl = $("son-baslik");
+  if(baslikEl){
+    if(yildiz >= 10){
+      baslikEl.textContent = "Harika Kâşif! Görev Tamamlandı!";
+    } else if(yildiz >= 6){
+      baslikEl.textContent = "İyi İş Çıkardın Kâşif!";
+    } else {
+      baslikEl.textContent = "Kâşif Görevi Tamamladı";
+    }
+  }
+
   ekranAc(2);
 }
 
@@ -1588,7 +1607,13 @@ $("btn-geri").addEventListener("click", function(){
 });
 
 $("btn-ileri").addEventListener("click", function(){
-  if(aktifEkran === 1 && oyunBitti) ekranAc(2);
+  if(aktifEkran === 1){
+    if(typeof bekleyenEylem === "function"){
+      bildirimKapat();
+    } else if(oyunBitti){
+      ekranAc(2);
+    }
+  }
 });
 
 $("btn-basla").addEventListener("click", function(){
