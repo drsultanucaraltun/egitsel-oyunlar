@@ -478,6 +478,71 @@ var TUM_KARTLAR = [
   { id: "hayvan_penguen", ad: "Penguen", cizim: "hayvan_penguen", dogruKutu: "karantina", hataNedeni: "Kategori Hatası: Penguen bir kutup kuşudur; kedi, köpek veya aslan modellerini bozar. Karantinaya ayıklayınız!" }
 ];
 
+/* ============ SCORM 1.2 (LMS yoksa sessiz) ============ */
+var scorm = (function(){
+  var api = null, acik = false, baslangic = Date.now();
+  function bul(pencere){
+    var deneme = 0;
+    while(pencere && deneme < 10){
+      try{
+        if(pencere.API) return pencere.API;
+        if(pencere.parent && pencere.parent !== pencere){ pencere = pencere.parent; }
+        else if(pencere.opener){ pencere = pencere.opener; }
+        else break;
+      }catch(e){ break; }
+      deneme++;
+    }
+    return null;
+  }
+  function baslat(){
+    try{
+      api = bul(window);
+      if(!api) return;
+      if(api.LMSInitialize("") === "true" || api.LMSInitialize("") === true){
+        acik = true;
+        ayarla("cmi.core.lesson_status", "incomplete");
+        ayarla("cmi.core.score.min", "0");
+        ayarla("cmi.core.score.max", "100");
+        kaydet();
+      }
+    }catch(e){ api = null; acik = false; }
+  }
+  function ayarla(anahtar, deger){
+    if(!acik) return;
+    try{ api.LMSSetValue(anahtar, String(deger)); }catch(e){}
+  }
+  function kaydet(){
+    if(!acik) return;
+    try{ api.LMSCommit(""); }catch(e){}
+  }
+  function sureMetni(){
+    var sn = Math.max(0, Math.floor((Date.now() - baslangic) / 1000));
+    var h = Math.floor(sn / 3600), m = Math.floor((sn % 3600) / 60), k = sn % 60;
+    function iki(x){ return (x < 10 ? "0" : "") + x; }
+    return ("0000" + h).slice(-4) + ":" + iki(m) + ":" + iki(k);
+  }
+  function tamamla(puan, puanUst){
+    if(!acik) return;
+    var yuzde = Math.round(puan / puanUst * 100);
+    ayarla("cmi.core.score.raw", yuzde);
+    ayarla("cmi.core.lesson_status", (yuzde >= 50 ? "passed" : "completed"));
+    kaydet();
+  }
+  function kapat(){
+    if(!acik) return;
+    try{
+      ayarla("cmi.core.session_time", sureMetni());
+      kaydet();
+      api.LMSFinish("");
+    }catch(e){}
+    acik = false;
+  }
+  return { baslat: baslat, tamamla: tamamla, kapat: kapat };
+})();
+scorm.baslat();
+window.addEventListener("beforeunload", scorm.kapat);
+window.addEventListener("unload", scorm.kapat);
+
 /* ============ DURUM ============ */
 var ekranlar = ["ekran-giris", "ekran-oyun", "ekran-son"];
 var aktifEkran = 0;
@@ -1001,6 +1066,7 @@ function kontrolOyunBitis(){
 function oyunuBitir(){
   ekranAc(2);
   var dogruluk = hesaplaModelDogrulugu();
+  try{ if(scorm && scorm.tamamla) scorm.tamamla(dogruluk, 100); }catch(e){}
   var baslik = $("son-baslik");
   var kap = $("son-yildizlar");
   var puanEl = $("son-puan");
