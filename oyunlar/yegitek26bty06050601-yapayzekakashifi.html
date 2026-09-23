@@ -970,11 +970,20 @@ var bolum1Indeks = 0;
 var bolum2Indeks = 0;
 var bolum3Indeks = 0;
 var yildiz = 0;
+var soruKalanHak = 2;
 var gorevYanlis = 0;
 var kilit = false;
 var oyunBitti = false;
 var sesAcik = true;
 var yaziOlcek = 100;
+
+var ARAC_ADLARI = {
+  kamera: "Kamera / Analiz (Gemini)",
+  cizim: "Çizim / Sanat (DALL-E)",
+  kod: "Kod Asistanı (Copilot)",
+  ses: "Sesli Asistan",
+  metin: "Metin / Bilgi (ChatGPT)"
+};
 
 function $(id){ return document.getElementById(id); }
 
@@ -1065,6 +1074,7 @@ function skorGuncelle(){
 /* ============ 1. BÖLÜM: ARAÇ SEÇİMİ ============ */
 function bolum1Yukle(){
   aktifBolum = 1;
+  soruKalanHak = 2;
   gorevYanlis = 0;
   kilit = false;
   
@@ -1074,7 +1084,7 @@ function bolum1Yukle(){
   $("arac-paneli").style.display = "flex";
 
   $("bolum-rozet").textContent = "1. Bölüm: Araç Seçimi";
-  $("gorev-yazi").textContent = "Canlıyı/nesneyi inceleyiniz; aşağıdaki araçlardan en uygun olanına tıklayınız.";
+  $("gorev-yazi").textContent = "Canlıyı/nesneyi inceleyiniz; en uygun araca tıklayınız (2 hakkınız vardır).";
 
   var toplam = BOLUM1_HEDEFLER.length;
   $("ilerleme-dis").setAttribute("aria-valuenow", bolum1Indeks);
@@ -1091,11 +1101,17 @@ function bolum1Yukle(){
 
   var moduller = document.querySelectorAll(".modul-kart");
   for(var i=0; i<moduller.length; i++){
+    moduller[i].style.opacity = "";
+    moduller[i].style.pointerEvents = "";
+    moduller[i].style.borderColor = "";
+    moduller[i].style.background = "";
+    moduller[i].style.boxShadow = "";
+    moduller[i].classList.remove("sarsil");
     moduller[i].setAttribute("aria-pressed", "false");
   }
 }
 
-function modulTikla(aracTuru){
+function modulTikla(aracTuru, btn){
   if(kilit || aktifBolum !== 1) return;
   var h = BOLUM1_HEDEFLER[bolum1Indeks];
   var kart = $("canli-kutu");
@@ -1104,6 +1120,11 @@ function modulTikla(aracTuru){
     kilit = true;
     sesCal("dogru");
     kart.className = "onay";
+    if(btn){
+      btn.style.borderColor = "#15803D";
+      btn.style.background = "#DCFCE7";
+      btn.style.boxShadow = "0 0 0 3px #15803D";
+    }
     skorGuncelle();
     bildir(h.basariMesaj, "iyi");
 
@@ -1125,19 +1146,60 @@ function modulTikla(aracTuru){
           bolum2Baslat();
         }, window.__FAST ? 300 : 1600);
       } else {
-        kilit = false;
         bolum1Yukle();
       }
     }, window.__FAST ? 300 : 1500);
 
   } else {
+    soruKalanHak--;
     sesCal("yanlis");
     gorevYanlis++;
+    if(btn){
+      btn.classList.add("sarsil");
+      btn.style.borderColor = "#DC2626";
+      btn.style.background = "#FEF2F2";
+      btn.style.opacity = "0.5";
+      btn.style.pointerEvents = "none";
+    }
     kart.className = "hata";
-    bildir("Uyumsuz araç! " + h.hataMesaj, "kotu");
     setTimeout(function(){
       kart.className = "";
     }, 500);
+
+    if(soruKalanHak === 1){
+      bildir("Uyumsuz araç! 1 hakkınız kaldı. " + h.hataMesaj, "kotu");
+    } else {
+      kilit = true;
+      var dogruBtn = $("modul-" + h.dogruArac);
+      if(dogruBtn){
+        dogruBtn.style.borderColor = "#15803D";
+        dogruBtn.style.background = "#DCFCE7";
+        dogruBtn.style.boxShadow = "0 0 0 3px #15803D";
+      }
+      if(h.id === "pano"){
+        var cizim2 = $("pano-cizim");
+        if(cizim2){ cizim2.setAttribute("stroke", "#15803D"); cizim2.setAttribute("stroke-width", "5"); }
+      } else if(h.id === "şamandıra"){
+        var lamba2 = $("samandira-lamba");
+        if(lamba2){ lamba2.setAttribute("fill", "#15803D"); }
+      }
+      var dogruAd = ARAC_ADLARI[h.dogruArac] || h.dogruArac;
+      bildir("2 hakkınız bitti! Doğru araç: " + dogruAd + ". " + h.hataMesaj, "kotu", true);
+
+      setTimeout(function(){
+        bolum1Indeks++;
+        if(bolum1Indeks >= BOLUM1_HEDEFLER.length){
+          yildiz = 1;
+          skorGuncelle();
+          bildir("1. Bölüm tamamlandı! Bir yıldız kazandınız.", "iyi", true);
+          setTimeout(function(){
+            bolum2Baslat();
+          }, window.__FAST ? 300 : 1600);
+        } else {
+          bolum1Yukle();
+        }
+      }, window.__FAST ? 300 : 2600);
+    }
   }
 }
 
@@ -1146,7 +1208,7 @@ for(var b=0; b<butonlar.length; b++){
   (function(btn){
     btn.addEventListener("click", function(){
       var arac = btn.getAttribute("data-arac");
-      modulTikla(arac);
+      modulTikla(arac, btn);
     });
   })(butonlar[b]);
 }
@@ -1159,6 +1221,7 @@ function bolum2Baslat(){
 }
 
 function bolum2Yukle(){
+  soruKalanHak = 2;
   gorevYanlis = 0;
   kilit = false;
 
@@ -1168,7 +1231,7 @@ function bolum2Yukle(){
   $("arac-paneli").style.display = "none";
 
   $("bolum-rozet").textContent = "2. Bölüm: Girdi Avcısı";
-  $("gorev-yazi").textContent = "Hedefe en uygun, net ve etkili komutu (girdi kartını) seçiniz.";
+  $("gorev-yazi").textContent = "Hedefe en uygun, net ve etkili komutu seçiniz (2 hakkınız vardır).";
 
   var toplam = BOLUM2_VERILER.length;
   $("ilerleme-dis").setAttribute("aria-valuenow", bolum2Indeks);
@@ -1218,6 +1281,7 @@ function kapsulSec(kapsul, kEl){
     kilit = true;
     kEl.style.borderColor = "#15803D";
     kEl.style.background = "#DCFCE7";
+    kEl.style.boxShadow = "0 0 0 3px #15803D";
     skorGuncelle();
     bildir(kapsul.sonuc, "iyi");
 
@@ -1231,21 +1295,54 @@ function kapsulSec(kapsul, kEl){
           bolum3Baslat();
         }, window.__FAST ? 300 : 1600);
       } else {
-        kilit = false;
         bolum2Yukle();
       }
     }, window.__FAST ? 300 : 1800);
 
   } else {
+    soruKalanHak--;
     sesCal("yanlis");
     gorevYanlis++;
-    kEl.style.borderColor = "#B45309";
+    kEl.style.borderColor = "#DC2626";
+    kEl.style.background = "#FEF2F2";
+    kEl.style.opacity = "0.5";
+    kEl.style.pointerEvents = "none";
     kEl.classList.add("sarsil");
-    bildir("Zayıf Girdi! " + kapsul.kusur, "kotu");
-    setTimeout(function(){
-      kEl.classList.remove("sarsil");
-      kEl.style.borderColor = "#93C5FD";
-    }, 450);
+
+    if(soruKalanHak === 1){
+      bildir("Kusurlu Girdi! " + kapsul.kusur + " 1 hakkınız kaldı, diğer seçenekleri inceleyiniz.", "kotu");
+    } else {
+      kilit = true;
+      var veri = BOLUM2_VERILER[bolum2Indeks];
+      var dogruKapsul = null;
+      for(var k=0; k<veri.kapsuller.length; k++){
+        if(veri.kapsuller[k].dogru){ dogruKapsul = veri.kapsuller[k]; break; }
+      }
+      var items = document.querySelectorAll(".kapsul-item");
+      for(var m=0; m<items.length; m++){
+        if(dogruKapsul && items[m].textContent.indexOf(dogruKapsul.aciklama) !== -1){
+          items[m].style.borderColor = "#15803D";
+          items[m].style.background = "#DCFCE7";
+          items[m].style.boxShadow = "0 0 0 3px #15803D";
+          items[m].style.opacity = "1";
+        }
+      }
+      bildir("2 hakkınız bitti! Doğru girdi: " + (dogruKapsul ? dogruKapsul.aciklama : ""), "kotu", true);
+
+      setTimeout(function(){
+        bolum2Indeks++;
+        if(bolum2Indeks >= BOLUM2_VERILER.length){
+          yildiz = 2;
+          skorGuncelle();
+          bildir("2. Bölüm tamamlandı! İkinci yıldızınızı kazandınız.", "iyi", true);
+          setTimeout(function(){
+            bolum3Baslat();
+          }, window.__FAST ? 300 : 1600);
+        } else {
+          bolum2Yukle();
+        }
+      }, window.__FAST ? 300 : 2600);
+    }
   }
 }
 
@@ -1266,7 +1363,17 @@ function bolum3Yukle(){
   $("arac-paneli").style.display = "none";
 
   $("bolum-rozet").textContent = "3. Bölüm: Kalite Radarı";
-  $("gorev-yazi").textContent = "Yapay zekâ çıktısını inceleyiniz; gerçeğe uygunluğuna göre onaylayınız veya reddediniz.";
+  $("gorev-yazi").textContent = "Yapay zekâ çıktısını inceleyiniz; uygunluğuna göre onaylayınız veya reddediniz (Tek hakkınız vardır).";
+
+  $("btn-radar-onayla").style.borderColor = "";
+  $("btn-radar-onayla").style.background = "";
+  $("btn-radar-onayla").style.boxShadow = "";
+  $("btn-radar-onayla").classList.remove("sarsil");
+
+  $("btn-radar-reddet").style.borderColor = "";
+  $("btn-radar-reddet").style.background = "";
+  $("btn-radar-reddet").style.boxShadow = "";
+  $("btn-radar-reddet").classList.remove("sarsil");
 
   var toplam = BOLUM3_VERILER.length;
   $("ilerleme-dis").setAttribute("aria-valuenow", bolum3Indeks);
@@ -1288,10 +1395,16 @@ $("btn-radar-reddet").addEventListener("click", function(){
 
 function radarKararVer(ogrenciOnayladi){
   if(kilit) return;
+  kilit = true;
   var v = BOLUM3_VERILER[bolum3Indeks];
+  var secilenBtn = ogrenciOnayladi ? $("btn-radar-onayla") : $("btn-radar-reddet");
+  var digerBtn = ogrenciOnayladi ? $("btn-radar-reddet") : $("btn-radar-onayla");
+
   if(ogrenciOnayladi === v.onayDogru){
     sesCal("dogru");
-    kilit = true;
+    secilenBtn.style.borderColor = "#15803D";
+    secilenBtn.style.background = "#DCFCE7";
+    secilenBtn.style.boxShadow = "0 0 0 3px #15803D";
     skorGuncelle();
     bildir(v.aciklama, "iyi");
 
@@ -1305,25 +1418,45 @@ function radarKararVer(ogrenciOnayladi){
           oyunuBitir();
         }, window.__FAST ? 300 : 1600);
       } else {
-        kilit = false;
         bolum3Yukle();
       }
     }, window.__FAST ? 300 : 1800);
 
   } else {
     sesCal("yanlis");
-    gorevYanlis++;
-    if(!v.onayDogru && ogrenciOnayladi){
-      bildir("Dikkat! Yapay zekânın ürettiği bu bilgi gerçeğe veya kurallara aykırıdır; onaylanmamalıdır!", "kotu");
-    } else {
-      bildir("Bu çıktı amaca uygun, hatasız ve verimlidir; reddetmeye gerek yoktur.", "kotu");
-    }
+    secilenBtn.style.borderColor = "#DC2626";
+    secilenBtn.style.background = "#FEF2F2";
+    secilenBtn.classList.add("sarsil");
+
+    digerBtn.style.borderColor = "#15803D";
+    digerBtn.style.background = "#DCFCE7";
+    digerBtn.style.boxShadow = "0 0 0 3px #15803D";
+
+    var dogruKararMetni = v.onayDogru ? "Onayla (Uygun)" : "Durdur / Reddet (Sakıncalı)";
+    var aciklamaTemiz = v.aciklama.replace(/^Doğru karar!\s*/, "");
+    bildir("Yanlış karar! Doğru cevap: '" + dogruKararMetni + "' olmalıydı. " + aciklamaTemiz, "kotu", true);
+
+    setTimeout(function(){
+      bolum3Indeks++;
+      if(bolum3Indeks >= BOLUM3_VERILER.length){
+        yildiz = 3;
+        skorGuncelle();
+        bildir("Tüm okyanus görevlerini başarıyla tamamladınız!", "iyi", true);
+        setTimeout(function(){
+          oyunuBitir();
+        }, window.__FAST ? 300 : 1600);
+      } else {
+        bolum3Yukle();
+      }
+    }, window.__FAST ? 300 : 2800);
   }
 }
 
 /* ============ OYUN SONU VE SIFIRLAMA ============ */
 function oyunuBitir(){
   oyunBitti = true;
+  yildiz = 3;
+  skorGuncelle();
   $("btn-ileri").disabled = false;
   $("ilerleme-ic").style.width = "100%";
 
@@ -1331,10 +1464,10 @@ function oyunuBitir(){
   kap.innerHTML = "";
   for(var i=0; i<3; i++){
     var star = document.createElement("div");
-    star.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="' + (i < yildiz ? "#F59E0B" : "#CBD5E1") + '"/></svg>';
+    star.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="#F59E0B"/></svg>';
     kap.appendChild(star);
   }
-  $("son-yildiz-bilgi").textContent = "Kazanılan Yıldız: " + yildiz + " / 3";
+  $("son-yildiz-bilgi").textContent = "Kazanılan Yıldız: 3 / 3";
   ekranAc(2);
 }
 
@@ -1343,6 +1476,7 @@ function oyunuBaslat(){
   bolum2Indeks = 0;
   bolum3Indeks = 0;
   yildiz = 0;
+  soruKalanHak = 2;
   gorevYanlis = 0;
   kilit = false;
   oyunBitti = false;
