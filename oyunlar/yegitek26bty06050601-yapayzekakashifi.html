@@ -501,20 +501,57 @@ b,strong{font-weight:700}
   top:0.6rem;
   left:50%;
   transform:translateX(-50%);
-  max-width:min(90%, 46rem);
-  font-size:1.15rem;
-  font-weight:700;
-  border-radius:14px;
-  padding:0.6rem 1.2rem;
+  min-width:280px;
+  max-width:min(92%, 48rem);
+  border-radius:16px;
+  padding:0.75rem 2.8rem 0.75rem 1.3rem;
   display:none;
-  text-align:center;
-  z-index:60;
-  box-shadow:0 4px 16px rgba(0,0,0,0.12);
+  z-index:100;
+  box-shadow:0 8px 24px rgba(12, 74, 110, 0.22);
+  animation:belirenBildirim 0.2s ease-out;
 }
 #geribildirim.goster{display:block}
 #geribildirim.iyi{background:var(--dogru-acik);color:var(--dogru);border:3px solid var(--dogru)}
 #geribildirim.kotu{background:var(--yanlis-acik);color:var(--yanlis);border:3px solid var(--yanlis)}
 #geribildirim.notr{background:var(--vurgu-acik);color:var(--murekkep);border:3px solid var(--vurgu)}
+
+#gb-metin{
+  font-size:1.12rem;
+  font-weight:700;
+  line-height:1.45;
+  text-align:center;
+}
+#btn-gb-kapat{
+  position:absolute;
+  top:8px;
+  right:8px;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  border:none;
+  background:rgba(0, 0, 0, 0.08);
+  color:inherit;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  padding:0;
+  transition:all 0.15s ease;
+}
+#btn-gb-kapat:hover, #btn-gb-kapat:focus-visible{
+  background:rgba(0, 0, 0, 0.2);
+  transform:scale(1.12);
+  outline:2px solid currentColor;
+}
+#btn-gb-kapat svg{
+  width:18px;
+  height:18px;
+  display:block;
+}
+@keyframes belirenBildirim{
+  from{opacity:0;transform:translate(-50%, -8px) scale(0.97)}
+  to{opacity:1;transform:translate(-50%, 0) scale(1)}
+}
 
 #ekran-son{
   align-items:center;
@@ -761,8 +798,16 @@ b,strong{font-weight:700}
           </div>
         </div>
 
-        <!-- Kayan Bildirim -->
-        <div id="geribildirim" role="status" aria-live="assertive"></div>
+        <!-- Geri Bildirim Kutusu (Kullanıcı Kapatmalı) -->
+        <div id="geribildirim" role="status" aria-live="assertive">
+          <div id="gb-metin"></div>
+          <button id="btn-gb-kapat" type="button" aria-label="Bildirimi kapat">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
       </div>
 
       <!-- Alt Araç Paneli (1. Bölümde Aktif) -->
@@ -1035,24 +1080,49 @@ function sesCal(tur){
   }catch(e){}
 }
 
-/* ============ BİLDİRİM ============ */
-var gbZaman = null;
-function bildir(metin, tur, kalici){
+/* ============ BİLDİRİM MOTORU (MANUEL KAPATMA) ============ */
+var bekleyenEylem = null;
+
+function bildir(metin, tur, sonrakiEylem){
+  bekleyenEylem = (typeof sonrakiEylem === "function") ? sonrakiEylem : null;
   var el = $("geribildirim");
-  el.textContent = metin;
-  el.className = "goster " + tur;
-  if(gbZaman){ clearTimeout(gbZaman); gbZaman = null; }
-  if(!kalici){
-    gbZaman = setTimeout(function(){
-      el.className = "";
-      el.textContent = "";
-    }, window.__FAST ? 300 : 3200);
+  var metinEl = $("gb-metin");
+  if(metinEl){
+    metinEl.textContent = metin;
+  } else {
+    el.textContent = metin;
+  }
+  el.className = "goster " + (tur || "notr");
+  el.style.display = "block";
+  setTimeout(function(){
+    try{
+      var b = $("btn-gb-kapat");
+      if(b) b.focus();
+    }catch(e){}
+  }, 50);
+}
+
+function bildirimKapat(){
+  var el = $("geribildirim");
+  el.className = "";
+  el.style.display = "none";
+  var metinEl = $("gb-metin");
+  if(metinEl) metinEl.textContent = "";
+
+  if(typeof bekleyenEylem === "function"){
+    var eylem = bekleyenEylem;
+    bekleyenEylem = null;
+    eylem();
   }
 }
+
 function bildirimTemizle(){
-  if(gbZaman){ clearTimeout(gbZaman); gbZaman = null; }
-  $("geribildirim").className = "";
-  $("geribildirim").textContent = "";
+  bekleyenEylem = null;
+  var el = $("geribildirim");
+  el.className = "";
+  el.style.display = "none";
+  var metinEl = $("gb-metin");
+  if(metinEl) metinEl.textContent = "";
 }
 
 /* ============ EKRAN GEÇİŞİ ============ */
@@ -1126,7 +1196,6 @@ function modulTikla(aracTuru, btn){
       btn.style.boxShadow = "0 0 0 3px #15803D";
     }
     skorGuncelle();
-    bildir(h.basariMesaj, "iyi");
 
     if(h.id === "pano"){
       var cizim = $("pano-cizim");
@@ -1136,19 +1205,18 @@ function modulTikla(aracTuru, btn){
       if(lamba){ lamba.setAttribute("fill", "#15803D"); }
     }
 
-    setTimeout(function(){
+    bildir(h.basariMesaj, "iyi", function(){
       bolum1Indeks++;
       if(bolum1Indeks >= BOLUM1_HEDEFLER.length){
         yildiz = 1;
         skorGuncelle();
-        bildir("1. Bölüm tamamlandı! Bir yıldız kazandınız.", "iyi", true);
-        setTimeout(function(){
+        bildir("1. Bölüm tamamlandı! Bir yıldız kazandınız.", "iyi", function(){
           bolum2Baslat();
-        }, window.__FAST ? 300 : 1600);
+        });
       } else {
         bolum1Yukle();
       }
-    }, window.__FAST ? 300 : 1500);
+    });
 
   } else {
     soruKalanHak--;
@@ -1184,21 +1252,18 @@ function modulTikla(aracTuru, btn){
         if(lamba2){ lamba2.setAttribute("fill", "#15803D"); }
       }
       var dogruAd = ARAC_ADLARI[h.dogruArac] || h.dogruArac;
-      bildir("2 hakkınız bitti! Doğru araç: " + dogruAd + ". " + h.hataMesaj, "kotu", true);
-
-      setTimeout(function(){
+      bildir("2 hakkınız bitti! Doğru araç: " + dogruAd + ". " + h.hataMesaj, "kotu", function(){
         bolum1Indeks++;
         if(bolum1Indeks >= BOLUM1_HEDEFLER.length){
           yildiz = 1;
           skorGuncelle();
-          bildir("1. Bölüm tamamlandı! Bir yıldız kazandınız.", "iyi", true);
-          setTimeout(function(){
+          bildir("1. Bölüm tamamlandı! Bir yıldız kazandınız.", "iyi", function(){
             bolum2Baslat();
-          }, window.__FAST ? 300 : 1600);
+          });
         } else {
           bolum1Yukle();
         }
-      }, window.__FAST ? 300 : 2600);
+      });
     }
   }
 }
@@ -1283,21 +1348,19 @@ function kapsulSec(kapsul, kEl){
     kEl.style.background = "#DCFCE7";
     kEl.style.boxShadow = "0 0 0 3px #15803D";
     skorGuncelle();
-    bildir(kapsul.sonuc, "iyi");
 
-    setTimeout(function(){
+    bildir(kapsul.sonuc, "iyi", function(){
       bolum2Indeks++;
       if(bolum2Indeks >= BOLUM2_VERILER.length){
         yildiz = 2;
         skorGuncelle();
-        bildir("2. Bölüm tamamlandı! İkinci yıldızınızı kazandınız.", "iyi", true);
-        setTimeout(function(){
+        bildir("2. Bölüm tamamlandı! İkinci yıldızınızı kazandınız.", "iyi", function(){
           bolum3Baslat();
-        }, window.__FAST ? 300 : 1600);
+        });
       } else {
         bolum2Yukle();
       }
-    }, window.__FAST ? 300 : 1800);
+    });
 
   } else {
     soruKalanHak--;
@@ -1327,21 +1390,18 @@ function kapsulSec(kapsul, kEl){
           items[m].style.opacity = "1";
         }
       }
-      bildir("2 hakkınız bitti! Doğru girdi: " + (dogruKapsul ? dogruKapsul.aciklama : ""), "kotu", true);
-
-      setTimeout(function(){
+      bildir("2 hakkınız bitti! Doğru girdi: " + (dogruKapsul ? dogruKapsul.aciklama : ""), "kotu", function(){
         bolum2Indeks++;
         if(bolum2Indeks >= BOLUM2_VERILER.length){
           yildiz = 2;
           skorGuncelle();
-          bildir("2. Bölüm tamamlandı! İkinci yıldızınızı kazandınız.", "iyi", true);
-          setTimeout(function(){
+          bildir("2. Bölüm tamamlandı! İkinci yıldızınızı kazandınız.", "iyi", function(){
             bolum3Baslat();
-          }, window.__FAST ? 300 : 1600);
+          });
         } else {
           bolum2Yukle();
         }
-      }, window.__FAST ? 300 : 2600);
+      });
     }
   }
 }
@@ -1406,21 +1466,19 @@ function radarKararVer(ogrenciOnayladi){
     secilenBtn.style.background = "#DCFCE7";
     secilenBtn.style.boxShadow = "0 0 0 3px #15803D";
     skorGuncelle();
-    bildir(v.aciklama, "iyi");
 
-    setTimeout(function(){
+    bildir(v.aciklama, "iyi", function(){
       bolum3Indeks++;
       if(bolum3Indeks >= BOLUM3_VERILER.length){
         yildiz = 3;
         skorGuncelle();
-        bildir("Tüm okyanus görevlerini başarıyla tamamladınız!", "iyi", true);
-        setTimeout(function(){
+        bildir("Tüm okyanus görevlerini başarıyla tamamladınız!", "iyi", function(){
           oyunuBitir();
-        }, window.__FAST ? 300 : 1600);
+        });
       } else {
         bolum3Yukle();
       }
-    }, window.__FAST ? 300 : 1800);
+    });
 
   } else {
     sesCal("yanlis");
@@ -1434,21 +1492,18 @@ function radarKararVer(ogrenciOnayladi){
 
     var dogruKararMetni = v.onayDogru ? "Onayla (Uygun)" : "Durdur / Reddet (Sakıncalı)";
     var aciklamaTemiz = v.aciklama.replace(/^Doğru karar!\s*/, "");
-    bildir("Yanlış karar! Doğru cevap: '" + dogruKararMetni + "' olmalıydı. " + aciklamaTemiz, "kotu", true);
-
-    setTimeout(function(){
+    bildir("Yanlış karar! Doğru cevap: '" + dogruKararMetni + "' olmalıydı. " + aciklamaTemiz, "kotu", function(){
       bolum3Indeks++;
       if(bolum3Indeks >= BOLUM3_VERILER.length){
         yildiz = 3;
         skorGuncelle();
-        bildir("Tüm okyanus görevlerini başarıyla tamamladınız!", "iyi", true);
-        setTimeout(function(){
+        bildir("Tüm okyanus görevlerini başarıyla tamamladınız!", "iyi", function(){
           oyunuBitir();
-        }, window.__FAST ? 300 : 1600);
+        });
       } else {
         bolum3Yukle();
       }
-    }, window.__FAST ? 300 : 2800);
+    });
   }
 }
 
@@ -1547,9 +1602,17 @@ $("btn-yeniden").addEventListener("click", function(){
   ekranAc(0);
 });
 
+$("btn-gb-kapat").addEventListener("click", function(){
+  bildirimKapat();
+});
+
 window.addEventListener("keydown", function(e){
-  if(e.key === "Escape"){
-    bildirimTemizle();
+  var gb = $("geribildirim");
+  if(gb && gb.classList.contains("goster")){
+    if(e.key === "Escape"){
+      e.preventDefault();
+      bildirimKapat();
+    }
   }
 });
 
