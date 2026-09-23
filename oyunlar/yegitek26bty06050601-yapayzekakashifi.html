@@ -527,7 +527,7 @@ b,strong{font-weight:700}
 #son-rozet{width:88px;height:88px}
 #son-yildizlar{display:flex;gap:0.45rem;justify-content:center}
 #son-yildizlar svg{width:44px;height:44px}
-#son-puan{font-size:1.7rem;font-weight:700;color:var(--sari)}
+#son-yildiz-bilgi{font-size:1.7rem;font-weight:700;color:var(--sari)}
 #son-ozet-kutu{
   background:var(--panel);
   border:2px solid var(--cizgi);
@@ -617,10 +617,6 @@ b,strong{font-weight:700}
       <span class="skor-kutu" aria-label="Kazanılan Yıldız">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="#F59E0B"/></svg>
         <span id="skor-yildiz">0 / 3</span>
-      </span>
-      <span class="skor-kutu" aria-label="Puan">
-        <span>Puan:</span>
-        <span id="skor-puan">0</span>
       </span>
     </div>
     <button class="arac-btn" id="btn-kucult" type="button" aria-label="Yazıları küçültünüz">A−</button>
@@ -823,7 +819,7 @@ b,strong{font-weight:700}
       </svg>
       <h2 id="son-baslik">Tebrikler! Okyanus Görevini Başarıyla Tamamladınız</h2>
       <div id="son-yildizlar" aria-label="Kazanılan Yıldızlar"></div>
-      <div id="son-puan">Puanınız: 0</div>
+      <div id="son-yildiz-bilgi">Kazanılan Yıldız: 0 / 3</div>
 
       <div id="son-ozet-kutu">
         <p><b>✓ Amaca Uygun Araçlar:</b> Canlıları fotoğrafla tanımak için kamerayı, sensörleri onarmak için kod modülünü, afiş çizimi için DALL-E'yi ve ses komutları için asistanı ustalıkla seçtiniz.</p>
@@ -945,25 +941,25 @@ var BOLUM3_VERILER = [
     vaka: "Yapay zekâ canlı raporunda: 'Balinalar balıktır ve solungaçlarıyla su altında nefes alırlar' bilgisini üretti.",
     olcut: "Doğruluk (Gerçeğe Uygunluk)",
     onayDogru: false,
-    aciklama: "Doğru Karar! Yapay zekâ hatalı bilgi (halüsinasyon) üretmiştir. Balinalar memelidir ve akciğer solunumu yapar. Bilgiler mutlaka denetlenmelidir!"
+    aciklama: "Doğru karar! Yapay zekâ hatalı bilgi (halüsinasyon) üretmiştir. Balinalar memelidir ve akciğer solunumu yapar. Bilgiler mutlaka denetlenmelidir!"
   },
   {
     vaka: "Deniz tabanı sıcaklık verilerini sayılarla analiz etmek için sadece resim çizen bir yapay zekâ aracı seçildi.",
     olcut: "Uygunluk (Amaca Hizmet)",
     onayDogru: false,
-    aciklama: "Doğru Karar! Resim aracı sayısal veri analizi yapamaz; amaca uygun araç seçilmemiştir."
+    aciklama: "Doğru karar! Resim aracı sayısal veri analizi yapamaz; amaca uygun araç seçilmemiştir."
   },
   {
     vaka: "Araştırmacı tek ve net bir komutla aradığı sualtı sıcaklık grafiğine 2 saniyede hatasız ulaştı; düzeltmeye gerek kalmadı.",
     olcut: "Verimlilik ve Hız",
     onayDogru: true,
-    aciklama: "Doğru Karar! Az girdiyle kısa sürede hedefe ulaşmak yüksek verimliliktir."
+    aciklama: "Doğru karar! Az girdiyle kısa sürede hedefe ulaşmak yüksek verimliliktir."
   },
   {
     vaka: "Yapay zekâ ile üretilen sahte bir 'Okyanusta radyoaktif dev canavar görüldü' haberi internette paylaşılarak panik oluşturuldu.",
     olcut: "Hukuk ve Etik (Sorumluluk)",
     onayDogru: false,
-    aciklama: "Doğru Karar! Yapay zekâ ile sahte ve yanıltıcı içerik yaymak yasal suçtur; sorumluluk kullanıcıya aittir!"
+    aciklama: "Doğru karar! Yapay zekâ ile sahte ve yanıltıcı içerik yaymak yasal suçtur; sorumluluk kullanıcıya aittir!"
   }
 ];
 
@@ -974,7 +970,6 @@ var bolum1Indeks = 0;
 var bolum2Indeks = 0;
 var bolum3Indeks = 0;
 var yildiz = 0;
-var puan = 0;
 var gorevYanlis = 0;
 var kilit = false;
 var oyunBitti = false;
@@ -1065,7 +1060,6 @@ function ekranAc(i){
 
 function skorGuncelle(){
   $("skor-yildiz").textContent = yildiz + " / 3";
-  $("skor-puan").textContent = puan;
 }
 
 /* ============ 1. BÖLÜM: ARAÇ SEÇİMİ ============ */
@@ -1110,7 +1104,6 @@ function modulTikla(aracTuru){
     kilit = true;
     sesCal("dogru");
     kart.className = "onay";
-    puan += (gorevYanlis === 0 ? 10 : 5);
     skorGuncelle();
     bildir(h.basariMesaj, "iyi");
 
@@ -1225,7 +1218,6 @@ function kapsulSec(kapsul, kEl){
     kilit = true;
     kEl.style.borderColor = "#15803D";
     kEl.style.background = "#DCFCE7";
-    puan += (gorevYanlis === 0 ? 15 : 8);
     skorGuncelle();
     bildir(kapsul.sonuc, "iyi");
 
@@ -1300,7 +1292,6 @@ function radarKararVer(ogrenciOnayladi){
   if(ogrenciOnayladi === v.onayDogru){
     sesCal("dogru");
     kilit = true;
-    puan += (gorevYanlis === 0 ? 10 : 5);
     skorGuncelle();
     bildir(v.aciklama, "iyi");
 
@@ -1343,7 +1334,7 @@ function oyunuBitir(){
     star.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="' + (i < yildiz ? "#F59E0B" : "#CBD5E1") + '"/></svg>';
     kap.appendChild(star);
   }
-  $("son-puan").textContent = "Toplam Puanınız: " + puan + " — Yıldız: " + yildiz + " / 3";
+  $("son-yildiz-bilgi").textContent = "Kazanılan Yıldız: " + yildiz + " / 3";
   ekranAc(2);
 }
 
@@ -1352,7 +1343,6 @@ function oyunuBaslat(){
   bolum2Indeks = 0;
   bolum3Indeks = 0;
   yildiz = 0;
-  puan = 0;
   gorevYanlis = 0;
   kilit = false;
   oyunBitti = false;
