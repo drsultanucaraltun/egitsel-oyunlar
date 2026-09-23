@@ -272,7 +272,7 @@ b,strong{font-weight:700}
   padding:0.45rem 0.7rem;border-radius:6px;font-size:0.88rem;color:#854D0E;line-height:1.35;
 }
 
-/* ============ 2. BÖLÜM: GERÇEK SINIF VAKALARI ============ */
+/* ============ 2. BÖLÜM: GERÇEK SINIF VAKALARI (SADE VE ÇARPICI) ============ */
 #sayfa-vaka{display:none;flex-direction:column;gap:0.6rem;padding-top:0.4rem}
 #sayfa-vaka.aktif{display:flex}
 
@@ -280,91 +280,111 @@ b,strong{font-weight:700}
   flex:0 0 auto;
   display:flex;align-items:center;justify-content:space-between;
   background:var(--panel);border:2px solid var(--cizgi);
-  border-radius:12px;padding:0.5rem 0.9rem;
+  border-radius:12px;padding:0.5rem 1rem;
 }
 .vaka-rozet{font-size:1.15rem;font-weight:700;color:var(--vurgu)}
 .vaka-seviye{font-size:0.95rem;font-weight:700;color:var(--gri)}
 
 .vaka-ana-govde{
   flex:1 1 auto;min-height:0;
-  display:flex;gap:0.9rem;
+  display:flex;gap:1rem;
 }
 
-/* Sol Vaka Tanımı */
+/* Sol Vaka Tanımı: Hap Bilgiler */
 .vaka-senaryo-kutu{
-  flex:1 1 45%;
+  flex:1 1 42%;
   background:var(--panel);border:3px solid var(--cizgi);
-  border-radius:14px;padding:0.8rem 1rem;
-  display:flex;flex-direction:column;gap:0.6rem;
+  border-radius:16px;padding:1rem 1.2rem;
+  display:flex;flex-direction:column;gap:0.8rem;
   overflow-y:auto;
 }
-.vaka-ogretmen-kart{
+.vaka-baslik-satir{
   display:flex;align-items:center;gap:0.6rem;
-  background:var(--vurgu-acik);border-radius:10px;padding:0.4rem 0.7rem;
+  border-bottom:2px solid var(--cizgi);padding-bottom:0.5rem;
 }
 .vaka-avatar{width:36px;height:36px;flex:0 0 auto}
-.vaka-kimlik-metin{font-size:0.95rem;font-weight:700;color:var(--vurgu-koyu)}
-.vaka-metin{font-size:1.05rem;line-height:1.45;color:var(--murekkep)}
-.vaka-veriler{
-  background:var(--gri-acik);border:1.5px solid var(--cizgi);
-  border-radius:10px;padding:0.6rem 0.8rem;
-  display:flex;flex-direction:column;gap:0.35rem;font-size:0.95rem;
-}
-.vaka-veri-satir{display:flex;justify-content:space-between;border-bottom:1px dashed var(--cizgi-koyu);padding-bottom:0.15rem}
-.vaka-veri-satir:last-child{border-bottom:none}
+.vaka-kimlik-metin{font-size:1.05rem;font-weight:700;color:var(--vurgu-koyu)}
 
-/* Sağ Soru ve Etkileşim */
+.vaka-ozet-durum{
+  background:var(--vurgu-acik);border-radius:12px;
+  padding:0.8rem 1rem;font-size:1.15rem;font-weight:700;
+  line-height:1.4;color:var(--vurgu-koyu);
+}
+
+/* 3 Renkli İstatistik Hapı */
+.vaka-hap-istatistikler{
+  display:flex;gap:0.5rem;justify-content:space-between;
+}
+.hap-ist{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  padding:0.5rem 0.4rem;border-radius:10px;text-align:center;
+  border:2px solid transparent;
+}
+.hap-ist.hap-mod{background:#E0F2FE;border-color:#7DD3FC;color:#0369A1}
+.hap-ist.hap-medyan{background:#F3E8FF;border-color:#D8B4FE;color:#6B21A8}
+.hap-ist.hap-ort{background:#FEE2E2;border-color:#FCA5A5;color:#B91C1C}
+
+.hap-etiket{font-size:0.8rem;font-weight:700;text-transform:uppercase}
+.hap-deger{font-size:1.35rem;font-weight:700;margin-top:0.2rem}
+
+.vaka-ipucu-kutu{
+  background:#FEF9C3;border-left:4px solid var(--turuncu);
+  padding:0.6rem 0.8rem;border-radius:8px;font-size:0.95rem;color:#854D0E;line-height:1.4;
+  margin-top:auto;
+}
+.btn-sim-gor{
+  align-self:flex-start;
+  font-size:0.9rem;font-weight:700;
+  background:var(--panel);color:var(--vurgu);
+  border:2px solid var(--cizgi);border-radius:8px;
+  padding:0.35rem 0.8rem;display:inline-flex;align-items:center;gap:0.4rem;
+}
+.btn-sim-gor:hover{background:var(--vurgu-acik);border-color:var(--vurgu)}
+
+/* Sağ Panel: Tek Tıkla Teşhis ve Karar Kartları */
 .vaka-etkilesim-kutu{
-  flex:1 1 55%;
+  flex:1 1 58%;
   background:var(--panel);border:3px solid var(--cizgi);
-  border-radius:14px;padding:0.8rem 1rem;
-  display:flex;flex-direction:column;gap:0.7rem;
+  border-radius:16px;padding:1rem 1.2rem;
+  display:flex;flex-direction:column;gap:0.75rem;
   overflow-y:auto;
 }
-.asama-baslik{font-size:1.05rem;font-weight:700;color:var(--vurgu);display:flex;align-items:center;gap:0.4rem}
+.asama-baslik{
+  font-size:1.15rem;font-weight:700;color:var(--vurgu);
+  display:flex;align-items:center;gap:0.4rem;
+}
 
-/* Sürükle Bırak / Seçenek Kartları */
-.secenek-izgara{
-  display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;
+.karar-kart-grubu{
+  display:flex;flex-direction:column;gap:0.6rem;
 }
-.secenek-kart{
-  border:2px solid var(--cizgi);border-radius:10px;
-  background:var(--panel);padding:0.6rem 0.7rem;
-  display:flex;flex-direction:column;align-items:center;gap:0.3rem;
-  text-align:center;cursor:pointer;transition:all 0.15s ease;
-  user-select:none;
+.vaka-karar-secenek{
+  border:2.5px solid var(--cizgi);border-radius:12px;
+  background:var(--gri-acik);padding:0.75rem 1rem;
+  display:flex;align-items:center;gap:0.9rem;
+  text-align:left;cursor:pointer;transition:all 0.15s ease;
+  min-height:64px;
 }
-.secenek-kart:hover{border-color:var(--vurgu);background:var(--vurgu-acik)}
-.secenek-kart.secili{border-color:var(--odak);background:var(--vurgu-acik);box-shadow:0 0 0 2px var(--odak)}
-.secenek-kart.dogru{border-color:var(--dogru);background:var(--dogru-acik);color:var(--dogru)}
-.secenek-kart.yanlis{border-color:var(--yanlis);background:var(--yanlis-acik)}
-.secenek-kart svg{width:60px;height:40px}
-.secenek-kart-metin{font-size:0.92rem;font-weight:700}
+.vaka-karar-secenek:hover{border-color:var(--vurgu);background:var(--vurgu-acik)}
+.vaka-karar-secenek.dogru{
+  border-color:var(--dogru);background:var(--dogru-acik);
+  box-shadow:0 0 0 2px var(--dogru);
+}
+.vaka-karar-secenek.yanlis{
+  border-color:var(--yanlis);background:var(--yanlis-acik);
+}
 
-/* Pedagojik Karar Seçimi */
-.karar-listesi{display:flex;flex-direction:column;gap:0.45rem}
-.karar-kart{
-  border:2px solid var(--cizgi);border-radius:10px;
-  background:var(--gri-acik);padding:0.6rem 0.8rem;
-  font-size:0.95rem;font-weight:700;color:var(--murekkep);
-  text-align:left;line-height:1.35;cursor:pointer;transition:all 0.15s ease;
-}
-.karar-kart:hover{border-color:var(--vurgu);background:var(--vurgu-acik)}
-.karar-kart.secili{border-color:var(--odak);background:var(--vurgu-acik)}
-.karar-kart.dogru{border-color:var(--dogru);background:var(--dogru-acik);color:var(--dogru)}
-.karar-kart.yanlis{border-color:var(--yanlis);background:var(--yanlis-acik)}
+.vaka-mini-svg{width:56px;height:38px;flex:0 0 auto;color:var(--vurgu)}
+.secenek-metin-kolonu{display:flex;flex-direction:column;gap:0.2rem;flex:1}
+.secenek-baslik{font-size:1.05rem;font-weight:700;color:var(--murekkep)}
+.secenek-aksiyon{font-size:0.92rem;color:var(--gri);font-weight:700}
 
 .vaka-aksiyon-alani{
-  margin-top:auto;display:flex;align-items:center;justify-content:flex-end;gap:0.6rem;padding-top:0.4rem;
+  margin-top:auto;display:flex;align-items:center;justify-content:space-between;
+  padding-top:0.4rem;border-top:2px solid var(--cizgi);
 }
-.btn-onayla{
-  font-size:1.15rem;font-weight:700;
-  background:var(--vurgu);color:var(--panel);
-  border:none;border-radius:10px;
-  padding:0.65rem 1.6rem;min-height:50px;
-  display:inline-flex;align-items:center;gap:0.4rem;
+.vaka-sonuc-aciklama{
+  font-size:1rem;font-weight:700;color:var(--murekkep);flex:1;padding-right:0.6rem;
 }
-.btn-onayla:disabled{background:var(--cizgi-koyu);cursor:not-allowed;opacity:0.6}
 .btn-sonraki-vaka{
   font-size:1.15rem;font-weight:700;
   background:var(--dogru);color:var(--panel);
@@ -372,6 +392,7 @@ b,strong{font-weight:700}
   padding:0.65rem 1.6rem;min-height:50px;
   display:none;align-items:center;gap:0.4rem;
 }
+.btn-sonraki-vaka:hover{background:#166534}
 
 /* ============ SONUÇ EKRANI ============ */
 #ekran-son{
@@ -734,101 +755,72 @@ b,strong{font-weight:700}
 
         </div>
 
-        <!-- 2. SEKME: GERÇEK SINIF VAKALARI (4 SENARYO) -->
+        <!-- 2. SEKME: GERÇEK SINIF VAKALARI (SADE VE ÇARPICI) -->
         <div id="sayfa-vaka" class="sekme-sayfa" role="tabpanel" aria-labelledby="btn-sekme-vaka">
           
           <div class="vaka-ust-bilgi">
-            <div class="vaka-rozet" id="vaka-baslik-etiket">Vaka 1: 9. Sınıf Fizik Yazılısı</div>
-            <div class="vaka-seviye" id="vaka-seviye-etiket">Senaryo Tabanlı Ölçme Analizi</div>
+            <div class="vaka-rozet" id="vaka-baslik-etiket">Vaka 1: Sınav Zor Geldi!</div>
+            <div class="vaka-seviye" id="vaka-seviye-etiket">Tek Tıkla Teşhis & Pedagojik Karar</div>
           </div>
 
           <div class="vaka-ana-govde">
             
+            <!-- Sol Panel: Sade Vaka Hikayesi ve 3 Not Hapı -->
             <div class="vaka-senaryo-kutu">
-              <div class="vaka-ogretmen-kart">
+              <div class="vaka-baslik-satir">
                 <svg class="vaka-avatar" viewBox="0 0 24 24" fill="var(--vurgu)" aria-hidden="true">
                   <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                 </svg>
-                <div class="vaka-kimlik-metin" id="vaka-kimlik">Ahmet Öğretmen • 9/B Sınıfı</div>
+                <div class="vaka-kimlik-metin" id="vaka-kimlik">Ahmet Öğretmen • Fizik</div>
               </div>
 
-              <div class="vaka-metin" id="vaka-hikaye">
-                Ahmet Öğretmen, 9. sınıf "Kuvvet ve Hareket" ünitesi sonunda 32 öğrencisine 1. yazılı sınavını uygulamıştır. Sınav sonrasında e-Okul'a notları girdiğinde aşağıdaki istatistiksel tablo ile karşılaşmıştır.
+              <!-- Kısa Durum Cümlesi -->
+              <div class="vaka-ozet-durum" id="vaka-durum-metin">
+                "Sınav yaptık; öğrencilerin neredeyse tamamı 20-30 arasında kaldı! Yalnızca 2 öğrenci 80 alabildi."
               </div>
 
-              <div class="vaka-veriler">
-                <div class="vaka-veri-satir">
-                  <span>Öğrenci Sayısı (N):</span>
-                  <strong id="v-veri-n">32</strong>
+              <!-- 3 Renkli Hap İstatistik -->
+              <div class="vaka-hap-istatistikler">
+                <div class="hap-ist hap-mod" title="En Çok Alınan Not">
+                  <span class="hap-etiket">Tepe Not (Mod)</span>
+                  <span class="hap-deger" id="v-hap-mod">22</span>
                 </div>
-                <div class="vaka-veri-satir">
-                  <span>Aritmetik Ortalama:</span>
-                  <strong id="v-veri-ort" style="color:var(--ortalama-renk)">36.5</strong>
+                <div class="hap-ist hap-medyan" title="Ortadaki Öğrencinin Notu">
+                  <span class="hap-etiket">Ortanca (Medyan)</span>
+                  <span class="hap-deger" id="v-hap-medyan">28</span>
                 </div>
-                <div class="vaka-veri-satir">
-                  <span>Ortanca (Medyan):</span>
-                  <strong id="v-veri-medyan" style="color:var(--medyan-renk)">28.0</strong>
-                </div>
-                <div class="vaka-veri-satir">
-                  <span>Tepe Değer (Mod):</span>
-                  <strong id="v-veri-mod" style="color:var(--mod-renk)">22.0</strong>
-                </div>
-                <div class="vaka-veri-satir">
-                  <span>Öğrenci Puan Kümelenmesi:</span>
-                  <strong id="v-veri-kumelenme">15 - 30 puan arası yoğun</strong>
+                <div class="hap-ist hap-ort" title="Sınıf Ortalaması">
+                  <span class="hap-etiket">Ortalama</span>
+                  <span class="hap-deger" id="v-hap-ort">36</span>
                 </div>
               </div>
 
-              <div class="ipucu-notu" id="vaka-ipucu">
-                🧐 Ahmet Öğretmen şaşkın: <em>"Öğrencilerimin çoğu 20-30 arasında kaldı ama ortalama 36 çıktı. Sınıfımda gerçekte ne oldu ve bundan sonra ne yapmalıyım?"</em>
+              <div class="vaka-ipucu-kutu" id="vaka-kisa-ipucu">
+                💡 <strong>İpucu:</strong> Notlar düşükte yığılmış, tepe değer en solda kalmış. (Mod &lt; Medyan &lt; Ortalama)
               </div>
+
+              <button type="button" class="btn-sim-gor" id="btn-vaka-sim-gec">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                <span>Bu Eğriyi Simülatörde Gör</span>
+              </button>
             </div>
 
+            <!-- Sağ Panel: Tek Tıkla Seçilebilen Sade Seçenekler -->
             <div class="vaka-etkilesim-kutu">
-              
               <div class="asama-baslik">
-                <span>1. Adım: Bu sınavın puan dağılım eğrisi hangisidir?</span>
-              </div>
-              <div class="secenek-izgara" id="izgara-egriler">
-                <button class="secenek-kart" data-deger="saga-carpik" aria-label="Sağa Çarpık (Pozitif Çarpık) Dağılım">
-                  <svg viewBox="0 0 100 50">
-                    <path d="M 5 45 Q 25 5 40 25 T 95 45" fill="none" stroke="currentColor" stroke-width="3" />
-                  </svg>
-                  <span class="secenek-kart-metin">Sağa Çarpık (Pozitif)</span>
-                </button>
-                <button class="secenek-kart" data-deger="normal" aria-label="Normal (Simetrik) Dağılım">
-                  <svg viewBox="0 0 100 50">
-                    <path d="M 5 45 Q 50 5 95 45" fill="none" stroke="currentColor" stroke-width="3" />
-                  </svg>
-                  <span class="secenek-kart-metin">Normal Dağılım (Simetrik)</span>
-                </button>
-                <button class="secenek-kart" data-deger="sola-carpik" aria-label="Sola Çarpık (Negatif Çarpık) Dağılım">
-                  <svg viewBox="0 0 100 50">
-                    <path d="M 5 45 Q 60 25 75 5 T 95 45" fill="none" stroke="currentColor" stroke-width="3" />
-                  </svg>
-                  <span class="secenek-kart-metin">Sola Çarpık (Negatif)</span>
-                </button>
-                <button class="secenek-kart" data-deger="sivri" aria-label="Sivri (Homojen) Dağılım">
-                  <svg viewBox="0 0 100 50">
-                    <path d="M 5 45 L 35 45 Q 50 2 65 45 L 95 45" fill="none" stroke="currentColor" stroke-width="3" />
-                  </svg>
-                  <span class="secenek-kart-metin">Sivri (Aşırı Homojen)</span>
-                </button>
+                <span>🎯 Bu sınıfta ne oldu ve öğretmen ne yapmalıdır?</span>
               </div>
 
-              <div class="asama-baslik" style="margin-top:0.4rem">
-                <span>2. Adım: TYMM doğrultusunda öğretmenin alması gereken en doğru karar nedir?</span>
-              </div>
-              <div class="karar-listesi" id="liste-kararlar">
+              <div class="karar-kart-grubu" id="liste-vaka-secenekler">
+                <!-- JS dinamik dolduracak -->
               </div>
 
               <div class="vaka-aksiyon-alani">
-                <button id="btn-vaka-onayla" class="btn-onayla" disabled>
-                  <span>Kararı Kontrol Et</span>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
-                </button>
+                <div class="vaka-sonuc-aciklama" id="vaka-sonuc-yazi">
+                  Yukarıdaki kartlardan en uygun olanına tıklayınız.
+                </div>
                 <button id="btn-sonraki-vaka" class="btn-sonraki-vaka">
-                  <span>Sonraki Vakaya Geçiniz</span>
+                  <span>Sonraki Vaka</span>
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z"/></svg>
                 </button>
               </div>
@@ -935,131 +927,155 @@ b,strong{font-weight:700}
 </div>
 
 <script>
-/* ============ GÖREV VE VAKA VERİSİ ============ */
+/* ============ GÖREV VE SADELEŞTİRİLMİŞ VAKA VERİSİ ============ */
 var VAKALAR = [
   {
-    kimlik: "Ahmet Öğretmen • 9/B Sınıfı Fizik Dersi",
-    baslik: "Vaka 1: 9. Sınıf Fizik 1. Yazılısı",
-    hikaye: "Ahmet Öğretmen, 9. sınıf 'Kuvvet ve Hareket' ünitesi sonunda 32 öğrencisine 1. yazılı sınavını uygulamıştır. Sınav sonrasında e-Okul'a notları girdiğinde aşağıdaki istatistiksel tablo ile karşılaşmıştır.",
-    n: 32,
-    ort: 36.5,
-    medyan: 28.0,
-    mod: 22.0,
-    kumelenme: "15 - 30 puan arası yoğun",
-    ipucu: "Ahmet Öğretmen: 'Öğrencilerimin çoğunluğu 20-30 bandında kaldı ancak birkaç yüksek not aritmetik ortalamayı 36.5'e çekti. Sınıfımda gerçekte ne oldu?'",
-    dogruEgri: "saga-carpik",
-    kararlar: [
+    baslik: "Vaka 1: Sınav Çok Zor Geldi!",
+    kimlik: "Ahmet Öğretmen • 9. Sınıf Fizik",
+    durum: "Sınav yaptık; öğrencilerin neredeyse tamamı 20 ile 30 arasında kaldı! Sadece 2 öğrenci 80 alabildi.",
+    mod: 22,
+    medyan: 28,
+    ort: 36,
+    ipucu: "Notlar sol tarafta (düşük puanlarda) yığılmış, kuyruk sağa uzamış: Mod < Medyan < Ortalama",
+    simMod: 22,
+    simBasiklik: 16,
+    secenekler: [
       {
-        id: "k1",
-        metin: "Öğrencilerin çoğu konuyu kavrayamamıştır; ünite tamamlanmış sayılmamalı, telafi eğitimi ve kavram yanılgılarını giderici etkinlikler yapılmalıdır.",
-        dogru: true
+        id: "s1",
+        svg: '<path d="M 5 35 Q 20 5 35 20 T 75 35" fill="none" stroke="currentColor" stroke-width="3"/>',
+        baslik: "📉 Sağa Çarpık (Zor Sınav)",
+        aksiyon: "👉 Karar: Hedef kazanımlara ulaşılamamış; telafi eğitimi yapılmalıdır.",
+        dogru: true,
+        donut: "Doğru teşhis! Notlar düşükte yığıldığı için Sağa Çarpıktır. Öğretmen telafi eğitimi planlamalıdır."
       },
       {
-        id: "k2",
-        metin: "Aritmetik ortalama geçer not sınırına yakın olduğu için mevcut plana aynen devam edilmeli, yeni üniteye geçilmelidir.",
-        dogru: false
+        id: "s2",
+        svg: '<path d="M 5 35 Q 40 5 75 35" fill="none" stroke="currentColor" stroke-width="3"/>',
+        baslik: "🎯 Normal Dağılım (Dengeli)",
+        aksiyon: "👉 Karar: Sınıfın başarısı dengelidir; plana aynen devam edilmelidir.",
+        dogru: false,
+        donut: "Yanlış: Normal dağılımda ortalama ve mod eşit olurdu. Burada öğrenciler düşük notta yığılmıştır."
       },
       {
-        id: "k3",
-        metin: "Yalnızca düşük alan öğrencilere ceza ödevi verilmeli, sınıfın geneli başarılı kabul edilmelidir.",
-        dogru: false
+        id: "s3",
+        svg: '<path d="M 5 35 Q 45 20 60 5 T 75 35" fill="none" stroke="currentColor" stroke-width="3"/>',
+        baslik: "📈 Sola Çarpık (Kolay Sınav)",
+        aksiyon: "👉 Karar: Sınıf çok başarılıdır; doğrudan yeni üniteye geçilmelidir.",
+        dogru: false,
+        donut: "Yanlış: Sola çarpıkta öğrencilerin 80-90 alması gerekirdi. Bu sınıfta notlar 20-30'dur."
       }
-    ],
-    geribildirimDogru: "Harika teşhis! Sağa çarpık dağılımda Mod < Medyan < Ortalama olur; sınav sınıfa zor gelmiştir ve hedeflere ulaşılamamıştır. TYMM doğrultusunda mutlaka telafi eğitimi yapılmalıdır.",
-    geribildirimYanlis: "Dikkat: Notlar düşükte (20-30) yığıldığı ve kuyruk sağa uzadığı için bu dağılım Sağa Çarpıktır (Pozitif Çarpık). Ortalama suni olarak yükselmiştir; telafi gerekir!"
+    ]
   },
   {
-    kimlik: "Elif Öğretmen • 7/A Sınıfı Bilişim Teknolojileri",
-    baslik: "Vaka 2: 7. Sınıf Bilişim Proje Değerlendirmesi",
-    hikaye: "Elif Öğretmen, 'Yapay Zekâ ve Algoritmik Problem Çözme' proje görevi sonrasında analitik rubrik ile puanlama yapmıştır. Notlar genellikle 80-100 arasında toplanmıştır.",
-    n: 28,
-    ort: 84.5,
-    medyan: 88.0,
-    mod: 94.0,
-    kumelenme: "80 - 100 puan arası yoğun",
-    ipucu: "Elif Öğretmen: 'Sınıfımda neredeyse herkes 85'in üzerinde aldı. Tepe değer 94 çıktı. Bu başarı tablosunda bir sonraki pedagojik adımım ne olmalı?'",
-    dogruEgri: "sola-carpik",
-    kararlar: [
+    baslik: "Vaka 2: Öğrenme Tam / Sınav Kolay!",
+    kimlik: "Elif Öğretmen • 7. Sınıf Bilişim",
+    durum: "Proje ödevinde öğrencilerin tamamına yakını 85 ile 100 arasında aldı. Tepe değer 94 çıktı!",
+    mod: 94,
+    medyan: 88,
+    ort: 84,
+    ipucu: "Notlar sağ tarafta (yüksek puanlarda) yığılmış, kuyruk sola uzamış: Ortalama < Medyan < Mod",
+    simMod: 78,
+    simBasiklik: 16,
+    secenekler: [
       {
-        id: "k1",
-        metin: "Hedeflenen becerilere tam olarak ulaşılmıştır; öğrencileri zorlayacak ve geliştirecek üst düzey derinleştirme ve açık uçlu inovasyon projelerine geçilmelidir.",
-        dogru: true
+        id: "s1",
+        svg: '<path d="M 5 35 Q 45 20 60 5 T 75 35" fill="none" stroke="currentColor" stroke-width="3"/>',
+        baslik: "📈 Sola Çarpık (Başarılı Sınıf)",
+        aksiyon: "👉 Karar: Beceriler kazanılmış; üst düzey derinleştirme projelerine geçilmelidir.",
+        dogru: true,
+        donut: "Tebrikler! Notlar yüksekte yığıldığı için Sola Çarpıktır. Öğrenciler zenginleştirilmiş görevlere hazırdır."
       },
       {
-        id: "k2",
-        metin: "Notlar çok yüksek çıktığı için rubrik iptal edilmeli ve tüm sınıfa zor bir klasik yazılı sınav tekrarlanmalıdır.",
-        dogru: false
+        id: "s2",
+        svg: '<path d="M 5 35 Q 20 5 35 20 T 75 35" fill="none" stroke="currentColor" stroke-width="3"/>',
+        baslik: "📉 Sağa Çarpık (Zor Sınav)",
+        aksiyon: "👉 Karar: Sınav zor gelmiştir; tüm öğrencilere telafi sınavı yapılmalıdır.",
+        dogru: false,
+        donut: "Yanlış: Sağa çarpıkta notlar düşük olurdu. Burada herkes 85-95 almıştır."
       },
       {
-        id: "k3",
-        metin: "Herkes nasıl olsa öğrendiği için ders saati boş bırakılmalı veya serbest oyun oynatılmalıdır.",
-        dogru: false
+        id: "s3",
+        svg: '<path d="M 5 35 Q 40 5 75 35" fill="none" stroke="currentColor" stroke-width="3"/>',
+        baslik: "🎯 Normal Dağılım (Dengeli)",
+        aksiyon: "👉 Karar: Başarı ortalama düzeydedir; ek çalışmaya gerek yoktur.",
+        dogru: false,
+        donut: "Yanlış: Notlar simetrik değil, 90 civarında yoğunlaşmıştır."
       }
-    ],
-    geribildirimDogru: "Mükemmel! Sola çarpık dağılımda Ortalama < Medyan < Mod sıralaması vardır. Öğrenme düzeyi çok yüksektir; öğrenciler üst bilişsel zenginleştirme görevlerine hazırdır.",
-    geribildirimYanlis: "Dikkat: Notlar sağda (yüksek puanlarda) yığılmış, sol tarafa kuyruk uzanmıştır. Bu bir Sola Çarpık (Negatif Çarpık) dağılımdır. Başarı yüksektir!"
+    ]
   },
   {
-    kimlik: "Zeynep Öğretmen • 11/C Sınıfı Ortak İzleme Sınavı",
-    baslik: "Vaka 3: 11. Sınıf Seviye Belirleme Sınavı",
-    hikaye: "Zeynep Öğretmen, okul genelinde uygulanan 50 soruluk çoktan seçmeli izleme sınavı sonuçlarını incelemiştir. Puanlar 15 ile 90 arasında düzenli dağılmıştır.",
-    n: 36,
-    ort: 52.0,
-    medyan: 52.0,
-    mod: 52.0,
-    kumelenme: "40 - 65 puan civarında dengeli tepe",
-    ipucu: "Zeynep Öğretmen: 'Ortalama, ortanca ve tepe değer neredeyse tamamen eşit çıktı. Sınavın ayırt ediciliği ve sınıfın yapısı hakkında ne söyleyebiliriz?'",
-    dogruEgri: "normal",
-    kararlar: [
+    baslik: "Vaka 3: İdeal ve Dengeli Sınav!",
+    kimlik: "Zeynep Öğretmen • 11. Sınıf Ortak Sınav",
+    durum: "Okul geneli sınavda notlar 20 ile 90 arasında dengeli dağıldı. Mod, Medyan ve Ortalama eşit (52) çıktı!",
+    mod: 52,
+    medyan: 52,
+    ort: 52,
+    ipucu: "Puanlar ortalamanın her iki yanına simetrik dağılmış: Mod = Medyan = Ortalama",
+    simMod: 50,
+    simBasiklik: 16,
+    secenekler: [
       {
-        id: "k1",
-        metin: "Ölçme aracı ideal bir güçlük ve ayırt ediciliğe sahiptir; grup heterojendir, sınıf içi akran dayanışması ve düzey grupları ile destekleme yapılmalıdır.",
-        dogru: true
+        id: "s1",
+        svg: '<path d="M 5 35 Q 40 5 75 35" fill="none" stroke="currentColor" stroke-width="3"/>',
+        baslik: "🎯 Normal Dağılım (Simetrik Çan Eğrisi)",
+        aksiyon: "👉 Karar: Test ayırt edici; akran dayanışması ve düzey grupları kurulmalıdır.",
+        dogru: true,
+        donut: "Harika! Mod = Medyan = Ortalama eşitliği kusursuz bir Normal Dağılımı gösterir. Ayırt edicilik yüksektir."
       },
       {
-        id: "k2",
-        metin: "Tüm değerler 52 çıktığı için öğrencilerin hiçbirinin birbirinden farkı yoktur, sınıf aşırı homojendir.",
-        dogru: false
+        id: "s2",
+        svg: '<path d="M 5 35 Q 20 5 35 20 T 75 35" fill="none" stroke="currentColor" stroke-width="3"/>',
+        baslik: "📉 Sağa Çarpık (Zor Sınav)",
+        aksiyon: "👉 Karar: Sınıfın tamamı başarısızdır; sınav iptal edilmelidir.",
+        dogru: false,
+        donut: "Yanlış: Puanlar bir tarafa yığılmamış, dengeli bir çan eğrisi oluşturmuştur."
       },
       {
-        id: "k3",
-        metin: "Sınav başarısız sayılmalı, soruların tamamı değiştirilmelidir.",
-        dogru: false
+        id: "s3",
+        svg: '<path d="M 5 35 L 25 35 Q 40 2 55 35 L 75 35" fill="none" stroke="currentColor" stroke-width="3"/>',
+        baslik: "⛰️ Sivri Dağılım (Aşırı Homojen)",
+        aksiyon: "👉 Karar: Sorular öğrencileri ayırt edememiştir.",
+        dogru: false,
+        donut: "Yanlış: Puanlar dar aralıkta değil, 20'den 90'a kadar dengeli yayılmıştır."
       }
-    ],
-    geribildirimDogru: "Tebrikler! Mod = Medyan = Ortalama eşitliği kusursuz bir Normal Dağılımı (Çan Eğrisi) gösterir. Testin geçerliği ve ayırt ediciliği yüksektir.",
-    geribildirimYanlis: "Mod, Medyan ve Aritmetik Ortalama birbirine eşitse eğri simetriktir; yani Normal Dağılımdır (Çan Eğrisi)."
+    ]
   },
   {
-    kimlik: "Murat Öğretmen • 10/A Sınıfı Kimya Performans Uygulaması",
-    baslik: "Vaka 4: 10. Sınıf Kimya Laboratuvar Raporu",
-    hikaye: "Murat Öğretmen, 'Kimyasal Tepkimeler ve Asit-Baz Titrasyonu' deney raporlarını puanlamıştır. 30 öğrencinin puanları 68 ile 74 puan aralığına sıkışmıştır (Ranj: 6).",
-    n: 30,
-    ort: 71.0,
-    medyan: 71.0,
-    mod: 71.0,
-    kumelenme: "68 - 74 aralığına aşırı sıkışmış (Standart Sapma = 1.8)",
-    ipucu: "Murat Öğretmen: 'Puanlar çok dar bir aralıkta kümelendi. Ranj yalnızca 6 puan. Ölçme aracım ve sınıfım hakkında ne düşünmeliyim?'",
-    dogruEgri: "sivri",
-    kararlar: [
+    baslik: "Vaka 4: Herkes Neredeyse Aynı Notu Aldı!",
+    kimlik: "Murat Öğretmen • 10. Sınıf Kimya Deneyi",
+    durum: "Deney raporu puanlandığında 30 öğrencinin tamamı 68 ile 74 puan aralığına sıkıştı (Ranj sadece 6 puan)!",
+    mod: 71,
+    medyan: 71,
+    ort: 71,
+    ipucu: "Puanlar çok dar bir aralıkta toplanmış, standart sapma (1.8) çok küçüktür.",
+    simMod: 50,
+    simBasiklik: 7,
+    secenekler: [
       {
-        id: "k1",
-        metin: "Grup aşırı homojen görünmektedir; ancak kullanılan dereceli puanlama anahtarı (rubrik) öğrencilerin bireysel performans farklarını ayırt etmede yetersiz kalmış olabilir, ölçme kriterleri gözden geçirilmelidir.",
-        dogru: true
+        id: "s1",
+        svg: '<path d="M 5 35 L 25 35 Q 40 2 55 35 L 75 35" fill="none" stroke="currentColor" stroke-width="3"/>',
+        baslik: "⛰️ Sivri Dağılım (Aşırı Homojen)",
+        aksiyon: "👉 Karar: Rubrik öğrencileri ayırt edememiş; ölçme kriterleri gözden geçirilmelidir.",
+        dogru: true,
+        donut: "Mükemmel! Ranjın ve sapmanın çok küçük olduğu dik eğriler Sivri (Homojen) dağılımdır. Ayırt edicilik sorgulanmalıdır."
       },
       {
-        id: "k2",
-        metin: "Her öğrenci tam olarak 71 puanlık bilgiye sahiptir, ölçme aracı kusursuz çalışmıştır.",
-        dogru: false
+        id: "s2",
+        svg: '<path d="M 5 35 Q 40 20 75 35" fill="none" stroke="currentColor" stroke-width="3"/>',
+        baslik: "🌊 Basık Dağılım (Aşırı Heterojen)",
+        aksiyon: "👉 Karar: Sınıfta çok büyük başarı farkları vardır.",
+        dogru: false,
+        donut: "Yanlış: Basık dağılımda puanlar geniş alana yayılırdı. Burada herkes 68-74 arasına sıkışmıştır."
       },
       {
-        id: "k3",
-        metin: "Puanlar çok yakın olduğu için sınıftaki tüm öğrencilere doğrudan 100 verilmelidir.",
-        dogru: false
+        id: "s3",
+        svg: '<path d="M 5 35 Q 45 20 60 5 T 75 35" fill="none" stroke="currentColor" stroke-width="3"/>',
+        baslik: "📈 Sola Çarpık Dağılım",
+        aksiyon: "👉 Karar: Sınav sınıfa çok kolay gelmiştir.",
+        dogru: false,
+        donut: "Yanlış: Dağılım sola çarpık değil, tek bir noktada aşırı dikleşmiştir (Sivri)."
       }
-    ],
-    geribildirimDogru: "Harika analiz! Standart sapmanın ve ranjın çok küçük olduğu dar ve dik eğriler Sivri (Leptokurtik) dağılımdır. Bu durum ölçme aracının ayırt ediciliğinin sorgulanmasını gerektirir.",
-    geribildirimYanlis: "Dikkat: Puanlar daracık bir alana sıkıştığında eğri sivrileşir (Sivri Dağılım). Ayırt edicilik düşüktür!"
+    ]
   }
 ];
 
@@ -1078,10 +1094,6 @@ var oyunBitti = false;
 var modDeger = 50;        // 15 - 85 arası
 var basiklikDeger = 16;   // 6 (sivri) - 28 (basık)
 var surukleniyor = false;
-
-// Vaka Seçim Durumu
-var secilenEgri = null;
-var secilenKarar = null;
 
 function $(id){ return document.getElementById(id); }
 
@@ -1162,8 +1174,8 @@ function ekranAc(i){
 
 /* ============ DİNAMİK DAĞILIM EĞRİSİ MATEMATİĞİ ============ */
 function labGuncelle(){
-  var M = modDeger; // 15..85
-  var B = basiklikDeger; // 6..28
+  var M = modDeger;
+  var B = basiklikDeger;
 
   var sigmaSol, sigmaSag;
   if(M <= 50){
@@ -1342,87 +1354,59 @@ function labGuncelle(){
   $("cip-basik").classList.toggle("secili", (dagilimTuru === "basik"));
 }
 
-/* ============ VAKA YÜKLEME VE İŞLEME ============ */
+/* ============ SADELEŞTİRİLMİŞ VAKA YÜKLEME VE İŞLEME ============ */
 function vakaYukle(indeks){
   var v = VAKALAR[indeks];
   $("vaka-sayac").textContent = (indeks + 1) + "/4";
   $("vaka-baslik-etiket").textContent = v.baslik;
   $("vaka-kimlik").textContent = v.kimlik;
-  $("vaka-hikaye").textContent = v.hikaye;
-  $("v-veri-n").textContent = v.n;
-  $("v-veri-ort").textContent = v.ort.toFixed(1);
-  $("v-veri-medyan").textContent = v.medyan.toFixed(1);
-  $("v-veri-mod").textContent = v.mod.toFixed(1);
-  $("v-veri-kumelenme").textContent = v.kumelenme;
-  $("vaka-ipucu").innerHTML = "💡 <em>" + v.ipucu + "</em>";
+  $("vaka-durum-metin").textContent = '"' + v.durum + '"';
+  $("v-hap-mod").textContent = v.mod;
+  $("v-hap-medyan").textContent = v.medyan;
+  $("v-hap-ort").textContent = v.ort;
+  $("vaka-kisa-ipucu").innerHTML = "💡 <strong>İpucu:</strong> " + v.ipucu;
 
-  secilenEgri = null;
-  secilenKarar = null;
-  $("btn-vaka-onayla").disabled = true;
-  $("btn-vaka-onayla").style.display = "inline-flex";
+  $("vaka-sonuc-yazi").textContent = "Yukarıdaki kartlardan en uygun olanına tıklayınız.";
   $("btn-sonraki-vaka").style.display = "none";
+  kilit = false;
 
-  var kartlar = document.querySelectorAll("#izgara-egriler .secenek-kart");
-  for(var i = 0; i < kartlar.length; i++){
-    kartlar[i].className = "secenek-kart";
-  }
+  var liste = $("liste-vaka-secenekler");
+  liste.innerHTML = "";
 
-  var kl = $("liste-kararlar");
-  kl.innerHTML = "";
-  v.kararlar.forEach(function(k){
+  v.secenekler.forEach(function(secenek){
     var btn = document.createElement("button");
     btn.type = "button";
-    btn.className = "karar-kart";
-    btn.setAttribute("data-id", k.id);
-    btn.textContent = k.metin;
+    btn.className = "vaka-karar-secenek";
+    btn.setAttribute("data-id", secenek.id);
+
+    btn.innerHTML = 
+      '<svg class="vaka-mini-svg" viewBox="0 0 80 40">' + secenek.svg + '</svg>' +
+      '<div class="secenek-metin-kolonu">' +
+        '<div class="secenek-baslik">' + secenek.baslik + '</div>' +
+        '<div class="secenek-aksiyon">' + secenek.aksiyon + '</div>' +
+      '</div>';
+
     btn.addEventListener("click", function(){
       if(kilit) return;
-      sesCal("tik");
-      secilenKarar = k.id;
-      var tumKararlar = kl.querySelectorAll(".karar-kart");
-      for(var m = 0; m < tumKararlar.length; m++){
-        tumKararlar[m].classList.remove("secili");
-      }
-      btn.classList.add("secili");
-      vakaKontrolDurumu();
+      vakaCevapla(secenek, btn, v);
     });
-    kl.appendChild(btn);
+
+    liste.appendChild(btn);
   });
 }
 
-function vakaKontrolDurumu(){
-  $("btn-vaka-onayla").disabled = !(secilenEgri && secilenKarar);
-}
-
-function vakaKontrolEt(){
-  if(kilit) return;
-  var v = VAKALAR[vakaIndeks];
-  var egriDogruMu = (secilenEgri === v.dogruEgri);
-  
-  var secilenKararObj = null;
-  for(var i = 0; i < v.kararlar.length; i++){
-    if(v.kararlar[i].id === secilenKarar){
-      secilenKararObj = v.kararlar[i];
-      break;
-    }
-  }
-  var kararDogruMu = secilenKararObj && secilenKararObj.dogru;
-
-  var secilenEgriKart = document.querySelector('#izgara-egriler .secenek-kart[data-deger="' + secilenEgri + '"]');
-  var secilenKararKart = document.querySelector('#liste-kararlar .karar-kart[data-id="' + secilenKarar + '"]');
-
-  if(egriDogruMu && kararDogruMu){
+function vakaCevapla(secenek, btn, vaka){
+  if(secenek.dogru){
     sesCal("dogru");
-    secilenEgriKart.classList.add("dogru");
-    secilenKararKart.classList.add("dogru");
-    bildir("Harika! " + v.geribildirimDogru, "iyi", false);
+    btn.className = "vaka-karar-secenek dogru";
+    $("vaka-sonuc-yazi").innerHTML = "🎉 <strong>Harika!</strong> " + secenek.donut;
+    bildir("Doğru Karar! " + secenek.baslik, "iyi", false);
     
     puan += 25;
     yildiz += 1;
     skorGuncelle();
-
     kilit = true;
-    $("btn-vaka-onayla").style.display = "none";
+
     $("btn-sonraki-vaka").style.display = "inline-flex";
 
     var yuzde = ((vakaIndeks + 1) / 4) * 100;
@@ -1431,13 +1415,9 @@ function vakaKontrolEt(){
 
   } else {
     sesCal("yanlis");
-    if(!egriDogruMu && secilenEgriKart){
-      secilenEgriKart.classList.add("yanlis");
-    }
-    if(!kararDogruMu && secilenKararKart){
-      secilenKararKart.classList.add("yanlis");
-    }
-    bildir(v.geribildirimYanlis, "kotu", false);
+    btn.className = "vaka-karar-secenek yanlis";
+    $("vaka-sonuc-yazi").innerHTML = "⚠️ <strong>Tekrar düşününüz:</strong> " + secenek.donut;
+    bildir("Tekrar deneyiniz: " + secenek.donut, "kotu", false);
   }
 }
 
@@ -1448,7 +1428,7 @@ function sonrakiVakayaGec(){
     vakaYukle(vakaIndeks);
   } else {
     oyunBitti = true;
-    bildir("Tüm vakaları başarıyla tamamladınız! Sonuç ekranına geçebilirsiniz.", "iyi", false);
+    bildir("Tüm vakaları başarıyla tamamladınız! Tebrikler.", "iyi", false);
     ekranAc(2);
   }
 }
@@ -1491,6 +1471,17 @@ function olaylariBagla(){
     $("btn-sekme-lab").setAttribute("aria-selected", "false");
     $("sayfa-vaka").classList.add("aktif");
     $("sayfa-lab").classList.remove("aktif");
+  });
+
+  // Vakadan Simülatöre Geçiş Butonu
+  $("btn-vaka-sim-gec").addEventListener("click", function(){
+    sesCal("tik");
+    var v = VAKALAR[vakaIndeks];
+    modDeger = v.simMod;
+    basiklikDeger = v.simBasiklik;
+    labGuncelle();
+    $("btn-sekme-lab").click();
+    bildir(v.baslik + " simülatöre yüklendi! Eğriyi inceleyebilirsiniz.", "notr", false);
   });
 
   $("slider-mod").addEventListener("input", function(){
@@ -1576,25 +1567,6 @@ function olaylariBagla(){
     surukleniyor = false;
   });
 
-  var egriKartlari = document.querySelectorAll("#izgara-egriler .secenek-kart");
-  for(var i = 0; i < egriKartlari.length; i++){
-    (function(btn){
-      btn.addEventListener("click", function(){
-        if(kilit) return;
-        sesCal("tik");
-        secilenEgri = btn.getAttribute("data-deger");
-        for(var j = 0; j < egriKartlari.length; j++){
-          egriKartlari[j].classList.remove("secili");
-        }
-        btn.classList.add("secili");
-        vakaKontrolDurumu();
-      });
-    })(egriKartlari[i]);
-  }
-
-  $("btn-vaka-onayla").addEventListener("click", function(){
-    vakaKontrolEt();
-  });
   $("btn-sonraki-vaka").addEventListener("click", function(){
     sesCal("tik");
     sonrakiVakayaGec();
