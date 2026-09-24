@@ -559,21 +559,21 @@ b,strong{font-weight:700}
 var VAKALAR = [
   {
     no: 1,
-    baslik: "Okul Kantininde Yemek İsrafı",
+    baslik: "Geri Dönüşüm Robotu — Atık Sınıflandırma",
     renk: { ana:"#EA580C", acik:"#FFF7ED", cizgi:"#FED7AA" },
-    ikon: '<svg viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2.2"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>',
-    aciklama: "Her gün onlarca porsiyon yemek çöpe gidiyor. Bunu önlemek için bir yapay zekâ modeli kuralım!",
+    ikon: '<svg viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2.2"><path d="M7 19H4.5a2.5 2.5 0 0 1 0-5H7"/><path d="M17 19h2.5a2.5 2.5 0 0 0 0-5H17"/><path d="M12 19v-8M8 11l4-4 4 4"/><rect x="6" y="19" width="12" height="3" rx="1.5"/></svg>',
+    aciklama: "Okulun çöp tenekelerine plastik, cam, kağıt ve organik atıklar karışık atılıyor. Otomatik ayırt eden bir robot modeli tasarlayalım!",
     veriler: [
-      { id:"v1", ad:"Günlük Menüler ve Satış Sayıları", ac:"Son 3 ayın yemek satış verileri.", tur:"dogru" },
-      { id:"v2", ad:"Çöpe Atılan Porsiyon Miktarları", ac:"Günün sonunda artakalan porsiyonlar.", tur:"dogru" },
-      { id:"v3", ad:"Öğrencilerin Telefon ve Adresleri", ac:"Velilerin cep numaraları ve ev adresleri.", tur:"etik_ihlal", uyari:"Kişisel Veri İhlali! Telefon ve adres bilgileri izinsiz kullanılamaz." },
-      { id:"v4", ad:"Okul Bahçesindeki Ağaçların Boyları", ac:"Bahçedeki çam ve kavak boyları.", tur:"alakasiz", uyari:"Ağaç boylarının yemek israfıyla hiçbir ilgisi yoktur." }
+      { id:"v1", ad:"Etiketli Atık Fotoğrafları", ac:"Binlerce plastik, cam, kağıt ve organik atık görseli (herkese açık veri seti).", tur:"dogru" },
+      { id:"v2", ad:"Atık Türü ve Ağırlık Ölçümleri", ac:"Her atığın ağırlığı ve materyal türü (plastik, cam, metal) etiketleri.", tur:"dogru" },
+      { id:"v3", ad:"Öğrencilerin Çöp Atan Yüz Görüntüleri", ac:"Çöp tenekesi kamerasının kaydettiği öğrenci yüzleri.", tur:"etik_ihlal", uyari:"Biyometrik Veri İhlali! Çöp atmak için yüz tanıma kaydı yapılamaz!" },
+      { id:"v4", ad:"Okulun Aylık Elektrik Faturası", ac:"Binanın toplam enerji tüketim miktarı ve bedeli.", tur:"alakasiz", uyari:"Elektrik faturasının atık türüyle hiçbir ilgisi yoktur." }
     ],
-    dogruYaklasim: "oneri_motoru",
-    ipucu: "Geçmiş tercihlere göre menüyü optimize etmek için Öneri Motoru kullanılır.",
-    simBasSvg: '<rect x="50" y="15" width="300" height="80" rx="10" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/><text x="70" y="50" font-size="13" font-weight="700" fill="#B91C1C">Eski Durum: %42 İsraf (45 Porsiyon/Gün)</text><rect x="70" y="65" width="260" height="14" rx="5" fill="#FEE2E2"/><rect x="70" y="65" width="109" height="14" rx="5" fill="#EF4444"/>',
-    simCalSvg: '<rect x="50" y="15" width="300" height="80" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="50" font-size="13" font-weight="700" fill="#166534">Çözüm: %2 İsraf — Sadece 1 Porsiyon/Gün!</text><rect x="70" y="65" width="260" height="14" rx="5" fill="#DCFCE7"/><rect x="70" y="65" width="10" height="14" rx="5" fill="#16A34A"/>',
-    simRapor: "Öneri Motoru devreye girdi! İsraf %95 azaldı!"
+    dogruYaklasim: "siniflandirma",
+    ipucu: "Atıkları plastik, cam, kağıt gibi sınıflara ayırmak için Sınıflandırma modeli kullanılır.",
+    simBasSvg: '<rect x="50" y="15" width="300" height="80" rx="10" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/><text x="70" y="50" font-size="13" font-weight="700" fill="#92400E">Eski Durum: Atıklar Karışık — %80 Yanlış Kutu</text><rect x="70" y="65" width="260" height="14" rx="5" fill="#FEE2E2"/><rect x="70" y="65" width="208" height="14" rx="5" fill="#EF4444"/>',
+    simCalSvg: '<rect x="50" y="15" width="300" height="80" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="50" font-size="13" font-weight="700" fill="#166534">Çözüm: %97 Doğru Ayrıştırma Başarısı</text><rect x="70" y="65" width="260" height="14" rx="5" fill="#DCFCE7"/><rect x="70" y="65" width="252" height="14" rx="5" fill="#16A34A"/>',
+    simRapor: "Sınıflandırma modeli her atığı doğru kutuya yönlendirdi! Geri dönüşüm oranı %97'ye ulaştı!"
   },
   {
     no: 2,
