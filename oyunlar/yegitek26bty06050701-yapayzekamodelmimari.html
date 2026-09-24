@@ -219,6 +219,8 @@ b,strong{font-weight:700}
 .veri-kart-ac{font-size:0.84rem;color:var(--gri);line-height:1.25}
 .veri-kart.kabul{border-color:var(--dogru);background:var(--dogru-acik);cursor:default}
 .veri-kart.kabul .veri-kart-ad{color:var(--dogru)}
+.veri-kart.yanlis{border-color:var(--yanlis);background:var(--yanlis-acik);cursor:not-allowed}
+.veri-kart.yanlis .veri-kart-ad{color:var(--yanlis)}
 .veri-kart.sarsil{animation:sarsil .35s}
 
 /* YZ YAKLAŞIM KARTLARI */
@@ -238,6 +240,8 @@ b,strong{font-weight:700}
 .yaklasim-kart:hover{border-color:#94A3B8;background:#F8FAFC}
 .yaklasim-kart.secili{border-color:var(--dogru);background:var(--dogru-acik);cursor:default}
 .yaklasim-kart.secili .yaklasim-ad{color:var(--dogru)}
+.yaklasim-kart.yanlis{border-color:var(--yanlis);background:var(--yanlis-acik);cursor:not-allowed}
+.yaklasim-kart.yanlis .yaklasim-ad{color:var(--yanlis)}
 .yaklasim-kart.sarsil{animation:sarsil .35s}
 .yaklasim-ikon{
   width:40px;height:40px;border-radius:10px;
@@ -842,7 +846,17 @@ function veriSec(item, btn){
     sesCal("yanlis");
     vakaHataSayisi++;
     btn.classList.add("sarsil");
-    setTimeout(function(){ btn.classList.remove("sarsil"); }, 400);
+    setTimeout(function(){ btn.classList.remove("sarsil"); btn.classList.add("yanlis"); }, 400);
+    /* Kart içeriğine çarpı ikonunu ekle */
+    var carpiBadge = btn.querySelector(".carpi-ikon");
+    if(!carpiBadge){
+      var badge = document.createElement("div");
+      badge.className = "carpi-ikon";
+      badge.innerHTML = '<svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><line x1="2" y1="2" x2="14" y2="14" stroke="#B91C1C" stroke-width="3" stroke-linecap="round"/><line x1="14" y1="2" x2="2" y2="14" stroke="#B91C1C" stroke-width="3" stroke-linecap="round"/></svg>';
+      badge.style.cssText = "position:absolute;top:6px;right:8px;";
+      btn.style.position = "relative";
+      btn.appendChild(badge);
+    }
     bildir(item.uyari, "kotu");
     return;
   }
@@ -860,7 +874,7 @@ function veriSec(item, btn){
       kilit = false;
       bolumAc("yaklasim");
       bildirimTemizle();
-    }, window.__FAST ? 300 : 1100);
+    }, window.__FAST ? 300 : 2200);
   } else {
     bildir("Doğru veri! 1 tane daha seçiniz.", "iyi");
   }
@@ -875,7 +889,16 @@ function yaklasimSec(cipId, btn){
     sesCal("yanlis");
     vakaHataSayisi++;
     btn.classList.add("sarsil");
-    setTimeout(function(){ btn.classList.remove("sarsil"); }, 400);
+    setTimeout(function(){ btn.classList.remove("sarsil"); btn.classList.add("yanlis"); }, 400);
+    /* Yaklaşım kartına çarpı ikonu ekle */
+    var carpiBadge = btn.querySelector(".carpi-ikon");
+    if(!carpiBadge){
+      var badge = document.createElement("div");
+      badge.className = "carpi-ikon";
+      badge.innerHTML = '<svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><line x1="2" y1="2" x2="14" y2="14" stroke="#B91C1C" stroke-width="3" stroke-linecap="round"/><line x1="14" y1="2" x2="2" y2="14" stroke="#B91C1C" stroke-width="3" stroke-linecap="round"/></svg>';
+      badge.style.cssText = "margin-left:auto;flex:0 0 auto;";
+      btn.appendChild(badge);
+    }
     bildir("Bu yaklaşım bu problem için uygun değil. İpucu: " + v.ipucu, "kotu");
     return;
   }
@@ -891,7 +914,7 @@ function yaklasimSec(cipId, btn){
     kilit = false;
     bolumAc("sim");
     bildirimTemizle();
-  }, window.__FAST ? 300 : 1100);
+  }, window.__FAST ? 300 : 2200);
 }
 
 /* ============ 3. ADIM: SİMÜLASYON ============ */
