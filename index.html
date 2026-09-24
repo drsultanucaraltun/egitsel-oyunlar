@@ -2,41 +2,623 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eğitsel Oyunlar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Eğitsel Oyunlar — İndirme ve Paylaşım Portalı</title>
 <style>
-:root{--murekkep:#1E2A44;--vurgu:#0E5A8A;--cizgi:#BFD3E2;--panel:#FFFFFF}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Roboto',Arial,sans-serif;background:linear-gradient(#EDF6FB,#DCEBF5);color:var(--murekkep);min-height:100vh;padding:2rem 1rem}
-main{max-width:46rem;margin:0 auto}
-h1{font-size:2rem;color:var(--vurgu);margin-bottom:0.4rem}
-p.alt{color:#5B6472;margin-bottom:1.4rem}
-ul{list-style:none;display:flex;flex-direction:column;gap:0.6rem}
-a{display:block;background:var(--panel);border:3px solid var(--cizgi);border-radius:14px;padding:0.9rem 1.1rem;font-size:1.15rem;font-weight:700;color:var(--murekkep);text-decoration:none}
-a:hover,a:focus{border-color:var(--vurgu);color:var(--vurgu)}
-footer{margin-top:2rem;color:#5B6472;font-size:0.95rem}
+:root {
+  --arkaplan: #F1F6FA;
+  --panel: #FFFFFF;
+  --murekkep: #132238;
+  --ikincil: #4E6178;
+  --vurgu: #0969DA;
+  --vurgu-hafif: #E6F0FC;
+  --yesil: #1F883D;
+  --yesil-hafif: #EBF7EE;
+  --cizgi: #CFDEEB;
+  --golge: 0 4px 14px rgba(19, 34, 56, 0.07);
+  --golge-hover: 0 8px 24px rgba(9, 105, 218, 0.14);
+  --yariçap: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: var(--arkaplan);
+  color: var(--murekkep);
+  line-height: 1.5;
+  padding: 2.5rem 1.25rem 4rem;
+}
+.kapsayici {
+  max-width: 900px;
+  margin: 0 auto;
+}
+header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.ust-rozet {
+  display: inline-block;
+  background: var(--vurgu-hafif);
+  color: var(--vurgu);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--murekkep);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+p.aciklama {
+  font-size: 1.15rem;
+  color: var(--ikincil);
+  max-width: 680px;
+  margin: 0 auto 1.5rem;
+}
+.bilgi-kutusu {
+  background: var(--panel);
+  border: 2px solid var(--cizgi);
+  border-radius: var(--yariçap);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--golge);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-align: left;
+}
+.bilgi-kutusu svg {
+  flex-shrink: 0;
+  color: var(--vurgu);
+}
+.bilgi-metin {
+  font-size: 0.95rem;
+  color: var(--ikincil);
+}
+.bilgi-metin strong {
+  color: var(--murekkep);
+}
+.aksiyon-bari {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+.ana-butonlar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.buton-zip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--yesil);
+  color: #fff;
+  padding: 0.85rem 1.4rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.15s ease, background 0.15s ease;
+  box-shadow: 0 4px 12px rgba(31, 136, 61, 0.25);
+}
+.buton-zip:hover {
+  background: #1a7434;
+  transform: translateY(-1px);
+}
+.buton-repo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--panel);
+  color: var(--murekkep);
+  border: 2px solid var(--cizgi);
+  padding: 0.85rem 1.3rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+.buton-repo:hover {
+  border-color: var(--vurgu);
+  color: var(--vurgu);
+}
+.arama-kutusu {
+  flex: 1;
+  min-width: 240px;
+  position: relative;
+}
+.arama-kutusu input {
+  width: 100%;
+  padding: 0.85rem 1rem 0.85rem 2.5rem;
+  border: 2px solid var(--cizgi);
+  border-radius: 12px;
+  font-size: 1rem;
+  background: var(--panel);
+  color: var(--murekkep);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+.arama-kutusu input:focus {
+  border-color: var(--vurgu);
+}
+.arama-ikonu {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8C9BAE;
+  pointer-events: none;
+}
+.liste-baslik {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--murekkep);
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.oyun-izgarasi {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.oyun-karti {
+  background: var(--panel);
+  border: 2px solid var(--cizgi);
+  border-radius: var(--yariçap);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--golge);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.oyun-karti:hover {
+  border-color: var(--vurgu);
+  transform: translateY(-2px);
+  box-shadow: var(--golge-hover);
+}
+.oyun-ust {
+  flex: 1;
+}
+.rozetler {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+.rozet {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.rozet-ders {
+  background: var(--vurgu-hafif);
+  color: var(--vurgu);
+}
+.rozet-konu {
+  background: #F3F4F6;
+  color: #4B5563;
+}
+.rozet-boyut {
+  background: #EFF6FF;
+  color: #2563EB;
+}
+.oyun-baslik {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--murekkep);
+}
+.oyun-alt {
+  display: flex;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+.buton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.65rem 1.1rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.buton-oyna {
+  background: var(--vurgu-hafif);
+  color: var(--vurgu);
+  border: 2px solid transparent;
+}
+.buton-oyna:hover {
+  background: var(--vurgu);
+  color: #fff;
+}
+.buton-indir {
+  background: var(--yesil-hafif);
+  color: var(--yesil);
+  border: 2px solid transparent;
+}
+.buton-indir:hover {
+  background: var(--yesil);
+  color: #fff;
+}
+footer {
+  margin-top: 3.5rem;
+  text-align: center;
+  color: var(--ikincil);
+  font-size: 0.95rem;
+  border-top: 1px solid var(--cizgi);
+  padding-top: 2rem;
+}
+@media (max-width: 680px) {
+  .oyun-karti {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .oyun-alt {
+    width: 100%;
+  }
+  .oyun-alt .buton {
+    flex: 1;
+    justify-content: center;
+  }
+  .aksiyon-bari {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .arama-kutusu {
+    width: 100%;
+  }
+}
 </style>
 </head>
 <body>
-<main>
-  <h1>Eğitsel Oyunlar</h1>
-  <p class="alt">Bilişim Teknolojileri ve Yazılım dersi için hazırlanmış etkileşimli çalışmalar.</p>
-  <ul>
-    <li><a href="oyunlar/bilisim-etigi-dedektifi.html">Siber Şehir: Dijital Etik ve Güvenlik Macerası</a></li>
-    <li><a href="oyunlar/bty06050601-01-bulalim.html">Bulalım — Yapay Zekâ Araçlarını Kullanma</a></li>
-    <li><a href="oyunlar/bty06050601-02-cevaplayalim-1.html">Cevaplayalım 1 — Yapay Zekâ Araçlarını Kullanma</a></li>
-    <li><a href="oyunlar/bty06050601-03-cevaplayalim-2.html">Cevaplayalım 2 — Yapay Zekâ Araçlarını Kullanma</a></li>
-    <li><a href="oyunlar/bty06050601-04-cevaplayalim-3.html">Cevaplayalım 3 — Yapay Zekâ Araçlarını Kullanma</a></li>
-    <li><a href="oyunlar/obek-dagilim-laboratuvari.html">ÖBEK - Dağılım Eğrileri Laboratuvarı</a></li>
-    <li><a href="oyunlar/yegitek23bty0605050279-etkiliaramayontemleri.html">Etkili Arama Yöntemleri</a></li>
-    <li><a href="oyunlar/yegitek26bty05050610-yapayzekagirdileri.html">Yapay Zekâ Girdileri</a></li>
-    <li><a href="oyunlar/yegitek26bty05050614-verilaboratuvari.html">BTY 6.5.1. Hayvan Tanıma - Veri Laboratuvarı</a></li>
-    <li><a href="oyunlar/yegitek26bty06050601-yapayzekaaraclarinikullanma.html">Yapay Zekâ Araçlarını Kullanma</a></li>
-    <li><a href="oyunlar/yegitek26bty06050601-yapayzekakashifi.html">Yapay Zeka Kasifi</a></li>
-    <li><a href="oyunlar/yegitek26bty06050601-yapayzekalaboratuvari.html">Yapay Zeka Laboratuvari</a></li>
-    <li><a href="oyunlar/yegitek26bty06050701-yapayzekamodelmimari.html">Yapay Zekâ Model Mimarı</a></li>
-  </ul>
-  <footer>Her oyun tek dosyadır ve çevrimdışı da çalışır.</footer>
-</main>
+<div class="kapsayici">
+  <header>
+    <div class="ust-rozet">MEB / YEĞİTEK Bilişim Teknolojileri</div>
+    <h1>Eğitsel Oyunlar & Etkileşimli İçerikler</h1>
+    <p class="aciklama">Tüm çalışmalar tek dosya HTML mimarisindedir. Harici internet bağlantısı olmadan doğrudan tarayıcıda çalışır, EBA ve SCORM sistemleriyle uyumludur.</p>
+  </header>
+
+  <div class="bilgi-kutusu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    <div class="bilgi-metin">
+      <strong>Nasıl İndirilir?</strong> İlgili oyunun yanındaki <strong>"HTML İndir"</strong> butonuna tıklayarak tek parça HTML dosyasını hemen indirebilirsiniz. Dilerseniz tüm oyunları tek seferde <strong>"Tüm Oyunları İndir (.ZIP)"</strong> butonundan indirebilirsiniz.
+    </div>
+  </div>
+
+  <div class="aksiyon-bari">
+    <div class="ana-butonlar">
+      <a href="tum-oyunlar.zip" download="tum-oyunlar.zip" class="buton-zip">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        Tüm Oyunları İndir (.ZIP)
+      </a>
+      <a href="https://github.com/drsultanucaraltun/egitsel-oyunlar" target="_blank" rel="noopener" class="buton-repo">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        GitHub Deposu
+      </a>
+    </div>
+
+    <div class="arama-kutusu">
+      <svg class="arama-ikonu" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="aramaInput" placeholder="Oyun ara... (örn: Yapay Zekâ, Arama)" oninput="oyunAra()">
+    </div>
+  </div>
+
+  <div class="liste-baslik">
+    <span>Yayındaki Oyunlar (13)</span>
+  </div>
+
+  <div class="oyun-izgarasi" id="oyunIzgarasi">
+
+    <div class="oyun-karti" data-baslik="siber şehir: dijital etik ve güvenlik macerası">
+      <div class="oyun-ust">
+        <div class="rozetler">
+          <span class="rozet rozet-ders">BTY 5-6</span>
+          <span class="rozet rozet-konu">Dijital Etik & Güvenlik</span>
+          <span class="rozet rozet-boyut">122 KB</span>
+        </div>
+        <h2 class="oyun-baslik">Siber Şehir: Dijital Etik ve Güvenlik Macerası</h2>
+      </div>
+      <div class="oyun-alt">
+        <a href="oyunlar/bilisim-etigi-dedektifi.html" target="_blank" rel="noopener" class="buton buton-oyna">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Oyunu Başlat
+        </a>
+        <a href="oyunlar/bilisim-etigi-dedektifi.html" download="bilisim-etigi-dedektifi.html" class="buton buton-indir" title="HTML dosyasını bilgisayara indir">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          HTML İndir
+        </a>
+      </div>
+    </div>
+
+    <div class="oyun-karti" data-baslik="bulalım — yapay zekâ araçlarını kullanma">
+      <div class="oyun-ust">
+        <div class="rozetler">
+          <span class="rozet rozet-ders">BTY 6</span>
+          <span class="rozet rozet-konu">Bulalım Etkinliği</span>
+          <span class="rozet rozet-boyut">352 KB</span>
+        </div>
+        <h2 class="oyun-baslik">Bulalım — Yapay Zekâ Araçlarını Kullanma</h2>
+      </div>
+      <div class="oyun-alt">
+        <a href="oyunlar/bty06050601-01-bulalim.html" target="_blank" rel="noopener" class="buton buton-oyna">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Oyunu Başlat
+        </a>
+        <a href="oyunlar/bty06050601-01-bulalim.html" download="bty06050601-01-bulalim.html" class="buton buton-indir" title="HTML dosyasını bilgisayara indir">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          HTML İndir
+        </a>
+      </div>
+    </div>
+
+    <div class="oyun-karti" data-baslik="cevaplayalım 1 — yapay zekâ araçlarını kullanma">
+      <div class="oyun-ust">
+        <div class="rozetler">
+          <span class="rozet rozet-ders">BTY 6</span>
+          <span class="rozet rozet-konu">Cevaplayalım 1</span>
+          <span class="rozet rozet-boyut">338 KB</span>
+        </div>
+        <h2 class="oyun-baslik">Cevaplayalım 1 — Yapay Zekâ Araçlarını Kullanma</h2>
+      </div>
+      <div class="oyun-alt">
+        <a href="oyunlar/bty06050601-02-cevaplayalim-1.html" target="_blank" rel="noopener" class="buton buton-oyna">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Oyunu Başlat
+        </a>
+        <a href="oyunlar/bty06050601-02-cevaplayalim-1.html" download="bty06050601-02-cevaplayalim-1.html" class="buton buton-indir" title="HTML dosyasını bilgisayara indir">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          HTML İndir
+        </a>
+      </div>
+    </div>
+
+    <div class="oyun-karti" data-baslik="cevaplayalım 2 — yapay zekâ araçlarını kullanma">
+      <div class="oyun-ust">
+        <div class="rozetler">
+          <span class="rozet rozet-ders">BTY 6</span>
+          <span class="rozet rozet-konu">Cevaplayalım 2</span>
+          <span class="rozet rozet-boyut">352 KB</span>
+        </div>
+        <h2 class="oyun-baslik">Cevaplayalım 2 — Yapay Zekâ Araçlarını Kullanma</h2>
+      </div>
+      <div class="oyun-alt">
+        <a href="oyunlar/bty06050601-03-cevaplayalim-2.html" target="_blank" rel="noopener" class="buton buton-oyna">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Oyunu Başlat
+        </a>
+        <a href="oyunlar/bty06050601-03-cevaplayalim-2.html" download="bty06050601-03-cevaplayalim-2.html" class="buton buton-indir" title="HTML dosyasını bilgisayara indir">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          HTML İndir
+        </a>
+      </div>
+    </div>
+
+    <div class="oyun-karti" data-baslik="cevaplayalım 3 — yapay zekâ araçlarını kullanma">
+      <div class="oyun-ust">
+        <div class="rozetler">
+          <span class="rozet rozet-ders">BTY 6</span>
+          <span class="rozet rozet-konu">Cevaplayalım 3</span>
+          <span class="rozet rozet-boyut">338 KB</span>
+        </div>
+        <h2 class="oyun-baslik">Cevaplayalım 3 — Yapay Zekâ Araçlarını Kullanma</h2>
+      </div>
+      <div class="oyun-alt">
+        <a href="oyunlar/bty06050601-04-cevaplayalim-3.html" target="_blank" rel="noopener" class="buton buton-oyna">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Oyunu Başlat
+        </a>
+        <a href="oyunlar/bty06050601-04-cevaplayalim-3.html" download="bty06050601-04-cevaplayalim-3.html" class="buton buton-indir" title="HTML dosyasını bilgisayara indir">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          HTML İndir
+        </a>
+      </div>
+    </div>
+
+    <div class="oyun-karti" data-baslik="sevimli sayı çiftliği — okul öncesi sayıları öğrenelim">
+      <div class="oyun-ust">
+        <div class="rozetler">
+          <span class="rozet rozet-ders">Okul Öncesi</span>
+          <span class="rozet rozet-konu">Sayıları Öğrenelim</span>
+          <span class="rozet rozet-boyut">130 KB</span>
+        </div>
+        <h2 class="oyun-baslik">Sevimli Sayı Çiftliği — Okul Öncesi Sayıları Öğrenelim</h2>
+      </div>
+      <div class="oyun-alt">
+        <a href="oyunlar/sayi-ciftligi.html" target="_blank" rel="noopener" class="buton buton-oyna">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Oyunu Başlat
+        </a>
+        <a href="oyunlar/sayi-ciftligi.html" download="sayi-ciftligi.html" class="buton buton-indir" title="HTML dosyasını bilgisayara indir">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          HTML İndir
+        </a>
+      </div>
+    </div>
+
+    <div class="oyun-karti" data-baslik="etkili arama yöntemleri">
+      <div class="oyun-ust">
+        <div class="rozetler">
+          <span class="rozet rozet-ders">BTY 6</span>
+          <span class="rozet rozet-konu">Arama Yöntemleri</span>
+          <span class="rozet rozet-boyut">133 KB</span>
+        </div>
+        <h2 class="oyun-baslik">Etkili Arama Yöntemleri</h2>
+      </div>
+      <div class="oyun-alt">
+        <a href="oyunlar/yegitek23bty0605050279-etkiliaramayontemleri.html" target="_blank" rel="noopener" class="buton buton-oyna">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Oyunu Başlat
+        </a>
+        <a href="oyunlar/yegitek23bty0605050279-etkiliaramayontemleri.html" download="yegitek23bty0605050279-etkiliaramayontemleri.html" class="buton buton-indir" title="HTML dosyasını bilgisayara indir">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          HTML İndir
+        </a>
+      </div>
+    </div>
+
+    <div class="oyun-karti" data-baslik="yapay zekâ girdileri">
+      <div class="oyun-ust">
+        <div class="rozetler">
+          <span class="rozet rozet-ders">BTY 5</span>
+          <span class="rozet rozet-konu">Yapay Zekâ Girdileri</span>
+          <span class="rozet rozet-boyut">133 KB</span>
+        </div>
+        <h2 class="oyun-baslik">Yapay Zekâ Girdileri</h2>
+      </div>
+      <div class="oyun-alt">
+        <a href="oyunlar/yegitek26bty05050610-yapayzekagirdileri.html" target="_blank" rel="noopener" class="buton buton-oyna">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Oyunu Başlat
+        </a>
+        <a href="oyunlar/yegitek26bty05050610-yapayzekagirdileri.html" download="yegitek26bty05050610-yapayzekagirdileri.html" class="buton buton-indir" title="HTML dosyasını bilgisayara indir">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          HTML İndir
+        </a>
+      </div>
+    </div>
+
+    <div class="oyun-karti" data-baslik="bty 6.5.1. hayvan tanıma - veri laboratuvarı">
+      <div class="oyun-ust">
+        <div class="rozetler">
+          <span class="rozet rozet-ders">BTY 6</span>
+          <span class="rozet rozet-konu">Veri Laboratuvarı</span>
+          <span class="rozet rozet-boyut">741 KB</span>
+        </div>
+        <h2 class="oyun-baslik">BTY 6.5.1. Hayvan Tanıma - Veri Laboratuvarı</h2>
+      </div>
+      <div class="oyun-alt">
+        <a href="oyunlar/yegitek26bty05050614-verilaboratuvari.html" target="_blank" rel="noopener" class="buton buton-oyna">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Oyunu Başlat
+        </a>
+        <a href="oyunlar/yegitek26bty05050614-verilaboratuvari.html" download="yegitek26bty05050614-verilaboratuvari.html" class="buton buton-indir" title="HTML dosyasını bilgisayara indir">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          HTML İndir
+        </a>
+      </div>
+    </div>
+
+    <div class="oyun-karti" data-baslik="yapay zekâ araçlarını kullanma">
+      <div class="oyun-ust">
+        <div class="rozetler">
+          <span class="rozet rozet-ders">BTY 6</span>
+          <span class="rozet rozet-konu">YZ Araçları (Ana Modül)</span>
+          <span class="rozet rozet-boyut">178 KB</span>
+        </div>
+        <h2 class="oyun-baslik">Yapay Zekâ Araçlarını Kullanma</h2>
+      </div>
+      <div class="oyun-alt">
+        <a href="oyunlar/yegitek26bty06050601-yapayzekaaraclarinikullanma.html" target="_blank" rel="noopener" class="buton buton-oyna">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Oyunu Başlat
+        </a>
+        <a href="oyunlar/yegitek26bty06050601-yapayzekaaraclarinikullanma.html" download="yegitek26bty06050601-yapayzekaaraclarinikullanma.html" class="buton buton-indir" title="HTML dosyasını bilgisayara indir">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          HTML İndir
+        </a>
+      </div>
+    </div>
+
+    <div class="oyun-karti" data-baslik="yapay zeka kasifi">
+      <div class="oyun-ust">
+        <div class="rozetler">
+          <span class="rozet rozet-ders">BTY 6</span>
+          <span class="rozet rozet-konu">Okyanus Keşfi</span>
+          <span class="rozet rozet-boyut">138 KB</span>
+        </div>
+        <h2 class="oyun-baslik">Yapay Zeka Kasifi</h2>
+      </div>
+      <div class="oyun-alt">
+        <a href="oyunlar/yegitek26bty06050601-yapayzekakashifi.html" target="_blank" rel="noopener" class="buton buton-oyna">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Oyunu Başlat
+        </a>
+        <a href="oyunlar/yegitek26bty06050601-yapayzekakashifi.html" download="yegitek26bty06050601-yapayzekakashifi.html" class="buton buton-indir" title="HTML dosyasını bilgisayara indir">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          HTML İndir
+        </a>
+      </div>
+    </div>
+
+    <div class="oyun-karti" data-baslik="yapay zeka laboratuvari">
+      <div class="oyun-ust">
+        <div class="rozetler">
+          <span class="rozet rozet-ders">BTY 6</span>
+          <span class="rozet rozet-konu">YZ Laboratuvarı</span>
+          <span class="rozet rozet-boyut">126 KB</span>
+        </div>
+        <h2 class="oyun-baslik">Yapay Zeka Laboratuvari</h2>
+      </div>
+      <div class="oyun-alt">
+        <a href="oyunlar/yegitek26bty06050601-yapayzekalaboratuvari.html" target="_blank" rel="noopener" class="buton buton-oyna">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Oyunu Başlat
+        </a>
+        <a href="oyunlar/yegitek26bty06050601-yapayzekalaboratuvari.html" download="yegitek26bty06050601-yapayzekalaboratuvari.html" class="buton buton-indir" title="HTML dosyasını bilgisayara indir">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          HTML İndir
+        </a>
+      </div>
+    </div>
+
+    <div class="oyun-karti" data-baslik="yapay zekâ model mimarı">
+      <div class="oyun-ust">
+        <div class="rozetler">
+          <span class="rozet rozet-ders">BTY 6</span>
+          <span class="rozet rozet-konu">Model Mimarı</span>
+          <span class="rozet rozet-boyut">135 KB</span>
+        </div>
+        <h2 class="oyun-baslik">Yapay Zekâ Model Mimarı</h2>
+      </div>
+      <div class="oyun-alt">
+        <a href="oyunlar/yegitek26bty06050701-yapayzekamodelmimari.html" target="_blank" rel="noopener" class="buton buton-oyna">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Oyunu Başlat
+        </a>
+        <a href="oyunlar/yegitek26bty06050701-yapayzekamodelmimari.html" download="yegitek26bty06050701-yapayzekamodelmimari.html" class="buton buton-indir" title="HTML dosyasını bilgisayara indir">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          HTML İndir
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    Tek dosya HTML (offline-ready) • YEĞİTEK & EBA standartlarına tam uyumlu
+  </footer>
+</div>
+
+<script>
+function oyunAra() {
+  var q = document.getElementById('aramaInput').value.toLowerCase().trim();
+  var kartlar = document.querySelectorAll('.oyun-karti');
+  for (var i = 0; i < kartlar.length; i++) {
+    var baslik = kartlar[i].getAttribute('data-baslik') || '';
+    if (baslik.indexOf(q) !== -1 || q === '') {
+      kartlar[i].style.display = 'flex';
+    } else {
+      kartlar[i].style.display = 'none';
+    }
+  }
+}
+</script>
 </body>
 </html>
