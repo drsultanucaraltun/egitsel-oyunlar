@@ -513,8 +513,8 @@ function sahneGeriDonusum(durum){
 function sahneTarim(durum){
   var s='<rect width="700" height="160" fill="#F0FDF4"/><rect y="113" width="700" height="47" fill="#A16207"/><path d="M0 130h700" stroke="#92400E" stroke-width="3"/>';
   s+=sahneEtiket(durum==="dogru"?"Erken tespit":(durum==="yanlis"?"Hastalık yayılıyor":"Kontrol bekleniyor"),durum);
-  s+='<rect x="88" y="45" width="104" height="66" rx="9" fill="#FFFFFF" stroke="#86EFAC" stroke-width="2"/>'+sahneYazi(140,65,"YZ TARAMASI","#166534",10);
-  s+='<path d="M192 80h45" stroke="#16A34A" stroke-width="3" stroke-dasharray="5 4"/>';
+  s+='<rect x="68" y="45" width="170" height="66" rx="9" fill="#FFFFFF" stroke="#86EFAC" stroke-width="2"/>'+sahneYazi(153,70,"YZ TARAMASI","#166534",18);
+  s+='<path d="M238 80h32" stroke="#16A34A" stroke-width="3" stroke-dasharray="5 4"/>';
   for(var i=0;i<5;i++){
     var x=285+i*70, hasta=durum==="yanlis"||((durum==="baslangic"||durum==="dogru")&&i===1);
     s+='<path d="M'+x+' 120V81" stroke="#166534" stroke-width="4"/>';
@@ -523,7 +523,7 @@ function sahneTarim(durum){
     if(hasta)s+='<circle cx="'+(x+14)+'" cy="75" r="2.5" fill="#B91C1C"/><circle cx="'+(x-13)+'" cy="83" r="2" fill="#B91C1C"/>';
     if(durum==="dogru"&&i===1)s+='<circle cx="'+x+'" cy="78" r="24" fill="none" stroke="#DC2626" stroke-width="2" stroke-dasharray="4 3"/>';
   }
-  s+=sahneYazi(140,92,durum==="dogru"?"Uyarı gönderildi":(durum==="yanlis"?"Uyarı yok":"Yaprakları incele"),durum==="yanlis"?"#B91C1C":"#166534",11);
+  s+=sahneYazi(153,99,durum==="dogru"?"Uyarı gönderildi":(durum==="yanlis"?"Uyarı yok":"Yaprakları incele"),durum==="yanlis"?"#B91C1C":"#166534",17);
   return s;
 }
 function sahneArac(x,y,renk){return '<rect x="'+x+'" y="'+y+'" width="43" height="21" rx="5" fill="'+renk+'"/><rect x="'+(x+9)+'" y="'+(y-5)+'" width="24" height="8" rx="4" fill="'+renk+'"/><circle cx="'+(x+9)+'" cy="'+(y+21)+'" r="4" fill="#334155"/><circle cx="'+(x+34)+'" cy="'+(y+21)+'" r="4" fill="#334155"/>';}
