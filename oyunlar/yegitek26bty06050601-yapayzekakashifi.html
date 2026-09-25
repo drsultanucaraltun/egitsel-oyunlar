@@ -681,7 +681,7 @@ b,strong{font-weight:700}
     <!-- ============ GİRİŞ EKRANI ============ -->
     <section class="ekran acik" id="ekran-giris" aria-labelledby="giris-baslik">
       <h2 id="giris-baslik">Yapay Zekâ Araçları — Okyanus Keşfi</h2>
-      <p class="giris-alt">Okyanus araştırma merkezine hoş geldiniz! Sualtındaki canlıları tanımak, arızalı sensörleri onarmak ve afişler üretmek için amaca uygun yapay zekâ araçlarını kullanınız.</p>
+      <p class="giris-alt">Okyanus araştırma merkezine hoş geldiniz! Su altındaki canlıları tanımak, arızalı sensörleri onarmak ve afişler üretmek için amaca uygun yapay zekâ araçlarını kullanınız.</p>
 
       <!-- Temiz Okyanus İllüstrasyonu -->
       <svg id="giris-gorsel" viewBox="0 0 400 170" role="img" aria-label="Okyanus canlıları ve yapay zekâ keşif istasyonu">
@@ -731,7 +731,7 @@ b,strong{font-weight:700}
       <!-- Üst Görev Şeridi -->
       <div id="gorev-serit">
         <span id="bolum-rozet">1. Bölüm</span>
-        <span id="gorev-yazi" aria-live="polite">Hedefi inceleyiniz; aşağıdaki araçlardan en uygun olanına tıklayınız.</span>
+        <span id="gorev-yazi" aria-live="polite">Hedefi inceleyiniz, aşağıdaki araçlardan en uygun olanına tıklayınız.</span>
         <div id="ilerleme-dis" role="progressbar" aria-label="Bölüm İlerlemesi" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0">
           <div id="ilerleme-ic"></div>
         </div>
@@ -866,8 +866,8 @@ b,strong{font-weight:700}
       <div id="son-yildiz-bilgi">Kazanılan Yıldız: 0 / 12</div>
 
       <div id="son-ozet-kutu">
-        <p><b>✓ Amaca Uygun Araçlar:</b> Canlıları fotoğrafla tanımak için kamerayı, sensörleri onarmak için kod modülünü, afiş çizimi için DALL-E'yi ve ses komutları için asistanı ustalıkla seçtiniz.</p>
-        <p><b>✓ Etkili Girdi Avı:</b> Zayıf ve belirsiz komutları eleyip, konu, seviye ve format içeren zengin girdi kartlarını yakaladınız.</p>
+        <p><b>✓ Amaca Uygun Araçlar:</b> Canlıları fotoğrafla tanımak için, kamerayı, sensörleri onarmak için, kod modülünü afiş çizimi için DALL-E'yi ve ses komutları için asistanı ustalıkla seçtiniz.</p>
+        <p><b>✓ Etkili Girdi Avı:</b> Zayıf ve belirsiz komutları eleyip konu, seviye ve format içeren zengin girdi kartlarını yakaladınız.</p>
         <p><b>✓ Kalite ve Etik Denetimi:</b> Yanıltıcı ve hatalı üretilen bilgileri kırmızı radarla ayıklayarak yapay zekâyı sorumlu ve bilinçli bir şekilde kullandınız.</p>
       </div>
 
@@ -912,7 +912,7 @@ var BOLUM1_HEDEFLER = [
     ipucu: "Fotoğrafını yükleyip türünü ve yaşam alanını analiz ediniz.",
     dogruArac: "kamera",
     svg: SVG_CANLILAR.kaplumbaga,
-    basariMesaj: "Kamera / Görsel Analiz (Gemini) canlıyı başarıyla tanıdı: 'Caretta Caretta'!",
+    basariMesaj: "Kamera / Görsel analiz (Gemini) canlıyı başarıyla tanıdı: 'Caretta Caretta'!",
     hataMesaj: "Bu canlıyı fotoğraftan teşhis etmek için Kamera / Görsel Analiz modülünü seçmelisiniz!"
   },
   {
@@ -921,7 +921,7 @@ var BOLUM1_HEDEFLER = [
     ipucu: "Kırmızı alarm veren Python sensör kodundaki hatayı onarınız.",
     dogruArac: "kod",
     svg: SVG_CANLILAR.samandira,
-    basariMesaj: "Kod Asistanı (Copilot) Python kodundaki hatayı çözdü! Şamandıra yeşile döndü.",
+    basariMesaj: "Kod asistanı (Copilot) Python kodundaki hatayı çözdü. Şamandıra yeşile döndü.",
     hataMesaj: "Sensör devre kodlarını onarmak için Kod Asistanı (Copilot) modülünü seçmelisiniz!"
   },
   {
@@ -930,25 +930,25 @@ var BOLUM1_HEDEFLER = [
     ipucu: "Okyanus kulübü için özgün ve renkli bir afiş resmi çizdiriniz.",
     dogruArac: "cizim",
     svg: SVG_CANLILAR.pano,
-    basariMesaj: "Görsel Üretici (DALL-E) panoya harika bir deniz yaşamı resmi çizdi!",
+    basariMesaj: "Görsel üretici (DALL-E) panoya harika bir deniz yaşamı resmi çizdi.",
     hataMesaj: "Özgün bir resim çizdirmek için Görsel Üretici (DALL-E) modülünü seçmelisiniz!"
   },
   {
     id: "yunus",
     ad: "Sonar Yayan Yunus",
-    ipucu: "Yunus balığının yaydığı sesli akustik dalgaları dinleyip kaydediniz.",
+    ipucu: "Yunus balığının yaydığı sesli akustik dalgaları dinleyip bu sesi kaydediniz.",
     dogruArac: "ses",
     svg: SVG_CANLILAR.yunus,
-    basariMesaj: "Sesli Asistan modülü yunus frekansını başarıyla kaydetti ve analiz etti!",
+    basariMesaj: "Sesli asistan modülü yunus frekansını başarıyla kaydetti ve analiz etti!",
     hataMesaj: "Ses ve akustik dalgaları dinlemek için Sesli Asistan modülünü kullanmalısınız!"
   },
   {
     id: "tablet",
     ad: "Antik Bilimsel Veri Tableti",
-    ipucu: "Yabancı dilde yazılmış okyanus araştırma metnini Türkçe'ye çeviriniz.",
+    ipucu: "Yabancı dilde yazılmış okyanus araştırma metnini Türkçeye çeviriniz.",
     dogruArac: "metin",
     svg: SVG_CANLILAR.tablet,
-    basariMesaj: "Metin ve Bilgi Modülü (ChatGPT) yabancı metni Türkçe'ye eksiksiz çevirdi!",
+    basariMesaj: "Metin ve bilgi modülü (ChatGPT) yabancı metni Türkçeye eksiksiz çevirdi!",
     hataMesaj: "Metinleri çevirmek ve analiz etmek için Metin / Bilgi (ChatGPT) modülünü seçmelisiniz!"
   }
 ];
@@ -958,15 +958,15 @@ var BOLUM2_VERILER = [
     hedef: "Okul Panosu İçin Sevimli Deniz Kaplumbağası Afiş Resmi",
     kapsuller: [
       { id:"k1", etiket:"Zayıf Girdi", aciklama:"\"Resim çiz.\"", dogru:false, kusur:"Ne resmi olduğu ve hangi tarzda çizileceği belirsiz!" },
-      { id:"k2", etiket:"Etkili Girdi", aciklama:"\"Mavi okyanusta mercanlar arasında yüzen sevimli deniz kaplumbağasını çizgi film tarzında çiz.\"", dogru:true, sonuc:"🎨 Harika Çıktı: İstenen renk ve çizgi film tarzında capcanlı bir poster üretildi!" },
-      { id:"k3", etiket:"Kusurlu Girdi", aciklama:"\"Herhangi bir şey karala.\"", dogru:false, kusur:"Tamamen amaçsız ve kalitesiz komut!" }
+      { id:"k2", etiket:"Etkili Girdi", aciklama:"\"Mavi okyanusta mercanlar arasında yüzen sevimli deniz kaplumbağasını çizgi film tarzında çiz.\"", dogru:true, sonuc:"🎨 Harika Çıktı: İstenen renk ve çizgi film tarzında capcanlı bir poster üretildi." },
+      { id:"k3", etiket:"Kusurlu Girdi", aciklama:"\"Herhangi bir şey karala.\"", dogru:false, kusur:"Tamamen amaçsız ve kalitesiz komut." }
     ]
   },
   {
     hedef: "6. Sınıf Seviyesinde Mars ve Okyanus Çukurları Bilgi Metni",
     kapsuller: [
       { id:"k4", etiket:"Etkili Girdi", aciklama:"\"6. sınıf düzeyine uygun, Mars ve Mariana Çukuru hakkında 4 cümlelik bilgi metni yaz.\"", dogru:true, sonuc:"📝 Harika Çıktı: Seviyeye uygun, 4 cümlelik eksiksiz bir özet metin oluşturuldu!" },
-      { id:"k5", etiket:"Zayıf Girdi", aciklama:"\"Bir şeyler anlat.\"", dogru:false, kusur:"Konu, seviye ve uzunluk belirtilmedi!" },
+      { id:"k5", etiket:"Zayıf Girdi", aciklama:"\"Bir şeyler anlat.\"", dogru:false, kusur:"Konu, seviye ve uzunluk belirtilmedi." },
       { id:"k6", etiket:"Hatalı Girdi", aciklama:"\"Rastgele 100 sayfa roman yaz.\"", dogru:false, kusur:"İstenen kısa özetle tamamen alakasız!" }
     ]
   },
@@ -974,7 +974,7 @@ var BOLUM2_VERILER = [
     hedef: "Motor Sıcaklığı 80 Dereceyi Aşınca Alarm Veren Sualtı Kodu",
     kapsuller: [
       { id:"k7", etiket:"Zayıf Girdi", aciklama:"\"Bana kod ver.\"", dogru:false, kusur:"Hangi dil ve ne iş yapacağı belirtilmemiş!" },
-      { id:"k8", etiket:"Kusurlu Girdi", aciklama:"\"Ekrana rastgele yazılar dök.\"", dogru:false, kusur:"Fonksiyonel hiçbir kod içermez!" },
+      { id:"k8", etiket:"Kusurlu Girdi", aciklama:"\"Ekrana rastgele yazılar dök.\"", dogru:false, kusur:"Fonksiyonel hiçbir kod içermez." },
       { id:"k9", etiket:"Etkili Girdi", aciklama:"\"Python dilinde motor sıcaklığı 80 dereceyi aşınca acil alarm yazdıran 4 satırlık kod yaz.\"", dogru:true, sonuc:"💻 Harika Çıktı: Python dilinde 4 satırlık hatasız uyarı fonksiyonu başarıyla üretildi!" }
     ]
   }
@@ -982,28 +982,28 @@ var BOLUM2_VERILER = [
 
 var BOLUM3_VERILER = [
   {
-    vaka: "Yapay zekâ canlı raporunda: 'Balinalar balıktır ve solungaçlarıyla su altında nefes alırlar' bilgisini üretti.",
+    vaka: "Yapay zekâ canlı raporunda: ”Balinalar balıktır ve solungaçlarıyla su altında nefes alırlar.” bilgisini üretti.",
     olcut: "Doğruluk (Gerçeğe Uygunluk)",
     onayDogru: false,
-    aciklama: "Doğru karar! Yapay zekâ hatalı bilgi (halüsinasyon) üretmiştir. Balinalar memelidir ve akciğer solunumu yapar. Bilgiler mutlaka denetlenmelidir!"
+    aciklama: "Doğru karar! Yapay zekâ hatalı bilgi (halüsinasyon) üretmiştir. Balinalar memelidir ve akciğer solunumu yapar. Bilgiler mutlaka denetlenmelidir."
   },
   {
     vaka: "Deniz tabanı sıcaklık verilerini sayılarla analiz etmek için sadece resim çizen bir yapay zekâ aracı seçildi.",
     olcut: "Uygunluk (Amaca Hizmet)",
     onayDogru: false,
-    aciklama: "Doğru karar! Resim aracı sayısal veri analizi yapamaz; amaca uygun araç seçilmemiştir."
+    aciklama: "Doğru karar! Resim aracı sayısal veri analizi yapamaz. Amaca uygun araç seçilmemiştir."
   },
   {
-    vaka: "Araştırmacı tek ve net bir komutla aradığı sualtı sıcaklık grafiğine 2 saniyede hatasız ulaştı; düzeltmeye gerek kalmadı.",
+    vaka: "Araştırmacı tek ve net bir komutla aradığı sualtı sıcaklık grafiğine 2 saniyede hatasız ulaştı, düzeltmeye gerek kalmadı.",
     olcut: "Verimlilik ve Hız",
     onayDogru: true,
     aciklama: "Doğru karar! Az girdiyle kısa sürede hedefe ulaşmak yüksek verimliliktir."
   },
   {
-    vaka: "Yapay zekâ ile üretilen sahte bir 'Okyanusta radyoaktif dev canavar görüldü' haberi internette paylaşılarak panik oluşturuldu.",
+    vaka: "Yapay zekâ ile üretilen sahte bir ”Okyanusta radyoaktif dev canavar görüldü.” haberi internette paylaşılarak panik oluşturuldu.",
     olcut: "Hukuk ve Etik (Sorumluluk)",
     onayDogru: false,
-    aciklama: "Doğru karar! Yapay zekâ ile sahte ve yanıltıcı içerik yaymak yasal suçtur; sorumluluk kullanıcıya aittir!"
+    aciklama: "Doğru karar! Yapay zekâ ile sahte ve yanıltıcı içerik yaymak yasal suçtur, sorumluluk kullanıcıya aittir!"
   }
 ];
 
@@ -1025,7 +1025,7 @@ var ARAC_ADLARI = {
   kamera: "Kamera / Analiz (Gemini)",
   cizim: "Çizim / Sanat (DALL-E)",
   kod: "Kod Asistanı (Copilot)",
-  ses: "Sesli Asistan",
+  ses: "Sesli asistan",
   metin: "Metin / Bilgi (ChatGPT)"
 };
 
@@ -1154,7 +1154,7 @@ function bolum1Yukle(){
   $("arac-paneli").style.display = "flex";
 
   $("bolum-rozet").textContent = "1. Bölüm: Araç Seçimi";
-  $("gorev-yazi").textContent = "Canlıyı/nesneyi inceleyiniz; en uygun araca tıklayınız (2 hakkınız vardır).";
+  $("gorev-yazi").textContent = "Canlıyı/nesneyi inceleyiniz, en uygun araca tıklayınız (2 hakkınız vardır).";
 
   var toplam = BOLUM1_HEDEFLER.length;
   $("ilerleme-dis").setAttribute("aria-valuenow", bolum1Indeks);
@@ -1237,7 +1237,7 @@ function modulTikla(aracTuru, btn){
 
     if(soruKalanHak === 1){
       $("btn-ileri").disabled = true;
-      bildir("Uyumsuz araç! 1 hakkınız kaldı. " + h.hataMesaj, "kotu");
+      bildir("Kusurlu seçim! " + h.hataMesaj + " 1 hakkınız kaldı, tekrar deneyiniz.", "kotu");
     } else {
       kilit = true;
       $("btn-ileri").disabled = false;
@@ -1429,7 +1429,7 @@ function bolum3Yukle(){
   $("arac-paneli").style.display = "none";
 
   $("bolum-rozet").textContent = "3. Bölüm: Kalite Radarı";
-  $("gorev-yazi").textContent = "Yapay zekâ çıktısını inceleyiniz; uygunluğuna göre onaylayınız veya reddediniz (Tek hakkınız vardır).";
+  $("gorev-yazi").textContent = "Yapay zekâ çıktısını inceleyiniz, uygunluğuna göre onaylayınız veya reddediniz (Tek hakkınız vardır).";
 
   $("btn-radar-onayla").style.borderColor = "";
   $("btn-radar-onayla").style.background = "";
@@ -1536,9 +1536,9 @@ function oyunuBitir(){
     if(yildiz >= 10){
       baslikEl.textContent = "Harika Kâşif! Görev Tamamlandı!";
     } else if(yildiz >= 6){
-      baslikEl.textContent = "İyi İş Çıkardın Kâşif!";
+      baslikEl.textContent = "İyi iş çıkardın kâşif!";
     } else {
-      baslikEl.textContent = "Kâşif Görevi Tamamladı";
+      baslikEl.textContent = "Kâşif görevi tamamladı.";
     }
   }
 
