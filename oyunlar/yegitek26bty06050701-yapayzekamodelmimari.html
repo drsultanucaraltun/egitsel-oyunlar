@@ -30,10 +30,10 @@
 
 *{box-sizing:border-box;margin:0;padding:0}
 html{height:100%;font-size:100%}
-body{height:100%;font-family:'Roboto',Arial,sans-serif;font-weight:400;background:var(--zemin);color:var(--murekkep);overflow:hidden;-webkit-text-size-adjust:100%}
+body{height:100%;font-family:'Roboto',Arial,sans-serif;font-weight:300;background:var(--zemin);color:var(--murekkep);overflow:hidden;-webkit-text-size-adjust:100%}
 button{font-family:inherit;cursor:pointer;touch-action:manipulation}
 button:focus-visible{outline:4px solid var(--odak);outline-offset:2px}
-b,strong{font-weight:700}
+b,strong{font-weight:300}
 #uygulama{height:100%;display:flex;flex-direction:column}
 #uygulama:fullscreen,#uygulama:-webkit-full-screen{width:100vw;height:100vh;background:var(--zemin)}
 
@@ -41,12 +41,12 @@ b,strong{font-weight:700}
 #ustbar{flex:0 0 auto;display:flex;align-items:center;gap:0.75rem;padding:0.4rem 1.2rem;background:var(--panel);border-bottom:3px solid var(--cizgi);box-shadow:0 2px 8px rgba(30,42,68,0.06);z-index:50}
 .ustbar-sol{display:flex;align-items:center;gap:0.5rem}
 .ustbar-sol svg{width:30px;height:30px;flex:0 0 auto}
-#ustbar h1{font-size:1.1rem;font-weight:700;color:var(--murekkep);white-space:nowrap}
-#skorlar{flex:1;display:flex;align-items:center;justify-content:center;gap:1.5rem;font-size:1.05rem;font-weight:700}
+#ustbar h1{font-size:1.1rem;font-weight:300;color:var(--murekkep);white-space:nowrap}
+#skorlar{flex:1;display:flex;align-items:center;justify-content:center;gap:1.5rem;font-size:1.05rem;font-weight:300}
 .skor-kutu{display:flex;align-items:center;gap:0.3rem;white-space:nowrap}
 .skor-kutu svg{width:20px;height:20px}
 .araclar{display:flex;align-items:center;gap:0.35rem}
-.arac{min-width:44px;min-height:44px;border:2px solid var(--cizgi);border-radius:10px;background:var(--panel);color:var(--murekkep);font-size:0.95rem;font-weight:700;padding:0 0.5rem;display:inline-flex;align-items:center;justify-content:center}
+.arac{min-width:44px;min-height:44px;border:2px solid var(--cizgi);border-radius:10px;background:var(--panel);color:var(--murekkep);font-size:0.95rem;font-weight:300;padding:0 0.5rem;display:inline-flex;align-items:center;justify-content:center}
 .arac:hover{background:var(--gri-acik)}
 .arac-tam-ekran svg{width:20px;height:20px;flex:0 0 auto}
 
@@ -57,28 +57,28 @@ b,strong{font-weight:700}
 
 /* ====== GİRİŞ EKRANI ====== */
 #ekran-giris{align-items:center;justify-content:center;text-align:center;gap:0.65rem;overflow-y:auto}
-#ekran-giris h2{font-size:2rem;font-weight:700;color:#EA580C}
-#ekran-giris .alt-metin{font-size:1.1rem;max-width:42rem;color:var(--gri);line-height:1.4}
+#ekran-giris h2{font-size:2rem;font-weight:300;color:#EA580C}
+#ekran-giris .alt-metin{font-size:1.3rem;max-width:48rem;color:var(--murekkep);line-height:1.45}
 #giris-gorsel{width:min(18rem,48vw);max-height:16vh}
 .adimlar{display:flex;gap:0.75rem;max-width:48rem;width:100%}
 .adim-kart{flex:1 1 0;border-radius:14px;padding:0.7rem 0.8rem;display:flex;flex-direction:column;align-items:center;gap:0.3rem;text-align:center}
 .adim-kart:nth-child(1){background:#FFF7ED;border:2px solid #FED7AA}
 .adim-kart:nth-child(2){background:#F0FDF4;border:2px solid #BBF7D0}
 .adim-kart:nth-child(3){background:#F5F3FF;border:2px solid #DDD6FE}
-.adim-no{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;color:#FFFFFF;margin-bottom:0.1rem}
+.adim-no{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:300;color:#FFFFFF;margin-bottom:0.1rem}
 .adim-kart:nth-child(1) .adim-no{background:#EA580C}
 .adim-kart:nth-child(2) .adim-no{background:#16A34A}
 .adim-kart:nth-child(3) .adim-no{background:#7C3AED}
-.adim-etiket{font-size:0.95rem;font-weight:700}
-.adim-ac{font-size:0.83rem;color:var(--gri);line-height:1.25}
-#btn-basla{font-size:1.3rem;font-weight:700;background:#EA580C;color:#FFFFFF;border:none;border-radius:16px;padding:0.8rem 2.2rem;min-height:60px;display:inline-flex;align-items:center;gap:0.6rem;box-shadow:0 4px 16px rgba(234,88,12,0.32);transition:background .15s,transform .15s}
+.adim-etiket{font-size:1.2rem;font-weight:300}
+.adim-ac{font-size:1.05rem;color:var(--murekkep);line-height:1.35}
+#btn-basla{font-size:1.3rem;font-weight:300;background:#EA580C;color:#FFFFFF;border:none;border-radius:16px;padding:0.8rem 2.2rem;min-height:60px;display:inline-flex;align-items:center;gap:0.6rem;box-shadow:0 4px 16px rgba(234,88,12,0.32);transition:background .15s,transform .15s}
 #btn-basla:hover{background:#C2410C;transform:scale(1.02)}
 #btn-basla svg{width:26px;height:26px}
 
 /* ====== OYUN ŞERİDİ ====== */
 #gorev-serit{flex:0 0 auto;display:flex;align-items:center;gap:0.7rem;padding:0.35rem 0.8rem;background:var(--panel);border:2px solid var(--cizgi);border-radius:12px;margin-bottom:0.35rem}
-#bolum-no{font-size:0.95rem;font-weight:700;padding:0.2rem 0.65rem;border-radius:8px;white-space:nowrap}
-#gorev-metin{font-size:1rem;font-weight:700;flex:1;min-width:0;color:var(--murekkep)}
+#bolum-no{font-size:1.05rem;font-weight:300;padding:0.2rem 0.65rem;border-radius:8px;white-space:nowrap}
+#gorev-metin{font-size:1.2rem;font-weight:300;flex:1;min-width:0;color:var(--murekkep)}
 #ilerleme-dis{flex:0 0 130px;height:10px;border-radius:8px;background:var(--gri-acik);border:1.5px solid var(--cizgi);overflow:hidden}
 #ilerleme-ic{height:100%;width:0;transition:width .35s}
 
@@ -90,8 +90,8 @@ b,strong{font-weight:700}
 #vaka-banner-ikon{width:54px;height:54px;flex:0 0 auto;border-radius:14px;background:rgba(255,255,255,0.55);display:flex;align-items:center;justify-content:center}
 #vaka-banner-ikon svg{width:36px;height:36px}
 #vaka-banner-sag{flex:1;min-width:0}
-#vaka-baslik{font-size:1.05rem;font-weight:700;margin-bottom:0.2rem}
-#vaka-aciklama{font-size:0.88rem;line-height:1.3;opacity:0.85}
+#vaka-baslik{font-size:1.35rem;font-weight:300;margin-bottom:0.2rem}
+#vaka-aciklama{font-size:1.15rem;line-height:1.4;opacity:1}
 
 /* ====== ADIM GÖSTERGESİ ====== */
 /* ====== VAKA SAHNE GÖRSELI ====== */
@@ -100,9 +100,9 @@ b,strong{font-weight:700}
 #vaka-sahne svg{width:100%;height:clamp(96px,16vh,160px);display:block}
 
 #adim-gosterge{display:flex;align-items:center;gap:0;flex:0 0 auto;background:var(--panel);border:2px solid var(--cizgi);border-radius:14px;overflow:hidden}
-.adim-dilim{flex:1;display:flex;align-items:center;justify-content:center;gap:0.45rem;padding:0.5rem 0.6rem;font-size:0.88rem;font-weight:700;color:var(--gri);border-right:2px solid var(--cizgi);transition:background .2s,color .2s}
+.adim-dilim{flex:1;display:flex;align-items:center;justify-content:center;gap:0.45rem;padding:0.5rem 0.6rem;font-size:1.1rem;font-weight:300;color:var(--murekkep);border-right:2px solid var(--cizgi);transition:background .2s,color .2s}
 .adim-dilim:last-child{border-right:none}
-.adim-daire{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:700;background:var(--gri-acik);color:var(--gri);flex:0 0 auto;transition:background .2s,color .2s}
+.adim-daire{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:300;background:var(--gri-acik);color:var(--murekkep);flex:0 0 auto;transition:background .2s,color .2s}
 .adim-dilim.aktif{background:#EFF6FF;color:#1D4ED8}
 .adim-dilim.aktif .adim-daire{background:#1D4ED8;color:#FFFFFF}
 .adim-dilim.tamam{background:var(--dogru-acik);color:var(--dogru)}
@@ -111,18 +111,18 @@ b,strong{font-weight:700}
 /* ====== BÖLÜM ALANLARI ====== */
 .bolum{display:none;flex-direction:column;gap:0.45rem;flex:1 1 auto;min-height:0}
 .bolum.acik{display:flex}
-.bolum-baslik{font-size:0.88rem;font-weight:700;color:var(--gri);text-transform:uppercase;letter-spacing:0.04em;padding:0 0.1rem}
+.bolum-baslik{font-size:1.25rem;font-weight:300;color:var(--murekkep);text-transform:uppercase;letter-spacing:0.04em;padding:0 0.1rem}
 #bolum-yaklasim .bolum-baslik{text-transform:none;letter-spacing:normal}
 #bolum-veri .bolum-baslik{text-transform:none;letter-spacing:normal}
 
 /* ====== VERİ KARTları — TILE ====== */
-.veri-izgara{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.45rem;flex:0 0 auto;width:100%;max-width:42rem;align-self:center}
-.veri-kart{background:var(--panel);border:2.5px solid var(--cizgi);border-radius:16px;padding:0.4rem 0.55rem;text-align:center;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.18rem;min-height:88px;position:relative}
+.veri-izgara{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.55rem;flex:0 0 auto;width:100%;max-width:52rem;align-self:center}
+.veri-kart{background:var(--panel);border:2.5px solid var(--cizgi);border-radius:16px;padding:0.55rem 0.65rem;text-align:center;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.25rem;min-height:112px;position:relative}
 .veri-kart:hover{border-color:#94A3B8;background:#F8FAFC;box-shadow:0 3px 12px rgba(0,0,0,0.08)}
 .veri-kart-ikon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;transition:background .15s}
 .veri-kart-ikon svg{width:25px;height:25px}
-.veri-kart-ad{font-size:0.9rem;font-weight:700;color:var(--murekkep);line-height:1.2}
-.veri-kart-ac{font-size:0.76rem;color:var(--gri);line-height:1.2}
+.veri-kart-ad{font-size:1.2rem;font-weight:300;color:var(--murekkep);line-height:1.25}
+.veri-kart-ac{font-size:1.05rem;color:var(--murekkep);line-height:1.3}
 .veri-kart.kabul{border-color:var(--dogru);background:var(--dogru-acik);cursor:pointer;box-shadow:0 0 0 3px rgba(22,101,52,0.15)}
 .veri-kart.kabul .veri-kart-ikon{background:#BBF7D0}
 .veri-kart.kabul .veri-kart-ad{color:var(--dogru)}
@@ -133,13 +133,13 @@ b,strong{font-weight:700}
 .veri-kart.sarsil{animation:sarsil .35s}
 
 /* ====== YAKLAŞIM KARTları — 2x2 GRID ====== */
-.yaklasim-izgara{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;flex:1 1 auto}
-.yaklasim-kart{background:var(--panel);border:2.5px solid var(--cizgi);border-radius:16px;padding:0.7rem 0.65rem;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s;display:flex;flex-direction:column;align-items:center;gap:0.35rem;text-align:center;position:relative}
+.yaklasim-izgara{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.6rem;flex:0 0 auto}
+.yaklasim-kart{background:var(--panel);border:2.5px solid var(--cizgi);border-radius:16px;padding:0.8rem 0.7rem;min-height:145px;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s;display:flex;flex-direction:column;align-items:center;gap:0.4rem;text-align:center;position:relative}
 .yaklasim-kart:hover{border-color:#94A3B8;background:#F8FAFC;box-shadow:0 3px 12px rgba(0,0,0,0.08)}
 .yaklasim-ikon{width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
 .yaklasim-ikon svg{width:30px;height:30px}
-.yaklasim-ad{font-size:0.9rem;font-weight:700;color:var(--murekkep);line-height:1.2}
-.yaklasim-ozet{font-size:0.76rem;color:var(--gri);line-height:1.2}
+.yaklasim-ad{font-size:1.2rem;font-weight:300;color:var(--murekkep);line-height:1.25}
+.yaklasim-ozet{font-size:1.05rem;color:var(--murekkep);line-height:1.3}
 .yaklasim-kart.secili{border-color:var(--dogru);background:var(--dogru-acik);cursor:pointer;box-shadow:0 0 0 3px rgba(22,101,52,0.15)}
 .yaklasim-kart.secili .yaklasim-ad{color:var(--dogru)}
 .yaklasim-kart.yanlis{border-color:var(--yanlis);background:var(--yanlis-acik);cursor:pointer}
@@ -151,36 +151,37 @@ b,strong{font-weight:700}
 .sim-kart{width:100%;max-width:38rem;background:var(--panel);border:2.5px solid var(--cizgi);border-radius:16px;padding:0.85rem 1rem;display:flex;flex-direction:column;gap:0.55rem;align-items:center}
 #sim-svg-kap{width:100%;max-width:400px;height:108px}
 #sim-svg-kap svg{width:100%;height:100%}
-#sim-rapor{font-size:1rem;font-weight:700;text-align:center;line-height:1.35}
+#sim-svg-kap text{font-size:15px}
+#sim-rapor{font-size:1.2rem;font-weight:300;text-align:center;line-height:1.4}
 .sim-aksiyon{display:flex;justify-content:center;gap:0.7rem;flex-wrap:wrap;flex:0 0 auto}
-.birincil-btn{font-size:1.1rem;font-weight:700;background:var(--dogru);color:#FFFFFF;border:none;border-radius:12px;padding:0.65rem 1.7rem;min-height:50px;display:inline-flex;align-items:center;gap:0.4rem;box-shadow:0 3px 10px rgba(22,101,52,0.25);transition:background .15s,transform .15s}
+.birincil-btn{font-size:1.1rem;font-weight:300;background:var(--dogru);color:#FFFFFF;border:none;border-radius:12px;padding:0.65rem 1.7rem;min-height:50px;display:inline-flex;align-items:center;gap:0.4rem;box-shadow:0 3px 10px rgba(22,101,52,0.25);transition:background .15s,transform .15s}
 .birincil-btn:hover{background:#15803D;transform:scale(1.02)}
 .birincil-btn:disabled{background:#CBD5E1;cursor:not-allowed;box-shadow:none;transform:none}
 .birincil-btn svg{width:20px;height:20px}
-.ikincil-btn{font-size:1.1rem;font-weight:700;border:2.5px solid var(--dogru);background:var(--dogru-acik);color:var(--dogru);border-radius:12px;padding:0.65rem 1.7rem;min-height:50px;display:inline-flex;align-items:center;gap:0.4rem;transition:background .15s}
+.ikincil-btn{font-size:1.1rem;font-weight:300;border:2.5px solid var(--dogru);background:var(--dogru-acik);color:var(--dogru);border-radius:12px;padding:0.65rem 1.7rem;min-height:50px;display:inline-flex;align-items:center;gap:0.4rem;transition:background .15s}
 .ikincil-btn:hover{background:var(--dogru);color:#FFFFFF}
 .ikincil-btn svg{width:20px;height:20px}
 
 /* ====== SON EKRAN ====== */
 #ekran-son{align-items:center;justify-content:center;text-align:center;gap:0.85rem;overflow-y:auto}
-#ekran-son h2{font-size:2rem;font-weight:700;color:#15803D}
-#son-ozet{font-size:1.3rem;font-weight:700;color:var(--murekkep)}
-.son-tablo{background:var(--panel);border:2px solid var(--cizgi);border-radius:14px;padding:0.65rem 1.1rem;max-width:38rem;width:100%;text-align:left;font-size:0.95rem;line-height:1.5}
+#ekran-son h2{font-size:2rem;font-weight:300;color:#15803D}
+#son-ozet{font-size:1.3rem;font-weight:300;color:var(--murekkep)}
+.son-tablo{background:var(--panel);border:2px solid var(--cizgi);border-radius:14px;padding:0.65rem 1.1rem;max-width:38rem;width:100%;text-align:left;font-size:1.15rem;line-height:1.5}
 .son-satir{display:flex;justify-content:space-between;border-bottom:1px solid #F1F5F9;padding:0.3rem 0}
 .son-satir:last-child{border-bottom:none}
-#btn-yeniden{font-size:1.15rem;font-weight:700;background:#EA580C;color:#FFFFFF;border:none;border-radius:12px;padding:0.7rem 2rem;min-height:54px;transition:background .15s}
+#btn-yeniden{font-size:1.15rem;font-weight:300;background:#EA580C;color:#FFFFFF;border:none;border-radius:12px;padding:0.7rem 2rem;min-height:54px;transition:background .15s}
 #btn-yeniden:hover{background:#C2410C}
 
 /* ====== ALT BAR ====== */
 #altbar{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:0.4rem 1.2rem;background:var(--panel);border-top:3px solid var(--cizgi)}
-.gezinme{display:flex;align-items:center;gap:0.45rem;font-size:1.1rem;font-weight:700;min-height:52px;min-width:7rem;border-radius:12px;border:none;padding:0 1rem}
+.gezinme{display:flex;align-items:center;gap:0.45rem;font-size:1.25rem;font-weight:300;min-height:52px;min-width:7rem;border-radius:12px;border:none;padding:0 1rem}
 #btn-geri{background:var(--gri-acik);color:var(--murekkep)}
 #btn-ileri{background:#EA580C;color:#FFFFFF}
 .gezinme:disabled{background:#E2E8F0;color:var(--gri);cursor:not-allowed}
 .gezinme svg{width:20px;height:20px;flex:0 0 auto}
 
 /* ====== GERİ BİLDİRİM ====== */
-#geribildirim{flex:0 0 auto;min-height:3.25rem;width:100%;max-width:44rem;align-self:center;font-size:0.98rem;font-weight:700;border-radius:12px;padding:0.5rem 0.8rem;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2}
+#geribildirim{flex:0 0 auto;min-height:3.25rem;width:100%;max-width:52rem;align-self:center;font-size:1.15rem;font-weight:300;border-radius:12px;padding:0.5rem 0.8rem;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.35}
 #geribildirim.goster{animation:popIn .2s ease-out}
 #geribildirim.iyi{background:var(--dogru-acik);color:var(--dogru);border:3px solid #86EFAC}
 #geribildirim.kotu{background:var(--yanlis-acik);color:var(--yanlis);border:3px solid #FCA5A5}
@@ -197,9 +198,7 @@ b,strong{font-weight:700}
   .veri-kart{min-height:76px;padding:0.25rem 0.45rem}
   .veri-kart-ikon{width:30px;height:30px}
   .veri-kart-ikon svg{width:21px;height:21px}
-  .veri-kart-ad{font-size:0.82rem}
-  .veri-kart-ac{font-size:0.7rem}
-  #geribildirim{min-height:2.75rem;font-size:0.85rem}
+  #geribildirim{min-height:2.75rem}
   #vaka-banner-ikon{width:44px;height:44px}
 }
 @media (max-width:650px){
@@ -258,12 +257,12 @@ b,strong{font-weight:700}
         <rect x="10" y="18" width="300" height="120" rx="18" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
         <rect x="28" y="38" width="68" height="52" rx="10" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/>
         <text x="62" y="60" text-anchor="middle" font-size="20" fill="#EA580C">DB</text>
-        <text x="62" y="79" text-anchor="middle" font-size="9" fill="#EA580C" font-weight="700">VERİ</text>
+        <text x="62" y="79" text-anchor="middle" font-size="9" fill="#EA580C" font-weight="300">VERİ</text>
         <line x1="98" y1="64" x2="122" y2="64" stroke="#94A3B8" stroke-width="2.5" stroke-linecap="round"/>
         <path d="M118 59 l8 5 -8 5" fill="#94A3B8"/>
         <rect x="124" y="33" width="82" height="60" rx="12" fill="#1E2A44"/>
         <rect x="140" y="50" width="50" height="26" rx="6" fill="#EA580C"/>
-        <text x="165" y="68" text-anchor="middle" font-size="8.5" fill="#FFFFFF" font-weight="700">YZ MODELİ</text>
+        <text x="165" y="68" text-anchor="middle" font-size="8.5" fill="#FFFFFF" font-weight="300">YZ MODELİ</text>
         <line x1="208" y1="64" x2="232" y2="64" stroke="#94A3B8" stroke-width="2.5" stroke-linecap="round"/>
         <path d="M228 59 l8 5 -8 5" fill="#94A3B8"/>
         <rect x="234" y="38" width="60" height="52" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/>
@@ -347,8 +346,8 @@ b,strong{font-weight:700}
       <div id="son-ozet">Tamamlanan: 5 / 5 senaryo</div>
       <div class="son-tablo">
         <div class="son-satir"><span><b>Tamamlanan Model:</b></span><span>5 / 5</span></div>
-        <div class="son-satir"><span><b>Veri Güvenliği:</b></span><span style="color:var(--dogru);font-weight:700">Korundu</span></div>
-        <div class="son-satir"><span><b>Etik Denetimi:</b></span><span style="color:var(--dogru);font-weight:700">Geçildi</span></div>
+        <div class="son-satir"><span><b>Veri Güvenliği:</b></span><span style="color:var(--dogru);font-weight:300">Korundu</span></div>
+        <div class="son-satir"><span><b>Etik Denetimi:</b></span><span style="color:var(--dogru);font-weight:300">Geçildi</span></div>
       </div>
       <button id="btn-yeniden" type="button">Yeniden Oyna</button>
     </section>
@@ -387,8 +386,8 @@ var VAKALAR = [
        ikon:'<svg viewBox="0 0 24 24" fill="none" stroke="#B91C1C" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>'}
     ],
     dogruYaklasim:"siniflandirma",
-    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/><text x="70" y="48" font-size="13" font-weight="700" fill="#92400E">Sorun: Atıklar Karışık</text><text x="70" y="72" font-size="11" fill="#92400E">Kutulara uygun atıklar seçilmeli</text>',
-    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="48" font-size="13" font-weight="700" fill="#166534">Atıklar Doğru Kutularda</text><text x="70" y="72" font-size="11" font-weight="700" fill="#16A34A">Plastik, cam, kâğıt ve organik ayrıldı</text>',
+    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/><text x="70" y="48" font-size="13" font-weight="300" fill="#92400E">Sorun: Atıklar Karışık</text><text x="70" y="72" font-size="11" fill="#92400E">Kutulara uygun atıklar seçilmeli</text>',
+    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="48" font-size="13" font-weight="300" fill="#166534">Atıklar Doğru Kutularda</text><text x="70" y="72" font-size="11" font-weight="300" fill="#16A34A">Plastik, cam, kâğıt ve organik ayrıldı</text>',
     simRapor:"Sınıflandırma modeli plastik, cam, kâğıt ve organik atıkları doğru kutulara yönlendirdi."
   },
   {
@@ -409,8 +408,8 @@ var VAKALAR = [
        ikon:'<svg viewBox="0 0 24 24" fill="none" stroke="#B91C1C" stroke-width="2"><path d="M21 16l-4-8-3 4-5-7-4 11"/></svg>'}
     ],
     dogruYaklasim:"goruntu_tanima",
-    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#FFFBEB" stroke="#FDE68A" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#92400E">Eski Durum: Hastalık Geç Fark Edildi</text><circle cx="85" cy="72" r="10" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/><text x="102" y="77" font-size="11" fill="#92400E">Mahsul kaybı büyük</text>',
-    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#166534">Hastalık Erken Fark Edildi</text><circle cx="85" cy="72" r="10" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/><text x="102" y="77" font-size="11" font-weight="700" fill="#16A34A">Hasta bitkiler işaretlendi</text>',
+    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#FFFBEB" stroke="#FDE68A" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#92400E">Eski Durum: Hastalık Geç Fark Edildi</text><circle cx="85" cy="72" r="10" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/><text x="102" y="77" font-size="11" fill="#92400E">Mahsul kaybı büyük</text>',
+    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#166534">Hastalık Erken Fark Edildi</text><circle cx="85" cy="72" r="10" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/><text x="102" y="77" font-size="11" font-weight="300" fill="#16A34A">Hasta bitkiler işaretlendi</text>',
     simRapor:"Görüntü Tanıma yapraklardaki hastalık belirtilerini fark etti. Çiftçi etkilenen bitkilere zamanında müdahale edebilir."
   },
   {
@@ -431,8 +430,8 @@ var VAKALAR = [
        ikon:'<svg viewBox="0 0 24 24" fill="none" stroke="#B91C1C" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/></svg>'}
     ],
     dogruYaklasim:"tahmin",
-    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#FFFBEB" stroke="#FDE68A" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#92400E">Sorun: Trafik Kuyruğu</text><text x="80" y="76" font-size="11" fill="#92400E">Kavşakta araçlar bekliyor</text>',
-    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#166534">Çözüm: Akıllı Yeşil Dalga Sistemi</text><rect x="70" y="60" width="260" height="10" rx="4" fill="#DCFCE7"/><text x="80" y="84" font-size="11" font-weight="700" fill="#16A34A">Araçlar beklemeden akıyor!</text>',
+    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#FFFBEB" stroke="#FDE68A" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#92400E">Sorun: Trafik Kuyruğu</text><text x="80" y="76" font-size="11" fill="#92400E">Kavşakta araçlar bekliyor</text>',
+    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#166534">Çözüm: Akıllı Yeşil Dalga Sistemi</text><rect x="70" y="60" width="260" height="10" rx="4" fill="#DCFCE7"/><text x="80" y="84" font-size="11" font-weight="300" fill="#16A34A">Araçlar beklemeden akıyor!</text>',
     simRapor:"Tahmin modeli yoğunluğu önceden bildirdi! Trafik ışıkları otomatik ayarlandı!"
   },
   {
@@ -453,8 +452,8 @@ var VAKALAR = [
        ikon:'<svg viewBox="0 0 24 24" fill="none" stroke="#B91C1C" stroke-width="2"><rect x="3" y="8" width="18" height="4" rx="1"/><line x1="6" y1="12" x2="6" y2="19"/><line x1="18" y1="12" x2="18" y2="19"/></svg>'}
     ],
     dogruYaklasim:"oneri_motoru",
-    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#6D28D9">Sorun: Uygun Kitap Bulunamıyor</text><text x="70" y="68" font-size="11" fill="#64748B">İlgi alanlarıyla kitaplar eşleşmeli</text>',
-    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#166534">Uygun Kitap Önerildi</text><text x="70" y="68" font-size="11" font-weight="700" fill="#16A34A">İlgi alanına göre eşleştirme yapıldı</text>',
+    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#6D28D9">Sorun: Uygun Kitap Bulunamıyor</text><text x="70" y="68" font-size="11" fill="#64748B">İlgi alanlarıyla kitaplar eşleşmeli</text>',
+    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#166534">Uygun Kitap Önerildi</text><text x="70" y="68" font-size="11" font-weight="300" fill="#16A34A">İlgi alanına göre eşleştirme yapıldı</text>',
     simRapor:"Öneri Motoru okuma geçmişi ile kitap konularını eşleştirerek uygun kitapları önerdi."
   },
   {
@@ -475,14 +474,14 @@ var VAKALAR = [
        ikon:'<svg viewBox="0 0 24 24" fill="none" stroke="#B91C1C" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>'}
     ],
     dogruYaklasim:"metin_analizi",
-    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDFA" stroke="#99F6E4" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#134E4A">Sorun: Görüşler Karışık</text><text x="70" y="68" font-size="11" fill="#64748B">İlgili birimlere ayrılmaları gerekiyor</text>',
-    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#166534">Görüşler Konularına Ayrıldı</text><text x="70" y="68" font-size="11" font-weight="700" fill="#16A34A">Her talep ilgili birime yönlendirildi</text>',
+    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDFA" stroke="#99F6E4" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#134E4A">Sorun: Görüşler Karışık</text><text x="70" y="68" font-size="11" fill="#64748B">İlgili birimlere ayrılmaları gerekiyor</text>',
+    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#166534">Görüşler Konularına Ayrıldı</text><text x="70" y="68" font-size="11" font-weight="300" fill="#16A34A">Her talep ilgili birime yönlendirildi</text>',
     simRapor:"Metin Analizi yazılı görüşleri konularına göre grupladı ve ilgili birimlere yönlendirdi."
   }
 ];
 
 /* Her vakada sorun, hatalı karar ve başarılı model aynı sahnede gösterilir. */
-function sahneYazi(x,y,metin,renk,boyut){return '<text x="'+x+'" y="'+y+'" text-anchor="middle" font-family="Roboto,Arial" font-size="'+(boyut||11)+'" font-weight="700" fill="'+(renk||'#334155')+'">'+metin+'</text>';}
+function sahneYazi(x,y,metin,renk,boyut){return '<text x="'+x+'" y="'+y+'" text-anchor="middle" font-family="Roboto,Arial" font-size="'+Math.max(14,boyut||14)+'" font-weight="300" fill="'+(renk||'#334155')+'">'+metin+'</text>';}
 function sahneEtiket(metin,durum){
   var renk=durum==="dogru"?"#166534":(durum==="yanlis"?"#B91C1C":"#475569");
   var zemin=durum==="dogru"?"#DCFCE7":(durum==="yanlis"?"#FEE2E2":"#E2E8F0");
