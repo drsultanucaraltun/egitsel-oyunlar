@@ -95,7 +95,7 @@ b,strong{font-weight:700}
 /* ====== VAKA SAHNE GÖRSELI ====== */
 #vaka-sahne{display:none;border-radius:14px;overflow:hidden;flex:0 0 auto;border:2px solid var(--cizgi);background:var(--panel)}
 #vaka-sahne.acik{display:block}
-#vaka-sahne svg{width:100%;display:block;height:auto}
+#vaka-sahne svg{width:100%;height:clamp(96px,16vh,160px);display:block}
 
 #adim-gosterge{display:flex;align-items:center;gap:0;flex:0 0 auto;background:var(--panel);border:2px solid var(--cizgi);border-radius:14px;overflow:hidden}
 .adim-dilim{flex:1;display:flex;align-items:center;justify-content:center;gap:0.45rem;padding:0.5rem 0.6rem;font-size:0.88rem;font-weight:700;color:var(--gri);border-right:2px solid var(--cizgi);transition:background .2s,color .2s}
@@ -112,11 +112,11 @@ b,strong{font-weight:700}
 .bolum-baslik{font-size:0.88rem;font-weight:700;color:var(--gri);text-transform:uppercase;letter-spacing:0.04em;padding:0 0.1rem}
 
 /* ====== VERİ KARTları — TILE ====== */
-.veri-izgara{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;flex:1 1 auto}
-.veri-kart{background:var(--panel);border:2.5px solid var(--cizgi);border-radius:16px;padding:0.75rem 0.65rem 0.65rem;text-align:center;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s;display:flex;flex-direction:column;align-items:center;gap:0.35rem;position:relative}
+.veri-izgara{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.45rem;flex:0 0 auto;width:100%;max-width:42rem;align-self:center}
+.veri-kart{background:var(--panel);border:2.5px solid var(--cizgi);border-radius:16px;padding:0.4rem 0.55rem;text-align:center;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.18rem;min-height:88px;position:relative}
 .veri-kart:hover{border-color:#94A3B8;background:#F8FAFC;box-shadow:0 3px 12px rgba(0,0,0,0.08)}
-.veri-kart-ikon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;transition:background .15s}
-.veri-kart-ikon svg{width:30px;height:30px}
+.veri-kart-ikon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;transition:background .15s}
+.veri-kart-ikon svg{width:25px;height:25px}
 .veri-kart-ad{font-size:0.9rem;font-weight:700;color:var(--murekkep);line-height:1.2}
 .veri-kart-ac{font-size:0.76rem;color:var(--gri);line-height:1.2}
 .veri-kart.kabul{border-color:var(--dogru);background:var(--dogru-acik);cursor:default;box-shadow:0 0 0 3px rgba(22,101,52,0.15)}
@@ -160,9 +160,7 @@ b,strong{font-weight:700}
 /* ====== SON EKRAN ====== */
 #ekran-son{align-items:center;justify-content:center;text-align:center;gap:0.85rem;overflow-y:auto}
 #ekran-son h2{font-size:2rem;font-weight:700;color:#15803D}
-#son-yildizlar{display:flex;gap:0.35rem;justify-content:center}
-#son-yildizlar svg{width:44px;height:44px}
-#son-puan{font-size:1.3rem;font-weight:700;color:var(--murekkep)}
+#son-ozet{font-size:1.3rem;font-weight:700;color:var(--murekkep)}
 .son-tablo{background:var(--panel);border:2px solid var(--cizgi);border-radius:14px;padding:0.65rem 1.1rem;max-width:38rem;width:100%;text-align:left;font-size:0.95rem;line-height:1.5}
 .son-satir{display:flex;justify-content:space-between;border-bottom:1px solid #F1F5F9;padding:0.3rem 0}
 .son-satir:last-child{border-bottom:none}
@@ -178,20 +176,28 @@ b,strong{font-weight:700}
 .gezinme svg{width:20px;height:20px;flex:0 0 auto}
 
 /* ====== GERİ BİLDİRİM ====== */
-#geribildirim{position:absolute;left:50%;top:0.5rem;transform:translateX(-50%);max-width:min(92%,44rem);font-size:1.05rem;font-weight:700;border-radius:12px;padding:0.55rem 1.2rem;display:none;text-align:center;z-index:100;box-shadow:0 6px 20px rgba(0,0,0,0.12)}
-#geribildirim.goster{display:block;animation:popIn .2s ease-out}
+#geribildirim{flex:0 0 auto;min-height:3.25rem;width:100%;max-width:44rem;align-self:center;font-size:0.98rem;font-weight:700;border-radius:12px;padding:0.5rem 0.8rem;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2}
+#geribildirim.goster{animation:popIn .2s ease-out}
 #geribildirim.iyi{background:var(--dogru-acik);color:var(--dogru);border:3px solid #86EFAC}
 #geribildirim.kotu{background:var(--yanlis-acik);color:var(--yanlis);border:3px solid #FCA5A5}
 #geribildirim.notr{background:#EEF2FF;color:#4338CA;border:3px solid #C7D2FE}
 
+.adim-aksiyon{display:flex;justify-content:center;padding:0.1rem 0;flex:0 0 auto}
+
 @keyframes sarsil{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-@keyframes popIn{0%{opacity:0;transform:translate(-50%,-10px) scale(0.95)}100%{opacity:1;transform:translate(-50%,0) scale(1)}}
+@keyframes popIn{0%{opacity:0;transform:translateY(-5px)}100%{opacity:1;transform:translateY(0)}}
 @media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
 @media (max-height:760px){
   #ekran-giris h2{font-size:1.6rem}
   #giris-gorsel{max-height:12vh}
   .adim-kart{padding:0.5rem 0.6rem}
-  .veri-kart-ikon,.yaklasim-ikon{width:42px;height:42px}
+  .yaklasim-ikon{width:42px;height:42px}
+  .veri-kart{min-height:76px;padding:0.25rem 0.45rem}
+  .veri-kart-ikon{width:30px;height:30px}
+  .veri-kart-ikon svg{width:21px;height:21px}
+  .veri-kart-ad{font-size:0.82rem}
+  .veri-kart-ac{font-size:0.7rem}
+  #geribildirim{min-height:2.75rem;font-size:0.85rem}
   #vaka-banner-ikon{width:44px;height:44px}
 }
 </style>
@@ -212,11 +218,7 @@ b,strong{font-weight:700}
     </div>
     <div id="skorlar">
       <span class="skor-kutu">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="#FBBF24"/></svg>
-        <span id="skor-yildiz">0 / 5</span>
-      </span>
-      <span class="skor-kutu">
-        <span>Puan:</span><span id="skor-puan">0</span>
+        <span id="tamamlanan-sayi">Tamamlanan: 0 / 5</span>
       </span>
     </div>
     <div class="araclar">
@@ -293,7 +295,7 @@ b,strong{font-weight:700}
             <div id="vaka-aciklama"></div>
           </div>
         </div>
-        <div id="vaka-sahne" aria-hidden="true"></div>
+        <div id="vaka-sahne"></div>
         <div id="adim-gosterge" aria-hidden="true">
           <div class="adim-dilim" id="adim-1"><div class="adim-daire">1</div><span>Veri Seç</span></div>
           <div class="adim-dilim" id="adim-2"><div class="adim-daire">2</div><span>YZ Yaklaşımı</span></div>
@@ -302,10 +304,22 @@ b,strong{font-weight:700}
         <div class="bolum acik" id="bolum-veri">
           <div class="bolum-baslik">Modeli eğitmek için 2 güvenli veri kaynağı seçiniz:</div>
           <div class="veri-izgara" id="veri-havuzu"></div>
+          <div class="adim-aksiyon" id="veri-aksiyon" style="display:none">
+            <button class="birincil-btn" id="btn-veri-kontrol" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="20" height="20"><polyline points="20 6 9 17 4 12"/></svg>
+              Seçimi Kontrol Et
+            </button>
+          </div>
         </div>
         <div class="bolum" id="bolum-yaklasim">
           <div class="bolum-baslik">Bu problemi çözmek için hangi yapay zekâ yaklaşımı uygun?</div>
           <div class="yaklasim-izgara" id="yaklasim-havuzu"></div>
+          <div class="adim-aksiyon" id="yaklasim-aksiyon" style="display:none">
+            <button class="birincil-btn" id="btn-yaklasim-kontrol" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="20" height="20"><polyline points="20 6 9 17 4 12"/></svg>
+              Seçimi Kontrol Et
+            </button>
+          </div>
         </div>
         <div class="bolum" id="bolum-sim">
           <div class="sim-kart">
@@ -324,14 +338,14 @@ b,strong{font-weight:700}
           </div>
         </div>
       </div>
+      <div id="geribildirim" role="status" aria-live="assertive"></div>
     </section>
 
     <!-- SON EKRAN -->
     <section class="ekran" id="ekran-son" aria-labelledby="son-baslik">
       <h2 id="son-baslik">Tebrikler Baş Mimar!</h2>
       <p class="alt-metin">5 gerçek hayat problemini başarıyla çözdünüz!</p>
-      <div id="son-yildizlar" aria-hidden="true"></div>
-      <div id="son-puan">Puanınız: 500</div>
+      <div id="son-ozet">Tamamlanan: 5 / 5 vaka</div>
       <div class="son-tablo">
         <div class="son-satir"><span><b>Tamamlanan Model:</b></span><span>5 / 5</span></div>
         <div class="son-satir"><span><b>Veri Güvenliği:</b></span><span style="color:var(--dogru);font-weight:700">Korundu</span></div>
@@ -340,7 +354,6 @@ b,strong{font-weight:700}
       <button id="btn-yeniden" type="button">Yeniden Oyna</button>
     </section>
 
-    <div id="geribildirim" role="status" aria-live="assertive"></div>
   </main>
 
   <footer id="altbar">
@@ -362,99 +375,6 @@ var VAKALAR = [
     renk:{ana:"#EA580C",acik:"#FFF7ED",cizgi:"#FED7AA"},
     bannerIkon:'<svg viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2.2"><path d="M7 19H4.5a2.5 2.5 0 0 1 0-5H7"/><path d="M17 19h2.5a2.5 2.5 0 0 0 0-5H17"/><path d="M12 19v-8M8 11l4-4 4 4"/><rect x="6" y="19" width="12" height="3" rx="1.5"/></svg>',
     aciklama:"Okulun çöp tenekelerine plastik, cam, kağıt ve organik atıklar karışık atılıyor. Otomatik ayırt eden bir robot tasarlayalım!",
-    sahneSvg:'<svg viewBox="0 0 700 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geri Dönüşüm Robotu Sahnesi">' +
-      '<!-- Arka plan -->' +
-      '<rect width="700" height="160" fill="#F0FDF4"/>' +
-      '<rect x="0" y="120" width="700" height="40" fill="#E2E8F0"/>' +
-      '<rect x="0" y="116" width="700" height="6" fill="#CBD5E1"/>' +
-      '<!-- Okul binası arka plan -->' +
-      '<rect x="10" y="40" width="120" height="80" rx="4" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>' +
-      '<rect x="45" y="80" width="30" height="40" rx="2" fill="#1E40AF" fill-opacity="0.25"/>' +
-      '<rect x="20" y="55" width="25" height="20" rx="2" fill="#BFDBFE"/>' +
-      '<rect x="85" y="55" width="25" height="20" rx="2" fill="#BFDBFE"/>' +
-      '<text x="70" y="40" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">OKUL</text>' +
-      '<!-- Karışık çöp yığını -->' +
-      '<ellipse cx="195" cy="120" rx="45" ry="8" fill="#D97706" fill-opacity="0.3"/>' +
-      '<!-- Plastik şişe -->' +
-      '<rect x="162" y="88" width="10" height="24" rx="5" fill="#3B82F6" stroke="#2563EB" stroke-width="1"/>' +
-      '<rect x="164" y="85" width="6" height="5" rx="2" fill="#1D4ED8"/>' +
-      '<!-- Cam kavanoz -->' +
-      '<rect x="178" y="90" width="14" height="22" rx="3" fill="#6EE7B7" fill-opacity="0.7" stroke="#059669" stroke-width="1"/>' +
-      '<rect x="180" y="87" width="10" height="5" rx="2" fill="#059669"/>' +
-      '<!-- Kağıt -->' +
-      '<rect x="198" y="95" width="18" height="22" rx="2" fill="#FEF9C3" stroke="#CA8A04" stroke-width="1" transform="rotate(-12 207 106)"/>' +
-      '<line x1="200" y1="101" x2="212" y2="101" stroke="#CA8A04" stroke-width="1" opacity="0.5"/>' +
-      '<line x1="200" y1="106" x2="212" y2="106" stroke="#CA8A04" stroke-width="1" opacity="0.5"/>' +
-      '<!-- Organik -->' +
-      '<ellipse cx="222" cy="105" rx="12" ry="10" fill="#86EFAC" stroke="#16A34A" stroke-width="1"/>' +
-      '<path d="M218 98 q4-6 8 0" fill="none" stroke="#15803D" stroke-width="1.5"/>' +
-      '<text x="195" y="138" text-anchor="middle" font-size="9" fill="#92400E" font-weight="700">Karışık Atıklar</text>' +
-      '<!-- YZ Robot -->' +
-      '<!-- Robot gövde -->' +
-      '<rect x="295" y="55" width="60" height="65" rx="8" fill="#1E2A44"/>' +
-      '<!-- Robot kafa -->' +
-      '<rect x="302" y="35" width="46" height="30" rx="8" fill="#334155"/>' +
-      '<rect x="310" y="41" width="12" height="8" rx="3" fill="#38BDF8"/>' +
-      '<rect x="328" y="41" width="12" height="8" rx="3" fill="#38BDF8"/>' +
-      '<rect x="312" y="52" width="26" height="4" rx="2" fill="#EA580C"/>' +
-      '<!-- Robot anten -->' +
-      '<line x1="325" y1="35" x2="325" y2="25" stroke="#94A3B8" stroke-width="2"/>' +
-      '<circle cx="325" cy="22" r="4" fill="#EA580C"/>' +
-      '<!-- Robot kol sol (çöpe uzanıyor) -->' +
-      '<path d="M295 75 Q260 70 245 105" fill="none" stroke="#475569" stroke-width="8" stroke-linecap="round"/>' +
-      '<rect x="236" y="100" width="18" height="14" rx="4" fill="#64748B"/>' +
-      '<line x1="240" y1="107" x2="252" y2="107" stroke="#94A3B8" stroke-width="2"/>' +
-      '<!-- Robot kol sağ (kutuya bırakıyor) -->' +
-      '<path d="M355 75 Q390 70 408 92" fill="none" stroke="#475569" stroke-width="8" stroke-linecap="round"/>' +
-      '<rect x="403" y="87" width="18" height="14" rx="4" fill="#64748B"/>' +
-      '<!-- Robot ekran -->' +
-      '<rect x="305" y="68" width="40" height="28" rx="5" fill="#0F172A"/>' +
-      '<text x="325" y="80" text-anchor="middle" font-size="6" fill="#38BDF8">SINIFLANDIRICI</text>' +
-      '<text x="325" y="90" text-anchor="middle" font-size="9" font-weight="700" fill="#4ADE80">%97</text>' +
-      '<!-- Robot ayaklar -->' +
-      '<rect x="305" y="118" width="16" height="12" rx="3" fill="#334155"/>' +
-      '<rect x="329" y="118" width="16" height="12" rx="3" fill="#334155"/>' +
-      '<text x="325" y="148" text-anchor="middle" font-size="9" font-weight="700" fill="#334155">YZ ROBOTU</text>' +
-      '<!-- Bant / konveyör -->' +
-      '<rect x="240" y="112" width="170" height="8" rx="4" fill="#94A3B8"/>' +
-      '<rect x="240" y="112" width="170" height="8" rx="4" fill="url(#bantDesen)" opacity="0.4"/>' +
-      '<defs>' +
-        '<pattern id="bantDesen" patternUnits="userSpaceOnUse" width="20" height="8">' +
-          '<line x1="10" y1="0" x2="10" y2="8" stroke="#64748B" stroke-width="1"/>' +
-        '</pattern>' +
-      '</defs>' +
-      '<!-- 4 Renkli Kutu -->' +
-      '<!-- Plastik (Mavi) -->' +
-      '<rect x="430" y="78" width="44" height="44" rx="6" fill="#DBEAFE" stroke="#3B82F6" stroke-width="2.5"/>' +
-      '<rect x="438" y="70" width="28" height="12" rx="3" fill="#3B82F6"/>' +
-      '<text x="452" y="80" text-anchor="middle" font-size="7" fill="#FFFFFF" font-weight="700">LİD</text>' +
-      '<text x="452" y="97" text-anchor="middle" font-size="8" font-weight="700" fill="#1D4ED8">PLASTİK</text>' +
-      '<rect x="447" y="102" width="10" height="14" rx="5" fill="#3B82F6" fill-opacity="0.6"/>' +
-      '<!-- Cam (Yeşil) -->' +
-      '<rect x="483" y="78" width="44" height="44" rx="6" fill="#DCFCE7" stroke="#16A34A" stroke-width="2.5"/>' +
-      '<rect x="491" y="70" width="28" height="12" rx="3" fill="#16A34A"/>' +
-      '<text x="505" y="80" text-anchor="middle" font-size="7" fill="#FFFFFF" font-weight="700">LİD</text>' +
-      '<text x="505" y="97" text-anchor="middle" font-size="8" font-weight="700" fill="#15803D">CAM</text>' +
-      '<rect x="498" y="102" width="14" height="14" rx="3" fill="#16A34A" fill-opacity="0.5"/>' +
-      '<!-- Kağıt (Sarı) -->' +
-      '<rect x="536" y="78" width="44" height="44" rx="6" fill="#FEF9C3" stroke="#CA8A04" stroke-width="2.5"/>' +
-      '<rect x="544" y="70" width="28" height="12" rx="3" fill="#CA8A04"/>' +
-      '<text x="558" y="80" text-anchor="middle" font-size="7" fill="#FFFFFF" font-weight="700">LİD</text>' +
-      '<text x="558" y="97" text-anchor="middle" font-size="8" font-weight="700" fill="#92400E">KAĞIT</text>' +
-      '<rect x="550" y="101" width="16" height="2" rx="1" fill="#CA8A04" opacity="0.6"/>' +
-      '<rect x="550" y="106" width="16" height="2" rx="1" fill="#CA8A04" opacity="0.6"/>' +
-      '<rect x="550" y="111" width="16" height="2" rx="1" fill="#CA8A04" opacity="0.6"/>' +
-      '<!-- Organik (Kahve) -->' +
-      '<rect x="589" y="78" width="44" height="44" rx="6" fill="#D1FAE5" stroke="#059669" stroke-width="2.5"/>' +
-      '<rect x="597" y="70" width="28" height="12" rx="3" fill="#059669"/>' +
-      '<text x="611" y="80" text-anchor="middle" font-size="7" fill="#FFFFFF" font-weight="700">LİD</text>' +
-      '<text x="611" y="95" text-anchor="middle" font-size="7.5" font-weight="700" fill="#065F46">ORGANİK</text>' +
-      '<ellipse cx="611" cy="108" rx="8" ry="7" fill="#059669" fill-opacity="0.5"/>' +
-      '<path d="M607 104 q4-5 8 0" fill="none" stroke="#047857" stroke-width="1.5"/>' +
-      '<!-- Ok işaretleri -->' +
-      '<path d="M420 100 l8 0 -4-4 8 4 -8 4 4-4z" fill="#EA580C"/>' +
-      '<text x="650" y="148" text-anchor="end" font-size="8" fill="#64748B">Yapay Zekâ Destekli Sınıflandırma</text>' +
-    '</svg>',
     veriler:[
       {id:"v1",ad:"Etiketli Atık Fotoğrafları",ac:"Plastik, cam, kağıt görselleri.",tur:"dogru",
        ikon:'<svg viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'},
@@ -469,9 +389,9 @@ var VAKALAR = [
     ],
     dogruYaklasim:"siniflandirma",
     ipucu:"Atıkları plastik, cam, kağıt gibi sınıflara ayırmak için Sınıflandırma modeli kullanılır.",
-    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#92400E">Eski Durum: Atıklar Karışık</text><text x="70" y="64" font-size="11" fill="#92400E">%80 yanlış kutuya atılıyor</text><rect x="70" y="76" width="260" height="10" rx="4" fill="#FEE2E2"/><rect x="70" y="76" width="208" height="10" rx="4" fill="#EF4444"/>',
-    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#166534">Çözüm: %97 Doğru Ayrıştırma</text><text x="70" y="64" font-size="11" font-weight="700" fill="#16A34A">Geri dönüşüm oranı 4 katına çıktı!</text><rect x="70" y="76" width="260" height="10" rx="4" fill="#DCFCE7"/><rect x="70" y="76" width="252" height="10" rx="4" fill="#16A34A"/>',
-    simRapor:"Sınıflandırma modeli her atığı doğru kutuya yönlendirdi! Geri dönüşüm oranı %97'ye ulaştı!"
+    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/><text x="70" y="48" font-size="13" font-weight="700" fill="#92400E">Sorun: Atıklar Karışık</text><text x="70" y="72" font-size="11" fill="#92400E">Kutulara uygun atıklar seçilmeli</text>',
+    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="48" font-size="13" font-weight="700" fill="#166534">Atıklar Doğru Kutularda</text><text x="70" y="72" font-size="11" font-weight="700" fill="#16A34A">Plastik, cam, kâğıt ve organik ayrıldı</text>',
+    simRapor:"Sınıflandırma modeli plastik, cam, kâğıt ve organik atıkları doğru kutulara yönlendirdi."
   },
   {
     no:2, baslik:"Akıllı Tarım — Bitki Hastalığı Tespiti",
@@ -493,8 +413,8 @@ var VAKALAR = [
     dogruYaklasim:"goruntu_tanima",
     ipucu:"Fotoğraflardaki hastalık belirtilerini bulmak için Görüntü Tanıma kullanılır.",
     simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#FFFBEB" stroke="#FDE68A" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#92400E">Eski Durum: Hastalık Geç Fark Edildi</text><circle cx="85" cy="72" r="10" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/><text x="102" y="77" font-size="11" fill="#92400E">Mahsul kaybı büyük</text>',
-    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#166534">Çözüm: %99 Erken Teşhis Başarısı</text><circle cx="85" cy="72" r="10" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/><text x="102" y="77" font-size="11" font-weight="700" fill="#16A34A">Tarla kurtarıldı!</text>',
-    simRapor:"Görüntü Tanıma hastalığı ilk günde yakaladı! Mahsul kaybı önlendi!"
+    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#166534">Hastalık Erken Fark Edildi</text><circle cx="85" cy="72" r="10" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/><text x="102" y="77" font-size="11" font-weight="700" fill="#16A34A">Hasta bitkiler işaretlendi</text>',
+    simRapor:"Görüntü Tanıma yapraklardaki hastalık belirtilerini fark etti. Çiftçi etkilenen bitkilere zamanında müdahale edebilir."
   },
   {
     no:3, baslik:"Şehir İçi Trafik Yoğunluğu",
@@ -515,7 +435,7 @@ var VAKALAR = [
     ],
     dogruYaklasim:"tahmin",
     ipucu:"Geçmiş verileri analiz ederek saatlik yoğunluğu öngörmek için Tahmin modeli kullanılır.",
-    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#FFFBEB" stroke="#FDE68A" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#92400E">Eski Durum: 45 Dakika Trafik Kuyruğu</text><rect x="70" y="60" width="260" height="10" rx="4" fill="#FEF3C7"/><rect x="70" y="60" width="260" height="10" rx="4" fill="#F59E0B" fill-opacity="0.5"/><text x="80" y="84" font-size="11" fill="#92400E">Kavşak kilitli, araçlar bekliyor</text>',
+    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#FFFBEB" stroke="#FDE68A" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#92400E">Sorun: Trafik Kuyruğu</text><text x="80" y="76" font-size="11" fill="#92400E">Kavşakta araçlar bekliyor</text>',
     simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#166534">Çözüm: Akıllı Yeşil Dalga Sistemi</text><rect x="70" y="60" width="260" height="10" rx="4" fill="#DCFCE7"/><text x="80" y="84" font-size="11" font-weight="700" fill="#16A34A">Araçlar beklemeden akıyor!</text>',
     simRapor:"Tahmin modeli yoğunluğu önceden bildirdi! Trafik ışıkları otomatik ayarlandı!"
   },
@@ -538,9 +458,9 @@ var VAKALAR = [
     ],
     dogruYaklasim:"oneri_motoru",
     ipucu:"Geçmiş okuma alışkanlıklarına göre kitap önermek için Öneri Motoru kullanılır.",
-    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#6D28D9">Eski Durum: Kitaplar Rafta Bekliyor</text><text x="70" y="68" font-size="11" fill="#64748B">%25 ödünç alma oranı</text>',
-    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#166534">Çözüm: Kişiselleştirilmiş Tavsiye</text><text x="70" y="68" font-size="11" font-weight="700" fill="#16A34A">Ödünç alma 3 katına çıktı!</text>',
-    simRapor:"Öneri Motoru her öğrenciye en uygun kitabı önerdi! Okuma oranı 3 katına çıktı!"
+    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#6D28D9">Sorun: Uygun Kitap Bulunamıyor</text><text x="70" y="68" font-size="11" fill="#64748B">İlgi alanlarıyla kitaplar eşleşmeli</text>',
+    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#166534">Uygun Kitap Önerildi</text><text x="70" y="68" font-size="11" font-weight="700" fill="#16A34A">İlgi alanına göre eşleştirme yapıldı</text>',
+    simRapor:"Öneri Motoru okuma geçmişi ile kitap konularını eşleştirerek uygun kitapları önerdi."
   },
   {
     no:5, baslik:"Okul Meclisi — Dijital Geri Bildirim",
@@ -561,11 +481,106 @@ var VAKALAR = [
     ],
     dogruYaklasim:"metin_analizi",
     ipucu:"Yazılı cümlelerdeki duygu ve konuyu bulmak için Metin Analizi (NLP) kullanılır.",
-    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDFA" stroke="#99F6E4" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#134E4A">Eski Durum: 300 Mektup Bekliyor</text><text x="70" y="68" font-size="11" fill="#64748B">Elle okumak haftalar alıyor</text>',
-    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#166534">Çözüm: 2 Saniyede Konu Analizi</text><text x="70" y="68" font-size="11" font-weight="700" fill="#16A34A">Acil talepler anında iletildi!</text>',
-    simRapor:"Metin Analizi tüm mesajları saniyeler içinde grupladı!"
+    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDFA" stroke="#99F6E4" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#134E4A">Sorun: Görüşler Karışık</text><text x="70" y="68" font-size="11" fill="#64748B">İlgili birimlere ayrılmaları gerekiyor</text>',
+    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="700" fill="#166534">Görüşler Konularına Ayrıldı</text><text x="70" y="68" font-size="11" font-weight="700" fill="#16A34A">Her talep ilgili birime yönlendirildi</text>',
+    simRapor:"Metin Analizi yazılı görüşleri konularına göre grupladı ve ilgili birimlere yönlendirdi."
   }
 ];
+
+/* Her vakada sorun, hatalı karar ve başarılı model aynı sahnede gösterilir. */
+function sahneYazi(x,y,metin,renk,boyut){return '<text x="'+x+'" y="'+y+'" text-anchor="middle" font-family="Roboto,Arial" font-size="'+(boyut||11)+'" font-weight="700" fill="'+(renk||'#334155')+'">'+metin+'</text>';}
+function sahneEtiket(metin,durum){
+  var renk=durum==="dogru"?"#166534":(durum==="yanlis"?"#B91C1C":"#475569");
+  var zemin=durum==="dogru"?"#DCFCE7":(durum==="yanlis"?"#FEE2E2":"#E2E8F0");
+  return '<rect x="12" y="8" width="214" height="26" rx="12" fill="'+zemin+'"/>'+sahneYazi(119,25,metin,renk,12);
+}
+function atikNesne(tur,x,y){
+  if(tur===0)return '<rect x="'+(x-5)+'" y="'+(y-16)+'" width="10" height="18" rx="4" fill="#60A5FA" stroke="#1D4ED8" stroke-width="1.5"/><rect x="'+(x-3)+'" y="'+(y-20)+'" width="6" height="5" rx="1" fill="#1D4ED8"/>';
+  if(tur===1)return '<rect x="'+(x-7)+'" y="'+(y-17)+'" width="14" height="20" rx="3" fill="#A7F3D0" stroke="#047857" stroke-width="1.5"/><rect x="'+(x-6)+'" y="'+(y-20)+'" width="12" height="4" rx="1" fill="#047857"/>';
+  if(tur===2)return '<rect x="'+(x-9)+'" y="'+(y-18)+'" width="18" height="22" rx="2" fill="#FEF3C7" stroke="#B45309" stroke-width="1.5"/><path d="M'+(x-5)+' '+(y-10)+'h10 M'+(x-5)+' '+(y-5)+'h10" stroke="#B45309"/>';
+  return '<ellipse cx="'+x+'" cy="'+(y-7)+'" rx="10" ry="10" fill="#86EFAC" stroke="#15803D" stroke-width="1.5"/><path d="M'+x+' '+(y-16)+'q1-7 7-7" fill="none" stroke="#15803D" stroke-width="2"/>';
+}
+function sahneGeriDonusum(durum){
+  var s='<rect width="700" height="160" fill="#F8FAFC"/><rect y="127" width="700" height="33" fill="#E2E8F0"/>';
+  s+=sahneEtiket(durum==="dogru"?"Doğru ayrıştırma":(durum==="yanlis"?"Atıklar karıştı":"Karışık atıklar"),durum);
+  s+='<rect x="36" y="53" width="135" height="73" rx="10" fill="#FFF7ED" stroke="#FDBA74" stroke-width="2"/>'+sahneYazi(103,73,"TOPLAMA ALANI","#9A3412",10);
+  s+='<rect x="191" y="72" width="66" height="54" rx="10" fill="#334155"/><rect x="201" y="49" width="46" height="30" rx="8" fill="#475569"/><circle cx="215" cy="63" r="4" fill="#7DD3FC"/><circle cx="233" cy="63" r="4" fill="#7DD3FC"/>'+sahneYazi(224,105,"YZ","#FFFFFF",15);
+  var adlar=["PLASTİK","CAM","KÂĞIT","ORGANİK"],renkler=["#60A5FA","#34D399","#FBBF24","#86EFAC"];
+  for(var i=0;i<4;i++){
+    var x=286+i*98;
+    s+='<rect x="'+x+'" y="76" width="82" height="50" rx="8" fill="#FFFFFF" stroke="'+renkler[i]+'" stroke-width="3"/>'+sahneYazi(x+41,94,adlar[i],"#334155",9);
+    if(durum==="dogru")s+=atikNesne(i,x+41,121);
+    if(durum==="yanlis")s+=atikNesne((i+1)%4,x+41,121);
+  }
+  if(durum==="baslangic")for(var j=0;j<4;j++)s+=atikNesne(j,61+j*28,117);
+  s+='<path d="M264 101h13" stroke="#EA580C" stroke-width="3"/><path d="M275 96l7 5-7 5" fill="#EA580C"/>';
+  return s;
+}
+function sahneTarim(durum){
+  var s='<rect width="700" height="160" fill="#F0FDF4"/><rect y="113" width="700" height="47" fill="#A16207"/><path d="M0 130h700" stroke="#92400E" stroke-width="3"/>';
+  s+=sahneEtiket(durum==="dogru"?"Erken tespit":(durum==="yanlis"?"Hastalık yayılıyor":"Kontrol bekleniyor"),durum);
+  s+='<rect x="88" y="45" width="104" height="66" rx="9" fill="#FFFFFF" stroke="#86EFAC" stroke-width="2"/>'+sahneYazi(140,65,"YZ TARAMASI","#166534",10);
+  s+='<path d="M192 80h45" stroke="#16A34A" stroke-width="3" stroke-dasharray="5 4"/>';
+  for(var i=0;i<5;i++){
+    var x=285+i*70, hasta=durum==="yanlis"||((durum==="baslangic"||durum==="dogru")&&i===1);
+    s+='<path d="M'+x+' 120V81" stroke="#166534" stroke-width="4"/>';
+    s+='<ellipse cx="'+(x-11)+'" cy="83" rx="13" ry="8" fill="'+(hasta?"#FBBF24":"#4ADE80")+'" transform="rotate(-25 '+(x-11)+' 83)"/>';
+    s+='<ellipse cx="'+(x+11)+'" cy="75" rx="13" ry="8" fill="'+(hasta?"#FBBF24":"#4ADE80")+'" transform="rotate(25 '+(x+11)+' 75)"/>';
+    if(hasta)s+='<circle cx="'+(x+14)+'" cy="75" r="2.5" fill="#B91C1C"/><circle cx="'+(x-13)+'" cy="83" r="2" fill="#B91C1C"/>';
+    if(durum==="dogru"&&i===1)s+='<circle cx="'+x+'" cy="78" r="24" fill="none" stroke="#DC2626" stroke-width="2" stroke-dasharray="4 3"/>';
+  }
+  s+=sahneYazi(140,92,durum==="dogru"?"Uyarı gönderildi":(durum==="yanlis"?"Uyarı yok":"Yaprakları incele"),durum==="yanlis"?"#B91C1C":"#166534",11);
+  return s;
+}
+function sahneArac(x,y,renk){return '<rect x="'+x+'" y="'+y+'" width="43" height="21" rx="5" fill="'+renk+'"/><rect x="'+(x+9)+'" y="'+(y-5)+'" width="24" height="8" rx="4" fill="'+renk+'"/><circle cx="'+(x+9)+'" cy="'+(y+21)+'" r="4" fill="#334155"/><circle cx="'+(x+34)+'" cy="'+(y+21)+'" r="4" fill="#334155"/>';}
+function sahneTrafik(durum){
+  var akiyor=durum==="dogru",s='<rect width="700" height="160" fill="#E0F2FE"/><rect y="58" width="700" height="87" fill="#475569"/><path d="M0 104h700" stroke="#FDE68A" stroke-width="3" stroke-dasharray="24 16"/>';
+  s+=sahneEtiket(akiyor?"Trafik akıyor":(durum==="yanlis"?"Yanlış tahmin: sıkışma":"Trafik sıkışıyor"),durum);
+  s+='<rect x="83" y="46" width="16" height="53" rx="6" fill="#1E293B"/><circle cx="91" cy="57" r="5" fill="'+(akiyor?"#64748B":"#EF4444")+'"/><circle cx="91" cy="84" r="5" fill="'+(akiyor?"#22C55E":"#64748B")+'"/>';
+  var xs=akiyor?[145,270,400,535]:[145,191,237,283,329,375,421,467];
+  for(var i=0;i<xs.length;i++)s+=sahneArac(xs[i],75,i%2?"#FBBF24":"#60A5FA");
+  if(akiyor)s+='<path d="M600 84h43m-10-8 10 8-10 8" stroke="#22C55E" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
+  else s+=sahneYazi(601,90,"DUR KALK","#FFFFFF",12);
+  s+=sahneYazi(350,153,akiyor?"Yeşil dalga ile araçlar aralıklı ilerliyor":"Araçlar kavşakta birikiyor","#334155",10);
+  return s;
+}
+function sahneKutuphane(durum){
+  var s='<rect width="700" height="160" fill="#F5F3FF"/><rect y="125" width="700" height="35" fill="#E9D5FF"/>';
+  s+=sahneEtiket(durum==="dogru"?"İlgiye uygun kitap":(durum==="yanlis"?"İlgi dışı öneri":"Kitap seçimi bekliyor"),durum);
+  s+='<rect x="110" y="46" width="236" height="81" rx="5" fill="#A78BFA"/>';
+  for(var i=0;i<8;i++){var renk=i%3===0?"#FBBF24":(i%3===1?"#60A5FA":"#34D399");s+='<rect x="'+(122+i*26)+'" y="58" width="18" height="54" rx="2" fill="'+renk+'" stroke="#FFFFFF" stroke-width="1"/>';}
+  s+=sahneYazi(228,142,"KÜTÜPHANE","#6D28D9",11);
+  s+='<circle cx="422" cy="78" r="17" fill="#FDBA74"/><path d="M397 126q25-42 50 0" fill="#7C3AED"/>'+sahneYazi(423,151,"İlgi: Bilim","#4C1D95",11);
+  var ad=durum==="dogru"?"BİLİM":(durum==="yanlis"?"SPOR":"?");
+  var renkKart=durum==="dogru"?"#DCFCE7":(durum==="yanlis"?"#FEE2E2":"#FFFFFF");
+  s+='<path d="M455 88h32" stroke="#7C3AED" stroke-width="3"/><path d="M480 82l9 6-9 6" fill="#7C3AED"/><rect x="500" y="52" width="118" height="76" rx="10" fill="'+renkKart+'" stroke="#7C3AED" stroke-width="2"/>'+sahneYazi(559,80,"ÖNERİ","#6D28D9",11)+sahneYazi(559,105,ad,durum==="yanlis"?"#B91C1C":"#166534",18);
+  return s;
+}
+function sahneMeclis(durum){
+  var s='<rect width="700" height="160" fill="#F0FDFA"/>';
+  s+=sahneEtiket(durum==="dogru"?"Görüşler ayrıldı":(durum==="yanlis"?"Görüşler karıştı":"Görüşler bekliyor"),durum);
+  s+=sahneYazi(115,54,"GELEN GÖRÜŞLER","#0F766E",11);
+  var konular=["SPOR","KİTAP","GÜVENLİK"],renkler=["#FBBF24","#A78BFA","#5EEAD4"];
+  for(var i=0;i<3;i++){
+    var x=48+i*65;
+    s+='<rect x="'+x+'" y="70" width="51" height="42" rx="6" fill="#FFFFFF" stroke="#0F766E" stroke-width="2"/><path d="M'+(x+10)+' 83h31 M'+(x+10)+' 93h22" stroke="#94A3B8" stroke-width="2"/>';
+    var bx=302+i*122;
+    s+='<rect x="'+bx+'" y="63" width="105" height="66" rx="9" fill="#FFFFFF" stroke="'+renkler[i]+'" stroke-width="3"/>'+sahneYazi(bx+52,82,konular[i],"#334155",10);
+    if(durum!=="baslangic"){
+      var yazi=durum==="dogru"?konular[i]:konular[(i+1)%3];
+      s+='<rect x="'+(bx+16)+'" y="91" width="74" height="25" rx="5" fill="'+(durum==="dogru"?"#DCFCE7":"#FEE2E2")+'"/>'+sahneYazi(bx+53,108,yazi,durum==="dogru"?"#166534":"#B91C1C",9);
+    }
+  }
+  s+='<path d="M252 92h36" stroke="#0F766E" stroke-width="3"/><path d="M281 86l9 6-9 6" fill="#0F766E"/>';
+  return s;
+}
+function sahneCiz(v,durum){
+  var resim=[sahneGeriDonusum,sahneTarim,sahneTrafik,sahneKutuphane,sahneMeclis][v.no-1](durum);
+  var aciklama=v.baslik+": "+(durum==="dogru"?"modelin doğru sonucu":(durum==="yanlis"?"yanlış seçimin sonucu":"başlangıç durumu"));
+  var sahneEl=$("vaka-sahne");
+  sahneEl.innerHTML='<svg viewBox="0 0 700 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+aciklama+'">'+resim+'</svg>';
+  sahneEl.className="acik";sahneEl.style.borderColor=v.renk.cizgi;
+}
 
 var YAKLASIMLAR = [
   {id:"siniflandirma",ad:"Sınıflandırma",ozet:"Verileri belirlenmiş sınıflara ayırır.",renk:"#EA580C",renk_acik:"#FFF7ED",
@@ -581,7 +596,7 @@ var YAKLASIMLAR = [
 ];
 
 var ekranlar=["ekran-giris","ekran-oyun","ekran-son"],aktif=0,vakaIndeks=0;
-var secilenVeriler=[],secilenYaklasim=null,yildiz=0,puan=0;
+var secilenVeriler=[],secilenYaklasim=null,yildiz=0;
 var vakaHataSayisi=0,kilit=false,oyunBitti=false,sesAcik=true,yaziOlcek=100;
 function $(id){return document.getElementById(id);}
 var geribildirim;
@@ -636,6 +651,7 @@ function adimGoster(no){
 
 function vakaYukle(){
   var v=VAKALAR[vakaIndeks];
+  bildirimTemizle();
   vakaHataSayisi=0;kilit=false;secilenVeriler=[];secilenYaklasim=null;
 
   $("ilerleme-ic").style.background=v.renk.ana;
@@ -654,16 +670,7 @@ function vakaYukle(){
   $("vaka-baslik").style.color=v.renk.ana;
   $("vaka-aciklama").textContent=v.aciklama;
 
-  /* Vaka sahne görseli */
-  var sahneEl=$("vaka-sahne");
-  if(v.sahneSvg){
-    sahneEl.innerHTML=v.sahneSvg;
-    sahneEl.className="acik";
-    sahneEl.style.borderColor=v.renk.cizgi;
-  } else {
-    sahneEl.innerHTML="";
-    sahneEl.className="";
-  }
+  sahneCiz(v,"baslangic");
 
   var vh=$("veri-havuzu");
   vh.innerHTML="";
@@ -700,18 +707,9 @@ function vakaYukle(){
   $("btn-model-calistir").style.display="inline-flex";
   $("btn-model-calistir").disabled=false;
   $("btn-sonraki-model").style.display="none";
+  $("veri-aksiyon").style.display="none";
+  $("yaklasim-aksiyon").style.display="none";
   adimGoster(1);
-}
-
-function ekleCarpiIkonu(btn,pozisyon){
-  if(!btn.querySelector(".carpi-ikon")){
-    var badge=document.createElement("div");
-    badge.className="carpi-ikon";
-    badge.innerHTML='<svg viewBox="0 0 16 16" width="20" height="20"><line x1="2" y1="2" x2="14" y2="14" stroke="#B91C1C" stroke-width="3" stroke-linecap="round"/><line x1="14" y1="2" x2="2" y2="14" stroke="#B91C1C" stroke-width="3" stroke-linecap="round"/></svg>';
-    badge.style.cssText="position:absolute;top:6px;right:6px;";
-    btn.style.position="relative";
-    btn.appendChild(badge);
-  }
 }
 
 function veriSec(item,btn){
@@ -719,20 +717,25 @@ function veriSec(item,btn){
   if(btn.classList.contains("kabul")||btn.classList.contains("yanlis"))return;
   if(item.tur==="etik_ihlal"||item.tur==="alakasiz"){
     sesCal("yanlis");vakaHataSayisi++;
+    sahneCiz(VAKALAR[vakaIndeks],"yanlis");
     btn.classList.add("sarsil");
-    setTimeout(function(){btn.classList.remove("sarsil");btn.classList.add("yanlis");ekleCarpiIkonu(btn);},400);
+    setTimeout(function(){btn.classList.remove("sarsil");btn.classList.add("yanlis");},400);
     bildir(item.uyari,"kotu");
     return;
   }
-  sesCal("dogru");btn.classList.add("kabul");secilenVeriler.push(item);
+  sesCal("dogru");sahneCiz(VAKALAR[vakaIndeks],"baslangic");btn.classList.add("kabul");secilenVeriler.push(item);
   if(secilenVeriler.length===2){
-    kilit=true;
     bildir("Harika! 2 güvenli veri seçildi.","iyi");
-    puan+=(vakaHataSayisi===0?50:25);skorGuncelle();
-    setTimeout(function(){kilit=false;adimGoster(2);bildirimTemizle();},window.__FAST?300:2200);
+    $("veri-aksiyon").style.display="flex";
   } else {
     bildir("Doğru veri! 1 tane daha seçiniz.","iyi");
   }
+}
+
+function veriKontrolEt(){
+  if(secilenVeriler.length<2)return;
+  bildirimTemizle();
+  adimGoster(2);
 }
 
 function yaklasimSec(cipId,btn){
@@ -740,15 +743,20 @@ function yaklasimSec(cipId,btn){
   var v=VAKALAR[vakaIndeks];
   if(cipId!==v.dogruYaklasim){
     sesCal("yanlis");vakaHataSayisi++;
+    sahneCiz(v,"yanlis");
     btn.classList.add("sarsil");
-    setTimeout(function(){btn.classList.remove("sarsil");btn.classList.add("yanlis");ekleCarpiIkonu(btn);},400);
+    setTimeout(function(){btn.classList.remove("sarsil");btn.classList.add("yanlis");},400);
     bildir("Uygun değil. İpucu: "+v.ipucu,"kotu");
     return;
   }
-  sesCal("dogru");btn.classList.add("secili");kilit=true;
+  sesCal("dogru");sahneCiz(v,"baslangic");btn.classList.add("secili");
   bildir("Harika! Doğru yaklaşım seçildi.","iyi");
-  puan+=(vakaHataSayisi===0?50:25);skorGuncelle();
-  setTimeout(function(){kilit=false;adimGoster(3);bildirimTemizle();},window.__FAST?300:2200);
+  $("yaklasim-aksiyon").style.display="flex";
+}
+
+function yaklasimKontrolEt(){
+  bildirimTemizle();
+  adimGoster(3);
 }
 
 function modeliCalistir(){
@@ -759,6 +767,7 @@ function modeliCalistir(){
   setTimeout(function(){
     sesCal("dogru");
     $("sim-svg-kap").innerHTML='<svg viewBox="0 0 400 110">'+v.simCalSvg+'</svg>';
+    sahneCiz(v,"dogru");
     $("sim-rapor").textContent=v.simRapor;$("sim-rapor").style.color="#166534";
     yildiz++;skorGuncelle();
     $("btn-model-calistir").style.display="none";
@@ -770,29 +779,23 @@ function modeliCalistir(){
 
 function sonrakiVakayaGec(){vakaIndeks++;if(vakaIndeks>=VAKALAR.length){oyunuBitir();}else{vakaYukle();}}
 
-function skorGuncelle(){$("skor-yildiz").textContent=yildiz+" / "+VAKALAR.length;$("skor-puan").textContent=puan;}
+function skorGuncelle(){$("tamamlanan-sayi").textContent="Tamamlanan: "+yildiz+" / "+VAKALAR.length;}
 
 function oyunuBitir(){
   oyunBitti=true;$("ilerleme-ic").style.width="100%";
   $("ilerleme-dis").setAttribute("aria-valuenow",VAKALAR.length);
-  var yk=$("son-yildizlar");yk.innerHTML="";
-  for(var i=0;i<VAKALAR.length;i++){
-    var d=document.createElement("span");
-    d.innerHTML='<svg viewBox="0 0 24 24"><path d="M12 2l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 15.8 6.4 19l1.4-6.2L3 8.5l6.4-.6z" fill="'+(i<yildiz?"#FBBF24":"#E2E8F0")+'"/></svg>';
-    yk.appendChild(d);
-  }
-  $("son-puan").textContent="Toplam Puan: "+puan+"  |  Yıldız: "+yildiz+" / "+VAKALAR.length;
+  $("son-ozet").textContent="Tamamlanan: "+yildiz+" / "+VAKALAR.length+" vaka";
   ekranAc(2);
 }
 
 function oyunuBaslat(){
-  vakaIndeks=0;yildiz=0;puan=0;vakaHataSayisi=0;kilit=false;oyunBitti=false;
+  vakaIndeks=0;yildiz=0;vakaHataSayisi=0;kilit=false;oyunBitti=false;
   secilenVeriler=[];secilenYaklasim=null;skorGuncelle();bildirimTemizle();vakaYukle();
 }
 
 geribildirim=$("geribildirim");
 $("ilerleme-dis").setAttribute("aria-valuemax",VAKALAR.length);
-$("skor-yildiz").textContent="0 / "+VAKALAR.length;
+$("tamamlanan-sayi").textContent="Tamamlanan: 0 / "+VAKALAR.length;
 
 $("btn-ses").addEventListener("click",function(){
   sesAcik=!sesAcik;
@@ -809,6 +812,8 @@ $("btn-basla").addEventListener("click",function(){sesCal("tik");oyunuBaslat();e
 $("btn-yeniden").addEventListener("click",function(){oyunuBaslat();ekranAc(0);});
 $("btn-model-calistir").addEventListener("click",modeliCalistir);
 $("btn-sonraki-model").addEventListener("click",sonrakiVakayaGec);
+$("btn-veri-kontrol").addEventListener("click",veriKontrolEt);
+$("btn-yaklasim-kontrol").addEventListener("click",yaklasimKontrolEt);
 oyunuBaslat();ekranAc(0);
 </script>
 </body>
