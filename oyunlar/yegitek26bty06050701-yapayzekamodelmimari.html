@@ -182,8 +182,6 @@ b,strong{font-weight:700}
 #geribildirim.kotu{background:var(--yanlis-acik);color:var(--yanlis);border:3px solid #FCA5A5}
 #geribildirim.notr{background:#EEF2FF;color:#4338CA;border:3px solid #C7D2FE}
 
-.adim-aksiyon{display:flex;justify-content:center;padding:0.1rem 0;flex:0 0 auto}
-
 @keyframes sarsil{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 @keyframes popIn{0%{opacity:0;transform:translateY(-5px)}100%{opacity:1;transform:translateY(0)}}
 @media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
@@ -304,22 +302,10 @@ b,strong{font-weight:700}
         <div class="bolum acik" id="bolum-veri">
           <div class="bolum-baslik">Modeli eğitmek için 2 güvenli veri kaynağı seçiniz:</div>
           <div class="veri-izgara" id="veri-havuzu"></div>
-          <div class="adim-aksiyon" id="veri-aksiyon" style="display:none">
-            <button class="birincil-btn" id="btn-veri-kontrol" type="button">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="20" height="20"><polyline points="20 6 9 17 4 12"/></svg>
-              Seçimi Kontrol Et
-            </button>
-          </div>
         </div>
         <div class="bolum" id="bolum-yaklasim">
           <div class="bolum-baslik">Bu problemi çözmek için hangi yapay zekâ yaklaşımı uygun?</div>
           <div class="yaklasim-izgara" id="yaklasim-havuzu"></div>
-          <div class="adim-aksiyon" id="yaklasim-aksiyon" style="display:none">
-            <button class="birincil-btn" id="btn-yaklasim-kontrol" type="button">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="20" height="20"><polyline points="20 6 9 17 4 12"/></svg>
-              Seçimi Kontrol Et
-            </button>
-          </div>
         </div>
         <div class="bolum" id="bolum-sim">
           <div class="sim-kart">
@@ -330,10 +316,6 @@ b,strong{font-weight:700}
             <button class="birincil-btn" id="btn-model-calistir" type="button">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
               Modeli Eğit ve Çalıştır
-            </button>
-            <button class="ikincil-btn" id="btn-sonraki-model" type="button" style="display:none">
-              Sonraki Vaka
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 18 15 12 9 6"/></svg>
             </button>
           </div>
         </div>
@@ -596,7 +578,7 @@ var YAKLASIMLAR = [
 ];
 
 var ekranlar=["ekran-giris","ekran-oyun","ekran-son"],aktif=0,vakaIndeks=0;
-var secilenVeriler=[],secilenYaklasim=null,yildiz=0;
+var secilenVeriler=[],secilenYaklasim=null,yildiz=0,aktifAdim=1,modelTamamlandi=false;
 var vakaHataSayisi=0,kilit=false,oyunBitti=false,sesAcik=true,yaziOlcek=100;
 function $(id){return document.getElementById(id);}
 var geribildirim;
@@ -634,11 +616,16 @@ function ekranAc(i){
   aktif=i;
   ekranlar.forEach(function(id,k){$(id).classList.toggle("acik",k===i);});
   $("btn-geri").disabled=(i===0);
-  $("btn-ileri").disabled=!(i===1&&oyunBitti);
+  ileriDurumGuncelle();
   bildirimTemizle();
 }
 
+function ileriDurumGuncelle(){
+  $("btn-ileri").disabled=!(aktif===1&&((aktifAdim===1&&secilenVeriler.length===2)||(aktifAdim===2&&secilenYaklasim!==null)||(aktifAdim===3&&modelTamamlandi)));
+}
+
 function adimGoster(no){
+  aktifAdim=no;
   $("bolum-veri").classList.toggle("acik",no===1);
   $("bolum-yaklasim").classList.toggle("acik",no===2);
   $("bolum-sim").classList.toggle("acik",no===3);
@@ -647,12 +634,13 @@ function adimGoster(no){
   $("adim-3").className="adim-dilim "+(no<3?"":"aktif");
   var metinler=["Veri Seçimi","YZ Yaklaşımı","Modeli Çalıştır"];
   $("gorev-metin").textContent="Adım "+no+": "+metinler[no-1];
+  ileriDurumGuncelle();
 }
 
 function vakaYukle(){
   var v=VAKALAR[vakaIndeks];
   bildirimTemizle();
-  vakaHataSayisi=0;kilit=false;secilenVeriler=[];secilenYaklasim=null;
+  vakaHataSayisi=0;kilit=false;secilenVeriler=[];secilenYaklasim=null;modelTamamlandi=false;
 
   $("ilerleme-ic").style.background=v.renk.ana;
   $("ilerleme-ic").style.width=(vakaIndeks/VAKALAR.length*100)+"%";
@@ -706,14 +694,11 @@ function vakaYukle(){
   $("sim-rapor").style.color="";
   $("btn-model-calistir").style.display="inline-flex";
   $("btn-model-calistir").disabled=false;
-  $("btn-sonraki-model").style.display="none";
-  $("veri-aksiyon").style.display="none";
-  $("yaklasim-aksiyon").style.display="none";
   adimGoster(1);
 }
 
 function veriSec(item,btn){
-  if(kilit)return;
+  if(kilit||secilenVeriler.length===2)return;
   if(btn.classList.contains("kabul")||btn.classList.contains("yanlis"))return;
   if(item.tur==="etik_ihlal"||item.tur==="alakasiz"){
     sesCal("yanlis");vakaHataSayisi++;
@@ -725,21 +710,15 @@ function veriSec(item,btn){
   }
   sesCal("dogru");sahneCiz(VAKALAR[vakaIndeks],"baslangic");btn.classList.add("kabul");secilenVeriler.push(item);
   if(secilenVeriler.length===2){
-    bildir("Harika! 2 güvenli veri seçildi.","iyi");
-    $("veri-aksiyon").style.display="flex";
+    bildir("Harika! 2 güvenli veri seçildi. İleri düğmesine basınız.","iyi");
+    ileriDurumGuncelle();
   } else {
     bildir("Doğru veri! 1 tane daha seçiniz.","iyi");
   }
 }
 
-function veriKontrolEt(){
-  if(secilenVeriler.length<2)return;
-  bildirimTemizle();
-  adimGoster(2);
-}
-
 function yaklasimSec(cipId,btn){
-  if(kilit)return;
+  if(kilit||secilenYaklasim!==null)return;
   var v=VAKALAR[vakaIndeks];
   if(cipId!==v.dogruYaklasim){
     sesCal("yanlis");vakaHataSayisi++;
@@ -749,14 +728,18 @@ function yaklasimSec(cipId,btn){
     bildir("Uygun değil. İpucu: "+v.ipucu,"kotu");
     return;
   }
-  sesCal("dogru");sahneCiz(v,"baslangic");btn.classList.add("secili");
-  bildir("Harika! Doğru yaklaşım seçildi.","iyi");
-  $("yaklasim-aksiyon").style.display="flex";
+  sesCal("dogru");sahneCiz(v,"baslangic");btn.classList.add("secili");secilenYaklasim=cipId;
+  bildir("Harika! Doğru yaklaşım seçildi. İleri düğmesine basınız.","iyi");
+  ileriDurumGuncelle();
 }
 
-function yaklasimKontrolEt(){
+function ileriGit(){
+  if(aktif!==1||$("btn-ileri").disabled)return;
   bildirimTemizle();
-  adimGoster(3);
+  if(aktifAdim===1)adimGoster(2);
+  else if(aktifAdim===2)adimGoster(3);
+  else if(aktifAdim===3)sonrakiVakayaGec();
+  $("oyun-govde").scrollTop=0;
 }
 
 function modeliCalistir(){
@@ -771,8 +754,8 @@ function modeliCalistir(){
     $("sim-rapor").textContent=v.simRapor;$("sim-rapor").style.color="#166534";
     yildiz++;skorGuncelle();
     $("btn-model-calistir").style.display="none";
-    $("btn-sonraki-model").style.display="inline-flex";
-    bildir("Tebrikler! Model başarıyla çalıştı!","iyi");
+    modelTamamlandi=true;ileriDurumGuncelle();
+    bildir("Tebrikler! Model başarıyla çalıştı. İleri düğmesine basınız.","iyi");
     kilit=false;
   },window.__FAST?350:1500);
 }
@@ -807,13 +790,10 @@ $("btn-ses").addEventListener("click",function(){
 $("btn-buyut").addEventListener("click",function(){if(yaziOlcek<130){yaziOlcek+=10;document.documentElement.style.fontSize=yaziOlcek+"%";}});
 $("btn-kucult").addEventListener("click",function(){if(yaziOlcek>90){yaziOlcek-=10;document.documentElement.style.fontSize=yaziOlcek+"%";}});
 $("btn-geri").addEventListener("click",function(){if(aktif>0)ekranAc(aktif-1);});
-$("btn-ileri").addEventListener("click",function(){if(aktif===1&&oyunBitti)ekranAc(2);});
+$("btn-ileri").addEventListener("click",ileriGit);
 $("btn-basla").addEventListener("click",function(){sesCal("tik");oyunuBaslat();ekranAc(1);});
 $("btn-yeniden").addEventListener("click",function(){oyunuBaslat();ekranAc(0);});
 $("btn-model-calistir").addEventListener("click",modeliCalistir);
-$("btn-sonraki-model").addEventListener("click",sonrakiVakayaGec);
-$("btn-veri-kontrol").addEventListener("click",veriKontrolEt);
-$("btn-yaklasim-kontrol").addEventListener("click",yaklasimKontrolEt);
 oyunuBaslat();ekranAc(0);
 </script>
 </body>
