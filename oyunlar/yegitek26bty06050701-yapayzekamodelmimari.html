@@ -92,6 +92,11 @@ b,strong{font-weight:700}
 #vaka-aciklama{font-size:0.88rem;line-height:1.3;opacity:0.85}
 
 /* ====== ADIM GÖSTERGESİ ====== */
+/* ====== VAKA SAHNE GÖRSELI ====== */
+#vaka-sahne{display:none;border-radius:14px;overflow:hidden;flex:0 0 auto;border:2px solid var(--cizgi);background:var(--panel)}
+#vaka-sahne.acik{display:block}
+#vaka-sahne svg{width:100%;display:block;height:auto}
+
 #adim-gosterge{display:flex;align-items:center;gap:0;flex:0 0 auto;background:var(--panel);border:2px solid var(--cizgi);border-radius:14px;overflow:hidden}
 .adim-dilim{flex:1;display:flex;align-items:center;justify-content:center;gap:0.45rem;padding:0.5rem 0.6rem;font-size:0.88rem;font-weight:700;color:var(--gri);border-right:2px solid var(--cizgi);transition:background .2s,color .2s}
 .adim-dilim:last-child{border-right:none}
@@ -288,6 +293,7 @@ b,strong{font-weight:700}
             <div id="vaka-aciklama"></div>
           </div>
         </div>
+        <div id="vaka-sahne" aria-hidden="true"></div>
         <div id="adim-gosterge" aria-hidden="true">
           <div class="adim-dilim" id="adim-1"><div class="adim-daire">1</div><span>Veri Seç</span></div>
           <div class="adim-dilim" id="adim-2"><div class="adim-daire">2</div><span>YZ Yaklaşımı</span></div>
@@ -356,6 +362,99 @@ var VAKALAR = [
     renk:{ana:"#EA580C",acik:"#FFF7ED",cizgi:"#FED7AA"},
     bannerIkon:'<svg viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2.2"><path d="M7 19H4.5a2.5 2.5 0 0 1 0-5H7"/><path d="M17 19h2.5a2.5 2.5 0 0 0 0-5H17"/><path d="M12 19v-8M8 11l4-4 4 4"/><rect x="6" y="19" width="12" height="3" rx="1.5"/></svg>',
     aciklama:"Okulun çöp tenekelerine plastik, cam, kağıt ve organik atıklar karışık atılıyor. Otomatik ayırt eden bir robot tasarlayalım!",
+    sahneSvg:'<svg viewBox="0 0 700 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geri Dönüşüm Robotu Sahnesi">' +
+      '<!-- Arka plan -->' +
+      '<rect width="700" height="160" fill="#F0FDF4"/>' +
+      '<rect x="0" y="120" width="700" height="40" fill="#E2E8F0"/>' +
+      '<rect x="0" y="116" width="700" height="6" fill="#CBD5E1"/>' +
+      '<!-- Okul binası arka plan -->' +
+      '<rect x="10" y="40" width="120" height="80" rx="4" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>' +
+      '<rect x="45" y="80" width="30" height="40" rx="2" fill="#1E40AF" fill-opacity="0.25"/>' +
+      '<rect x="20" y="55" width="25" height="20" rx="2" fill="#BFDBFE"/>' +
+      '<rect x="85" y="55" width="25" height="20" rx="2" fill="#BFDBFE"/>' +
+      '<text x="70" y="40" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">OKUL</text>' +
+      '<!-- Karışık çöp yığını -->' +
+      '<ellipse cx="195" cy="120" rx="45" ry="8" fill="#D97706" fill-opacity="0.3"/>' +
+      '<!-- Plastik şişe -->' +
+      '<rect x="162" y="88" width="10" height="24" rx="5" fill="#3B82F6" stroke="#2563EB" stroke-width="1"/>' +
+      '<rect x="164" y="85" width="6" height="5" rx="2" fill="#1D4ED8"/>' +
+      '<!-- Cam kavanoz -->' +
+      '<rect x="178" y="90" width="14" height="22" rx="3" fill="#6EE7B7" fill-opacity="0.7" stroke="#059669" stroke-width="1"/>' +
+      '<rect x="180" y="87" width="10" height="5" rx="2" fill="#059669"/>' +
+      '<!-- Kağıt -->' +
+      '<rect x="198" y="95" width="18" height="22" rx="2" fill="#FEF9C3" stroke="#CA8A04" stroke-width="1" transform="rotate(-12 207 106)"/>' +
+      '<line x1="200" y1="101" x2="212" y2="101" stroke="#CA8A04" stroke-width="1" opacity="0.5"/>' +
+      '<line x1="200" y1="106" x2="212" y2="106" stroke="#CA8A04" stroke-width="1" opacity="0.5"/>' +
+      '<!-- Organik -->' +
+      '<ellipse cx="222" cy="105" rx="12" ry="10" fill="#86EFAC" stroke="#16A34A" stroke-width="1"/>' +
+      '<path d="M218 98 q4-6 8 0" fill="none" stroke="#15803D" stroke-width="1.5"/>' +
+      '<text x="195" y="138" text-anchor="middle" font-size="9" fill="#92400E" font-weight="700">Karışık Atıklar</text>' +
+      '<!-- YZ Robot -->' +
+      '<!-- Robot gövde -->' +
+      '<rect x="295" y="55" width="60" height="65" rx="8" fill="#1E2A44"/>' +
+      '<!-- Robot kafa -->' +
+      '<rect x="302" y="35" width="46" height="30" rx="8" fill="#334155"/>' +
+      '<rect x="310" y="41" width="12" height="8" rx="3" fill="#38BDF8"/>' +
+      '<rect x="328" y="41" width="12" height="8" rx="3" fill="#38BDF8"/>' +
+      '<rect x="312" y="52" width="26" height="4" rx="2" fill="#EA580C"/>' +
+      '<!-- Robot anten -->' +
+      '<line x1="325" y1="35" x2="325" y2="25" stroke="#94A3B8" stroke-width="2"/>' +
+      '<circle cx="325" cy="22" r="4" fill="#EA580C"/>' +
+      '<!-- Robot kol sol (çöpe uzanıyor) -->' +
+      '<path d="M295 75 Q260 70 245 105" fill="none" stroke="#475569" stroke-width="8" stroke-linecap="round"/>' +
+      '<rect x="236" y="100" width="18" height="14" rx="4" fill="#64748B"/>' +
+      '<line x1="240" y1="107" x2="252" y2="107" stroke="#94A3B8" stroke-width="2"/>' +
+      '<!-- Robot kol sağ (kutuya bırakıyor) -->' +
+      '<path d="M355 75 Q390 70 408 92" fill="none" stroke="#475569" stroke-width="8" stroke-linecap="round"/>' +
+      '<rect x="403" y="87" width="18" height="14" rx="4" fill="#64748B"/>' +
+      '<!-- Robot ekran -->' +
+      '<rect x="305" y="68" width="40" height="28" rx="5" fill="#0F172A"/>' +
+      '<text x="325" y="80" text-anchor="middle" font-size="6" fill="#38BDF8">SINIFLANDIRICI</text>' +
+      '<text x="325" y="90" text-anchor="middle" font-size="9" font-weight="700" fill="#4ADE80">%97</text>' +
+      '<!-- Robot ayaklar -->' +
+      '<rect x="305" y="118" width="16" height="12" rx="3" fill="#334155"/>' +
+      '<rect x="329" y="118" width="16" height="12" rx="3" fill="#334155"/>' +
+      '<text x="325" y="148" text-anchor="middle" font-size="9" font-weight="700" fill="#334155">YZ ROBOTU</text>' +
+      '<!-- Bant / konveyör -->' +
+      '<rect x="240" y="112" width="170" height="8" rx="4" fill="#94A3B8"/>' +
+      '<rect x="240" y="112" width="170" height="8" rx="4" fill="url(#bantDesen)" opacity="0.4"/>' +
+      '<defs>' +
+        '<pattern id="bantDesen" patternUnits="userSpaceOnUse" width="20" height="8">' +
+          '<line x1="10" y1="0" x2="10" y2="8" stroke="#64748B" stroke-width="1"/>' +
+        '</pattern>' +
+      '</defs>' +
+      '<!-- 4 Renkli Kutu -->' +
+      '<!-- Plastik (Mavi) -->' +
+      '<rect x="430" y="78" width="44" height="44" rx="6" fill="#DBEAFE" stroke="#3B82F6" stroke-width="2.5"/>' +
+      '<rect x="438" y="70" width="28" height="12" rx="3" fill="#3B82F6"/>' +
+      '<text x="452" y="80" text-anchor="middle" font-size="7" fill="#FFFFFF" font-weight="700">LİD</text>' +
+      '<text x="452" y="97" text-anchor="middle" font-size="8" font-weight="700" fill="#1D4ED8">PLASTİK</text>' +
+      '<rect x="447" y="102" width="10" height="14" rx="5" fill="#3B82F6" fill-opacity="0.6"/>' +
+      '<!-- Cam (Yeşil) -->' +
+      '<rect x="483" y="78" width="44" height="44" rx="6" fill="#DCFCE7" stroke="#16A34A" stroke-width="2.5"/>' +
+      '<rect x="491" y="70" width="28" height="12" rx="3" fill="#16A34A"/>' +
+      '<text x="505" y="80" text-anchor="middle" font-size="7" fill="#FFFFFF" font-weight="700">LİD</text>' +
+      '<text x="505" y="97" text-anchor="middle" font-size="8" font-weight="700" fill="#15803D">CAM</text>' +
+      '<rect x="498" y="102" width="14" height="14" rx="3" fill="#16A34A" fill-opacity="0.5"/>' +
+      '<!-- Kağıt (Sarı) -->' +
+      '<rect x="536" y="78" width="44" height="44" rx="6" fill="#FEF9C3" stroke="#CA8A04" stroke-width="2.5"/>' +
+      '<rect x="544" y="70" width="28" height="12" rx="3" fill="#CA8A04"/>' +
+      '<text x="558" y="80" text-anchor="middle" font-size="7" fill="#FFFFFF" font-weight="700">LİD</text>' +
+      '<text x="558" y="97" text-anchor="middle" font-size="8" font-weight="700" fill="#92400E">KAĞIT</text>' +
+      '<rect x="550" y="101" width="16" height="2" rx="1" fill="#CA8A04" opacity="0.6"/>' +
+      '<rect x="550" y="106" width="16" height="2" rx="1" fill="#CA8A04" opacity="0.6"/>' +
+      '<rect x="550" y="111" width="16" height="2" rx="1" fill="#CA8A04" opacity="0.6"/>' +
+      '<!-- Organik (Kahve) -->' +
+      '<rect x="589" y="78" width="44" height="44" rx="6" fill="#D1FAE5" stroke="#059669" stroke-width="2.5"/>' +
+      '<rect x="597" y="70" width="28" height="12" rx="3" fill="#059669"/>' +
+      '<text x="611" y="80" text-anchor="middle" font-size="7" fill="#FFFFFF" font-weight="700">LİD</text>' +
+      '<text x="611" y="95" text-anchor="middle" font-size="7.5" font-weight="700" fill="#065F46">ORGANİK</text>' +
+      '<ellipse cx="611" cy="108" rx="8" ry="7" fill="#059669" fill-opacity="0.5"/>' +
+      '<path d="M607 104 q4-5 8 0" fill="none" stroke="#047857" stroke-width="1.5"/>' +
+      '<!-- Ok işaretleri -->' +
+      '<path d="M420 100 l8 0 -4-4 8 4 -8 4 4-4z" fill="#EA580C"/>' +
+      '<text x="650" y="148" text-anchor="end" font-size="8" fill="#64748B">Yapay Zekâ Destekli Sınıflandırma</text>' +
+    '</svg>',
     veriler:[
       {id:"v1",ad:"Etiketli Atık Fotoğrafları",ac:"Plastik, cam, kağıt görselleri.",tur:"dogru",
        ikon:'<svg viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'},
@@ -554,6 +653,17 @@ function vakaYukle(){
   $("vaka-baslik").textContent=v.baslik;
   $("vaka-baslik").style.color=v.renk.ana;
   $("vaka-aciklama").textContent=v.aciklama;
+
+  /* Vaka sahne görseli */
+  var sahneEl=$("vaka-sahne");
+  if(v.sahneSvg){
+    sahneEl.innerHTML=v.sahneSvg;
+    sahneEl.className="acik";
+    sahneEl.style.borderColor=v.renk.cizgi;
+  } else {
+    sahneEl.innerHTML="";
+    sahneEl.className="";
+  }
 
   var vh=$("veri-havuzu");
   vh.innerHTML="";
