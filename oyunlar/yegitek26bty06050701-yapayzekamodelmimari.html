@@ -112,11 +112,15 @@ b,strong{font-weight:300}
 .bolum{display:none;flex-direction:column;gap:0.45rem;flex:1 1 auto;min-height:0}
 .bolum.acik{display:flex}
 .bolum-baslik{font-size:1.25rem;font-weight:300;color:var(--murekkep);text-transform:uppercase;letter-spacing:0.04em;padding:0 0.1rem}
+.bolum-ust{display:flex;align-items:center;justify-content:space-between;gap:0.65rem;flex:0 0 auto}
+.hak-bilgi{flex:0 0 auto;font-size:1rem;line-height:1.35;padding:0.25rem 0.6rem;border-radius:8px;background:#EFF6FF;color:#1D4ED8;white-space:nowrap}
+.hak-bilgi.bitti{background:#FEE2E2;color:var(--yanlis)}
+.cevap-etiket{font-size:1rem;line-height:1.25;color:var(--dogru);border-top:1px solid #86EFAC;padding-top:0.2rem}
 #bolum-yaklasim .bolum-baslik{text-transform:none;letter-spacing:normal}
 #bolum-veri .bolum-baslik{text-transform:none;letter-spacing:normal}
 
 /* ====== VERİ KARTları — TILE ====== */
-.veri-izgara{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.55rem;flex:0 0 auto;width:100%;max-width:52rem;align-self:center}
+.veri-izgara{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0.55rem;flex:0 0 auto;width:100%;align-self:center}
 .veri-kart{background:var(--panel);border:2.5px solid var(--cizgi);border-radius:16px;padding:0.55rem 0.65rem;text-align:center;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.25rem;min-height:112px;position:relative}
 .veri-kart:hover{border-color:#94A3B8;background:#F8FAFC;box-shadow:0 3px 12px rgba(0,0,0,0.08)}
 .veri-kart-ikon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;transition:background .15s}
@@ -132,8 +136,8 @@ b,strong{font-weight:300}
 .veri-kart.yanlis .veri-kart-ad{color:var(--yanlis)}
 .veri-kart.sarsil{animation:sarsil .35s}
 
-/* ====== YAKLAŞIM KARTları — 2x2 GRID ====== */
-.yaklasim-izgara{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.6rem;flex:0 0 auto}
+/* ====== YAKLAŞIM KARTLARI ====== */
+.yaklasim-izgara{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0.6rem;flex:0 0 auto}
 .yaklasim-kart{background:var(--panel);border:2.5px solid var(--cizgi);border-radius:16px;padding:0.8rem 0.7rem;min-height:145px;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s;display:flex;flex-direction:column;align-items:center;gap:0.4rem;text-align:center;position:relative}
 .yaklasim-kart:hover{border-color:#94A3B8;background:#F8FAFC;box-shadow:0 3px 12px rgba(0,0,0,0.08)}
 .yaklasim-ikon{width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
@@ -145,6 +149,7 @@ b,strong{font-weight:300}
 .yaklasim-kart.yanlis{border-color:var(--yanlis);background:var(--yanlis-acik);cursor:pointer}
 .yaklasim-kart.yanlis .yaklasim-ad{color:var(--yanlis)}
 .yaklasim-kart.sarsil{animation:sarsil .35s}
+.veri-kart:disabled,.yaklasim-kart:disabled{cursor:default}
 
 /* ====== SİMÜLASYON ====== */
 #bolum-sim{align-items:center;justify-content:center}
@@ -208,6 +213,15 @@ b,strong{font-weight:300}
   #skorlar{display:none}
   .araclar{margin-left:auto;gap:0.2rem}
   .arac{min-width:40px;min-height:40px;padding:0 0.25rem}
+  .bolum-ust{align-items:flex-start;flex-direction:column;gap:0.35rem}
+  #gorev-serit{flex-wrap:wrap}
+  #ilerleme-dis{flex-basis:100%}
+}
+@media (max-width:900px){
+  .veri-izgara,.yaklasim-izgara{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (min-width:901px) and (max-height:760px){
+  #vaka-sahne svg{height:100px}
 }
 </style>
 </head>
@@ -316,11 +330,17 @@ b,strong{font-weight:300}
           <div class="adim-dilim" id="adim-3"><div class="adim-daire">3</div><span>Modeli Çalıştır</span></div>
         </div>
         <div class="bolum acik" id="bolum-veri">
-          <div class="bolum-baslik">Modeli eğitmek için 2 güvenli veri kaynağı seçiniz.</div>
+          <div class="bolum-ust">
+            <div class="bolum-baslik">Modeli eğitmek için 2 güvenli veri kaynağı seçiniz.</div>
+            <span class="hak-bilgi" id="veri-hak" role="status" aria-live="polite">Kalan hak: 2</span>
+          </div>
           <div class="veri-izgara" id="veri-havuzu"></div>
         </div>
         <div class="bolum" id="bolum-yaklasim">
-          <div class="bolum-baslik">Bu problemi çözmek için hangi yapay zekâ yaklaşımı uygun?</div>
+          <div class="bolum-ust">
+            <div class="bolum-baslik">Bu problemi çözmek için hangi yapay zekâ yaklaşımı uygun?</div>
+            <span class="hak-bilgi" id="yaklasim-hak" role="status" aria-live="polite">Kalan hak: 2</span>
+          </div>
           <div class="yaklasim-izgara" id="yaklasim-havuzu"></div>
         </div>
         <div class="bolum" id="bolum-sim">
@@ -386,15 +406,15 @@ var VAKALAR = [
        ikon:'<svg viewBox="0 0 24 24" fill="none" stroke="#B91C1C" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>'}
     ],
     dogruYaklasim:"siniflandirma",
-    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/><text x="70" y="48" font-size="13" font-weight="300" fill="#92400E">Sorun: Atıklar Karışık</text><text x="70" y="72" font-size="11" fill="#92400E">Kutulara uygun atıklar seçilmeli</text>',
-    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="48" font-size="13" font-weight="300" fill="#166534">Atıklar Doğru Kutularda</text><text x="70" y="72" font-size="11" font-weight="300" fill="#16A34A">Plastik, cam, kâğıt ve organik ayrıldı</text>',
+    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2"/><text x="70" y="48" font-size="13" font-weight="300" fill="#92400E">Sorun: Atıklar karışık.</text><text x="70" y="72" font-size="11" fill="#92400E">Kutulara uygun atıklar seçilmeli.</text>',
+    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="48" font-size="13" font-weight="300" fill="#166534">Atıklar doğru kutularda.</text><text x="70" y="72" font-size="11" font-weight="300" fill="#16A34A">Plastik, cam, kâğıt ve organik ayrıldı.</text>',
     simRapor:"Sınıflandırma modeli plastik, cam, kâğıt ve organik atıkları doğru kutulara yönlendirdi."
   },
   {
     no:2, baslik:"Akıllı Tarım — Bitki Hastalığı Tespiti",
     renk:{ana:"#16A34A",acik:"#F0FDF4",cizgi:"#BBF7D0"},
     bannerIkon:'<svg viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.2"><path d="M17 8C8 10 5.9 16.17 3.82 19.67A1 1 0 0 0 5 21l1-1c0-4 2-6 4-8s5-4 7-12z"/><path d="M19.5 5.5a7 7 0 0 1-7 7"/></svg>',
-    aciklama:"Çiftçiler tarladaki hastalıkları geç fark ediyor ve mahsuller çürüyor. Erken tespit eden bir model kuralım!",
+    aciklama:"Çiftçiler tarladaki hastalıkları geç fark ediyor ve mahsuller çürüyor. Erken tespit eden bir model kuralım.",
     veriler:[
       {id:"v1",ad:"Yaprak Fotoğrafları (Etiketli)",ac:"Sağlıklı ve hastalıklı yaprak görselleri.",tur:"dogru",
        ikon:'<svg viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2"><path d="M17 8C8 10 5.9 16.17 3.82 19.67A1 1 0 0 0 5 21l1-1c0-4 2-6 4-8s5-4 7-12z"/></svg>'},
@@ -408,15 +428,15 @@ var VAKALAR = [
        ikon:'<svg viewBox="0 0 24 24" fill="none" stroke="#B91C1C" stroke-width="2"><path d="M21 16l-4-8-3 4-5-7-4 11"/></svg>'}
     ],
     dogruYaklasim:"goruntu_tanima",
-    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#FFFBEB" stroke="#FDE68A" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#92400E">Eski Durum: Hastalık Geç Fark Edildi</text><circle cx="85" cy="72" r="10" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/><text x="102" y="77" font-size="11" fill="#92400E">Mahsul kaybı büyük</text>',
-    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#166534">Hastalık Erken Fark Edildi</text><circle cx="85" cy="72" r="10" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/><text x="102" y="77" font-size="11" font-weight="300" fill="#16A34A">Hasta bitkiler işaretlendi</text>',
+    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#FFFBEB" stroke="#FDE68A" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#92400E">Eski durum: Hastalık geç fark edildi.</text><circle cx="85" cy="72" r="10" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/><text x="102" y="77" font-size="11" fill="#92400E">Mahsul kaybı büyük.</text>',
+    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#166534">Hastalık erken fark edildi.</text><circle cx="85" cy="72" r="10" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/><text x="102" y="77" font-size="11" font-weight="300" fill="#16A34A">Hasta bitkiler işaretlendi.</text>',
     simRapor:"Görüntü Tanıma yapraklardaki hastalık belirtilerini fark etti. Çiftçi etkilenen bitkilere zamanında müdahale edebilir."
   },
   {
     no:3, baslik:"Şehir İçi Trafik Yoğunluğu",
     renk:{ana:"#D97706",acik:"#FFFBEB",cizgi:"#FDE68A"},
     bannerIkon:'<svg viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2.2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>',
-    aciklama:"Yağmurlu sabahlar ana caddeler tıkanıyor, servisler gecikiyor. Tıkanıklığı önceden öngören model kuralım!",
+    aciklama:"Yağmurlu sabahlar ana caddeler tıkanıyor, servisler gecikiyor. Tıkanıklığı önceden öngören model kuralım.",
     veriler:[
       {id:"v1",ad:"Kavşak Araç Sayım Verisi",ac:"Saatlik araç geçiş sayımı (1 yıl).",tur:"dogru",
        ikon:'<svg viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>'},
@@ -430,15 +450,15 @@ var VAKALAR = [
        ikon:'<svg viewBox="0 0 24 24" fill="none" stroke="#B91C1C" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/></svg>'}
     ],
     dogruYaklasim:"tahmin",
-    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#FFFBEB" stroke="#FDE68A" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#92400E">Sorun: Trafik Kuyruğu</text><text x="80" y="76" font-size="11" fill="#92400E">Kavşakta araçlar bekliyor</text>',
-    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#166534">Çözüm: Akıllı Yeşil Dalga Sistemi</text><rect x="70" y="60" width="260" height="10" rx="4" fill="#DCFCE7"/><text x="80" y="84" font-size="11" font-weight="300" fill="#16A34A">Araçlar beklemeden akıyor!</text>',
-    simRapor:"Tahmin modeli yoğunluğu önceden bildirdi! Trafik ışıkları otomatik ayarlandı!"
+    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#FFFBEB" stroke="#FDE68A" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#92400E">Sorun: Trafik Kuyruğu</text><text x="80" y="76" font-size="11" fill="#92400E">Kavşakta araçlar bekliyor.</text>',
+    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#166534">Çözüm: Akıllı Yeşil Dalga Sistemi</text><rect x="70" y="60" width="260" height="10" rx="4" fill="#DCFCE7"/><text x="80" y="84" font-size="11" font-weight="300" fill="#16A34A">Araçlar beklemeden akıyor.</text>',
+    simRapor:"Tahmin modeli yoğunluğu önceden bildirdi. Trafik ışıkları otomatik ayarlandı."
   },
   {
     no:4, baslik:"Okul Kütüphanesi — Akıllı Kitap Keşfi",
     renk:{ana:"#7C3AED",acik:"#F5F3FF",cizgi:"#DDD6FE"},
     bannerIkon:'<svg viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
-    aciklama:"Öğrenciler ilgi alanlarına uygun kitap bulmakta zorlanıyor. Akıllı bir kitap tavsiye modeli geliştirelim!",
+    aciklama:"Öğrenciler ilgi alanlarına uygun kitap bulmakta zorlanıyor. Akıllı bir kitap tavsiye modeli geliştirelim.",
     veriler:[
       {id:"v1",ad:"Öğrencilerin Ödünç Kitapları",ac:"Okunan kitapların türleri ve yazarları.",tur:"dogru",
        ikon:'<svg viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>'},
@@ -452,15 +472,15 @@ var VAKALAR = [
        ikon:'<svg viewBox="0 0 24 24" fill="none" stroke="#B91C1C" stroke-width="2"><rect x="3" y="8" width="18" height="4" rx="1"/><line x1="6" y1="12" x2="6" y2="19"/><line x1="18" y1="12" x2="18" y2="19"/></svg>'}
     ],
     dogruYaklasim:"oneri_motoru",
-    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#6D28D9">Sorun: Uygun Kitap Bulunamıyor</text><text x="70" y="68" font-size="11" fill="#64748B">İlgi alanlarıyla kitaplar eşleşmeli</text>',
-    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#166534">Uygun Kitap Önerildi</text><text x="70" y="68" font-size="11" font-weight="300" fill="#16A34A">İlgi alanına göre eşleştirme yapıldı</text>',
+    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#6D28D9">Sorun: Uygun kitap bulunamıyor.</text><text x="70" y="68" font-size="11" fill="#64748B">İlgi alanlarıyla kitaplar eşleşmeli.</text>',
+    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#166534">Uygun kitap önerildi.</text><text x="70" y="68" font-size="11" font-weight="300" fill="#16A34A">İlgi alanına göre eşleştirme yapıldı.</text>',
     simRapor:"Öneri Motoru okuma geçmişi ile kitap konularını eşleştirerek uygun kitapları önerdi."
   },
   {
     no:5, baslik:"Okul Meclisi — Dijital Geri Bildirim",
     renk:{ana:"#0F766E",acik:"#F0FDFA",cizgi:"#99F6E4"},
     bannerIkon:'<svg viewBox="0 0 24 24" fill="none" stroke="#0F766E" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
-    aciklama:"Okul dilek kutusuna yüzlerce öneri geliyor. Hepsini okumak haftalar alıyor. Otomatik sınıflandıran bir model kuralım!",
+    aciklama:"Okul dilek kutusuna yüzlerce öneri geliyor. Hepsini okumak haftalar alıyor. Otomatik sınıflandıran bir model kuralım.",
     veriler:[
       {id:"v1",ad:"Anonim Yazılı Görüşler",ac:"İsim içermeyen öneri ve şikayet cümleleri.",tur:"dogru",
        ikon:'<svg viewBox="0 0 24 24" fill="none" stroke="#0F766E" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'},
@@ -474,8 +494,8 @@ var VAKALAR = [
        ikon:'<svg viewBox="0 0 24 24" fill="none" stroke="#B91C1C" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>'}
     ],
     dogruYaklasim:"metin_analizi",
-    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDFA" stroke="#99F6E4" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#134E4A">Sorun: Görüşler Karışık</text><text x="70" y="68" font-size="11" fill="#64748B">İlgili birimlere ayrılmaları gerekiyor</text>',
-    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#166534">Görüşler Konularına Ayrıldı</text><text x="70" y="68" font-size="11" font-weight="300" fill="#16A34A">Her talep ilgili birime yönlendirildi</text>',
+    simBasSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDFA" stroke="#99F6E4" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#134E4A">Sorun: Görüşler karışık.</text><text x="70" y="68" font-size="11" fill="#64748B">İlgili birimlere ayrılmaları gerekiyor.</text>',
+    simCalSvg:'<rect x="50" y="12" width="300" height="84" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/><text x="70" y="44" font-size="13" font-weight="300" fill="#166534">Görüşler konularına ayrıldı.</text><text x="70" y="68" font-size="11" font-weight="300" fill="#16A34A">Her talep ilgili birime yönlendirildi.</text>',
     simRapor:"Metin Analizi yazılı görüşleri konularına göre grupladı ve ilgili birimlere yönlendirdi."
   }
 ];
@@ -495,7 +515,7 @@ function atikNesne(tur,x,y){
 }
 function sahneGeriDonusum(durum){
   var s='<rect width="700" height="160" fill="#F8FAFC"/><rect y="127" width="700" height="33" fill="#E2E8F0"/>';
-  s+=sahneEtiket(durum==="dogru"?"Doğru ayrıştırma":(durum==="yanlis"?"Atıklar karıştı":"Karışık atıklar"),durum);
+  s+=sahneEtiket(durum==="dogru"?"Doğru ayrıştırma":(durum==="yanlis"?"Atıklar karıştı.":"Karışık atıklar"),durum);
   s+='<rect x="36" y="53" width="135" height="73" rx="10" fill="#FFF7ED" stroke="#FDBA74" stroke-width="2"/>'+sahneYazi(103,73,"TOPLAMA ALANI","#9A3412",10);
   s+='<rect x="191" y="72" width="66" height="54" rx="10" fill="#334155"/><rect x="201" y="49" width="46" height="30" rx="8" fill="#475569"/><circle cx="215" cy="63" r="4" fill="#7DD3FC"/><circle cx="233" cy="63" r="4" fill="#7DD3FC"/>'+sahneYazi(224,105,"YZ","#FFFFFF",15);
   var adlar=["PLASTİK","CAM","KÂĞIT","ORGANİK"],renkler=["#60A5FA","#34D399","#FBBF24","#86EFAC"];
@@ -511,7 +531,7 @@ function sahneGeriDonusum(durum){
 }
 function sahneTarim(durum){
   var s='<rect width="700" height="160" fill="#F0FDF4"/><rect y="113" width="700" height="47" fill="#A16207"/><path d="M0 130h700" stroke="#92400E" stroke-width="3"/>';
-  s+=sahneEtiket(durum==="dogru"?"Erken tespit":(durum==="yanlis"?"Hastalık yayılıyor":"Kontrol bekleniyor"),durum);
+  s+=sahneEtiket(durum==="dogru"?"Erken tespit":(durum==="yanlis"?"Hastalık yayılıyor.":"Kontrol bekleniyor."),durum);
   s+='<rect x="68" y="45" width="170" height="66" rx="9" fill="#FFFFFF" stroke="#86EFAC" stroke-width="2"/>'+sahneYazi(153,70,"YZ TARAMASI","#166534",18);
   s+='<path d="M238 80h32" stroke="#16A34A" stroke-width="3" stroke-dasharray="5 4"/>';
   for(var i=0;i<5;i++){
@@ -522,24 +542,24 @@ function sahneTarim(durum){
     if(hasta)s+='<circle cx="'+(x+14)+'" cy="75" r="2.5" fill="#B91C1C"/><circle cx="'+(x-13)+'" cy="83" r="2" fill="#B91C1C"/>';
     if(durum==="dogru"&&i===1)s+='<circle cx="'+x+'" cy="78" r="24" fill="none" stroke="#DC2626" stroke-width="2" stroke-dasharray="4 3"/>';
   }
-  s+=sahneYazi(153,99,durum==="dogru"?"Uyarı gönderildi":(durum==="yanlis"?"Uyarı yok":"Yaprakları incele"),durum==="yanlis"?"#B91C1C":"#166534",17);
+  s+=sahneYazi(153,99,durum==="dogru"?"Uyarı gönderildi.":(durum==="yanlis"?"Uyarı yok.":"Yaprakları incele."),durum==="yanlis"?"#B91C1C":"#166534",17);
   return s;
 }
 function sahneArac(x,y,renk){return '<rect x="'+x+'" y="'+y+'" width="43" height="21" rx="5" fill="'+renk+'"/><rect x="'+(x+9)+'" y="'+(y-5)+'" width="24" height="8" rx="4" fill="'+renk+'"/><circle cx="'+(x+9)+'" cy="'+(y+21)+'" r="4" fill="#334155"/><circle cx="'+(x+34)+'" cy="'+(y+21)+'" r="4" fill="#334155"/>';}
 function sahneTrafik(durum){
   var akiyor=durum==="dogru",s='<rect width="700" height="160" fill="#E0F2FE"/><rect y="58" width="700" height="87" fill="#475569"/><path d="M0 104h700" stroke="#FDE68A" stroke-width="3" stroke-dasharray="24 16"/>';
-  s+=sahneEtiket(akiyor?"Trafik akıyor":(durum==="yanlis"?"Yanlış tahmin: sıkışma":"Trafik sıkışıyor"),durum);
+  s+=sahneEtiket(akiyor?"Trafik akıyor.":(durum==="yanlis"?"Yanlış tahmin: sıkışma":"Trafik sıkışıyor."),durum);
   s+='<rect x="83" y="46" width="16" height="53" rx="6" fill="#1E293B"/><circle cx="91" cy="57" r="5" fill="'+(akiyor?"#64748B":"#EF4444")+'"/><circle cx="91" cy="84" r="5" fill="'+(akiyor?"#22C55E":"#64748B")+'"/>';
   var xs=akiyor?[145,270,400,535]:[145,191,237,283,329,375,421,467];
   for(var i=0;i<xs.length;i++)s+=sahneArac(xs[i],75,i%2?"#FBBF24":"#60A5FA");
   if(akiyor)s+='<path d="M600 84h43m-10-8 10 8-10 8" stroke="#22C55E" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
   else s+=sahneYazi(601,90,"DUR KALK","#FFFFFF",12);
-  s+=sahneYazi(350,153,akiyor?"Yeşil dalga ile araçlar aralıklı ilerliyor":"Araçlar kavşakta birikiyor","#334155",10);
+  s+=sahneYazi(350,153,akiyor?"Yeşil dalga ile araçlar aralıklı ilerliyor.":"Araçlar kavşakta birikiyor.","#334155",10);
   return s;
 }
 function sahneKutuphane(durum){
   var s='<rect width="700" height="160" fill="#F5F3FF"/><rect y="125" width="700" height="35" fill="#E9D5FF"/>';
-  s+=sahneEtiket(durum==="dogru"?"İlgiye uygun kitap":(durum==="yanlis"?"İlgi dışı öneri":"Kitap seçimi bekliyor"),durum);
+  s+=sahneEtiket(durum==="dogru"?"İlgiye uygun kitap":(durum==="yanlis"?"İlgi dışı öneri":"Kitap seçimi bekliyor."),durum);
   s+='<rect x="110" y="46" width="236" height="81" rx="5" fill="#A78BFA"/>';
   for(var i=0;i<8;i++){var renk=i%3===0?"#FBBF24":(i%3===1?"#60A5FA":"#34D399");s+='<rect x="'+(122+i*26)+'" y="58" width="18" height="54" rx="2" fill="'+renk+'" stroke="#FFFFFF" stroke-width="1"/>';}
   s+=sahneYazi(228,142,"KÜTÜPHANE","#6D28D9",11);
@@ -551,7 +571,7 @@ function sahneKutuphane(durum){
 }
 function sahneMeclis(durum){
   var s='<rect width="700" height="160" fill="#F0FDFA"/>';
-  s+=sahneEtiket(durum==="dogru"?"Görüşler ayrıldı":(durum==="yanlis"?"Görüşler karıştı":"Görüşler bekliyor"),durum);
+  s+=sahneEtiket(durum==="dogru"?"Görüşler ayrıldı.":(durum==="yanlis"?"Görüşler karıştı.":"Görüşler bekliyor."),durum);
   s+=sahneYazi(115,54,"GELEN GÖRÜŞLER","#0F766E",11);
   var konular=["SPOR","KİTAP","GÜVENLİK"],renkler=["#FBBF24","#A78BFA","#5EEAD4"];
   for(var i=0;i<3;i++){
@@ -590,6 +610,7 @@ var YAKLASIMLAR = [
 
 var ekranlar=["ekran-giris","ekran-oyun","ekran-son"],aktif=0,vakaIndeks=0;
 var secilenVeriler=[],secilenYaklasim=null,yanlisVeriler=[],yanlisYaklasimlar=[],yildiz=0,aktifAdim=1,modelTamamlandi=false;
+var yanlisDenemeler={veri:0,yaklasim:0},cevapGosterildi={veri:false,yaklasim:false};
 var vakaHataSayisi=0,kilit=false,oyunBitti=false,sesAcik=true,yaziOlcek=100;
 function $(id){return document.getElementById(id);}
 var geribildirim;
@@ -622,6 +643,51 @@ function bildir(metin,tur,kalici){
   if(!kalici){gbZaman=setTimeout(function(){geribildirim.className="";geribildirim.textContent="";},window.__FAST?300:3500);}
 }
 function bildirimTemizle(){if(gbZaman){clearTimeout(gbZaman);gbZaman=null;}geribildirim.className="";geribildirim.textContent="";}
+
+function sirayiKaristir(liste){
+  var sonuc=liste.slice();
+  for(var i=sonuc.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1)),gecici=sonuc[i];
+    sonuc[i]=sonuc[j];sonuc[j]=gecici;
+  }
+  return sonuc;
+}
+
+function haklariGuncelle(){
+  ["veri","yaklasim"].forEach(function(tur){
+    var kalan=2-yanlisDenemeler[tur],etiket=$(tur+"-hak");
+    etiket.textContent="Kalan hak: "+kalan;
+    etiket.classList.toggle("bitti",kalan===0);
+  });
+}
+
+function cevabiGoster(tur){
+  var v=VAKALAR[vakaIndeks],veriMi=tur==="veri";
+  cevapGosterildi[tur]=true;
+  if(veriMi){secilenVeriler=v.veriler.filter(function(item){return item.tur==="dogru";});yanlisVeriler=[];}
+  else{secilenYaklasim=v.dogruYaklasim;yanlisYaklasimlar=[];}
+  Array.prototype.forEach.call($(veriMi?"veri-havuzu":"yaklasim-havuzu").children,function(btn){
+    var id=btn.getAttribute(veriMi?"data-id":"data-cip");
+    var dogru=veriMi?secilenVeriler.some(function(item){return item.id===id;}):id===v.dogruYaklasim;
+    btn.classList.remove("yanlis");btn.classList.remove("sarsil");
+    btn.classList.toggle(veriMi?"kabul":"secili",dogru);
+    btn.setAttribute("aria-pressed",dogru?"true":"false");
+    btn.disabled=true;
+    if(dogru){
+      var isaret=document.createElement("span");isaret.className="cevap-etiket";isaret.textContent="Doğru cevap";
+      btn.appendChild(isaret);
+      btn.setAttribute("aria-label",btn.getAttribute("aria-label")+". Doğru cevap.");
+    }
+  });
+  secimSahnesiGuncelle();ileriDurumGuncelle();
+  bildir("Haklarınız bitti. "+(veriMi?"Doğru cevaplar":"Doğru cevap")+" yeşil gösterildi. İleri düğmesine basınız.","notr",true);
+}
+
+function yanlisDeneme(tur){
+  yanlisDenemeler[tur]++;haklariGuncelle();
+  if(yanlisDenemeler[tur]===2){cevabiGoster(tur);return true;}
+  return false;
+}
 
 function ekranAc(i){
   aktif=i;
@@ -658,6 +724,7 @@ function vakaYukle(){
   var v=VAKALAR[vakaIndeks];
   bildirimTemizle();
   vakaHataSayisi=0;kilit=false;secilenVeriler=[];secilenYaklasim=null;yanlisVeriler=[];yanlisYaklasimlar=[];modelTamamlandi=false;
+  yanlisDenemeler={veri:0,yaklasim:0};cevapGosterildi={veri:false,yaklasim:false};haklariGuncelle();
 
   $("ilerleme-ic").style.background=v.renk.ana;
   $("ilerleme-ic").style.width=(vakaIndeks/VAKALAR.length*100)+"%";
@@ -679,14 +746,14 @@ function vakaYukle(){
 
   var vh=$("veri-havuzu");
   vh.innerHTML="";
-  v.veriler.forEach(function(item){
+  sirayiKaristir(v.veriler).forEach(function(item){
     var btn=document.createElement("button");
     btn.type="button";btn.className="veri-kart";
     btn.setAttribute("data-id",item.id);
     btn.setAttribute("aria-pressed","false");
     btn.setAttribute("aria-label",item.ad+". "+item.ac);
-    var ikonRenk=(item.tur==="dogru")?v.renk.acik:"#FEE2E2";
-    btn.innerHTML='<div class="veri-kart-ikon" style="background:'+ikonRenk+'">'+item.ikon+'</div>'+
+    var ikon=item.ikon.replace(/(stroke|fill)="#[0-9a-fA-F]{6}"/g,'$1="currentColor"');
+    btn.innerHTML='<div class="veri-kart-ikon" style="background:'+v.renk.acik+';color:'+v.renk.ana+'">'+ikon+'</div>'+
       '<div class="veri-kart-ad">'+item.ad+'</div>'+
       '<div class="veri-kart-ac">'+item.ac+'</div>';
     btn.addEventListener("click",function(){veriSec(item,btn);});
@@ -695,7 +762,7 @@ function vakaYukle(){
 
   var yh=$("yaklasim-havuzu");
   yh.innerHTML="";
-  YAKLASIMLAR.forEach(function(y){
+  sirayiKaristir(YAKLASIMLAR).forEach(function(y){
     var btn=document.createElement("button");
     btn.type="button";btn.className="yaklasim-kart";
     btn.setAttribute("data-cip",y.id);
@@ -717,7 +784,7 @@ function vakaYukle(){
 }
 
 function veriSec(item,btn){
-  if(kilit||aktifAdim!==1)return;
+  if(kilit||aktifAdim!==1||cevapGosterildi.veri)return;
   if(btn.classList.contains("kabul")){
     btn.classList.remove("kabul");btn.setAttribute("aria-pressed","false");
     secilenVeriler=secilenVeriler.filter(function(v){return v.id!==item.id;});
@@ -737,7 +804,7 @@ function veriSec(item,btn){
     yanlisVeriler.push(item.id);btn.classList.add("yanlis");btn.classList.add("sarsil");btn.setAttribute("aria-pressed","true");
     secimSahnesiGuncelle();
     setTimeout(function(){btn.classList.remove("sarsil");},400);
-    bildir(item.uyari,"kotu");
+    if(!yanlisDeneme("veri"))bildir(item.uyari+" 1 hakkınız kaldı.","kotu");
     return;
   }
   sesCal("dogru");btn.classList.add("kabul");btn.setAttribute("aria-pressed","true");secilenVeriler.push(item);secimSahnesiGuncelle();
@@ -750,7 +817,7 @@ function veriSec(item,btn){
 }
 
 function yaklasimSec(cipId,btn){
-  if(kilit||aktifAdim!==2)return;
+  if(kilit||aktifAdim!==2||cevapGosterildi.yaklasim)return;
   if(btn.classList.contains("secili")){
     btn.classList.remove("secili");btn.setAttribute("aria-pressed","false");secilenYaklasim=null;
     secimSahnesiGuncelle();ileriDurumGuncelle();bildir("Seçim kaldırıldı.","notr");
@@ -769,7 +836,7 @@ function yaklasimSec(cipId,btn){
     yanlisYaklasimlar.push(cipId);btn.classList.add("yanlis");btn.classList.add("sarsil");btn.setAttribute("aria-pressed","true");
     secimSahnesiGuncelle();
     setTimeout(function(){btn.classList.remove("sarsil");},400);
-    bildir("Bu yaklaşım uygun değil. Yeniden deneyiniz.","kotu");
+    if(!yanlisDeneme("yaklasim"))bildir("Bu yaklaşım uygun değil. 1 hakkınız kaldı.","kotu");
     return;
   }
   sesCal("dogru");btn.classList.add("secili");btn.setAttribute("aria-pressed","true");secilenYaklasim=cipId;secimSahnesiGuncelle();
