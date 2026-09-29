@@ -100,7 +100,7 @@ function kacis(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').re
 function yakin(e,ozellik){while(e&&e!==document){if(e.getAttribute&&e.hasAttribute(ozellik))return e;e=e.parentNode;}return null;}
 function durum(){if(!durumlar[gorevNo])durumlar[gorevNo]={yerlesen:[],hata:0,cozum:false,bitti:false,adim:0,asamalar:[],mevsim:1};return durumlar[gorevNo];}
 function aktifGorev(){var g=GOREVLER[gorevNo];if(g.tur==='onarim')return ONARIMLAR[durum().adim];return g;}
-function yerlerTamam(){var g=aktifGorev(),d=durum(),i;for(i=0;i<g.kartlar.length;i++){if(g.kartlar[i].yer!=='yok'&&!d.yerlesen[i])return false;}return true;}
+function yerlerTamam(){var g=aktifGorev(),d=durum(),i;if(d.cozum)return true;for(i=0;i<g.kartlar.length;i++){if(g.kartlar[i].yer!=='yok'&&!d.yerlesen[i])return false;}return true;}
 function karistir(n){var a=[],i,j,t;for(i=0;i<n;i++)a.push(i);for(i=n-1;i>0;i--){j=Math.floor(Math.random()*(i+1));t=a[i];a[i]=a[j];a[j]=t;}return a;}
 /* ============ SES VE ERİŞİLEBİLİRLİK ============ */
 function sesCal(iyi){if(!sesAcik)return;try{var A=window.AudioContext||window.webkitAudioContext;if(!A)return;if(!sesBaglam)sesBaglam=new A();if(sesBaglam.state==='suspended')sesBaglam.resume();var o=sesBaglam.createOscillator(),g=sesBaglam.createGain(),t=sesBaglam.currentTime;o.connect(g);g.connect(sesBaglam.destination);o.frequency.setValueAtTime(iyi?620:230,t);g.gain.setValueAtTime(.065,t);g.gain.exponentialRampToValueAtTime(.001,t+.14);o.start(t);o.stop(t+.15);}catch(e){}}
@@ -142,7 +142,26 @@ function deneyHTML(talep,oneri){var once=220-talep;return '<div class="olcum-sat
 /* ============ SÜRÜKLE BIRAK VE TIKLA YERLEŞTİR ============ */
 function kartSec(n){var d=durum();if(calisiyor||d.bitti||d.yerlesen[n])return;secili=secili===n?-1:n;var butonlar=el('kart-havuz').querySelectorAll('[data-kart]'),i;for(i=0;i<butonlar.length;i++){var b=butonlar[i],k=Number(b.getAttribute('data-kart'));b.className='kart'+(d.yerlesen[k]?' kullanilmis':'')+(secili===k?' secili':'');b.setAttribute('aria-pressed',String(secili===k));}el('model-sahne').className=el('model-sahne').className.replace(/\s*secim-var/g,'')+(secili>=0?' secim-var':'');if(secili>=0)bildir('Seçildi: '+aktifGorev().kartlar[secili].metin+'. Görseldeki hedefe bırakınız.');}
 function yerlestir(n,yer){var g=aktifGorev(),d=durum(),c=g.kartlar[n],eskiOdak=null;if(!c||d.yerlesen[n]||d.bitti||calisiyor)return;var h=el('model-sahne').querySelector('[data-hedef="'+yer+'"]');if(!h||h.disabled)return;
- if(c.yer!==yer){d.hata++;sesCal(false);h.className+=' hata';setTimeout(function(){if(h)h.className=h.className.replace(/\s*hata/g,'');},450);bildir('Bu kart burada çalışmaz. '+(c.yer==='yok'?c.aciklama:'Kartın işlevini düşününüz. '+g.ipucu),'kotu');if(d.hata>=2&&!d.cozum){d.cozum=true;sahneYukle();bildir('İki denemeden sonra doğru yerler gösterildi. Kartları açıklanan alanlara bırakıp devam ediniz.','kotu');}return;}
+ if(c.yer!==yer){
+  d.hata++;sesCal(false);h.className+=' hata';
+  setTimeout(function(){if(h)h.className=h.className.replace(/\s*hata/g,'');},450);
+  if(d.hata>=2&&!d.cozum){
+    d.cozum=true;
+    for(var ki=0;ki<g.kartlar.length;ki++){if(g.kartlar[ki].yer!=='yok')d.yerlesen[ki]=true;}
+    secili=-1;sahneYukle();kartlariYukle();sayaclariGuncelle();gezinmeGuncelle();
+    if(GOREVLER[gorevNo].calistir){
+      bildir('İki denemeden sonra doğru yerler gösterildi ve yerleştirildi. '+(GOREVLER[gorevNo].tur==='onarim'?'Onarımı deneyiniz.':'Modeli çalıştırınız.'),'kotu');
+      var bc=el('btn-calistir');if(bc)bc.focus();
+    }else{
+      gorevBitir();
+      bildir('İki denemeden sonra doğru yerler gösterildi ve tamamlandı. İleri ile devam ediniz.','kotu');
+      var bi=el('btn-ileri');if(bi)bi.focus();
+    }
+    return;
+  }
+  bildir('Bu kart burada çalışmaz. '+(c.yer==='yok'?c.aciklama:'Kartın işlevini düşününüz. '+g.ipucu),'kotu');
+  return;
+}
  d.yerlesen[n]=true;puan+=d.cozum?5:10;secili=-1;sesCal(true);sahneYukle();kartlariYukle();sayaclariGuncelle();bildir('✓ '+c.aciklama,'iyi');
  if(yerlerTamam()){if(GOREVLER[gorevNo].calistir)bildir('✓ Yerleştirme tamamlandı. Sonucu görmek için '+(GOREVLER[gorevNo].tur==='onarim'?'onarımı deneyiniz.':'modeli çalıştırınız.'),'iyi');else{gorevBitir();bildir('✓ '+c.aciklama+' Görev tamamlandı. İleri ile devam ediniz.','iyi');}}
  gezinmeGuncelle();var sonraki=el('kart-havuz').querySelector('.kart:not([disabled])');if(sonraki&&!yerlerTamam())sonraki.focus();else if(GOREVLER[gorevNo].calistir)el('btn-calistir').focus();else el('btn-ileri').focus();
