@@ -611,6 +611,7 @@ var YAKLASIMLAR = [
 var ekranlar=["ekran-giris","ekran-oyun","ekran-son"],aktif=0,vakaIndeks=0;
 var secilenVeriler=[],secilenYaklasim=null,yanlisVeriler=[],yanlisYaklasimlar=[],yildiz=0,aktifAdim=1,modelTamamlandi=false;
 var yanlisDenemeler={veri:0,yaklasim:0},cevapGosterildi={veri:false,yaklasim:false};
+var tamamlananSenaryolar=[];
 var vakaHataSayisi=0,kilit=false,oyunBitti=false,sesAcik=true,yaziOlcek=100;
 function $(id){return document.getElementById(id);}
 var geribildirim;
@@ -661,24 +662,33 @@ function haklariGuncelle(){
   });
 }
 
+function secimKartlariniGuncelle(){
+  ["veri","yaklasim"].forEach(function(tur){
+   var veriMi=tur==="veri",yanlislar=veriMi?yanlisVeriler:yanlisYaklasimlar;
+   Array.prototype.forEach.call($(veriMi?"veri-havuzu":"yaklasim-havuzu").children,function(btn){
+    var id=btn.getAttribute(veriMi?"data-id":"data-cip");
+    var dogru=veriMi?secilenVeriler.some(function(item){return item.id===id;}):id===secilenYaklasim;
+    var yanlis=yanlislar.indexOf(id)!==-1;
+    btn.classList.toggle("yanlis",yanlis);btn.classList.remove("sarsil");
+    btn.classList.toggle(veriMi?"kabul":"secili",dogru);
+    btn.setAttribute("aria-pressed",dogru||yanlis?"true":"false");
+    btn.disabled=cevapGosterildi[tur];
+    var etiketVar=Array.prototype.some.call(btn.children,function(el){return el.className==="cevap-etiket";});
+    if(cevapGosterildi[tur]&&dogru&&!etiketVar){
+      var isaret=document.createElement("span");isaret.className="cevap-etiket";isaret.textContent="Doğru cevap";
+      btn.appendChild(isaret);
+      btn.setAttribute("aria-label",btn.getAttribute("aria-label")+". Doğru cevap.");
+    }
+   });
+  });
+}
+
 function cevabiGoster(tur){
   var v=VAKALAR[vakaIndeks],veriMi=tur==="veri";
   cevapGosterildi[tur]=true;
   if(veriMi){secilenVeriler=v.veriler.filter(function(item){return item.tur==="dogru";});yanlisVeriler=[];}
   else{secilenYaklasim=v.dogruYaklasim;yanlisYaklasimlar=[];}
-  Array.prototype.forEach.call($(veriMi?"veri-havuzu":"yaklasim-havuzu").children,function(btn){
-    var id=btn.getAttribute(veriMi?"data-id":"data-cip");
-    var dogru=veriMi?secilenVeriler.some(function(item){return item.id===id;}):id===v.dogruYaklasim;
-    btn.classList.remove("yanlis");btn.classList.remove("sarsil");
-    btn.classList.toggle(veriMi?"kabul":"secili",dogru);
-    btn.setAttribute("aria-pressed",dogru?"true":"false");
-    btn.disabled=true;
-    if(dogru){
-      var isaret=document.createElement("span");isaret.className="cevap-etiket";isaret.textContent="Doğru cevap";
-      btn.appendChild(isaret);
-      btn.setAttribute("aria-label",btn.getAttribute("aria-label")+". Doğru cevap.");
-    }
-  });
+  secimKartlariniGuncelle();
   secimSahnesiGuncelle();ileriDurumGuncelle();
   bildir("Haklarınız bitti. "+(veriMi?"Doğru cevaplar":"Doğru cevap")+" yeşil gösterildi. İleri düğmesine basınız.","notr",true);
 }
@@ -692,18 +702,18 @@ function yanlisDeneme(tur){
 function ekranAc(i){
   aktif=i;
   ekranlar.forEach(function(id,k){$(id).classList.toggle("acik",k===i);});
-  $("btn-geri").disabled=(i===0);
   ileriDurumGuncelle();
   bildirimTemizle();
 }
 
 function ileriDurumGuncelle(){
-  $("btn-ileri").disabled=!(aktif===1&&((aktifAdim===1&&secilenVeriler.length===2)||(aktifAdim===2&&secilenYaklasim!==null)||(aktifAdim===3&&modelTamamlandi)));
+  $("btn-geri").disabled=kilit||aktif===0||(aktif===1&&vakaIndeks===0&&aktifAdim===1);
+  $("btn-ileri").disabled=kilit||!(aktif===1&&((aktifAdim===1&&secilenVeriler.length===2)||(aktifAdim===2&&secilenYaklasim!==null)||(aktifAdim===3&&modelTamamlandi)));
 }
 
 function secimSahnesiGuncelle(){
   var yanlis=aktifAdim===1?yanlisVeriler.length>0:(aktifAdim===2&&yanlisYaklasimlar.length>0);
-  sahneCiz(VAKALAR[vakaIndeks],yanlis?"yanlis":"baslangic");
+  sahneCiz(VAKALAR[vakaIndeks],aktifAdim===3&&modelTamamlandi?"dogru":(yanlis?"yanlis":"baslangic"));
 }
 
 function adimGoster(no){
@@ -716,15 +726,27 @@ function adimGoster(no){
   $("adim-3").className="adim-dilim "+(no<3?"":"aktif");
   var metinler=["Veri Seçimi","YZ Yaklaşımı","Modeli Çalıştır"];
   $("gorev-metin").textContent="Adım "+no+": "+metinler[no-1];
+  modelGorunumunuGuncelle();
   secimSahnesiGuncelle();
   ileriDurumGuncelle();
 }
 
-function vakaYukle(){
+function modelGorunumunuGuncelle(){
+  var v=VAKALAR[vakaIndeks];
+  $("sim-svg-kap").innerHTML='<svg viewBox="0 0 400 110">'+(modelTamamlandi?v.simCalSvg:v.simBasSvg)+'</svg>';
+  $("sim-rapor").textContent=modelTamamlandi?v.simRapor:"Veriler hazır. Modeli çalıştırmak için butona basınız.";
+  $("sim-rapor").style.color=modelTamamlandi?"#166534":"";
+  $("btn-model-calistir").style.display=modelTamamlandi?"none":"inline-flex";
+  $("btn-model-calistir").disabled=modelTamamlandi;
+}
+
+function vakaYukle(veriDurumu){
   var v=VAKALAR[vakaIndeks];
   bildirimTemizle();
-  vakaHataSayisi=0;kilit=false;secilenVeriler=[];secilenYaklasim=null;yanlisVeriler=[];yanlisYaklasimlar=[];modelTamamlandi=false;
-  yanlisDenemeler={veri:0,yaklasim:0};cevapGosterildi={veri:false,yaklasim:false};haklariGuncelle();
+  vakaHataSayisi=0;kilit=false;secilenVeriler=veriDurumu?veriDurumu.veriler:[];
+  secilenYaklasim=null;yanlisVeriler=veriDurumu?veriDurumu.yanlislar:[];yanlisYaklasimlar=[];modelTamamlandi=false;
+  yanlisDenemeler={veri:veriDurumu?veriDurumu.deneme:0,yaklasim:0};
+  cevapGosterildi={veri:veriDurumu?veriDurumu.cevap:false,yaklasim:false};haklariGuncelle();
 
   $("ilerleme-ic").style.background=v.renk.ana;
   $("ilerleme-ic").style.width=(vakaIndeks/VAKALAR.length*100)+"%";
@@ -775,12 +797,8 @@ function vakaYukle(){
     yh.appendChild(btn);
   });
 
-  $("sim-svg-kap").innerHTML='<svg viewBox="0 0 400 110">'+v.simBasSvg+'</svg>';
-  $("sim-rapor").textContent="Veriler hazır. Modeli çalıştırmak için butona basınız.";
-  $("sim-rapor").style.color="";
-  $("btn-model-calistir").style.display="inline-flex";
-  $("btn-model-calistir").disabled=false;
-  adimGoster(1);
+  secimKartlariniGuncelle();
+  adimGoster(veriDurumu?2:1);
 }
 
 function veriSec(item,btn){
@@ -853,9 +871,28 @@ function ileriGit(){
   $("oyun-govde").scrollTop=0;
 }
 
+function geriGit(){
+  if(kilit||$("btn-geri").disabled)return;
+  bildirimTemizle();
+  var veriDurumu=null;
+  if(aktif===2){
+    vakaIndeks=VAKALAR.length-1;
+  }else if(aktif===1&&aktifAdim===3){
+    // Only the question being revisited restarts; its prerequisites remain valid.
+    veriDurumu={veriler:secilenVeriler.slice(),yanlislar:yanlisVeriler.slice(),deneme:yanlisDenemeler.veri,cevap:cevapGosterildi.veri};
+  }else if(aktif===1&&vakaIndeks>0){
+    if(aktifAdim===1)vakaIndeks--;
+  }
+  for(var i=vakaIndeks;i<VAKALAR.length;i++)tamamlananSenaryolar[i]=false;
+  yildiz=tamamlananSenaryolar.filter(function(tamam){return tamam;}).length;skorGuncelle();oyunBitti=false;
+  vakaYukle(veriDurumu);ekranAc(1);
+  $("oyun-govde").scrollTop=0;
+}
+
 function modeliCalistir(){
-  if(kilit)return;
+  if(kilit||aktif!==1||aktifAdim!==3||modelTamamlandi)return;
   kilit=true;var v=VAKALAR[vakaIndeks];
+  ileriDurumGuncelle();
   sesCal("tik");$("btn-model-calistir").disabled=true;
   $("sim-rapor").textContent="Yapay zekâ modeli eğitiliyor...";
   setTimeout(function(){
@@ -863,15 +900,17 @@ function modeliCalistir(){
     $("sim-svg-kap").innerHTML='<svg viewBox="0 0 400 110">'+v.simCalSvg+'</svg>';
     sahneCiz(v,"dogru");
     $("sim-rapor").textContent=v.simRapor;$("sim-rapor").style.color="#166534";
-    yildiz++;skorGuncelle();
+    tamamlananSenaryolar[vakaIndeks]=true;
+    yildiz=tamamlananSenaryolar.filter(function(tamam){return tamam;}).length;skorGuncelle();
     $("btn-model-calistir").style.display="none";
-    modelTamamlandi=true;ileriDurumGuncelle();
+    modelTamamlandi=true;kilit=false;ileriDurumGuncelle();
     bildir("Tebrikler! Model başarıyla çalıştı. İleri düğmesine basınız.","iyi");
-    kilit=false;
   },window.__FAST?350:1500);
 }
 
-function sonrakiVakayaGec(){vakaIndeks++;if(vakaIndeks>=VAKALAR.length){oyunuBitir();}else{vakaYukle();}}
+function sonrakiVakayaGec(){
+  if(vakaIndeks===VAKALAR.length-1){oyunuBitir();}else{vakaIndeks++;vakaYukle();}
+}
 
 function skorGuncelle(){$("tamamlanan-sayi").textContent="Tamamlanan: "+yildiz+" / "+VAKALAR.length;}
 
@@ -884,6 +923,7 @@ function oyunuBitir(){
 
 function oyunuBaslat(){
   vakaIndeks=0;yildiz=0;vakaHataSayisi=0;kilit=false;oyunBitti=false;
+  tamamlananSenaryolar=[];
   secilenVeriler=[];secilenYaklasim=null;skorGuncelle();bildirimTemizle();vakaYukle();
 }
 
@@ -920,7 +960,7 @@ $("btn-kucult").addEventListener("click",function(){if(yaziOlcek>90){yaziOlcek-=
 $("btn-tam-ekran").addEventListener("click",tamEkranDegistir);
 document.addEventListener("fullscreenchange",tamEkranDurumGuncelle);
 document.addEventListener("webkitfullscreenchange",tamEkranDurumGuncelle);
-$("btn-geri").addEventListener("click",function(){if(aktif>0)ekranAc(aktif-1);});
+$("btn-geri").addEventListener("click",geriGit);
 $("btn-ileri").addEventListener("click",ileriGit);
 $("btn-basla").addEventListener("click",function(){sesCal("tik");oyunuBaslat();ekranAc(1);});
 $("btn-yeniden").addEventListener("click",function(){oyunuBaslat();ekranAc(0);});
