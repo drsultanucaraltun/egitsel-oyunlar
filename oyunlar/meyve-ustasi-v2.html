@@ -429,25 +429,21 @@ b,strong{font-weight:700}
   justify-content:center;
   gap:0.35rem;
 }
-.kategori-buton .btn-isaret{
-  font-size:1.15em;
-  line-height:1;
-}
 
-#btn-meyve{
-  background:#FEF9C3;
-  color:#92400E;
-  border-color:#D97706;
-  box-shadow:0 4px 14px rgba(217,119,6,0.2);
-}
-#btn-meyve:hover{background:#FEF3C7}
+
+#btn-meyve,
 #btn-degil{
-  background:#F0FDF4;
-  color:#166534;
-  border-color:#16A34A;
-  box-shadow:0 4px 14px rgba(22,163,74,0.18);
+  background:#FFFFFF;
+  color:#15803D;
+  border:3px solid #16A34A;
+  box-shadow:0 4px 14px rgba(22,163,74,0.15);
 }
-#btn-degil:hover{background:#DCFCE7}
+#btn-meyve:hover,
+#btn-degil:hover{
+  background:#DCFCE7;
+  color:#14532D;
+  border-color:#15803D;
+}
 
 /* Kategori Buton Vurgu Efektleri */
 .kategori-buton.dogru-flash{animation:dogruFlash 0.55s ease;}
@@ -751,13 +747,13 @@ b,strong{font-weight:700}
 
         <!-- Kategori Butonları (Eğitim Modu) -->
         <div id="kategoriler">
-          <button class="kategori-buton" id="btn-meyve" type="button" aria-label="Bu meyvedir">
+          <button class="kategori-buton" id="btn-meyve" type="button" aria-label="Bu bir meyvedir">
             <span class="btn-ust">Etiket</span>
-            <span class="btn-ana">Bu bir meyvedir <span class="btn-isaret">✓</span></span>
+            <span class="btn-ana">Bu bir meyvedir</span>
           </button>
           <button class="kategori-buton" id="btn-degil" type="button" aria-label="Meyve değildir">
             <span class="btn-ust">Etiket</span>
-            <span class="btn-ana">Meyve değildir <span class="btn-isaret">✗</span></span>
+            <span class="btn-ana">Meyve değildir</span>
           </button>
         </div>
 
