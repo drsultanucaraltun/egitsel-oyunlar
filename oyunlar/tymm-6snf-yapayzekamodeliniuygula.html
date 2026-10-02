@@ -186,25 +186,25 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--vurgu);outline-
 /* Hedef Bırakma Kutuları (.hedef) */
 .hedef{
   position:absolute;transform:translate(-50%,-50%);
-  width:23%;min-height:64px;border:2.5px solid #3b82f6;
-  background:#ffffff;border-radius:14px;padding:8px 10px;
-  color:#0f172a;box-shadow:0 8px 24px rgba(0,0,0,.35),0 2px 6px rgba(59,130,246,.3);
+  width:24%;min-height:54px;max-width:265px;border:2.5px solid #3b82f6;
+  background:#ffffff;border-radius:12px;padding:5px 8px;
+  color:#0f172a;box-shadow:0 6px 18px rgba(0,0,0,.3);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:4px;line-height:1.25;text-align:center;transition:background .2s,box-shadow .2s,border-color .2s;
-  z-index:10;pointer-events:auto;user-select:none;opacity:1!important;
+  gap:2px;line-height:1.2;text-align:center;transition:background .2s,box-shadow .2s,border-color .2s;
+  z-index:10;pointer-events:auto;user-select:none;opacity:1!important;box-sizing:border-box;
 }
 .hedef *{pointer-events:none}
 .hedef:disabled,.hedef[disabled]{opacity:1!important;cursor:default}
 .hedef-no{
-  font-size:.82rem;font-weight:800;color:#ffffff;background:#2563eb;
-  padding:2px 10px;border-radius:999px;letter-spacing:.02em;
-  box-shadow:0 2px 4px rgba(37,99,235,.3);white-space:nowrap;
+  font-size:.78rem;font-weight:800;color:#ffffff;background:#2563eb;
+  padding:2px 8px;border-radius:999px;letter-spacing:.02em;
+  box-shadow:0 1px 3px rgba(37,99,235,.3);white-space:nowrap;
 }
 .hedef-icerik{
-  font-size:1.02rem;font-weight:800;color:#0f172a;
+  font-size:.92rem;font-weight:800;color:#0f172a;line-height:1.2;
 }
 .hedef small{
-  font-size:.85rem;line-height:1.25;color:#334155;font-weight:600;
+  font-size:.78rem;line-height:1.2;color:#334155;font-weight:600;
   background:#f1f5f9;padding:2px 6px;border-radius:6px;width:100%;
 }
 
@@ -556,9 +556,9 @@ var GOREVLER = [
     tur: 'veri',
     calistir: false,
     hedefler: [
-      { id: 'tur', ad: 'Sevilen Türler', alt: 'Pop, Akustik ve Klasik', x: 22, y: 35 },
-      { id: 'mod', ad: 'Dinleme Zamanı', alt: 'Ders çalışma & odaklanma', x: 22, y: 60 },
-      { id: 'gecmis', ad: 'Beğeni Geçmişi', alt: 'Kalp bırakılan sakin parçalar', x: 22, y: 84 }
+      { id: 'tur', ad: 'Sevilen Türler', alt: 'Pop, Akustik ve Klasik', x: 22, y: 31 },
+      { id: 'mod', ad: 'Dinleme Zamanı', alt: 'Ders çalışma & odaklanma', x: 22, y: 51 },
+      { id: 'gecmis', ad: 'Beğeni Geçmişi', alt: 'Kalp bırakılan sakin parçalar', x: 22, y: 71 }
     ],
     kartlar: [
       { metin: 'Sevilen Tür: Pop ve Akustik', yer: 'tur', aciklama: 'Model dinleyicinin genel müzik zevkini veri olarak kaydeder.' },
@@ -574,8 +574,8 @@ var GOREVLER = [
     tur: 'islem',
     calistir: true,
     hedefler: [
-      { id: 'tempo', ad: 'Tempo Eşleme', alt: 'Ders saatine uygun sakin ritimler', x: 50, y: 40 },
-      { id: 'filtre', ad: 'Tür Filtresi', alt: 'Sözsüz ve akustik melodiler', x: 50, y: 78 }
+      { id: 'tempo', ad: 'Tempo Eşleme', alt: 'Ders saatine uygun sakin ritimler', x: 50, y: 38 },
+      { id: 'filtre', ad: 'Tür Filtresi', alt: 'Sözsüz ve akustik melodiler', x: 50, y: 68 }
     ],
     kartlar: [
       { metin: 'Tempo Analizi: Odaklanmayı bozmayacak sakin ritimler', yer: 'tempo', aciklama: 'Yapay zekâ şarkının BPM (tempo) değerini ders moduna göre ayarlar.' },
@@ -590,9 +590,9 @@ var GOREVLER = [
     tur: 'cikti',
     calistir: false,
     hedefler: [
-      { id: 'oneri', ad: 'Öneri Çıktısı', alt: 'Sana Özel 5 Şarkılık Liste', x: 78, y: 35 },
-      { id: 'tahmin', ad: 'Olasılık Tahmini', alt: 'Beğenilme ihtimali: %92', x: 78, y: 60 },
-      { id: 'etiket', ad: 'Tür Sınıflandırması', alt: 'Kategori: Odaklanma & Chill', x: 78, y: 84 }
+      { id: 'oneri', ad: 'Öneri Çıktısı', alt: 'Sana Özel 5 Şarkılık Liste', x: 70, y: 31 },
+      { id: 'tahmin', ad: 'Olasılık Tahmini', alt: 'Beğenilme ihtimali: %92', x: 70, y: 51 },
+      { id: 'etiket', ad: 'Tür Sınıflandırması', alt: 'Kategori: Odaklanma & Chill', x: 70, y: 71 }
     ],
     kartlar: [
       { metin: 'Kişiselleştirilmiş 5 Şarkılık Liste', yer: 'oneri', aciklama: 'Modelin temel çıktısı öğrenciye sunulan özel müzik listesidir.' },
@@ -626,10 +626,10 @@ var GOREVLER = [
     tur: 'karar',
     calistir: false,
     hedefler: [
-      { id: 'atla_durum', ad: 'Hızlı Parça Atlandı', alt: '10. saniyede şarkı geçildi', x: 25, y: 44 },
-      { id: 'sev_durum', ad: 'Akustik Tekrarlandı', alt: 'Aynı şarkı 3 kez dinlendi', x: 75, y: 44 },
-      { id: 'spor_durum', ad: 'Spor Saati Geldi', alt: 'Kullanıcı dersi bitirdi, hareketlendi', x: 25, y: 78 },
-      { id: 'genel_durum', ad: 'Genel Başarı: %80', alt: 'Yüksek memnuniyet sağlandı', x: 75, y: 78 }
+      { id: 'atla_durum', ad: 'Hızlı Parça Atlandı', alt: '10. saniyede şarkı geçildi', x: 25, y: 38 },
+      { id: 'sev_durum', ad: 'Akustik Tekrarlandı', alt: 'Aynı şarkı 3 kez dinlendi', x: 75, y: 38 },
+      { id: 'spor_durum', ad: 'Spor Saati Geldi', alt: 'Kullanıcı dersi bitirdi, hareketlendi', x: 25, y: 68 },
+      { id: 'genel_durum', ad: 'Genel Başarı: %80', alt: 'Yüksek memnuniyet sağlandı', x: 75, y: 68 }
     ],
     kartlar: [
       { metin: 'Ders modunda yüksek tempolu parçalar elenmelidir.', yer: 'atla_durum', aciklama: 'Atlanan şarkı bir hatadır; model bu şarkı tipini ders modundan çıkarır.' },
@@ -811,22 +811,22 @@ function hedefHTML(h){
 function sahneYukle(){
   var g = aktifGorev(), d = durum(), s = '', i;
   var sahneEl = el('model-sahne');
+  if(!sahneEl) return;
 
-  // Her görevin amacına özel şık ve anlaşılır SVG arayüzü
   var svgIcerik = '';
-
   if(gorevNo === 0){
     // GÖREV 1: Dinleyici Verileri (Tablet Arayüzü)
     svgIcerik = '<rect x="15" y="15" width="970" height="570" rx="20" fill="#0b1120" stroke="#1e293b" stroke-width="2"/>' +
-      '<rect x="15" y="15" width="970" height="52" rx="20" fill="#1e293b"/>' +
-      '<text x="40" y="48" fill="#38bdf8" font-size="18" font-weight="900">📱 1. ADIM: DİNLEYİCİ PROFİLİ VE GİRDİ VERİLERİ</text>' +
-      '<text x="500" y="48" fill="#94a3b8" font-size="14" font-weight="700" text-anchor="middle">Modelin şarkı önermesi için gerekli 3 girdi verisi</text>' +
+      '<rect x="15" y="15" width="970" height="52" rx="16" fill="#1e293b"/>' +
+      '<text x="35" y="47" fill="#38bdf8" font-size="17" font-weight="900">📱 1. ADIM: DİNLEYİCİ PROFİLİ VE GİRDİ VERİLERİ</text>' +
+      '<rect x="830" y="26" width="135" height="30" rx="15" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>' +
+      '<text x="897" y="46" fill="#94a3b8" font-size="12" font-weight="800" text-anchor="middle">Aşama 1 / 5</text>' +
       // Sol Bilgi Kartı
-      '<rect x="35" y="85" width="370" height="475" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>' +
+      '<rect x="35" y="85" width="370" height="480" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>' +
       '<rect x="35" y="85" width="370" height="42" rx="16" fill="#0f172a"/>' +
       '<text x="50" y="112" fill="#38bdf8" font-size="15" font-weight="800">👤 ÖĞRENCİ DİNLEME PROFİLİ</text>' +
       // Sağ Açıklama & Akış Paneli
-      '<rect x="430" y="85" width="535" height="475" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>' +
+      '<rect x="430" y="85" width="535" height="480" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>' +
       '<rect x="430" y="85" width="535" height="42" rx="16" fill="#0f172a"/>' +
       '<text x="450" y="112" fill="#a78bfa" font-size="15" font-weight="800">📊 YAPAY ZEKÂYA AKTARILAN VERİLER</text>' +
       '<text x="450" y="160" fill="#cbd5e1" font-size="15" font-weight="600">✓ Yapay zekâ rastgele şarkı önermez.</text>' +
@@ -839,38 +839,41 @@ function sahneYukle(){
   } else if(gorevNo === 1){
     // GÖREV 2: Model Çalıştırma & Filtreleme Çekirdeği
     svgIcerik = '<rect x="15" y="15" width="970" height="570" rx="20" fill="#0b1120" stroke="#1e293b" stroke-width="2"/>' +
-      '<rect x="15" y="15" width="970" height="52" rx="20" fill="#312e81"/>' +
-      '<text x="40" y="48" fill="#c7d2fe" font-size="18" font-weight="900">🤖 2. ADIM: YAPAY ZEKÂ FİLTRE VE ANALİZ ÇEKİRDEĞİ</text>' +
-      '<text x="500" y="48" fill="#94a3b8" font-size="14" font-weight="700" text-anchor="middle">Filtreleri yerleştirip Modeli Çalıştırınız</text>' +
+      '<rect x="15" y="15" width="970" height="52" rx="16" fill="#312e81"/>' +
+      '<text x="35" y="47" fill="#c7d2fe" font-size="17" font-weight="900">🤖 2. ADIM: YAPAY ZEKÂ FİLTRE VE ANALİZ ÇEKİRDEĞİ</text>' +
+      '<rect x="830" y="26" width="135" height="30" rx="15" fill="#1e1b4b" stroke="#4f46e5" stroke-width="1.5"/>' +
+      '<text x="897" y="46" fill="#c7d2fe" font-size="12" font-weight="800" text-anchor="middle">Aşama 2 / 5</text>' +
       // Orta İşlem Çipi
-      '<rect x="180" y="90" width="640" height="470" rx="20" fill="#1e1b4b" stroke="#6366f1" stroke-width="2"/>' +
+      '<rect x="180" y="85" width="640" height="480" rx="20" fill="#1e1b4b" stroke="#6366f1" stroke-width="2"/>' +
       '<path class="akis-yolu" d="M 220 280 Q 500 180 780 280" fill="none" stroke="#818cf8" stroke-width="4" stroke-dasharray="10 8"/>' +
       '<circle cx="500" cy="235" r="30" fill="#4338ca" stroke="#a5b4fc" stroke-width="3"/>' +
       '<text x="500" y="244" fill="#ffffff" font-size="24" font-weight="900" text-anchor="middle">⚡</text>';
   } else if(gorevNo === 2){
     // GÖREV 3: Öneri Çıktısı (Çalma Listesi Arayüzü)
     svgIcerik = '<rect x="15" y="15" width="970" height="570" rx="20" fill="#0b1120" stroke="#1e293b" stroke-width="2"/>' +
-      '<rect x="15" y="15" width="970" height="52" rx="20" fill="#1e293b"/>' +
-      '<text x="40" y="48" fill="#22c55e" font-size="18" font-weight="900">🎧 3. ADIM: OLUŞTURULAN ÇALMA LİSTESİ VE ÇIKTILAR</text>' +
-      '<text x="500" y="48" fill="#94a3b8" font-size="14" font-weight="700" text-anchor="middle">Modelin ürettiği öneri, tahmin ve sınıflandırma çıktıları</text>' +
+      '<rect x="15" y="15" width="970" height="52" rx="16" fill="#1e293b"/>' +
+      '<text x="35" y="47" fill="#22c55e" font-size="17" font-weight="900">🎧 3. ADIM: OLUŞTURULAN ÇALMA LİSTESİ VE ÇIKTILAR</text>' +
+      '<rect x="830" y="26" width="135" height="30" rx="15" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>' +
+      '<text x="897" y="46" fill="#4ade80" font-size="12" font-weight="800" text-anchor="middle">Aşama 3 / 5</text>' +
       // Sol Albüm & Çalar
-      '<rect x="35" y="85" width="370" height="475" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>' +
+      '<rect x="35" y="85" width="370" height="480" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>' +
       '<circle cx="220" cy="240" r="90" fill="#0f172a" stroke="#22c55e" stroke-width="4"/>' +
       '<text x="220" y="258" fill="#4ade80" font-size="52" font-weight="900" text-anchor="middle">▶</text>' +
       '<text x="220" y="380" fill="#f8fafc" font-size="18" font-weight="800" text-anchor="middle">Sana Özel Ders Listesi</text>' +
       '<text x="220" y="410" fill="#94a3b8" font-size="14" text-anchor="middle">5 Enstrümantal Parça · Sakin Tempo</text>' +
       // Sağ Çıktı Hedefleri Paneli
-      '<rect x="430" y="85" width="535" height="475" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>' +
+      '<rect x="430" y="85" width="535" height="480" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>' +
       '<rect x="430" y="85" width="535" height="42" rx="16" fill="#0f172a"/>' +
       '<text x="450" y="112" fill="#4ade80" font-size="15" font-weight="800">📋 MODELİN ÜRETTİĞİ 3 TEMEL ÇIKTI</text>';
   } else if(gorevNo === 3){
     // GÖREV 4: Dinleme Analizi & Ölçüm
     svgIcerik = '<rect x="15" y="15" width="970" height="570" rx="20" fill="#0b1120" stroke="#1e293b" stroke-width="2"/>' +
-      '<rect x="15" y="15" width="970" height="52" rx="20" fill="#1e293b"/>' +
-      '<text x="40" y="48" fill="#f59e0b" font-size="18" font-weight="900">📊 4. ADIM: GERÇEK DİNLEME SONUCUNU ÖLÇME</text>' +
-      '<text x="500" y="48" fill="#94a3b8" font-size="14" font-weight="700" text-anchor="middle">Modelin başarısı kullanıcı davranışıyla ölçülür</text>' +
+      '<rect x="15" y="15" width="970" height="52" rx="16" fill="#1e293b"/>' +
+      '<text x="35" y="47" fill="#f59e0b" font-size="17" font-weight="900">📊 4. ADIM: GERÇEK DİNLEME SONUCUNU ÖLÇME</text>' +
+      '<rect x="830" y="26" width="135" height="30" rx="15" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>' +
+      '<text x="897" y="46" fill="#fbbf24" font-size="12" font-weight="800" text-anchor="middle">Aşama 4 / 5</text>' +
       // Ölçüm Grafiği Paneli
-      '<rect x="35" y="85" width="930" height="475" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>' +
+      '<rect x="35" y="85" width="930" height="480" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>' +
       '<rect x="80" y="130" width="840" height="30" rx="8" fill="#0f172a"/>' +
       '<rect x="80" y="130" width="672" height="30" rx="8" fill="#16a34a"/>' +
       '<text x="95" y="151" fill="#ffffff" font-size="14" font-weight="800">4 ŞARKI DİNLENDİ (%80 BAŞARI)</text>' +
@@ -881,13 +884,14 @@ function sahneYukle(){
   } else {
     // GÖREV 5: Karar & İyileştirme Döngüsü
     svgIcerik = '<rect x="15" y="15" width="970" height="570" rx="20" fill="#0b1120" stroke="#1e293b" stroke-width="2"/>' +
-      '<rect x="15" y="15" width="970" height="52" rx="20" fill="#1e293b"/>' +
-      '<text x="40" y="48" fill="#38bdf8" font-size="18" font-weight="900">🔄 5. ADIM: MODELİ GELİŞTİRME VE KARAR VERME</text>' +
-      '<text x="500" y="48" fill="#94a3b8" font-size="14" font-weight="700" text-anchor="middle">Gözlem sonucuna göre yapay zekâyı güncelleyiniz</text>' +
+      '<rect x="15" y="15" width="970" height="52" rx="16" fill="#1e293b"/>' +
+      '<text x="35" y="47" fill="#38bdf8" font-size="17" font-weight="900">🔄 5. ADIM: MODELİ GELİŞTİRME VE KARAR VERME</text>' +
+      '<rect x="830" y="26" width="135" height="30" rx="15" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>' +
+      '<text x="897" y="46" fill="#38bdf8" font-size="12" font-weight="800" text-anchor="middle">Aşama 5 / 5</text>' +
       // 2x2 Karar Panosu Izgarası
-      '<rect x="35" y="85" width="930" height="475" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>' +
-      '<line x1="500" y1="95" x2="500" y2="540" stroke="#334155" stroke-width="2" stroke-dasharray="6 6"/>' +
-      '<line x1="45" y1="320" x2="955" y2="320" stroke="#334155" stroke-width="2" stroke-dasharray="6 6"/>';
+      '<rect x="35" y="85" width="930" height="480" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>' +
+      '<line x1="500" y1="95" x2="500" y2="550" stroke="#334155" stroke-width="2" stroke-dasharray="6 6"/>' +
+      '<line x1="45" y1="325" x2="955" y2="325" stroke="#334155" stroke-width="2" stroke-dasharray="6 6"/>';
   }
 
   s = '<svg class="sahne-svg" viewBox="0 0 1000 600" aria-hidden="true">' + svgIcerik + '</svg>';
