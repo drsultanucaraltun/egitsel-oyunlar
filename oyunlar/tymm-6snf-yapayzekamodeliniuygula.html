@@ -161,14 +161,14 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--vurgu);outline-
   display:flex;flex-direction:column;gap:10px;min-height:0;
   background:var(--panel);border:1px solid var(--cizgi);
   border-radius:var(--r);padding:12px;box-shadow:var(--golge);
-  overflow:hidden;
+  overflow-y:auto;
 }
 .sahne-kapsayici{
-  flex:1;min-height:0;position:relative;display:flex;
+  flex:none;position:relative;display:flex;
   align-items:center;justify-content:center;
 }
 .sahne{
-  position:relative;width:100%;height:100%;max-width:960px;
+  position:relative;width:100%;max-width:960px;
   aspect-ratio:1.62/1;border-radius:16px;overflow:hidden;
   background:#090d16;box-shadow:inset 0 0 40px rgba(0,0,0,.6);
 }
@@ -278,22 +278,89 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--vurgu);outline-
 }
 #btn-calistir:hover:not(:disabled){transform:scale(1.03);box-shadow:0 8px 24px rgba(124,58,237,.45)}
 
-/* Sonuç / Simülasyon Paneli */
+/* Sonuç / Canlı Şarkı Tarama Simülasyonu */
 .sonuc-paneli{
-  display:none;background:#f0fdf4;border:2px solid #86efac;
-  border-radius:12px;padding:12px 16px;box-shadow:0 4px 12px rgba(22,163,74,.1);
+  display:none;background:#ffffff;border:2px solid #86efac;
+  border-radius:14px;padding:14px 18px;box-shadow:0 8px 24px rgba(22,163,74,.15);
+  animation:panel-ac .3s ease-out;flex:none;
 }
+@keyframes panel-ac{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .sonuc-paneli.acik{display:block}
-.sonuc-baslik{display:flex;align-items:center;gap:10px;font-size:.95rem;font-weight:800;color:#14532d;margin-bottom:6px}
-.sonuc-icerik{font-size:.92rem;color:#166534;line-height:1.45}
-.dalga-anim{display:inline-flex;align-items:center;gap:3px;height:20px}
-.dalga-anim span{
-  width:4px;background:#16a34a;border-radius:2px;
-  animation:dalgalan .6s ease-in-out infinite alternate;
+.sim-ust{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:10px;margin-bottom:12px;padding-bottom:10px;
+  border-bottom:1px solid #e2e8f0;
 }
-.dalga-anim span:nth-child(2){animation-delay:.15s;height:60%}
-.dalga-anim span:nth-child(3){animation-delay:.3s;height:100%}
-.dalga-anim span:nth-child(4){animation-delay:.45s;height:40%}
+.sim-baslik-alani{display:flex;align-items:center;gap:10px}
+.sim-baslik{font-size:1.05rem;font-weight:900;color:#14532d;margin:0}
+.sim-aciklama{font-size:.85rem;color:#166534;font-weight:600;margin:2px 0 0}
+.sim-modlar{display:flex;align-items:center;gap:6px}
+.mod-btn{
+  background:#f1f5f9;border:1.5px solid #cbd5e1;color:#334155;
+  padding:6px 12px;border-radius:8px;font-size:.85rem;font-weight:700;
+  transition:all .15s;cursor:pointer;
+}
+.mod-btn:hover{background:#e2e8f0}
+.mod-btn.aktif{
+  background:#16a34a;border-color:#15803d;color:#ffffff;
+  box-shadow:0 2px 6px rgba(22,163,74,.3);
+}
+
+.sim-govde{
+  display:grid;grid-template-columns:1.2fr 1fr;gap:14px;align-items:start;
+}
+.sim-kutu{
+  background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;
+  padding:12px;display:flex;flex-direction:column;gap:8px;
+}
+.sim-kutu-baslik{
+  font-size:.85rem;font-weight:800;color:#475569;text-transform:uppercase;
+  letter-spacing:.03em;display:flex;align-items:center;justify-content:space-between;
+}
+.sarki-akisi{
+  display:flex;flex-direction:column;gap:6px;max-height:165px;overflow:hidden;
+}
+.sarki-kart{
+  background:#ffffff;border:1px solid #e2e8f0;border-radius:8px;
+  padding:6px 10px;display:flex;align-items:center;justify-content:space-between;
+  font-size:.86rem;animation:sarki-gir .35s ease-out;
+}
+@keyframes sarki-gir{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
+.sarki-bilgi{display:flex;align-items:center;gap:8px}
+.sarki-ikon{font-size:1.05rem}
+.sarki-isim{font-weight:700;color:#0f172a}
+.sarki-detay{font-size:.76rem;color:#64748b}
+.sarki-durum{
+  font-size:.76rem;font-weight:800;padding:2px 8px;border-radius:6px;white-space:nowrap;
+}
+.sarki-kart.secildi{border-color:#86efac;background:#f0fdf4}
+.sarki-kart.secildi .sarki-durum{background:#dcfce7;color:#15803d}
+.sarki-kart.elendi{border-color:#fecaca;background:#fef2f2;opacity:.75}
+.sarki-kart.elendi .sarki-durum{background:#fee2e2;color:#b91c1c}
+
+.calma-listesi{display:flex;flex-direction:column;gap:6px}
+.liste-satir{
+  background:#ffffff;border:1.5px solid #bbf7d0;border-radius:8px;
+  padding:6px 10px;display:flex;align-items:center;justify-content:space-between;
+  font-size:.86rem;box-shadow:0 1px 3px rgba(0,0,0,.04);
+  animation:liste-gir .3s ease-out;
+}
+@keyframes liste-gir{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.liste-sol{display:flex;align-items:center;gap:8px}
+.liste-no{font-weight:900;color:#16a34a;font-size:.85rem}
+.liste-baslik{font-weight:700;color:#0f172a}
+.liste-sure{font-size:.76rem;color:#64748b;margin-left:4px}
+.liste-uyum{
+  background:#dcfce7;color:#166534;font-size:.75rem;font-weight:800;
+  padding:2px 6px;border-radius:4px;
+}
+.dalga-mini{display:inline-flex;align-items:center;gap:2px;height:14px;margin-right:2px}
+.dalga-mini span{
+  width:2.5px;background:#16a34a;border-radius:1px;
+  animation:dalgalan .5s ease-in-out infinite alternate;
+}
+.dalga-mini span:nth-child(2){animation-delay:.15s;height:60%}
+.dalga-mini span:nth-child(3){animation-delay:.3s;height:100%}
 
 /* Bitiş Ekranı */
 .son{align-items:center;justify-content:center;gap:24px;flex-direction:column;text-align:center;overflow:auto}
@@ -328,6 +395,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--vurgu);outline-
   .oyun-icerik{grid-template-columns:1fr;grid-template-rows:1fr auto}
   .kart-paneli{max-height:220px}
   .hedef{width:29%;min-height:56px}
+  .sim-govde{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -400,7 +468,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--vurgu);outline-
       <p>Müzik uygulamaları yüz binlerce şarkı arasından zevkinize en uygun parçaları nasıl bulur? Yapay zekâ modeli dinleyici verilerini toplar, analiz eder, kişiye özel çalma listesi önerir ve dinleme sonuçlarına göre kendini geliştirir.</p>
       <div class="ozellikler">
         <div class="ozellik"><span class="ozellik-ikon">1</span> Dinleyici verilerini modele tanıtınız.</div>
-        <div class="ozellik"><span class="ozellik-ikon">2</span> Modeli çalıştırıp şarkı eşleştirmesini başlatınız.</div>
+        <div class="ozellik"><span class="ozellik-ikon">2</span> Modeli çalıştırıp şarkı süzgecini başlatınız.</div>
         <div class="ozellik"><span class="ozellik-ikon">3</span> Öneri çıktısını inceleyip sonuçları değerlendiriniz.</div>
       </div>
       <button class="btn-birincil" id="btn-basla">Atölyeyi Başlatınız →</button>
@@ -468,7 +536,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--vurgu);outline-
 </main>
 
 <script>
-/* ============ GÖREV VERİLERİ (TYMM 6. SINIF: MÜZİK ÖNERİ MODELİ) ============ */
+/* ============ GÖREV VERİLERİ ============ */
 var GOREVLER = [
   {
     baslik: 'Modele dinleyici verilerini tanıtınız',
@@ -562,6 +630,74 @@ var GOREVLER = [
   }
 ];
 
+/* ============ CANLI SİMÜLASYON VERİ HAVUZU ============ */
+var SIM_MODLAR = {
+  ders: {
+    ad: '📚 Ders Çalışma',
+    aciklama: 'Odaklanmayı artırmak için sözsüz, sakin tempolu (60-90 BPM) akustik parçalar taranıyor.',
+    havuz: [
+      { ad: 'Akustik Sabahlar', sanatci: 'Gitar & Yağmur', bpm: 78, uygun: true, neden: 'Sözsüz & Sakin' },
+      { ad: 'Elektro Patlama', sanatci: 'Hızlı Ritim', bpm: 155, uygun: false, neden: 'Aşırı Yüksek BPM' },
+      { ad: 'Derin Odaklanma', sanatci: 'Piyano & Yaylılar', bpm: 72, uygun: true, neden: 'Enstrümantal' },
+      { ad: 'Hard Rock Zirve', sanatci: 'Gürültülü Davul', bpm: 165, uygun: false, neden: 'Dikkati Dağıtır' },
+      { ad: 'Gece Lo-Fi Beats', sanatci: 'Chill Hop Melodi', bpm: 82, uygun: true, neden: 'Rahatlatıcı Ritim' },
+      { ad: 'Hızlı Dans Pop', sanatci: 'Parti Kulübü', bpm: 140, uygun: false, neden: 'Yüksek Tempo' },
+      { ad: 'Sakin Kütüphane', sanatci: 'Akustik Solo', bpm: 75, uygun: true, neden: 'Dinlendirici Melodi' },
+      { ad: 'Doğa Fısıltısı', sanatci: 'Orman Rüzgarı', bpm: 68, uygun: true, neden: 'Düşük BPM' }
+    ],
+    liste: [
+      { ad: 'Akustik Sabahlar', sure: '3:20', uyum: '%96' },
+      { ad: 'Derin Odaklanma', sure: '4:05', uyum: '%94' },
+      { ad: 'Gece Lo-Fi Beats', sure: '2:45', uyum: '%92' },
+      { ad: 'Sakin Kütüphane', sure: '3:15', uyum: '%90' },
+      { ad: 'Doğa Fısıltısı', sure: '3:50', uyum: '%88' }
+    ]
+  },
+  spor: {
+    ad: '🏃 Spor & Koşu',
+    aciklama: 'Enerji ve tempoyu yükseltmek için yüksek tempolu (130-160 BPM) dinamik parçalar taranıyor.',
+    havuz: [
+      { ad: 'Elektro Patlama', sanatci: 'Hızlı Ritim', bpm: 155, uygun: true, neden: 'Yüksek Motivasyon' },
+      { ad: 'Derin Odaklanma', sanatci: 'Sakin Piyano', bpm: 72, uygun: false, neden: 'Aşırı Yavaş' },
+      { ad: 'Hızlı Dans Pop', sanatci: 'Parti Kulübü', bpm: 140, uygun: true, neden: 'Koşu Ritimli' },
+      { ad: 'Doğa Fısıltısı', sanatci: 'Orman Rüzgarı', bpm: 68, uygun: false, neden: 'Düşük Enerji' },
+      { ad: 'Zirveye Koş', sanatci: 'Elektronik Bas', bpm: 150, uygun: true, neden: 'Yüksek BPM' },
+      { ad: 'Güçlü Adımlar', sanatci: 'Rock Enerjisi', bpm: 145, uygun: true, neden: 'Egzersiz Tempolu' },
+      { ad: 'Maraton Ateşi', sanatci: 'Dinamik Davul', bpm: 138, uygun: true, neden: 'Kardiyo Uyumu' }
+    ],
+    liste: [
+      { ad: 'Elektro Patlama', sure: '3:12', uyum: '%98' },
+      { ad: 'Zirveye Koş', sure: '3:45', uyum: '%95' },
+      { ad: 'Hızlı Dans Pop', sure: '3:30', uyum: '%94' },
+      { ad: 'Güçlü Adımlar', sure: '2:55', uyum: '%91' },
+      { ad: 'Maraton Ateşi', sure: '4:10', uyum: '%89' }
+    ]
+  },
+  dinlenme: {
+    ad: '☕ Dinlenme & Doğa',
+    aciklama: 'Zihni tazelemek için doğa sesleri ve çok yumuşak ambient melodiler taranıyor.',
+    havuz: [
+      { ad: 'Orman Esintisi', sanatci: 'Doğa & Kuş Sesi', bpm: 60, uygun: true, neden: 'Huzurlu Doğa' },
+      { ad: 'Elektro Patlama', sanatci: 'Hızlı Ritim', bpm: 155, uygun: false, neden: 'Çok Sert Ritim' },
+      { ad: 'Ilık Yağmur', sanatci: 'Piyano & Su Sesi', bpm: 65, uygun: true, neden: 'Dingin Melodi' },
+      { ad: 'Hard Rock Zirve', sanatci: 'Gürültülü Davul', bpm: 165, uygun: false, neden: 'Stres Yaratır' },
+      { ad: 'Yıldızlı Gökyüzü', sanatci: 'Ambient Dalgası', bpm: 62, uygun: true, neden: 'Dinlendirici Doku' },
+      { ad: 'Akşam Çayı', sanatci: 'Akustik Gitar', bpm: 70, uygun: true, neden: 'Yumuşak Akustik' },
+      { ad: 'Derin Nefes', sanatci: 'Meditasyon Zili', bpm: 58, uygun: true, neden: 'Düşük Nabız' }
+    ],
+    liste: [
+      { ad: 'Orman Esintisi', sure: '4:15', uyum: '%97' },
+      { ad: 'Ilık Yağmur', sure: '3:50', uyum: '%96' },
+      { ad: 'Yıldızlı Gökyüzü', sure: '4:30', uyum: '%93' },
+      { ad: 'Akşam Çayı', sure: '3:25', uyum: '%91' },
+      { ad: 'Derin Nefes', sure: '5:00', uyum: '%90' }
+    ]
+  }
+};
+
+var aktifSimMod = 'ders';
+var simTimer = null;
+
 /* ============ UYGULAMA DURUMU ============ */
 var gorevNo = 0;
 var puan = 0;
@@ -628,7 +764,6 @@ function bildir(metin, tur){
 
 function sayaclariGuncelle(){
   el('yildiz').textContent = yildiz;
-  var pEl = el('puan'); if(pEl) pEl.textContent = puan;
   var yuzde = (yildiz / GOREVLER.length) * 100;
   el('ilerleme-ic').style.width = yuzde + '%';
   el('ilerleme-dis').setAttribute('aria-valuenow', yildiz);
@@ -723,6 +858,8 @@ function kartlariYukle(){
 function gorevYukle(){
   calisiyor = false;
   secili = -1;
+  if(simTimer){ clearInterval(simTimer); simTimer = null; }
+
   var g = GOREVLER[gorevNo], d = durum();
   ekranGoster('oyun');
 
@@ -769,15 +906,94 @@ function gezinmeGuncelle(){
   }
 }
 
+/* ============ CANLI MÜZİK SÜZGECİ SİMÜLASYONU ============ */
+function simModSec(modKey){
+  aktifSimMod = modKey;
+  sonucGoster();
+}
+
 function sonucGoster(){
   var sp = el('sonuc-paneli');
-  var icerik = '<div class="sonuc-baslik">🎵 <strong>Öneri Modeli Canlı Simülasyonu</strong>' +
-    '<div class="dalga-anim"><span></span><span></span><span></span><span></span></div></div>' +
-    '<div class="sonuc-icerik">' +
-    'Öğrencinin ders moduna uygun <b>Sakin Akustik Çalma Listesi</b> üretildi. Yapay zekâ, dinleyicinin odaklanmasını bozmayacak orta tempoda (75-90 BPM) 5 enstrümantal parçayı başarıyla eşleştirdi.' +
+  var mData = SIM_MODLAR[aktifSimMod] || SIM_MODLAR.ders;
+
+  var modBtns = '';
+  var keys = ['ders', 'spor', 'dinlenme'];
+  for(var i=0; i<keys.length; i++){
+    var k = keys[i];
+    modBtns += '<button class="mod-btn' + (k === aktifSimMod ? ' aktif' : '') + '" data-mod="' + k + '">' + SIM_MODLAR[k].ad + '</button>';
+  }
+
+  var html = '<div class="sim-ust">' +
+    '<div class="sim-baslik-alani">' +
+    '  <div>' +
+    '    <h4 class="sim-baslik">🎵 Yapay Zekâ Şarkı Süzgeci ve Öneri Simülasyonu</h4>' +
+    '    <p class="sim-aciklama">' + mData.aciklama + '</p>' +
+    '  </div>' +
+    '</div>' +
+    '<div class="sim-modlar">' + modBtns + '</div>' +
+    '</div>' +
+    '<div class="sim-govde">' +
+    '  <div class="sim-kutu">' +
+    '    <div class="sim-kutu-baslik"><span>🔍 Kütüphane Taraması (10.000+ Şarkı)</span><span id="tarama-sayac">Analiz ediliyor…</span></div>' +
+    '    <div class="sarki-akisi" id="sarki-akisi"></div>' +
+    '  </div>' +
+    '  <div class="sim-kutu">' +
+    '    <div class="sim-kutu-baslik"><span>🎧 Oluşturulan Çalma Listesi</span><span>5 Parça</span></div>' +
+    '    <div class="calma-listesi" id="calma-listesi"></div>' +
+    '  </div>' +
     '</div>';
-  sp.innerHTML = icerik;
+
+  sp.innerHTML = html;
   sp.className = 'sonuc-paneli acik';
+
+  // Canlandırma: Şarkıları tek tek süzgeçten akıt
+  if(simTimer){ clearInterval(simTimer); simTimer = null; }
+  var akisEl = el('sarki-akisi');
+  var listeEl = el('calma-listesi');
+  if(!akisEl || !listeEl) return;
+
+  var hIdx = 0;
+  var lIdx = 0;
+  var havuz = mData.havuz;
+  var liste = mData.liste;
+
+  function adim(){
+    if(hIdx < havuz.length){
+      var item = havuz[hIdx];
+      var div = document.createElement('div');
+      div.className = 'sarki-kart ' + (item.uygun ? 'secildi' : 'elendi');
+      div.innerHTML = '<div class="sarki-bilgi">' +
+        '<span class="sarki-ikon">' + (item.uygun ? '♫' : '✕') + '</span>' +
+        '<div><div class="sarki-isim">' + kacis(item.ad) + '</div>' +
+        '<div class="sarki-detay">' + kacis(item.sanatci) + ' · ' + item.bpm + ' BPM</div></div>' +
+        '</div>' +
+        '<span class="sarki-durum">' + (item.uygun ? '✓ Eklendi' : '✕ Elendi (' + kacis(item.neden) + ')') + '</span>';
+      akisEl.insertBefore(div, akisEl.firstChild);
+      hIdx++;
+
+      if(item.uygun && lIdx < liste.length){
+        var lItem = liste[lIdx];
+        var lDiv = document.createElement('div');
+        lDiv.className = 'liste-satir';
+        lDiv.innerHTML = '<div class="liste-sol">' +
+          '<span class="dalga-mini"><span></span><span></span><span></span></span>' +
+          '<span class="liste-no">' + (lIdx + 1) + '.</span>' +
+          '<div><span class="liste-baslik">' + kacis(lItem.ad) + '</span><span class="liste-sure">(' + lItem.sure + ')</span></div>' +
+          '</div>' +
+          '<span class="liste-uyum">Uyum: ' + lItem.uyum + '</span>';
+        listeEl.appendChild(lDiv);
+        lIdx++;
+      }
+    } else {
+      clearInterval(simTimer);
+      simTimer = null;
+      var ts = el('tarama-sayac');
+      if(ts) ts.textContent = '✓ Tarama tamamlandı';
+    }
+  }
+
+  adim();
+  simTimer = setInterval(adim, hareketAcik ? 180 : 30);
 }
 
 /* ============ ETKİLEŞİM VE YERLEŞTİRME ============ */
@@ -864,7 +1080,6 @@ function modeliCalistir(){
 function sonGoster(){
   ekranGoster('son');
   el('son-yildiz').textContent = yildiz + ' / ' + GOREVLER.length;
-  var sp = el('son-puan'); if(sp) sp.textContent = puan;
   scormKaydet(yildiz === GOREVLER.length);
 }
 
@@ -1010,7 +1225,7 @@ if(window.PointerEvent){
   on(document, 'pointercancel', pointerBitti);
 }
 
-/* Touch Fallback (Dokunmatik Cihazlar ve Testler için) */
+/* Touch Fallback */
 on('kart-havuz', 'touchstart', function(e){
   if(e.touches.length !== 1 || calisiyor) return;
   var b = yakin(e.target, 'data-kart');
@@ -1081,6 +1296,10 @@ on(window, 'keydown', function(e){
 });
 
 /* Navigasyon ve Buton Olayları */
+on('sonuc-paneli', 'click', function(e){
+  var b = yakin(e.target, 'data-mod');
+  if(b) simModSec(b.getAttribute('data-mod'));
+});
 on('btn-basla', 'click', function(){ gorevYukle(); });
 on('btn-ileri', 'click', function(){
   if(gorevNo === GOREVLER.length - 1){ sonGoster(); return; }
@@ -1147,8 +1366,8 @@ function scormBaslat(){
 function scormKaydet(tamamlandi){
   if(!scormAPI) return;
   try{
-    scormAPI.LMSSetValue('cmi.core.score.raw', String(puan));
-    scormAPI.LMSSetValue('cmi.core.score.max', String(GOREVLER.length * 10));
+    scormAPI.LMSSetValue('cmi.core.score.raw', String(yildiz * 20));
+    scormAPI.LMSSetValue('cmi.core.score.max', '100');
     scormAPI.LMSSetValue('cmi.core.score.min', '0');
     if(tamamlandi && !scormBitti){
       scormBitti = true;
