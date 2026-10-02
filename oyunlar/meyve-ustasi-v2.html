@@ -407,41 +407,56 @@ b,strong{font-weight:700}
   inset:0;
   display:none;
   align-items:center;
-  justify-content:space-around;
+  justify-content:center;
+  gap:clamp(1.5rem, 5vw, 3.5rem);
   padding:clamp(0.4rem, 1.8vw, 1.2rem);
   padding-top:clamp(2.6rem, 6vh, 3.4rem);
   z-index:6;
 }
 #test-sahne.aktif{display:flex}
 #robot-bolgesi{
-  width:clamp(85px, 18vw, 140px);
-  height:clamp(85px, 18vw, 140px);
+  width:clamp(115px, 22vw, 175px);
+  height:clamp(115px, 22vw, 175px);
   position:relative;
   display:flex;
   align-items:center;
   justify-content:center;
   flex:0 0 auto;
 }
-#robot-svg{width:100%;height:100%}
+#robot-svg{
+  width:100%;
+  height:100%;
+  filter:drop-shadow(0 8px 16px rgba(0,0,0,0.15));
+}
 #tarama-isik{
   position:absolute;
-  left:75%;
-  top:15%;
-  width:clamp(70px, 18vw, 175px);
-  height:70%;
+  left:68%;
+  top:5%;
+  width:clamp(130px, 30vw, 260px);
+  height:90%;
   pointer-events:none;
   opacity:0;
+  z-index:10;
   transition:opacity 0.25s;
 }
-#tarama-isik.yan{opacity:0.85}
+#tarama-isik.yan{
+  opacity:0.95;
+  animation:taramaDalgasi 1s infinite alternate;
+}
+@keyframes taramaDalgasi{
+  0%{filter:drop-shadow(0 0 4px #4ADE80)}
+  100%{filter:drop-shadow(0 0 16px #22C55E)}
+}
 #test-nesne-alani{
-  flex:1;
+  flex:0 0 auto;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:0.4rem;
+  gap:0.5rem;
   min-width:0;
+  position:relative;
+  z-index:5;
 }
 #test-nesne-kutu{
   width:clamp(120px, 24vw, 185px);
@@ -1093,15 +1108,22 @@ b,strong{font-weight:700}
                 <rect x="4" y="62" width="18" height="8" rx="4" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/>
                 <rect x="78" y="62" width="18" height="8" rx="4" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/>
               </svg>
-              <svg id="tarama-isik" viewBox="0 0 220 120">
+              <svg id="tarama-isik" viewBox="0 0 260 140">
                 <defs>
                   <linearGradient id="isikGrad" x1="0%" y1="50%" x2="100%" y2="50%">
-                    <stop offset="0%" stop-color="#4ADE80" stop-opacity="0.8"/>
-                    <stop offset="100%" stop-color="#4ADE80" stop-opacity="0"/>
+                    <stop offset="0%" stop-color="#22C55E" stop-opacity="0.95"/>
+                    <stop offset="50%" stop-color="#4ADE80" stop-opacity="0.65"/>
+                    <stop offset="100%" stop-color="#86EFAC" stop-opacity="0.15"/>
                   </linearGradient>
                 </defs>
-                <polygon points="0,30 200,0 200,120 0,90" fill="url(#isikGrad)"/>
-                <line x1="0" y1="60" x2="200" y2="60" stroke="#4ADE80" stroke-width="1.5" opacity="0.6"/>
+                <!-- Tarama konisi -->
+                <polygon points="0,55 250,5 250,135 0,85" fill="url(#isikGrad)"/>
+                <!-- Lazer çizgileri -->
+                <line x1="0" y1="70" x2="250" y2="70" stroke="#22C55E" stroke-width="2.5" stroke-dasharray="8 4"/>
+                <line x1="0" y1="62" x2="250" y2="35" stroke="#4ADE80" stroke-width="1.8" opacity="0.8"/>
+                <line x1="0" y1="78" x2="250" y2="105" stroke="#4ADE80" stroke-width="1.8" opacity="0.8"/>
+                <!-- Tarama dikey çizgisi -->
+                <line x1="220" y1="15" x2="220" y2="125" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
               </svg>
             </div>
             <div id="test-nesne-alani">
@@ -1211,49 +1233,49 @@ var NESNELER = {
 
   /* ===== MEYVE FOTOGRAFLARI (tur: "meyve") ===== */
   "muz_sari": {
-    ad: "Sarı muz",
+    ad: "sarı muz",
     tur: "meyve",
     ozellikler: { agac:1, tatli:1, cekirdek:0, kabuklu:1, sebze:0, unlu:0 },
     svg: '<svg viewBox="0 0 120 80"><defs><linearGradient id="gMuz" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FDE68A"/><stop offset="100%" stop-color="#F59E0B"/></linearGradient></defs><path d="M15 55 Q10 25 35 12 Q60 2 82 18 Q96 28 92 46 Q88 60 64 64 Q38 68 15 55Z" fill="url(#gMuz)" stroke="#D97706" stroke-width="2.5"/><path d="M15 55 Q18 48 20 40" stroke="#92400E" stroke-width="2" fill="none"/><path d="M82 18 Q76 16 70 17" stroke="#92400E" stroke-width="2" fill="none"/><ellipse cx="48" cy="38" rx="18" ry="6" fill="#FEF3C7" opacity="0.6"/></svg>'
   },
   "muz_demetli": {
-    ad: "Muz demeti",
+    ad: "muz demeti",
     tur: "meyve",
     ozellikler: { agac:1, tatli:1, cekirdek:0, kabuklu:1, sebze:0, unlu:0 },
     svg: '<svg viewBox="0 0 120 80"><path d="M22 50 Q18 28 36 16 Q52 6 68 18 Q80 26 74 42 Q68 56 48 60 Q30 64 22 50Z" fill="#FDE68A" stroke="#D97706" stroke-width="2"/><path d="M40 56 Q36 34 54 22 Q70 12 84 24 Q94 32 88 48 Q82 62 62 65 Q44 68 40 56Z" fill="#FEF9C3" stroke="#F59E0B" stroke-width="2"/><path d="M22 50 Q24 44 26 38" stroke="#92400E" stroke-width="1.8" fill="none"/><path d="M40 56 Q42 50 44 44" stroke="#92400E" stroke-width="1.8" fill="none"/></svg>'
   },
   "muz_yesil": {
-    ad: "Yeşil muz (ham)",
+    ad: "yeşil muz",
     tur: "meyve",
     ozellikler: { agac:1, tatli:0, cekirdek:0, kabuklu:1, sebze:0, unlu:0 },
     svg: '<svg viewBox="0 0 120 80"><path d="M18 52 Q12 28 38 14 Q62 2 84 18 Q98 28 94 46 Q90 62 66 66 Q38 70 18 52Z" fill="#86EFAC" stroke="#16A34A" stroke-width="2.5"/><ellipse cx="52" cy="38" rx="20" ry="6" fill="#DCFCE7" opacity="0.6"/><path d="M18 52 Q21 46 22 38" stroke="#15803D" stroke-width="2" fill="none"/></svg>'
   },
   "armut_yesil": {
-    ad: "Yeşil armut",
+    ad: "yeşil armut",
     tur: "meyve",
     ozellikler: { agac:1, tatli:1, cekirdek:1, kabuklu:1, sebze:0, unlu:0 },
     svg: '<svg viewBox="0 0 120 80"><defs><linearGradient id="gArmut" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#A3E635"/><stop offset="100%" stop-color="#65A30D"/></linearGradient></defs><path d="M60 14 Q80 14 88 30 Q96 46 84 60 Q72 72 60 72 Q48 72 36 60 Q24 46 32 30 Q40 14 60 14Z" fill="url(#gArmut)" stroke="#4D7C0F" stroke-width="2.5"/><line x1="60" y1="14" x2="60" y2="4" stroke="#713F12" stroke-width="3" stroke-linecap="round"/><path d="M60 7 Q55 3 50 1" stroke="#15803D" stroke-width="2" stroke-linecap="round"/><ellipse cx="52" cy="42" rx="12" ry="8" fill="#BEF264" opacity="0.5"/></svg>'
   },
   "armut_sari": {
-    ad: "Sarı armut",
+    ad: "sarı armut",
     tur: "meyve",
     ozellikler: { agac:1, tatli:1, cekirdek:1, kabuklu:1, sebze:0, unlu:0 },
     svg: '<svg viewBox="0 0 120 80"><path d="M60 12 Q82 12 90 30 Q98 48 84 62 Q70 74 60 74 Q50 74 36 62 Q22 48 30 30 Q38 12 60 12Z" fill="#FEF08A" stroke="#CA8A04" stroke-width="2.5"/><line x1="60" y1="12" x2="60" y2="2" stroke="#713F12" stroke-width="3" stroke-linecap="round"/><path d="M60 6 Q55 2 50 0" stroke="#15803D" stroke-width="2" stroke-linecap="round"/><ellipse cx="52" cy="42" rx="12" ry="7" fill="#FEF9C3" opacity="0.6"/></svg>'
   },
   "armut_kirmizi": {
-    ad: "Kırmızı Williams armut",
+    ad: "kırmızı armut",
     tur: "meyve",
     ozellikler: { agac:1, tatli:1, cekirdek:1, kabuklu:1, sebze:0, unlu:0 },
     svg: '<svg viewBox="0 0 120 80"><path d="M60 13 Q80 13 88 30 Q96 46 84 60 Q72 72 60 72 Q48 72 36 60 Q24 46 32 30 Q40 13 60 13Z" fill="#FCA5A5" stroke="#DC2626" stroke-width="2.5"/><line x1="60" y1="13" x2="60" y2="3" stroke="#713F12" stroke-width="3" stroke-linecap="round"/><path d="M60 7 Q55 3 50 1" stroke="#15803D" stroke-width="2" stroke-linecap="round"/><ellipse cx="52" cy="42" rx="11" ry="7" fill="#FEE2E2" opacity="0.5"/></svg>'
   },
   "seftali_turuncu": {
-    ad: "Turuncu şeftali",
+    ad: "turuncu şeftali",
     tur: "meyve",
     ozellikler: { agac:1, tatli:1, cekirdek:1, kabuklu:1, sebze:0, unlu:0 },
     svg: '<svg viewBox="0 0 120 80"><defs><linearGradient id="gSeft" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FDBA74"/><stop offset="55%" stop-color="#FCA5A5"/><stop offset="100%" stop-color="#F87171"/></linearGradient></defs><circle cx="60" cy="42" r="32" fill="url(#gSeft)" stroke="#DC2626" stroke-width="2.5"/><line x1="60" y1="10" x2="60" y2="2" stroke="#713F12" stroke-width="3" stroke-linecap="round"/><path d="M60 5 Q54 1 50 -1" stroke="#15803D" stroke-width="2" stroke-linecap="round"/><path d="M60 14 Q60 42 60 68" stroke="#DC2626" stroke-width="1.5" opacity="0.3"/><ellipse cx="48" cy="36" rx="10" ry="6" fill="#FEF9C3" opacity="0.4"/></svg>'
   },
   "seftali_kirmizi": {
-    ad: "Kırmızı şeftali",
+    ad: "kırmızı şeftali",
     tur: "meyve",
     ozellikler: { agac:1, tatli:1, cekirdek:1, kabuklu:1, sebze:0, unlu:0 },
     svg: '<svg viewBox="0 0 120 80"><circle cx="60" cy="42" r="32" fill="#F87171" stroke="#B91C1C" stroke-width="2.5"/><circle cx="60" cy="42" r="22" fill="#FCA5A5" opacity="0.6"/><line x1="60" y1="10" x2="60" y2="2" stroke="#713F12" stroke-width="3" stroke-linecap="round"/><path d="M60 5 Q54 1 50 -1" stroke="#15803D" stroke-width="2" stroke-linecap="round"/><path d="M60 12 Q60 42 60 68" stroke="#B91C1C" stroke-width="1.5" opacity="0.3"/></svg>'
@@ -1261,49 +1283,49 @@ var NESNELER = {
 
   /* ===== MEYVE OLMAYAN NESNELER (tur: "degil") ===== */
   "domates": {
-    ad: "Domates (sebze!)",
+    ad: "domates",
     tur: "degil",
     ozellikler: { agac:0, tatli:0, cekirdek:1, kabuklu:1, sebze:1, unlu:0 },
     svg: '<svg viewBox="0 0 120 80"><circle cx="60" cy="44" r="30" fill="#EF4444" stroke="#B91C1C" stroke-width="2.5"/><path d="M44 20 Q50 10 56 16 Q60 6 64 16 Q70 10 76 20" stroke="#15803D" stroke-width="3" fill="#16A34A"/><path d="M44 20 Q60 16 76 20 Q72 26 60 24 Q48 26 44 20Z" fill="#22C55E"/><ellipse cx="50" cy="38" rx="8" ry="5" fill="#FCA5A5" opacity="0.5"/></svg>'
   },
   "patlican": {
-    ad: "Patlıcan (sebze!)",
+    ad: "patlıcan",
     tur: "degil",
     ozellikler: { agac:0, tatli:0, cekirdek:1, kabuklu:1, sebze:1, unlu:0 },
     svg: '<svg viewBox="0 0 120 80"><defs><linearGradient id="gPatlican" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7E22CE"/><stop offset="100%" stop-color="#3B0764"/></linearGradient></defs><path d="M38 28 Q44 14 56 16 Q68 18 64 32 Q60 48 66 60 Q72 72 58 74 Q42 76 34 62 Q26 46 38 28 Z" fill="url(#gPatlican)" stroke="#1E1B4B" stroke-width="2.5"/><ellipse cx="42" cy="46" rx="5" ry="12" fill="#A855F7" opacity="0.45" transform="rotate(-15 42 46)"/><path d="M46 16 Q52 6 54 2 Q56 6 62 16" stroke="#15803D" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M38 22 Q46 16 54 20 Q62 16 70 24 Q60 26 54 22 Q46 26 38 22 Z" fill="#22C55E" stroke="#15803D" stroke-width="1.8"/></svg>'
   },
   "biber": {
-    ad: "Kırmızı biber (sebze!)",
+    ad: "kırmızı biber",
     tur: "degil",
     ozellikler: { agac:0, tatli:0, cekirdek:1, kabuklu:1, sebze:1, unlu:0 },
     svg: '<svg viewBox="0 0 120 80"><path d="M34 24 Q32 10 44 8 Q50 6 54 14" stroke="#15803D" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M54 14 Q54 6 60 6 Q66 6 66 14" stroke="#92400E" stroke-width="2.5" fill="none"/><path d="M38 26 Q30 40 36 58 Q42 72 60 74 Q78 72 84 58 Q90 40 82 26 Q72 14 60 14 Q48 14 38 26Z" fill="#EF4444" stroke="#B91C1C" stroke-width="2.5"/><path d="M50 26 Q46 44 50 62" stroke="#FCA5A5" stroke-width="2" fill="none"/><path d="M70 26 Q74 44 70 62" stroke="#FCA5A5" stroke-width="2" fill="none"/></svg>'
   },
   "patates": {
-    ad: "Patates (yumru sebze!)",
+    ad: "patates",
     tur: "degil",
     ozellikler: { agac:0, tatli:0, cekirdek:0, kabuklu:1, sebze:1, unlu:1 },
     svg: '<svg viewBox="0 0 120 80"><path d="M28 42 Q30 18 58 16 Q84 14 92 36 Q98 54 82 66 Q64 76 44 68 Q24 58 28 42Z" fill="#D97706" stroke="#92400E" stroke-width="2.5"/><circle cx="44" cy="32" r="4" fill="#92400E"/><circle cx="74" cy="28" r="3" fill="#92400E"/><circle cx="84" cy="48" r="3.5" fill="#92400E"/><circle cx="52" cy="60" r="3" fill="#92400E"/><ellipse cx="55" cy="40" rx="14" ry="8" fill="#FEF3C7" opacity="0.3"/></svg>'
   },
   "mantar": {
-    ad: "Mantar (fungus!)",
+    ad: "mantar",
     tur: "degil",
     ozellikler: { agac:0, tatli:0, cekirdek:0, kabuklu:0, sebze:0, unlu:0 },
     svg: '<svg viewBox="0 0 120 80"><path d="M24 44 Q26 18 60 14 Q94 18 96 44 Q94 54 80 52 Q72 52 70 60 Q68 70 60 72 Q52 70 50 60 Q48 52 40 52 Q26 54 24 44Z" fill="#A16207" stroke="#78350F" stroke-width="2.5"/><ellipse cx="42" cy="32" rx="7" ry="5" fill="#FEF9C3" opacity="0.7"/><ellipse cx="72" cy="26" rx="5" ry="4" fill="#FEF9C3" opacity="0.7"/><ellipse cx="80" cy="38" rx="4" ry="3" fill="#FEF9C3" opacity="0.7"/><rect x="54" y="52" width="12" height="18" rx="3" fill="#D97706" stroke="#92400E" stroke-width="2"/></svg>'
   },
   "brokoli": {
-    ad: "Brokoli (yeşil sebze!)",
+    ad: "brokoli",
     tur: "degil",
     ozellikler: { agac:0, tatli:0, cekirdek:0, kabuklu:0, sebze:1, unlu:0 },
     svg: '<svg viewBox="0 0 120 80"><rect x="48" y="44" width="24" height="28" rx="4" fill="#16A34A" stroke="#14532D" stroke-width="2"/><circle cx="42" cy="38" r="20" fill="#22C55E" stroke="#15803D" stroke-width="2"/><circle cx="60" cy="28" r="18" fill="#16A34A" stroke="#14532D" stroke-width="2"/><circle cx="78" cy="38" r="20" fill="#22C55E" stroke="#15803D" stroke-width="2"/><circle cx="42" cy="38" r="10" fill="#4ADE80" opacity="0.6"/><circle cx="60" cy="28" r="9" fill="#4ADE80" opacity="0.6"/><circle cx="78" cy="38" r="10" fill="#4ADE80" opacity="0.6"/></svg>'
   },
   "peynir": {
-    ad: "Peynir (süt ürünü!)",
+    ad: "peynir",
     tur: "degil",
     ozellikler: { agac:0, tatli:0, cekirdek:0, kabuklu:0, sebze:0, unlu:0 },
     svg: '<svg viewBox="0 0 120 80"><polygon points="10,66 110,66 110,30 70,14 10,30" fill="#FDE68A" stroke="#D97706" stroke-width="2.5"/><circle cx="38" cy="48" r="7" fill="#FEF9C3" stroke="#D97706" stroke-width="1.5"/><circle cx="74" cy="52" r="5" fill="#FEF9C3" stroke="#D97706" stroke-width="1.5"/><circle cx="58" cy="36" r="4" fill="#FEF9C3" stroke="#D97706" stroke-width="1.5"/><circle cx="90" cy="42" r="6" fill="#FEF9C3" stroke="#D97706" stroke-width="1.5"/></svg>'
   },
   "ekmek": {
-    ad: "Ekmek (tahıl ürünü!)",
+    ad: "ekmek",
     tur: "degil",
     ozellikler: { agac:0, tatli:0, cekirdek:0, kabuklu:1, sebze:0, unlu:1 },
     svg: '<svg viewBox="0 0 120 80"><path d="M16 54 Q16 28 60 20 Q104 28 104 54 Q104 70 60 72 Q16 70 16 54Z" fill="#D97706" stroke="#92400E" stroke-width="2.5"/><path d="M16 54 Q60 48 104 54" stroke="#B45309" stroke-width="1.5" opacity="0.5"/><ellipse cx="40" cy="38" rx="12" ry="7" fill="#FBBF24" opacity="0.5"/><ellipse cx="80" cy="36" rx="10" ry="6" fill="#FBBF24" opacity="0.5"/><path d="M20 52 Q60 46 100 52 Q100 64 60 66 Q20 64 20 52Z" fill="#92400E" opacity="0.5"/></svg>'
@@ -1713,14 +1735,14 @@ function testAdimiCalistir(){
         rozet.style.background = "#15803D";
         setTimeout(function(){
           tk.classList.add("cekildi");
-          bildir("Harika! Eğittiğiniz model " + n.ad + " ürününü DOĞRU tanıdı.", "iyi");
+          bildir("Harika! Eğittiğiniz model " + n.ad + " görselini doğru tanıdı.", "iyi");
         }, window.__FAST ? 80 : 350);
       } else {
         rozet.textContent = "Robot Kararı: MEYVE DEĞİL ✓ (Doğru!)";
         rozet.style.background = "#15803D";
         setTimeout(function(){
           tk.classList.add("gitti");
-          bildir("Harika! Eğittiğiniz model " + n.ad + " ürününün meyve olmadığını DOĞRU bildi.", "iyi");
+          bildir("Harika! Eğittiğiniz model " + n.ad + " nesnesinin meyve olmadığını doğru bildi.", "iyi");
         }, window.__FAST ? 80 : 350);
       }
 
@@ -1734,14 +1756,14 @@ function testAdimiCalistir(){
         rozet.style.background = "#DC2626";
         setTimeout(function(){
           tk.classList.add("cekildi");
-          bildir("EYVAH! Yanlış etiket verdiğiniz için robot " + n.ad + " ürününü MEYVE sandı!", "kotu", true);
+          bildir("Eyvah! Yanlış etiket verdiğiniz için robot " + n.ad + " görselini meyve sandı!", "kotu", true);
         }, window.__FAST ? 80 : 350);
       } else {
         rozet.textContent = "Robot Kararı: MEYVE DEĞİL (HATA!) ⚠️";
         rozet.style.background = "#DC2626";
         setTimeout(function(){
           tk.classList.add("gitti");
-          bildir("HATA! Yanlış etiketler yüzünden robot gerçek bir meyveyi eledi!", "kotu", true);
+          bildir("Hata! Yanlış etiketler yüzünden robot " + n.ad + " meyvesini eledi!", "kotu", true);
         }, window.__FAST ? 80 : 350);
       }
     }
