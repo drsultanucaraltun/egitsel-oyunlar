@@ -652,6 +652,220 @@ b,strong{font-weight:700}
   .ustbar-orta{display:none}
   .ustbar-kisa{display:inline}
 }
+/* ============ KASA GÖRÜNÜMÜ & ETKİLEŞİMİ ============ */
+.kasa-alani{
+  cursor:pointer;
+  position:relative;
+  transition:transform 0.15s, box-shadow 0.15s, border-color 0.2s;
+  user-select:none;
+}
+.kasa-alani:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 22px rgba(0,0,0,0.12);
+  border-style:solid;
+  border-color:var(--vurgu);
+}
+.kasa-alani:active{
+  transform:scale(0.97);
+}
+.kasa-ipucu{
+  font-size:clamp(0.62rem, 1.1vw, 0.72rem);
+  font-weight:700;
+  color:#15803D;
+  background:#DCFCE7;
+  padding:0.12rem 0.35rem;
+  border-radius:6px;
+  margin-top:0.25rem;
+  text-align:center;
+  white-space:nowrap;
+  display:inline-flex;
+  align-items:center;
+  gap:0.2rem;
+}
+.kasa-alani.sag-kutu .kasa-ipucu{
+  color:#B45309;
+  background:#FEF3C7;
+}
+
+/* ============ KASA DETAY POPUP PENCERESİ ============ */
+#modal-kasa-detay{
+  position:absolute;
+  inset:0;
+  background:rgba(20, 83, 45, 0.55);
+  backdrop-filter:blur(6px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:60;
+  padding:1rem;
+}
+#modal-kasa-detay.acik{display:flex}
+.kasa-pencere{
+  background:#FFFFFF;
+  border:3px solid var(--vurgu);
+  border-radius:22px;
+  width:min(90%, 460px);
+  max-height:85vh;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 16px 36px rgba(0,0,0,0.22);
+  overflow:hidden;
+  animation:popAcil 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+@keyframes popAcil{
+  0%{transform:scale(0.85);opacity:0}
+  100%{transform:scale(1);opacity:1}
+}
+.kasa-pencere-ust{
+  background:var(--vurgu-acik);
+  padding:0.75rem 1rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:2px solid var(--cizgi);
+}
+.kasa-pencere-baslik{
+  font-size:clamp(1.05rem, 2.2vw, 1.3rem);
+  font-weight:700;
+  color:var(--bahce-koyu);
+  display:flex;
+  align-items:center;
+  gap:0.4rem;
+}
+.kasa-kapat-btn{
+  background:#FFFFFF;
+  border:2px solid var(--cizgi);
+  color:var(--murekkep);
+  border-radius:10px;
+  width:36px;
+  height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.2rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:background 0.1s;
+}
+.kasa-kapat-btn:hover{background:#FEE2E2;color:#DC2626;border-color:#FCA5A5}
+.kasa-pencere-govde{
+  padding:0.9rem;
+  overflow-y:auto;
+  flex:1 1 auto;
+}
+.kasa-liste{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(110px, 1fr));
+  gap:0.6rem;
+}
+.kasa-oge-kart{
+  background:#F8FAFC;
+  border:2px solid var(--cizgi);
+  border-radius:14px;
+  padding:0.5rem 0.4rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0.35rem;
+  text-align:center;
+}
+.kasa-oge-svg{
+  width:64px;
+  height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.kasa-oge-svg svg{width:100%;height:100%}
+.kasa-oge-ad{
+  font-size:0.85rem;
+  font-weight:700;
+  color:var(--murekkep);
+  line-height:1.2;
+}
+.kasa-bos-mesaj{
+  text-align:center;
+  color:var(--gri);
+  padding:1.5rem;
+  font-size:1.05rem;
+  font-weight:500;
+}
+
+/* ============ BÖLÜM GEÇİŞ MODAL KARTI ============ */
+#modal-gecis{
+  position:absolute;
+  inset:0;
+  background:rgba(20, 83, 45, 0.72);
+  backdrop-filter:blur(6px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:70;
+  padding:1rem;
+}
+#modal-gecis.acik{display:flex}
+.gecis-kart{
+  background:#FFFFFF;
+  border:3.5px solid var(--vurgu);
+  border-radius:24px;
+  width:min(92%, 520px);
+  padding:clamp(1rem, 3vh, 1.6rem) clamp(1rem, 3vw, 1.8rem);
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0.85rem;
+  box-shadow:0 20px 48px rgba(0,0,0,0.25);
+  animation:popAcil 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+.gecis-rozet{
+  background:#DCFCE7;
+  color:#15803D;
+  font-size:clamp(0.85rem, 1.8vw, 1rem);
+  font-weight:700;
+  padding:0.25rem 0.85rem;
+  border-radius:999px;
+  border:1.5px solid #86EFAC;
+}
+.gecis-baslik{
+  font-size:clamp(1.25rem, 3.2vw, 1.75rem);
+  font-weight:700;
+  color:var(--bahce-koyu);
+  line-height:1.2;
+}
+.gecis-blok{
+  width:100%;
+  border-radius:14px;
+  padding:0.65rem 0.9rem;
+  text-align:left;
+  font-size:clamp(0.88rem, 1.8vw, 1.05rem);
+  line-height:1.35;
+}
+.gecis-blok.tamamlanan{
+  background:#F0FDF4;
+  border-left:5px solid #16A34A;
+  color:#14532D;
+}
+.gecis-blok.siradaki{
+  background:#FEF3C7;
+  border-left:5px solid #D97706;
+  color:#78350F;
+}
+.gecis-blok b{display:block;margin-bottom:0.15rem}
+#btn-gecis-devam{
+  font-size:clamp(1rem, 2.2vw, 1.25rem);
+  font-weight:700;
+  background:var(--vurgu);
+  color:#FFFFFF;
+  border:3px solid var(--vurgu-koyu);
+  border-radius:14px;
+  padding:0.65rem clamp(1.4rem, 3vw, 2.2rem);
+  min-height:50px;
+  cursor:pointer;
+  box-shadow:0 6px 16px rgba(22,163,74,0.3);
+  transition:transform 0.1s, background 0.1s;
+}
+#btn-gecis-devam:hover{background:var(--vurgu-koyu);transform:scale(1.02)}
 </style>
 </head>
 <body>
@@ -806,18 +1020,26 @@ b,strong{font-weight:700}
 
           <!-- Eğitim Modu Vitrin (Sepetli Ayrım) -->
           <div id="egitim-vitrin">
-            <!-- Sol Bölüm: Meyve Sepeti -->
-            <div class="sepet-alani sol-sepet" id="sepet-meyve" role="region" aria-label="Meyve Sepeti">
+            <!-- Sol Bölüm: Meyve Kasası (Tıklanınca Açılır) -->
+            <div class="sepet-alani sol-sepet kasa-alani" id="sepet-meyve" role="button" tabindex="0" aria-label="Meyve Kasası. İçini görmek için tıklayınız." title="Kasayı açmak için tıklayınız">
               <div class="sepet-baslik-kutu">
-                <svg class="sepet-ikon" viewBox="0 0 40 32" aria-hidden="true">
-                  <path d="M6 12 Q2 12 4 28 Q5 31 20 31 Q35 31 36 28 Q38 12 34 12 Z" fill="#FDE68A" stroke="#D97706" stroke-width="2"/>
-                  <path d="M20 2 Q10 2 8 12 M20 2 Q30 2 32 12" fill="none" stroke="#D97706" stroke-width="2.5" stroke-linecap="round"/>
-                  <line x1="8" y1="18" x2="32" y2="18" stroke="#D97706" stroke-width="1.5" stroke-dasharray="3 2"/>
+                <!-- Ahşap Meyve Kasası İkonu -->
+                <svg class="sepet-ikon" viewBox="0 0 44 34" aria-hidden="true">
+                  <!-- Kasa gövdesi -->
+                  <rect x="3" y="10" width="38" height="22" rx="3" fill="#D97706" stroke="#92400E" stroke-width="2"/>
+                  <line x1="3" y1="17" x2="41" y2="17" stroke="#FEF3C7" stroke-width="1.8"/>
+                  <line x1="3" y1="24" x2="41" y2="24" stroke="#78350F" stroke-width="1.8"/>
+                  <!-- Tutamaç deliği -->
+                  <rect x="16" y="12" width="12" height="4" rx="2" fill="#78350F"/>
+                  <!-- Üstte görünen meyve ucu -->
+                  <circle cx="22" cy="8" r="5" fill="#EF4444" stroke="#B91C1C" stroke-width="1.2"/>
+                  <path d="M22 3 Q20 1 18 2" stroke="#15803D" stroke-width="1.5" fill="none"/>
                 </svg>
-                <span class="sepet-baslik">Meyveler</span>
+                <span class="sepet-baslik">Meyve Kasası</span>
                 <span class="sepet-sayac" id="sayac-meyve-adet">0</span>
               </div>
               <div class="sepet-icerik" id="sepet-meyve-icerik"></div>
+              <span class="kasa-ipucu">🔍 Açmak için tıkla</span>
             </div>
 
             <!-- Orta Bölüm: İncelenen Nesne Vitrini -->
@@ -828,18 +1050,23 @@ b,strong{font-weight:700}
               <div id="nesne-adi">Meyve</div>
             </div>
 
-            <!-- Sağ Bölüm: Meyve Değil Sepeti / Kutusu -->
-            <div class="sepet-alani sag-kutu" id="sepet-degil" role="region" aria-label="Meyve Olmayanlar Kutusu">
+            <!-- Sağ Bölüm: Meyve Olmayanlar Kasası (Tıklanınca Açılır) -->
+            <div class="sepet-alani sag-kutu kasa-alani" id="sepet-degil" role="button" tabindex="0" aria-label="Meyve Olmayanlar Kasası. İçini görmek için tıklayınız." title="Kasayı açmak için tıklayınız">
               <div class="sepet-baslik-kutu">
-                <svg class="sepet-ikon" viewBox="0 0 40 32" aria-hidden="true">
-                  <rect x="5" y="10" width="30" height="20" rx="4" fill="#FEF3C7" stroke="#B45309" stroke-width="2"/>
-                  <path d="M2 10 L20 16 L38 10" fill="none" stroke="#B45309" stroke-width="2"/>
-                  <line x1="20" y1="16" x2="20" y2="30" stroke="#B45309" stroke-width="1.8"/>
+                <!-- Ahşap Sebze/Kutu İkonu -->
+                <svg class="sepet-ikon" viewBox="0 0 44 34" aria-hidden="true">
+                  <rect x="3" y="10" width="38" height="22" rx="3" fill="#B45309" stroke="#78350F" stroke-width="2"/>
+                  <line x1="3" y1="17" x2="41" y2="17" stroke="#FEF3C7" stroke-width="1.8"/>
+                  <line x1="3" y1="24" x2="41" y2="24" stroke="#78350F" stroke-width="1.8"/>
+                  <rect x="16" y="12" width="12" height="4" rx="2" fill="#78350F"/>
+                  <!-- Üstte görünen sebze/yaprak ucu -->
+                  <path d="M19 8 L22 3 L25 8 Z" fill="#22C55E" stroke="#15803D" stroke-width="1.2"/>
                 </svg>
                 <span class="sepet-baslik">Meyve Değil</span>
                 <span class="sepet-sayac" id="sayac-degil-adet">0</span>
               </div>
               <div class="sepet-icerik" id="sepet-degil-icerik"></div>
+              <span class="kasa-ipucu">🔍 Açmak için tıkla</span>
             </div>
           </div>
 
@@ -885,6 +1112,39 @@ b,strong{font-weight:700}
               </div>
             </div>
             <div id="test-butonlar" style="display:flex;flex-direction:column;gap:0.5rem;align-items:stretch;flex:0 0 auto;min-width:0;"></div>
+          </div>
+
+          <!-- KASA DETAY PENCERESİ (Açılan Kasa İçeriği) -->
+          <div id="modal-kasa-detay" role="dialog" aria-modal="true" aria-labelledby="kasa-modal-baslik">
+            <div class="kasa-pencere">
+              <div class="kasa-pencere-ust">
+                <div class="kasa-pencere-baslik" id="kasa-modal-baslik">🧺 Kasa İçeriği</div>
+                <button class="kasa-kapat-btn" id="btn-kasa-kapat" type="button" aria-label="Kapat">✕</button>
+              </div>
+              <div class="kasa-pencere-govde">
+                <div class="kasa-liste" id="kasa-detay-liste"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BÖLÜM GEÇİŞ BİLGİ PENCERESİ (Şunu Yaptınız, Şimdi Şunu Yapacaksınız) -->
+          <div id="modal-gecis" role="dialog" aria-modal="true" aria-labelledby="gecis-modal-baslik">
+            <div class="gecis-kart">
+              <span class="gecis-rozet" id="gecis-rozet-metin">Bölüm Tamamlandı ⭐</span>
+              <h3 class="gecis-baslik" id="gecis-modal-baslik">Tebrikler!</h3>
+              
+              <div class="gecis-blok tamamlanan">
+                <b>✓ Neler Yaptınız?</b>
+                <span id="gecis-yapilan-metin">Görüntüleri etiketleyip kasalara yerleştirdiniz.</span>
+              </div>
+
+              <div class="gecis-blok siradaki">
+                <b>➔ Şimdi Ne Yapacaksınız?</b>
+                <span id="gecis-siradaki-metin">Sıradaki aşamaya geçiyorsunuz.</span>
+              </div>
+
+              <button id="btn-gecis-devam" type="button">Devam Et ➔</button>
+            </div>
           </div>
 
         </div><!-- /sahne-bahce -->
@@ -1109,6 +1369,10 @@ var nesneIndeks = 0;
 var mevcutBolum = null;
 var kilit = false;
 var oyunBitti = false;
+
+// Kasa içerik listesi (açıldığında detaylı gösterim için)
+var kasaMeyveler = [];
+var kasaDegiller = [];
 var sesAcik = true, yaziOlcek = 100;
 var yanlisSayisi = 0;
 
@@ -1247,6 +1511,8 @@ function bolumYukle(){
   var sdSayac = $("sayac-degil-adet");
   if(smSayac) smSayac.textContent = "0";
   if(sdSayac) sdSayac.textContent = "0";
+  kasaMeyveler = [];
+  kasaDegiller = [];
 
   if(mevcutBolum.mod === "egitim"){
     $("kategoriler").style.display = "";
@@ -1344,6 +1610,11 @@ function cevapla(secilen){
         // Otomatik kaydır
         icerikEl.scrollTop = icerikEl.scrollHeight;
       }
+      if(secilen === "meyve"){
+        kasaMeyveler.push(n);
+      } else {
+        kasaDegiller.push(n);
+      }
       var sayacEl = $(hedefSayacId);
       if(sayacEl && icerikEl){
         sayacEl.textContent = String(icerikEl.children.length);
@@ -1423,23 +1694,88 @@ function testCevapla(secilen){
   }
 }
 
+
+/* ============ KASA DETAY PENCERESİNİ AÇMA / KAPAMA ============ */
+function kasaAc(tur){
+  sesCal("tik");
+  var modal = $("modal-kasa-detay");
+  var baslik = $("kasa-modal-baslik");
+  var liste = $("kasa-detay-liste");
+  liste.innerHTML = "";
+
+  var dizi = (tur === "meyve") ? kasaMeyveler : kasaDegiller;
+  baslik.textContent = (tur === "meyve") 
+    ? "🧺 Meyve Kasası (" + dizi.length + " ürün)"
+    : "📦 Meyve Olmayanlar Kasası (" + dizi.length + " ürün)";
+
+  if(dizi.length === 0){
+    liste.innerHTML = '<div class="kasa-bos-mesaj">Kasa henüz boş. Kartları etiketledikçe bu kasaya girecektir.</div>';
+  } else {
+    for(var i = 0; i < dizi.length; i++){
+      var item = dizi[i];
+      var kart = document.createElement("div");
+      kart.className = "kasa-oge-kart";
+      kart.innerHTML = '<div class="kasa-oge-svg">' + item.svg + '</div><div class="kasa-oge-ad">' + item.ad + '</div>';
+      liste.appendChild(kart);
+    }
+  }
+
+  modal.classList.add("acik");
+}
+
+function kasaKapat(){
+  sesCal("tik");
+  $("modal-kasa-detay").classList.remove("acik");
+}
+
+/* ============ BÖLÜMLER ARASI BİLGİ GEÇİŞ KARTI ============ */
+var GECIS_BILGILERI = [
+  {
+    yapilan: "Tüm fotoğrafları tek tek inceleyip doğru kasalara ayırdınız. Böylece yapay zekâ modeli için temiz ve güvenilir bir veri seti oluşturdunuz!",
+    siradaki: "Model şimdi bu verilerden renk, şekil ve kabuk gibi ayırt edici özellikleri öğrenmeye çalışacak. Özellik çıkarma aşamasına hazırsanız başlayalım!"
+  },
+  {
+    yapilan: "Yanıltıcı ve benzer nesneleri başarıyla sınıflandırdınız. Modeliniz, meyveler ile diğer gıdaların temel özellik farklarını kavramış oldu!",
+    siradaki: "Sırada büyük test var! Z.A.K.A. robotu yeni meyveleri tarayacak. Bakalım yapay zekâ modeliniz doğru tahminler yapabilecek mi?"
+  }
+];
+
+function bolumGecisGoster(tamamlananIndeks){
+  var bilgi = GECIS_BILGILERI[tamamlananIndeks];
+  if(!bilgi){
+    bolumYukle();
+    return;
+  }
+
+  $("gecis-rozet-metin").textContent = "Bölüm " + (tamamlananIndeks + 1) + " Tamamlandı ⭐";
+  $("gecis-yapilan-metin").textContent = bilgi.yapilan;
+  $("gecis-siradaki-metin").textContent = bilgi.siradaki;
+
+  var modal = $("modal-gecis");
+  modal.classList.add("acik");
+
+  var btn = $("btn-gecis-devam");
+  btn.onclick = function(){
+    sesCal("tik");
+    modal.classList.remove("acik");
+    bildirimTemizle();
+    bolumYukle();
+  };
+}
+
 /* ============ BÖLÜM SONU ============ */
 function bolumBitti(){
   yildiz++;
-  var mesajlar = [
-    "Veri etiketleme tamamlandı! Model ilk verileri öğrendi.",
-    "Özellik çıkarma tamamlandı! Model farkları kavradı.",
-    "Test aşaması tamamlandı! Model başarıyla eğitildi!"
-  ];
-  bildir(mesajlar[bolumIndeks] || "Bölüm tamamlandı!", "iyi");
+  var tamamlanan = bolumIndeks;
   bolumIndeks++;
+
   if(bolumIndeks >= BOLUMLER.length){
+    bildir("Tebrikler! Model eğitimi ve testi tamamlandı!", "iyi");
     setTimeout(oyunuBitir, window.__FAST ? 300 : 1400);
   } else {
-    setTimeout(function(){
-      bildirimTemizle();
-      bolumYukle();
-    }, window.__FAST ? 300 : 1400);
+    // Bölümler arası bilgi penceresini göster
+    sesCal("dogru");
+    bolumGecisGoster(tamamlanan);
   }
 }
 
@@ -1514,6 +1850,15 @@ if(btnTamEkran){
     tamEkranDegistir();
   });
 }
+
+// Kasalara basınca içini gösterme
+$("sepet-meyve").addEventListener("click", function(){ kasaAc("meyve"); });
+$("sepet-degil").addEventListener("click", function(){ kasaAc("degil"); });
+$("btn-kasa-kapat").addEventListener("click", kasaKapat);
+
+$("modal-kasa-detay").addEventListener("click", function(e){
+  if(e.target === this) kasaKapat();
+});
 
 $("btn-meyve").addEventListener("click", function(){ sesCal("tik"); cevapla("meyve"); });
 $("btn-degil").addEventListener("click", function(){ sesCal("tik"); cevapla("degil"); });
