@@ -346,8 +346,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--vurgu);outline-
     </div>
   </div>
   <div id="skorlar">
-    <div class="skor-etiket" aria-label="Görev durumu">⭐ <span id="yildiz">0</span> / 5</div>
-    <div class="skor-etiket" aria-label="Kazanılan puan">🏆 <span id="puan">0</span> Puan</div>
+    <div class="skor-etiket" aria-label="Görev durumu">⭐ Görev: <span id="yildiz">0</span> / 5</div>
   </div>
   <div class="araclar">
     <button class="arac-btn" id="btn-ses" aria-label="Sesi kapatınız" aria-pressed="true" title="Ses">
@@ -455,8 +454,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--vurgu);outline-
       <h2>Harika İş Çıkardınız!</h2>
       <p>Yapay zekâ modelini müzik öneri sistemi üzerinde başarıyla uyguladınız, çalıştırdınız ve gözlem sonuçlarına göre geliştirdiniz.</p>
       <div class="ozet-kutusu">
-        <span>⭐ Tamamlanan: <strong id="son-yildiz">5 / 5</strong></span>
-        <span>🏆 Puanınız: <strong id="son-puan">50</strong></span>
+        <span>⭐ Tamamlanan Görev: <strong id="son-yildiz">5 / 5</strong></span>
       </div>
       <div class="ogrenilenler">
         <div>✓ <b>Veri Girdisi:</b> Model müzik zevkini, dinleme saatini ve beğeni geçmişini temel alır.</div>
@@ -630,7 +628,7 @@ function bildir(metin, tur){
 
 function sayaclariGuncelle(){
   el('yildiz').textContent = yildiz;
-  el('puan').textContent = puan;
+  var pEl = el('puan'); if(pEl) pEl.textContent = puan;
   var yuzde = (yildiz / GOREVLER.length) * 100;
   el('ilerleme-ic').style.width = yuzde + '%';
   el('ilerleme-dis').setAttribute('aria-valuenow', yildiz);
@@ -866,7 +864,7 @@ function modeliCalistir(){
 function sonGoster(){
   ekranGoster('son');
   el('son-yildiz').textContent = yildiz + ' / ' + GOREVLER.length;
-  el('son-puan').textContent = puan;
+  var sp = el('son-puan'); if(sp) sp.textContent = puan;
   scormKaydet(yildiz === GOREVLER.length);
 }
 
@@ -1150,7 +1148,7 @@ function scormKaydet(tamamlandi){
   if(!scormAPI) return;
   try{
     scormAPI.LMSSetValue('cmi.core.score.raw', String(puan));
-    var tK=0;for(var i=0;i<GOREVLER.length;i++)tK+=GOREVLER[i].kartlar.length;scormAPI.LMSSetValue('cmi.core.score.max', String(tK * 10));
+    scormAPI.LMSSetValue('cmi.core.score.max', String(GOREVLER.length * 10));
     scormAPI.LMSSetValue('cmi.core.score.min', '0');
     if(tamamlandi && !scormBitti){
       scormBitti = true;
