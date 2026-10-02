@@ -1588,11 +1588,11 @@ function cevapla(secilen){
   if(gercekDogruMu){
     puan += 10;
     robotIfade("sevinc");
-    bildir("Etiketlendi: " + (secilen === "meyve" ? "Meyve Kasası'na" : "Meyve Değil Kasası'na") + " eklendi.", "iyi");
+    bildir("Etiketlendi: " + (secilen === "meyve" ? "meyve kasasına" : "meyve olmayanlar kasasına") + " eklendi.", "iyi");
   } else {
     // Öğrenci yanlış etiketlediğinde model bu HATALI veriyi öğrenecek!
     robotIfade("dusun");
-    bildir("Etiketlendi: " + (secilen === "meyve" ? "Meyve Kasası'na" : "Meyve Değil Kasası'na") + " kaydedildi. (Model bunu böyle öğrenecek!)", "notr");
+    bildir("Etiketlendi: " + (secilen === "meyve" ? "meyve kasasına" : "meyve olmayanlar kasasına") + " kaydedildi. (Model bunu böyle öğrenecek!)", "notr");
   }
 
   var btnId = (secilen === "meyve") ? "btn-meyve" : "btn-degil";
@@ -1605,7 +1605,7 @@ function cevapla(secilen){
   var hedefIcerikId = (secilen === "meyve") ? "sepet-meyve-icerik" : "sepet-degil-icerik";
   var hedefSayacId = (secilen === "meyve") ? "sayac-meyve-adet" : "sayac-degil-adet";
 
-  // Kapsayıcı animasyonu: Meyve Kasası'na (Sol / -X) veya Meyve Değil Kasası'na (Sağ / +X)
+  // Kapsayıcı animasyonu: meyve kasasına (Sol / -X) veya meyve olmayanlar kasasına (Sağ / +X)
   if(secilen === "meyve"){
     kap.classList.add("sola-git");
   } else {
