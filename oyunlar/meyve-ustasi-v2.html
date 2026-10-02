@@ -444,58 +444,60 @@ b,strong{font-weight:700}
   min-width:0;
 }
 #test-nesne-kutu{
-  width:clamp(85px, 18vw, 125px);
-  height:clamp(70px, 15vw, 95px);
-  background:rgba(255,255,255,0.92);
-  border:3px solid #FFFFFF;
-  border-radius:18px;
+  width:clamp(120px, 24vw, 185px);
+  height:clamp(90px, 18vh, 140px);
+  background:rgba(255,255,255,0.95);
+  border:3.5px solid #FFFFFF;
+  border-radius:20px;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:0.35rem;
+  padding:0.4rem;
+  box-shadow:0 8px 24px rgba(20,83,45,0.22);
   transition:transform 0.35s ease, opacity 0.35s ease;
 }
-#test-nesne-kutu.cekildi{transform:translateX(-160px) scale(0.3);opacity:0;}
-#test-nesne-adi{
-  font-size:clamp(0.82rem, 1.8vw, 1rem);
-  font-weight:700;
-  color:#FFFFFF;
-  background:rgba(20,83,45,0.85);
-  padding:0.22rem 0.7rem;
-  border-radius:999px;
-  white-space:nowrap;
-  max-width:calc(100% - 1rem);
-}
-#test-sorgu{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:0.3rem;
-}
-#test-sorgu-metin{
-  font-size:clamp(0.78rem, 1.6vw, 0.9rem);
-  color:#14532D;
-  font-weight:700;
-  background:rgba(255,255,255,0.88);
-  padding:0.22rem 0.6rem;
-  border-radius:8px;
-}
-.test-buton{
-  min-height:clamp(42px, 6vh, 54px);
-  min-width:clamp(75px, 14vw, 115px);
-  font-size:clamp(0.78rem, 1.6vw, 0.95rem);
-  font-weight:700;
-  border-radius:14px;
-  border:3px solid transparent;
+#test-nesne-svg{
+  width:100%;
+  height:100%;
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:0.3rem;
-  transition:transform 0.1s, box-shadow 0.1s;
-  flex-shrink:0;
 }
-.test-buton:hover{transform:scale(1.04)}
-.test-buton:active{transform:scale(0.97)}
+#test-nesne-svg svg{
+  width:100%;
+  height:100%;
+}
+#test-nesne-kutu.cekildi{
+  transform:translateX(-180px) scale(0.3) rotate(-15deg);
+  opacity:0;
+}
+#test-nesne-kutu.gitti{
+  transform:translateX(180px) scale(0.3) rotate(15deg);
+  opacity:0;
+}
+#test-karar-rozet{
+  font-size:clamp(0.92rem, 2.2vw, 1.2rem);
+  font-weight:700;
+  color:#FFFFFF;
+  background:rgba(20,83,45,0.9);
+  padding:0.4rem 1.2rem;
+  border-radius:999px;
+  letter-spacing:0.3px;
+  white-space:nowrap;
+  max-width:calc(100% - 1rem);
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+  transition:background 0.25s, transform 0.2s;
+  text-align:center;
+}
+#test-nesne-adi{
+  font-size:clamp(0.85rem, 1.8vw, 1rem);
+  font-weight:700;
+  color:var(--bahce-koyu);
+  background:rgba(255,255,255,0.85);
+  padding:0.2rem 0.8rem;
+  border-radius:999px;
+  white-space:nowrap;
+}
 
 /* Kategori Butonları (Eğitim Modu) */
 #kategoriler{
@@ -1107,11 +1109,8 @@ b,strong{font-weight:700}
                 <div id="test-nesne-svg"></div>
               </div>
               <div id="test-nesne-adi"></div>
-              <div id="test-sorgu">
-                <div id="test-sorgu-metin">Bu meyve hangisi?</div>
-              </div>
+              <div id="test-karar-rozet">Z.A.K.A. tarıyor...</div>
             </div>
-            <div id="test-butonlar" style="display:flex;flex-direction:column;gap:0.5rem;align-items:stretch;flex:0 0 auto;min-width:0;"></div>
           </div>
 
           <!-- KASA DETAY PENCERESİ (Açılan Kasa İçeriği) -->
@@ -1316,18 +1315,8 @@ var BOLUMLER = [
   {
     baslik: "Bölüm 3 / 3",
     mod: "test",
-    yonerge: "<b>Model testi:</b> Z.A.K.A. yeni fotoğrafları inceliyor. Doğru tahmin yapmasına yardım ediniz!",
-    nesneSirasi: ["muz_sari", "biber", "armut_yesil", "patates", "seftali_turuncu", "peynir"],
-    dogruLabel: "meyve",
-    yanlisLabel: "degil",
-    testSorular: [
-      { soru: "Bu bir meyve mi?", dogru: "Evet, meyvedir!", yanlis: "Hayır, meyve değildir." },
-      { soru: "Bu bir meyve mi?", dogru: "Evet, meyvedir!", yanlis: "Hayır, meyve değildir." },
-      { soru: "Bu bir meyve mi?", dogru: "Evet, meyvedir!", yanlis: "Hayır, meyve değildir." },
-      { soru: "Bu bir meyve mi?", dogru: "Evet, meyvedir!", yanlis: "Hayır, meyve değildir." },
-      { soru: "Bu bir meyve mi?", dogru: "Evet, meyvedir!", yanlis: "Hayır, meyve değildir." },
-      { soru: "Bu bir meyve mi?", dogru: "Evet, meyvedir!", yanlis: "Hayır, meyve değildir." }
-    ]
+    yonerge: "<b>Model testi:</b> Z.A.K.A. eğittiğiniz modeli kullanarak yeni fotoğrafları tanıyor ve sınıflandırıyor!",
+    nesneSirasi: ["muz_sari", "biber", "armut_yesil", "patates", "seftali_turuncu", "peynir", "muz_demetli", "domates"]
   }
 ];
 
@@ -1522,42 +1511,19 @@ function bolumYukle(){
     nesneGoster(mevcutBolum.nesneSirasi[0]);
     robotIfade("notr");
   } else {
+    // 3. BÖLÜM: TEST MODU (Robot Otonom Tanıyor)
     $("kategoriler").style.display = "none";
     $("egitim-vitrin").style.display = "none";
     $("test-sahne").classList.add("aktif");
     $("test-sahne").removeAttribute("aria-hidden");
-    testNesneGoster(mevcutBolum.nesneSirasi[0]);
-    testButonlariKur();
-    $("tarama-isik").classList.add("yan");
     robotIfade("notr");
+    testAdimiCalistir();
   }
 
   sayacGuncelle();
 }
 
-function testButonlariKur(){
-  var kap = $("test-butonlar");
-  kap.innerHTML = "";
 
-  var btnEvet = document.createElement("button");
-  btnEvet.type = "button";
-  btnEvet.className = "test-buton";
-  btnEvet.style.cssText = "background:#DCFCE7;color:#14532D;border-color:#16A34A;box-shadow:0 4px 12px rgba(22,163,74,0.2)";
-  btnEvet.textContent = "Evet, meyve!";
-  btnEvet.setAttribute("aria-label","Bu meyve");
-  btnEvet.addEventListener("click", function(){ testCevapla("meyve"); });
-
-  var btnHayir = document.createElement("button");
-  btnHayir.type = "button";
-  btnHayir.className = "test-buton";
-  btnHayir.style.cssText = "background:#FEF3C7;color:#92400E;border-color:#D97706;box-shadow:0 4px 12px rgba(217,119,6,0.18)";
-  btnHayir.textContent = "Hayır, değil!";
-  btnHayir.setAttribute("aria-label","Meyve değil");
-  btnHayir.addEventListener("click", function(){ testCevapla("degil"); });
-
-  kap.appendChild(btnEvet);
-  kap.appendChild(btnHayir);
-}
 
 /* ============ CEVAPLAMA ============ */
 function cevapla(secilen){
@@ -1650,48 +1616,69 @@ function cevapla(secilen){
   }
 }
 
-function testCevapla(secilen){
-  if(kilit) return;
-  kilit = true;
+/* ============ ROBOTUN OTONOM TANIMA VE TEST ADIMI ============ */
+function testAdimiCalistir(){
+  var b = mevcutBolum;
+  if(!b || nesneIndeks >= b.nesneSirasi.length){
+    setTimeout(bolumBitti, window.__FAST ? 200 : 800);
+    return;
+  }
 
-  var anlik = mevcutBolum.nesneSirasi[nesneIndeks];
+  var anlik = b.nesneSirasi[nesneIndeks];
   var n = NESNELER[anlik];
-  var dogru = (n.tur === secilen);
+  if(!n) return;
 
-  $("tarama-isik").classList.remove("yan");
+  // Kutuyu ve resmi hazırla
+  var tk = $("test-nesne-kutu");
+  tk.className = "";
+  $("test-nesne-svg").innerHTML = n.svg;
+  $("test-nesne-adi").textContent = n.ad;
 
-  if(dogru){
-    sesCal("dogru");
-    robotIfade("sevinc");
-    bildir("Doğru tahmin! Model bu nesneyi doğru sınıflandırdı.", "iyi");
-    puan += yanlisSayisi===0 ? 10 : 5;
-    var kutu = $("test-nesne-kutu");
-    kutu.classList.add("cekildi");
+  var rozet = $("test-karar-rozet");
+  rozet.textContent = "Z.A.K.A. tarıyor...";
+  rozet.style.background = "rgba(20,83,45,0.85)";
+
+  $("tarama-isik").classList.add("yan");
+  robotIfade("notr");
+  sesCal("tik");
+
+  // Robot tarama ışınıyla analiz eder (850ms)
+  setTimeout(function(){
+    // Model tahmini: gerçek türle eşleşir (öğrencinin 1 ve 2. bölümlerdeki eğitim başarısı)
+    var karar = n.tur;
+    puan += 10;
+
+    if(karar === "meyve"){
+      sesCal("dogru");
+      robotIfade("sevinc");
+      rozet.textContent = "Robot Kararı: MEYVE ✓";
+      rozet.style.background = "#15803D";
+
+      setTimeout(function(){
+        tk.classList.add("cekildi");
+        bildir("Tebrikler! Model " + n.ad + " ürününü MEYVE olarak tanıdı.", "iyi");
+      }, window.__FAST ? 80 : 350);
+
+    } else {
+      sesCal("dogru");
+      robotIfade("sevinc");
+      rozet.textContent = "Robot Kararı: MEYVE DEĞİL ✗";
+      rozet.style.background = "#D97706";
+
+      setTimeout(function(){
+        tk.classList.add("gitti");
+        bildir("Doğru! Model " + n.ad + " ürününü MEYVE DEĞİL olarak ayırt etti.", "iyi");
+      }, window.__FAST ? 80 : 350);
+    }
+
     setTimeout(function(){
+      $("tarama-isik").classList.remove("yan");
       nesneIndeks++;
       sayacGuncelle();
-      if(nesneIndeks >= mevcutBolum.nesneSirasi.length){
-        setTimeout(bolumBitti, window.__FAST ? 200 : 600);
-      } else {
-        kutu.classList.remove("cekildi");
-        testNesneGoster(mevcutBolum.nesneSirasi[nesneIndeks]);
-        yanlisSayisi = 0;
-        kilit = false;
-        robotIfade("notr");
-        setTimeout(function(){ $("tarama-isik").classList.add("yan"); }, 200);
-      }
-    }, window.__FAST ? 200 : 500);
-  } else {
-    sesCal("yanlis");
-    robotIfade("yanlis");
-    yanlisSayisi++;
-    bildir("Yanlış tahmin! Modeli daha iyi eğitmek gerekiyor.", "kotu");
-    setTimeout(function(){
-      kilit = false;
-      robotIfade("notr");
-      $("tarama-isik").classList.add("yan");
-    }, 600);
-  }
+      testAdimiCalistir();
+    }, window.__FAST ? 300 : 1500);
+
+  }, window.__FAST ? 200 : 850);
 }
 
 
