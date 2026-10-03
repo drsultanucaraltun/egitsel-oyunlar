@@ -374,20 +374,28 @@ b,strong{font-weight:700}
 #nesne-kapsayici{
   width:clamp(120px, 24vw, 185px);
   height:clamp(90px, 19vh, 145px);
-  background:rgba(255,255,255,0.92);
+  background:#FFFFFF;
   border:3.5px solid #FFFFFF;
   border-radius:22px;
-  box-shadow:0 8px 24px rgba(20,83,45,0.25);
+  box-shadow:0 8px 26px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:0.45rem;
+  padding:0.35rem;
   transition:transform 0.25s, opacity 0.25s;
+  overflow:hidden;
 }
 #nesne-kapsayici.kaybol{opacity:0;transform:scale(0.75)}
 #nesne-kapsayici.sola-git{transform:translateX(-160px) scale(0.4) rotate(-15deg);opacity:0}
 #nesne-kapsayici.saga-git{transform:translateX(160px) scale(0.4) rotate(15deg);opacity:0}
-#nesne-svg{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+#nesne-svg{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#FFFFFF;
+}
 #nesne-svg svg{width:100%;height:100%;object-fit:contain}
 #nesne-adi{
   font-size:clamp(0.95rem, 2.5vw, 1.2rem);
@@ -462,15 +470,16 @@ b,strong{font-weight:700}
 #test-nesne-kutu{
   width:clamp(120px, 24vw, 185px);
   height:clamp(90px, 18vh, 140px);
-  background:rgba(255,255,255,0.95);
+  background:#FFFFFF;
   border:3.5px solid #FFFFFF;
   border-radius:20px;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:0.4rem;
-  box-shadow:0 8px 24px rgba(20,83,45,0.22);
+  padding:0.35rem;
+  box-shadow:0 8px 26px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
   transition:transform 0.35s ease, opacity 0.35s ease;
+  overflow:hidden;
 }
 #test-nesne-svg{
   width:100%;
@@ -777,8 +786,8 @@ b,strong{font-weight:700}
   gap:0.6rem;
 }
 .kasa-oge-kart{
-  background:#F8FAFC;
-  border:2px solid var(--cizgi);
+  background:#FFFFFF;
+  border:2px solid #E2E8F0;
   border-radius:14px;
   padding:0.5rem 0.4rem;
   display:flex;
@@ -786,6 +795,7 @@ b,strong{font-weight:700}
   align-items:center;
   gap:0.35rem;
   text-align:center;
+  box-shadow:0 2px 8px rgba(0,0,0,0.05);
 }
 .kasa-oge-svg{
   width:64px;
@@ -890,8 +900,8 @@ b,strong{font-weight:700}
   width:100%;
   height:100%;
   object-fit:contain;
-  border-radius:14px;
-  filter:drop-shadow(0 4px 8px rgba(0,0,0,0.14));
+  background:#FFFFFF;
+  mix-blend-mode:multiply;
   pointer-events:none;
 }
 #nesne-kapsayici .gercek-foto{
