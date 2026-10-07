@@ -1463,26 +1463,27 @@ var NESNELER = {
 /* ============ BÖLÜM PLANI ============ */
 var BOLUMLER = [
   {
-    baslik: "Bölüm 1 / 3",
+    baslik: "1. Adım: Model Eğitimi",
     mod: "egitim",
-    yonerge: "<b>Veri toplama ve etiketleme:</b> Görüntüdeki nesne meyve mi, değil mi? Etiketleyiniz.",
-    nesneSirasi: ["muz_sari", "sogan", "armut_yesil", "patlican", "seftali_turuncu", "patates", "muz_demetli", "mantar"],
+    yonerge: "<b>Veri toplama ve etiketleme:</b> Farklı renk ve şekillerdeki fotoğrafları inceleyip doğru kasaya etiketleyiniz. Modeliniz ne kadar çok ve çeşitli veriyle beslenirse o kadar iyi öğrenir!",
+    nesneSirasi: [
+      "muz_sari", "sogan", "armut_yesil", "patlican", 
+      "muz_demetli", "patates", "seftali_turuncu", "biber", 
+      "muz_yesil", "patlican_cizgili", "armut_sari", "patates_tatli", 
+      "armut_kirmizi", "mantar", "seftali_kirmizi"
+    ],
     dogruLabel: "meyve",
     yanlisLabel: "degil"
   },
   {
-    baslik: "Bölüm 2 / 3",
-    mod: "egitim",
-    yonerge: "<b>Özellik çıkarma:</b> Görüntüdeki nesneyi sınıflandırınız. Model özellik öğreniyor!",
-    nesneSirasi: ["armut_sari", "sogan", "muz_yesil", "patates_tatli", "armut_kirmizi", "biber", "seftali_kirmizi", "patlican_cizgili"],
-    dogruLabel: "meyve",
-    yanlisLabel: "degil"
-  },
-  {
-    baslik: "Bölüm 3 / 3",
+    baslik: "2. Adım: Model Testi",
     mod: "test",
-    yonerge: "<b>Model testi:</b> Z.A.K.A. eğittiğiniz modeli kullanarak yeni fotoğrafları tanıyor ve sınıflandırıyor!",
-    nesneSirasi: ["muz_sari", "biber", "armut_yesil", "patates", "seftali_turuncu", "mantar", "muz_demetli", "sogan"]
+    yonerge: "<b>Model testi:</b> Z.A.K.A. robotu 1. adımda eğittiğiniz yapay zekâ modelini kullanarak fotoğrafları otonom olarak tanıyor ve sınıflandırıyor!",
+    nesneSirasi: [
+      "muz_sari", "biber", "armut_yesil", "patlican", 
+      "muz_yesil", "patates_tatli", "seftali_turuncu", 
+      "patlican_cizgili", "muz_demetli", "sogan"
+    ]
   }
 ];
 
@@ -1948,12 +1949,8 @@ function kasaKapat(){
 /* ============ BÖLÜMLER ARASI BİLGİ GEÇİŞ KARTI ============ */
 var GECIS_BILGILERI = [
   {
-    yapilan: "Tüm fotoğrafları tek tek inceleyip doğru kasalara ayırdınız. Böylece yapay zekâ modeli için temiz ve güvenilir bir veri seti oluşturdunuz!",
-    siradaki: "Model şimdi bu verilerden renk, şekil ve kabuk gibi ayırt edici özellikleri öğrenmeye çalışacak. Özellik çıkarma aşamasına hazırsanız başlayalım!"
-  },
-  {
-    yapilan: "Yanıltıcı ve benzer nesneleri başarıyla sınıflandırdınız. Modeliniz, meyveler ile diğer gıdaların temel özellik farklarını kavramış oldu!",
-    siradaki: "Sırada büyük test var! Z.A.K.A. robotu yeni meyveleri tarayacak. Bakalım yapay zekâ modeliniz doğru tahminler yapabilecek mi?"
+    yapilan: "Farklı renk ve şekillerdeki tüm meyve ve sebze fotoğraflarını kasalara ayırarak zengin bir eğitim veri seti oluşturdunuz. Modeliniz renk, form ve tür özelliklerini hafızasına kaydetti!",
+    siradaki: "Şimdi sırada büyük test var! Z.A.K.A. robotu yeni fotoğrafları tarayacak ve eğittiğiniz modeli kullanarak otonom tahminlerde bulunacak. Bakalım modeliniz ne kadar doğru öğrenebilmiş?"
   }
 ];
 
@@ -1964,7 +1961,7 @@ function bolumGecisGoster(tamamlananIndeks){
     return;
   }
 
-  $("gecis-rozet-metin").textContent = "Bölüm " + (tamamlananIndeks + 1) + " Tamamlandı ✓";
+  $("gecis-rozet-metin").textContent = "1. Adım: Model Eğitimi Tamamlandı ✓";
   $("gecis-yapilan-metin").textContent = bilgi.yapilan;
   $("gecis-siradaki-metin").textContent = bilgi.siradaki;
 
@@ -1999,7 +1996,7 @@ function bolumBitti(){
 /* ============ OYUN SONU ============ */
 function oyunuBitir(){
   oyunBitti = true;
-  var toplamTest = BOLUMLER[2].nesneSirasi.length;
+  var toplamTest = BOLUMLER[1].nesneSirasi.length;
   var basariYuzde = Math.round((testDogruSayisi / toplamTest) * 100);
 
 
