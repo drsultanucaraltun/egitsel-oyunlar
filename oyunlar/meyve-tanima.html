@@ -1871,10 +1871,10 @@ var BOLUMLER = [
     mod: "egitim",
     yonerge: "<b>Veri toplama ve etiketleme:</b> Farklı renk ve şekillerdeki fotoğrafları inceleyip doğru kasaya etiketleyiniz. Modeliniz ne kadar çok ve çeşitli veriyle beslenirse o kadar iyi öğrenir!",
     nesneSirasi: [
-      "muz_sari", "sogan", "armut_yesil", "patlican", 
-      "muz_demetli", "patates", "seftali_turuncu", "biber", 
-      "muz_yesil", "patlican_cizgili", "armut_sari", "patates_tatli", 
-      "armut_kirmizi", "mantar", "seftali_kirmizi"
+      "muz_sari", "armut_yesil", "sogan", "patlican", 
+      "muz_demetli", "seftali_turuncu", "patates", "muz_yesil", 
+      "biber", "armut_sari", "patlican_cizgili", "armut_kirmizi", 
+      "seftali_kirmizi", "patates_tatli", "mantar"
     ],
     dogruLabel: "meyve",
     yanlisLabel: "degil"
@@ -1884,9 +1884,9 @@ var BOLUMLER = [
     mod: "test",
     yonerge: "<b>Model testi:</b> Z.A.K.A. robotu 1. adımda eğittiğiniz yapay zekâ modelini kullanarak fotoğrafları otonom olarak tanıyor ve sınıflandırıyor!",
     nesneSirasi: [
-      "muz_sari", "biber", "armut_yesil", "patlican", 
-      "muz_yesil", "patates_tatli", "seftali_turuncu", 
-      "patlican_cizgili", "muz_demetli", "sogan"
+      "muz_sari", "armut_yesil", "biber", "patlican", 
+      "seftali_turuncu", "muz_yesil", "patates_tatli", 
+      "muz_demetli", "patlican_cizgili", "sogan"
     ]
   }
 ];
@@ -2048,9 +2048,44 @@ function testNesneGoster(anlik){
   $("test-nesne-adi").textContent = n.ad;
 }
 
+/* ============ DİZİ KARIŞTIRMA (RASTGELE SIRALAMA) ============ */
+function diziKaristir(dizi){
+  var kopya = dizi.slice();
+  var maxDeneme = 12;
+  while(maxDeneme > 0){
+    for(var i = kopya.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var gecici = kopya[i];
+      kopya[i] = kopya[j];
+      kopya[j] = gecici;
+    }
+    // Sıralı örüntüyü (meyve, değil, meyve, değil...) kırmak için kontrol:
+    // En az bir kez ardışık iki aynı tür (meyve-meyve veya değil-değil) gelmiş mi?
+    var siraliMi = true;
+    for(var k = 0; k < kopya.length - 1; k++){
+      var n1 = NESNELER[kopya[k]];
+      var n2 = NESNELER[kopya[k + 1]];
+      if(n1 && n2 && n1.tur === n2.tur){
+        siraliMi = false;
+        break;
+      }
+    }
+    if(!siraliMi){
+      break;
+    }
+    maxDeneme--;
+  }
+  return kopya;
+}
+
 /* ============ BÖLÜM KURULUMU ============ */
 function bolumYukle(){
   mevcutBolum = BOLUMLER[bolumIndeks];
+  if(!mevcutBolum.orijinalNesneler){
+    mevcutBolum.orijinalNesneler = mevcutBolum.nesneSirasi.slice();
+  }
+  // Her bölümde nesneler sırayla değil, tamamen rastgele (random) gelsin
+  mevcutBolum.nesneSirasi = diziKaristir(mevcutBolum.orijinalNesneler);
   nesneIndeks = 0;
   yanlisSayisi = 0;
   kilit = false;
