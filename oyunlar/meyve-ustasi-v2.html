@@ -415,17 +415,80 @@ b,strong{font-weight:700}
   position:absolute;
   inset:0;
   display:none;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:clamp(1.5rem, 5vw, 3.5rem);
-  padding:clamp(0.4rem, 1.8vw, 1.2rem);
-  padding-top:clamp(2.6rem, 6vh, 3.4rem);
+  padding:clamp(0.5rem, 2vw, 1.2rem);
   z-index:6;
+  gap:clamp(0.4rem, 1.8vh, 1rem);
 }
 #test-sahne.aktif{display:flex}
+
+/* Ayrı ve Üstte Net Duran Dönüt Alanı */
+#test-donut-alani{
+  width:100%;
+  max-width:min(94%, 560px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0.35rem;
+  z-index:15;
+  text-align:center;
+}
+#test-karar-rozet{
+  font-size:clamp(0.88rem, 2vw, 1.15rem);
+  font-weight:700;
+  color:#FFFFFF;
+  background:rgba(20,83,45,0.92);
+  padding:0.35rem 1.1rem;
+  border-radius:999px;
+  letter-spacing:0.3px;
+  box-shadow:0 4px 14px rgba(0,0,0,0.18);
+  transition:all 0.25s ease;
+  white-space:normal;
+  max-width:100%;
+}
+#test-aciklama-metin{
+  font-size:clamp(0.82rem, 1.8vw, 0.98rem);
+  font-weight:700;
+  color:#14532D;
+  background:rgba(255,255,255,0.92);
+  border:2px solid #86EFAC;
+  padding:0.3rem 0.85rem;
+  border-radius:12px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.06);
+  max-width:100%;
+  min-height:1.7rem;
+  display:none;
+  line-height:1.3;
+}
+#test-aciklama-metin.iyi{
+  color:#15803D;
+  background:#DCFCE7;
+  border-color:#22C55E;
+  display:block;
+}
+#test-aciklama-metin.kotu{
+  color:#991B1B;
+  background:#FEE2E2;
+  border-color:#EF4444;
+  display:block;
+}
+
+/* Sayfaya Tam Ortalı Robot ve Kart Kümesi */
+#test-merkez-kume{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:clamp(1rem, 4vw, 2.8rem);
+  width:100%;
+  max-width:680px;
+  position:relative;
+}
+
 #robot-bolgesi{
-  width:clamp(115px, 22vw, 175px);
-  height:clamp(115px, 22vw, 175px);
+  width:clamp(100px, 20vw, 155px);
+  height:clamp(100px, 20vw, 155px);
   position:relative;
   display:flex;
   align-items:center;
@@ -435,41 +498,43 @@ b,strong{font-weight:700}
 #robot-svg{
   width:100%;
   height:100%;
-  filter:drop-shadow(0 8px 16px rgba(0,0,0,0.15));
+  filter:drop-shadow(0 8px 18px rgba(0,0,0,0.18));
 }
+
+/* Lazer Tarama Işını */
 #tarama-isik{
   position:absolute;
   left:68%;
-  top:5%;
-  width:clamp(130px, 30vw, 260px);
-  height:90%;
+  top:8%;
+  width:clamp(110px, 26vw, 210px);
+  height:84%;
   pointer-events:none;
   opacity:0;
-  z-index:10;
-  transition:opacity 0.25s;
+  z-index:8;
+  transition:opacity 0.2s ease;
 }
 #tarama-isik.yan{
   opacity:0.95;
   animation:taramaDalgasi 1s infinite alternate;
 }
 @keyframes taramaDalgasi{
-  0%{filter:drop-shadow(0 0 4px #4ADE80)}
-  100%{filter:drop-shadow(0 0 16px #22C55E)}
+  0%{filter:drop-shadow(0 0 3px #4ADE80)}
+  100%{filter:drop-shadow(0 0 14px #22C55E)}
 }
+
 #test-nesne-alani{
   flex:0 0 auto;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:0.5rem;
-  min-width:0;
+  gap:0.4rem;
   position:relative;
   z-index:5;
 }
 #test-nesne-kutu{
-  width:clamp(120px, 24vw, 185px);
-  height:clamp(90px, 18vh, 140px);
+  width:clamp(115px, 22vw, 165px);
+  height:clamp(90px, 18vh, 135px);
   background:#FFFFFF;
   border:3.5px solid #FFFFFF;
   border-radius:20px;
@@ -493,37 +558,60 @@ b,strong{font-weight:700}
   height:100%;
 }
 #test-nesne-kutu.cekildi{
-  transform:translateX(-180px) scale(0.3) rotate(-15deg);
+  transform:translateX(-160px) scale(0.3) rotate(-15deg);
   opacity:0;
 }
 #test-nesne-kutu.gitti{
-  transform:translateX(180px) scale(0.3) rotate(15deg);
+  transform:translateX(160px) scale(0.3) rotate(15deg);
   opacity:0;
-}
-#test-karar-rozet{
-  font-size:clamp(0.92rem, 2.2vw, 1.2rem);
-  font-weight:700;
-  color:#FFFFFF;
-  background:rgba(20,83,45,0.9);
-  padding:0.4rem 1.2rem;
-  border-radius:999px;
-  letter-spacing:0.3px;
-  white-space:nowrap;
-  max-width:calc(100% - 1rem);
-  box-shadow:0 4px 12px rgba(0,0,0,0.2);
-  transition:background 0.25s, transform 0.2s;
-  text-align:center;
 }
 #test-nesne-adi{
   font-size:clamp(0.85rem, 1.8vw, 1rem);
   font-weight:700;
   color:var(--bahce-koyu);
-  background:rgba(255,255,255,0.85);
+  background:rgba(255,255,255,0.9);
   padding:0.2rem 0.8rem;
   border-radius:999px;
   white-space:nowrap;
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
 }
 
+/* Mobil ve Dikey Ekranlar İçin Kusursuz Duyarlılık (Responsive) */
+@media (max-width: 580px){
+  #test-merkez-kume{
+    gap:0.8rem;
+  }
+  #robot-bolgesi{
+    width:clamp(85px, 22vw, 115px);
+    height:clamp(85px, 22vw, 115px);
+  }
+  #test-nesne-kutu{
+    width:clamp(100px, 26vw, 130px);
+    height:clamp(80px, 16vh, 105px);
+  }
+  #tarama-isik{
+    left:62%;
+    width:clamp(90px, 24vw, 130px);
+  }
+}
+
+@media (max-height: 520px){
+  #test-sahne{
+    gap:0.3rem;
+    padding:0.3rem;
+  }
+  #test-merkez-kume{
+    gap:1.2rem;
+  }
+  #robot-bolgesi{
+    width:90px;
+    height:90px;
+  }
+  #test-nesne-kutu{
+    width:105px;
+    height:75px;
+  }
+}
 /* Kategori Butonları (Eğitim Modu) */
 #kategoriler{
   flex:0 0 auto;
@@ -1127,51 +1215,60 @@ b,strong{font-weight:700}
             </div>
           </div>
 
-          <!-- Test Modu Sahnesi -->
+          <!-- Test Modu Sahnesi (Kusursuz Ortalı & Duyarlı) -->
           <div id="test-sahne" aria-hidden="true">
-            <div id="robot-bolgesi">
-              <svg id="robot-svg" viewBox="0 0 100 120" role="img" aria-label="Z.A.K.A. robotu">
-                <rect x="22" y="55" width="56" height="50" rx="10" fill="#FFFFFF" stroke="#16A34A" stroke-width="3"/>
-                <rect x="28" y="16" width="44" height="42" rx="11" fill="#F0FDF4" stroke="#16A34A" stroke-width="3"/>
-                <line x1="50" y1="16" x2="50" y2="6" stroke="#16A34A" stroke-width="2.5"/>
-                <circle cx="50" cy="4" r="4" fill="#F59E0B"/>
-                <rect x="33" y="24" width="14" height="10" rx="4" fill="#15803D"/>
-                <rect x="53" y="24" width="14" height="10" rx="4" fill="#15803D"/>
-                <circle id="goz-sol" cx="40" cy="29" r="3" fill="#FFFFFF"/>
-                <circle id="goz-sag" cx="60" cy="29" r="3" fill="#FFFFFF"/>
-                <circle cx="41" cy="28" r="1.2" fill="#1E2A44"/>
-                <circle cx="61" cy="28" r="1.2" fill="#1E2A44"/>
-                <path id="agiz" d="M40 44 Q50 50 60 44" stroke="#16A34A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                <rect x="34" y="66" width="32" height="22" rx="6" fill="#DCFCE7" stroke="#16A34A" stroke-width="1.8"/>
-                <circle cx="50" cy="77" r="6" fill="#FCA5A5" stroke="#DC2626" stroke-width="1.2"/>
-                <line x1="50" y1="71" x2="50" y2="67" stroke="#15803D" stroke-width="1.5"/>
-                <rect x="4" y="62" width="18" height="8" rx="4" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/>
-                <rect x="78" y="62" width="18" height="8" rx="4" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/>
-              </svg>
-              <svg id="tarama-isik" viewBox="0 0 260 140">
-                <defs>
-                  <linearGradient id="isikGrad" x1="0%" y1="50%" x2="100%" y2="50%">
-                    <stop offset="0%" stop-color="#22C55E" stop-opacity="0.95"/>
-                    <stop offset="50%" stop-color="#4ADE80" stop-opacity="0.65"/>
-                    <stop offset="100%" stop-color="#86EFAC" stop-opacity="0.15"/>
-                  </linearGradient>
-                </defs>
-                <!-- Tarama konisi -->
-                <polygon points="0,55 250,5 250,135 0,85" fill="url(#isikGrad)"/>
-                <!-- Lazer çizgileri -->
-                <line x1="0" y1="70" x2="250" y2="70" stroke="#22C55E" stroke-width="2.5" stroke-dasharray="8 4"/>
-                <line x1="0" y1="62" x2="250" y2="35" stroke="#4ADE80" stroke-width="1.8" opacity="0.8"/>
-                <line x1="0" y1="78" x2="250" y2="105" stroke="#4ADE80" stroke-width="1.8" opacity="0.8"/>
-                <!-- Tarama dikey çizgisi -->
-                <line x1="220" y1="15" x2="220" y2="125" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
-              </svg>
+            <!-- Üstte Özel ve Karışmayan Dönüt Alanı -->
+            <div id="test-donut-alani">
+              <div id="test-karar-rozet">Z.A.K.A. fotoğrafları inceliyor...</div>
+              <div id="test-aciklama-metin"></div>
             </div>
-            <div id="test-nesne-alani">
-              <div id="test-nesne-kutu">
-                <div id="test-nesne-svg"></div>
+
+            <!-- Ekrana Tam Ortalı Robot ve Kart Kümesi -->
+            <div id="test-merkez-kume">
+              <!-- Robot Bölgesi -->
+              <div id="robot-bolgesi">
+                <svg id="robot-svg" viewBox="0 0 100 120" role="img" aria-label="Z.A.K.A. robotu">
+                  <rect x="22" y="55" width="56" height="50" rx="10" fill="#FFFFFF" stroke="#16A34A" stroke-width="3"/>
+                  <rect x="28" y="16" width="44" height="42" rx="11" fill="#F0FDF4" stroke="#16A34A" stroke-width="3"/>
+                  <line x1="50" y1="16" x2="50" y2="6" stroke="#16A34A" stroke-width="2.5"/>
+                  <circle cx="50" cy="4" r="4" fill="#F59E0B"/>
+                  <rect x="33" y="24" width="14" height="10" rx="4" fill="#15803D"/>
+                  <rect x="53" y="24" width="14" height="10" rx="4" fill="#15803D"/>
+                  <circle id="goz-sol" cx="40" cy="29" r="3" fill="#FFFFFF"/>
+                  <circle id="goz-sag" cx="60" cy="29" r="3" fill="#FFFFFF"/>
+                  <circle cx="41" cy="28" r="1.2" fill="#1E2A44"/>
+                  <circle cx="61" cy="28" r="1.2" fill="#1E2A44"/>
+                  <path id="agiz" d="M40 44 Q50 50 60 44" stroke="#16A34A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                  <rect x="34" y="66" width="32" height="22" rx="6" fill="#DCFCE7" stroke="#16A34A" stroke-width="1.8"/>
+                  <circle cx="50" cy="77" r="6" fill="#FCA5A5" stroke="#DC2626" stroke-width="1.2"/>
+                  <line x1="50" y1="71" x2="50" y2="67" stroke="#15803D" stroke-width="1.5"/>
+                  <rect x="4" y="62" width="18" height="8" rx="4" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/>
+                  <rect x="78" y="62" width="18" height="8" rx="4" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/>
+                </svg>
+                <!-- Tarama Lazer Işını -->
+                <svg id="tarama-isik" viewBox="0 0 240 140" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="isikGrad" x1="0%" y1="50%" x2="100%" y2="50%">
+                      <stop offset="0%" stop-color="#22C55E" stop-opacity="0.95"/>
+                      <stop offset="60%" stop-color="#4ADE80" stop-opacity="0.65"/>
+                      <stop offset="100%" stop-color="#86EFAC" stop-opacity="0.15"/>
+                    </linearGradient>
+                  </defs>
+                  <polygon points="0,55 230,5 230,135 0,85" fill="url(#isikGrad)"/>
+                  <line x1="0" y1="70" x2="230" y2="70" stroke="#22C55E" stroke-width="2.5" stroke-dasharray="8 4"/>
+                  <line x1="0" y1="62" x2="230" y2="35" stroke="#4ADE80" stroke-width="1.8" opacity="0.8"/>
+                  <line x1="0" y1="78" x2="230" y2="105" stroke="#4ADE80" stroke-width="1.8" opacity="0.8"/>
+                  <line x1="205" y1="15" x2="205" y2="125" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+                </svg>
               </div>
-              <div id="test-nesne-adi"></div>
-              <div id="test-karar-rozet">Z.A.K.A. tarıyor...</div>
+
+              <!-- Test Edilen Kart -->
+              <div id="test-nesne-alani">
+                <div id="test-nesne-kutu">
+                  <div id="test-nesne-svg"></div>
+                </div>
+                <div id="test-nesne-adi"></div>
+              </div>
             </div>
           </div>
 
@@ -1750,8 +1847,11 @@ function testAdimiCalistir(){
   $("test-nesne-adi").textContent = n.ad;
 
   var rozet = $("test-karar-rozet");
-  rozet.textContent = "Z.A.K.A. analiz ediyor...";
-  rozet.style.background = "rgba(20,83,45,0.85)";
+  var aciklama = $("test-aciklama-metin");
+  rozet.textContent = "Z.A.K.A. tarıyor ve analiz ediyor...";
+  rozet.style.background = "rgba(20,83,45,0.92)";
+  aciklama.style.display = "none";
+  aciklama.className = "";
 
   $("tarama-isik").classList.add("yan");
   robotIfade("notr");
@@ -1759,7 +1859,6 @@ function testAdimiCalistir(){
 
   // Robot tarama ışınıyla analiz eder (900ms)
   setTimeout(function(){
-    // Modelin gerçek tahmini hesaplanıyor!
     var tahmin = modelTahminEt(anlik);
     var gercekTur = n.tur;
     var modelDogruBildi = (tahmin === gercekTur);
@@ -1771,39 +1870,43 @@ function testAdimiCalistir(){
       robotIfade("sevinc");
 
       if(tahmin === "meyve"){
-        rozet.textContent = "Robot Kararı: MEYVE ✓ (Doğru!)";
+        rozet.textContent = "Robot Kararı: MEYVE ✓ (Doğru Tahmin!)";
         rozet.style.background = "#15803D";
+        aciklama.textContent = "Harika! Eğittiğiniz model " + n.ad + " görselini doğru tanıdı.";
+        aciklama.className = "iyi";
         setTimeout(function(){
           tk.classList.add("cekildi");
-          bildir("Harika! Eğittiğiniz model " + n.ad + " görselini doğru tanıdı.", "iyi");
         }, window.__FAST ? 80 : 350);
       } else {
-        rozet.textContent = "Robot Kararı: MEYVE DEĞİL ✓ (Doğru!)";
+        rozet.textContent = "Robot Kararı: MEYVE DEĞİL ✓ (Doğru Tahmin!)";
         rozet.style.background = "#15803D";
+        aciklama.textContent = "Harika! Eğittiğiniz model " + n.ad + " nesnesinin meyve olmadığını doğru bildi.";
+        aciklama.className = "iyi";
         setTimeout(function(){
           tk.classList.add("gitti");
-          bildir("Harika! Eğittiğiniz model " + n.ad + " nesnesinin meyve olmadığını doğru bildi.", "iyi");
         }, window.__FAST ? 80 : 350);
       }
 
     } else {
-      // MODEL YANILDI! (Çünkü kullanıcı hatalı veri verdi!)
+      // MODEL YANILDI! (Hatalı veri sonucu)
       sesCal("yanlis");
       robotIfade("dusun");
 
       if(tahmin === "meyve"){
-        rozet.textContent = "Robot Kararı: MEYVE (HATA!) ⚠️";
+        rozet.textContent = "Robot Kararı: MEYVE ⚠️ (Hatalı Model!)";
         rozet.style.background = "#DC2626";
+        aciklama.textContent = "Eyvah! Yanlış etiket verdiğiniz için robot " + n.ad + " görselini meyve sandı!";
+        aciklama.className = "kotu";
         setTimeout(function(){
           tk.classList.add("cekildi");
-          bildir("Eyvah! Yanlış etiket verdiğiniz için robot " + n.ad + " görselini meyve sandı!", "kotu", true);
         }, window.__FAST ? 80 : 350);
       } else {
-        rozet.textContent = "Robot Kararı: MEYVE DEĞİL (HATA!) ⚠️";
+        rozet.textContent = "Robot Kararı: MEYVE DEĞİL ⚠️ (Hatalı Model!)";
         rozet.style.background = "#DC2626";
+        aciklama.textContent = "Hata! Yanlış etiketler yüzünden robot " + n.ad + " meyvesini eledi!";
+        aciklama.className = "kotu";
         setTimeout(function(){
           tk.classList.add("gitti");
-          bildir("Hata! Yanlış etiketler yüzünden robot " + n.ad + " meyvesini eledi!", "kotu", true);
         }, window.__FAST ? 80 : 350);
       }
     }
@@ -1813,11 +1916,10 @@ function testAdimiCalistir(){
       nesneIndeks++;
       sayacGuncelle();
       testAdimiCalistir();
-    }, window.__FAST ? 300 : 1800);
+    }, window.__FAST ? 300 : 1900);
 
   }, window.__FAST ? 200 : 900);
 }
-
 
 /* ============ KASA DETAY PENCERESİNİ AÇMA / KAPAMA ============ */
 function kasaAc(tur){
