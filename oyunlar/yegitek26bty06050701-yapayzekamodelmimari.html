@@ -1034,7 +1034,7 @@ $("btn-basla").addEventListener("click",function(){sesCal("tik");oyunuBaslat();e
 $("btn-yeniden").addEventListener("click",function(){oyunuBaslat();ekranAc(0);});
 $("btn-model-calistir").addEventListener("click",modeliCalistir);
 if(window.addEventListener){
-  window.addEventListener("resize",function(){if(yaziOlcek!==100)yaziBoyutuGuncelle();});
+  window.addEventListener("resize",yaziBoyutuGuncelle);
   window.addEventListener("pagehide",scormKapat);
   window.addEventListener("beforeunload",scormKapat);
   window.addEventListener("pageshow",function(e){if(e.persisted)scormBaslat();});
