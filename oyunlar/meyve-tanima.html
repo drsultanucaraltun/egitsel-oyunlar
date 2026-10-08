@@ -1502,7 +1502,7 @@ img,svg{max-width:100%}
       </div>
       <p class="giris-aciklama">
         Yapay zekâ dostumuz <b>Robi</b> meyveleri henüz tanıyamıyor.<br>
-        Robi'ye <b>örnek fotoğraflar göstererek</b> yapay zekâ modelini eğitiniz. Doğru eğitirseniz Robi fotoğrafları hatasız tanır ve <b>250 tam puan</b> kazanırsınız!
+        Robi'ye <b>örnek fotoğraflar göstererek</b> yapay zekâ modelini eğitiniz. Doğru eğitirseniz Robi fotoğrafları hatasız tanır ve <b>100 tam puan</b> kazanırsınız!
       </p>
       <button id="btn-basla" type="button">Eğitime Başlayınız.</button>
     </section>
@@ -1742,7 +1742,7 @@ img,svg{max-width:100%}
     </div>
     <div id="puan-kutu">
       <span class="sayac-etiket">Puan</span>
-      <span class="sayac-deger" id="skor-puan" aria-live="polite">0 / 250</span>
+      <span class="sayac-deger" id="skor-puan" aria-live="polite">0 / 100</span>
     </div>
     <button class="gezinme" id="btn-ileri" type="button" disabled>
       İleri
@@ -2031,7 +2031,7 @@ function sayacGuncelle(){
   $("ilerleme-dis").setAttribute("aria-valuenow", nesneIndeks);
   $("ilerleme-dis").setAttribute("aria-valuemax", toplam);
   var puanEl = $("skor-puan");
-  if(puanEl){ puanEl.textContent = puan + " / 250"; }
+  if(puanEl){ puanEl.textContent = puan + " / 100"; }
 }
 
 /* ============ NESNE GÖSTERİMİ ============ */
@@ -2161,9 +2161,9 @@ function cevapla(secilen){
   });
 
   if(gercekDogruMu){
-    puan += 10;
+    puan += 4;
     var pel = $("skor-puan");
-    if(pel){ pel.textContent = puan + " / 250"; }
+    if(pel){ pel.textContent = puan + " / 100"; }
     robotIfade("sevinc");
     bildir("Etiketlendi: " + (secilen === "meyve" ? "Meyve kasasına" : "Meyve olmayanlar kasasına") + " eklendi.", "iyi");
   } else {
@@ -2305,9 +2305,9 @@ function testAdimiCalistir(){
 
     if(modelDogruBildi){
       testDogruSayisi++;
-      puan += 10;
+      puan += 4;
       var spel = $("skor-puan");
-      if(spel){ spel.textContent = puan + " / 250"; }
+      if(spel){ spel.textContent = puan + " / 100"; }
       sesCal("dogru");
       robotIfade("sevinc");
 
@@ -2458,7 +2458,7 @@ function oyunuBitir(){
     mesajEl.innerHTML = "<b>Model Doğruluğu: %" + basariYuzde + " (Model Zorlandı!)</b><br>Eğitim sırasında bazı nesneleri yanlış etiketlediğiniz için Robi de testte yanıldı! <br><i>Unutmayın: Yapay zekâ sihirli değildir, ona verdiğiniz bilginin kalitesi kadar doğru tahmin yapabilir.</i>";
   }
 
-  $("son-puan").textContent = "Puanınız: " + puan + " / 250 (Model Doğruluğu: %" + basariYuzde + " — " + testDogruSayisi + " / " + toplamTest + " Doğru Karar)";
+  $("son-puan").textContent = "Puanınız: " + puan + " / 100 (Model Doğruluğu: %" + basariYuzde + " — " + testDogruSayisi + " / " + toplamTest + " Doğru Karar)";
   ekranAc(2);
 }
 
@@ -2470,7 +2470,7 @@ function oyunuBaslat(){
   egitimVeriSeti = [];
   testDogruSayisi = 0;
   var initPuanEl = $("skor-puan");
-  if(initPuanEl){ initPuanEl.textContent = "0 / 250"; }
+  if(initPuanEl){ initPuanEl.textContent = "0 / 100"; }
   
   bildirimTemizle();
   bolumYukle();
