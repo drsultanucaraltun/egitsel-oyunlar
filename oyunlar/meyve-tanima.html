@@ -794,7 +794,7 @@ img,svg{max-width:100%}
 .gezinme:disabled,#btn-geri:disabled,#btn-ileri:disabled{background:#E4E8F0;color:var(--gri);cursor:not-allowed}
 .gezinme svg{width:clamp(18px, 2.5vw, 22px);height:clamp(18px, 2.5vw, 22px);flex:0 0 auto}
 
-#sayac-kutu{
+#sayac-kutu, #puan-kutu{
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -1440,7 +1440,7 @@ img,svg{max-width:100%}
     <section class="ekran acik" id="ekran-giris" aria-labelledby="giris-baslik">
       <h2 id="giris-baslik">Meyve fotoğraflarından yapay zekâ modeli eğitiniz!</h2>
       <div id="giris-gorsel-kapsayici">
-        <svg id="giris-gorsel" viewBox="0 0 320 180" role="img" aria-label="Meyveleri inceleyen sevimli yapay zekâ robotu çizimi">
+        <svg id="giris-gorsel" viewBox="0 0 320 180" role="img" aria-label="Meyveleri inceleyen Robi çizimi">
           <defs>
             <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stop-color="#A7F3D0"/>
@@ -1456,7 +1456,7 @@ img,svg{max-width:100%}
           <!-- Çimen -->
           <path d="M40 155 L35 130 M50 158 L48 125 M60 154 L58 135" stroke="#15803D" stroke-width="3" stroke-linecap="round"/>
           <path d="M250 152 L248 128 M262 155 L260 130 M272 153 L268 135" stroke="#15803D" stroke-width="3" stroke-linecap="round"/>
-          <!-- Robot: Z.A.K.A -->
+          <!-- Robi -->
           <g transform="translate(90, 28)">
             <!-- Gövde -->
             <rect x="30" y="60" width="80" height="54" rx="12" fill="#FFFFFF" stroke="#16A34A" stroke-width="3.5"/>
@@ -1501,8 +1501,8 @@ img,svg{max-width:100%}
         </svg>
       </div>
       <p class="giris-aciklama">
-        Robot <b>Z.A.K.A.</b> meyveleri henüz tanıyamıyor.<br>
-        Ona <b>örnekler göstererek</b> yapay zekâ modelini eğitiniz. Doğru eğitirseniz yapay zekâ robotunuz fotoğrafları hatasız tanır!
+        Yapay zekâ dostumuz <b>Robi</b> meyveleri henüz tanıyamıyor.<br>
+        Robi'ye <b>örnek fotoğraflar göstererek</b> yapay zekâ modelini eğitiniz. Doğru eğitirseniz Robi fotoğrafları hatasız tanır ve <b>250 tam puan</b> kazanırsınız!
       </p>
       <button id="btn-basla" type="button">Eğitime Başlayınız.</button>
     </section>
@@ -1602,7 +1602,7 @@ img,svg{max-width:100%}
           <div id="test-sahne" aria-hidden="true">
             <!-- Üstte Özel ve Karışmayan Dönüt Alanı -->
             <div id="test-donut-alani">
-              <div id="test-karar-rozet">Z.A.K.A. fotoğrafları inceliyor...</div>
+              <div id="test-karar-rozet">Robi fotoğrafları inceliyor...</div>
               <div id="test-aciklama-metin"></div>
             </div>
 
@@ -1610,7 +1610,7 @@ img,svg{max-width:100%}
             <div id="test-merkez-kume">
               <!-- Robot Bölgesi -->
               <div id="robot-bolgesi">
-                <svg id="robot-svg" viewBox="0 0 100 120" role="img" aria-label="Z.A.K.A. robotu">
+                <svg id="robot-svg" viewBox="0 0 100 120" role="img" aria-label="Robi">
                   <rect x="22" y="55" width="56" height="50" rx="10" fill="#FFFFFF" stroke="#16A34A" stroke-width="3"/>
                   <rect x="28" y="16" width="44" height="42" rx="11" fill="#F0FDF4" stroke="#16A34A" stroke-width="3"/>
                   <line x1="50" y1="16" x2="50" y2="6" stroke="#16A34A" stroke-width="2.5"/>
@@ -1737,8 +1737,12 @@ img,svg{max-width:100%}
       Geri
     </button>
     <div id="sayac-kutu">
-      <span class="sayac-etiket">Etiketlenen</span>
-      <span class="sayac-deger" id="sayac-deger" aria-live="polite">0 / 0</span>
+      <span class="sayac-etiket" id="sayac-etiket">Etiketlenen</span>
+      <span class="sayac-deger" id="sayac-deger" aria-live="polite">0 / 15</span>
+    </div>
+    <div id="puan-kutu">
+      <span class="sayac-etiket">Puan</span>
+      <span class="sayac-deger" id="skor-puan" aria-live="polite">0 / 250</span>
     </div>
     <button class="gezinme" id="btn-ileri" type="button" disabled>
       İleri
@@ -1882,7 +1886,7 @@ var BOLUMLER = [
   {
     baslik: "2. Adım: Model Testi",
     mod: "test",
-    yonerge: "<b>Model testi:</b> Z.A.K.A. robotu 1. adımda eğittiğiniz yapay zekâ modelini kullanarak fotoğrafları otonom olarak tanıyor ve sınıflandırıyor!",
+    yonerge: "<b>Model testi:</b> Robi 1. adımda eğittiğiniz yapay zekâ modelini kullanarak fotoğrafları otonom olarak tanıyor ve sınıflandırıyor!",
     nesneSirasi: [
       "muz_sari", "armut_yesil", "biber", "patlican", 
       "seftali_turuncu", "muz_yesil", "patates_tatli", 
@@ -2020,11 +2024,14 @@ function sayacGuncelle(){
   var b = mevcutBolum;
   if(!b){ return; }
   var toplam = b.nesneSirasi.length;
+  var etiketEl = $("sayac-etiket");
+  if(etiketEl){ etiketEl.textContent = (b.mod === "egitim") ? "Etiketlenen" : "Test Edilen"; }
   $("sayac-deger").textContent = nesneIndeks + " / " + toplam;
   $("ilerleme-ic").style.width = (nesneIndeks/toplam*100) + "%";
   $("ilerleme-dis").setAttribute("aria-valuenow", nesneIndeks);
   $("ilerleme-dis").setAttribute("aria-valuemax", toplam);
-  
+  var puanEl = $("skor-puan");
+  if(puanEl){ puanEl.textContent = puan + " / 250"; }
 }
 
 /* ============ NESNE GÖSTERİMİ ============ */
@@ -2155,6 +2162,8 @@ function cevapla(secilen){
 
   if(gercekDogruMu){
     puan += 10;
+    var pel = $("skor-puan");
+    if(pel){ pel.textContent = puan + " / 250"; }
     robotIfade("sevinc");
     bildir("Etiketlendi: " + (secilen === "meyve" ? "Meyve kasasına" : "Meyve olmayanlar kasasına") + " eklendi.", "iyi");
   } else {
@@ -2279,7 +2288,7 @@ function testAdimiCalistir(){
 
   var rozet = $("test-karar-rozet");
   var aciklama = $("test-aciklama-metin");
-  rozet.textContent = "Z.A.K.A. tarıyor ve analiz ediyor...";
+  rozet.textContent = "Robi tarıyor ve analiz ediyor...";
   rozet.style.background = "rgba(20,83,45,0.92)";
   aciklama.style.display = "none";
   aciklama.className = "";
@@ -2297,21 +2306,23 @@ function testAdimiCalistir(){
     if(modelDogruBildi){
       testDogruSayisi++;
       puan += 10;
+      var spel = $("skor-puan");
+      if(spel){ spel.textContent = puan + " / 250"; }
       sesCal("dogru");
       robotIfade("sevinc");
 
       if(tahmin === "meyve"){
-        rozet.textContent = "Robot Kararı: MEYVE ✓ (Doğru Tahmin!)";
+        rozet.textContent = "Robi'nin Kararı: MEYVE ✓ (Doğru Tahmin!)";
         rozet.style.background = "#15803D";
-        aciklama.textContent = "Harika! Eğittiğiniz model " + n.ad + " görselini doğru tanıdı.";
+        aciklama.textContent = "Harika! Robi " + n.ad + " görselini doğru tanıdı.";
         aciklama.className = "iyi";
         setTimeout(function(){
           tk.classList.add("cekildi");
         }, window.__FAST ? 80 : 350);
       } else {
-        rozet.textContent = "Robot Kararı: MEYVE DEĞİL ✓ (Doğru Tahmin!)";
+        rozet.textContent = "Robi'nin Kararı: MEYVE DEĞİL ✓ (Doğru Tahmin!)";
         rozet.style.background = "#15803D";
-        aciklama.textContent = "Harika! Eğittiğiniz model " + n.ad + " nesnesinin meyve olmadığını doğru bildi.";
+        aciklama.textContent = "Harika! Robi " + n.ad + " nesnesinin meyve olmadığını doğru bildi.";
         aciklama.className = "iyi";
         setTimeout(function(){
           tk.classList.add("gitti");
@@ -2324,17 +2335,17 @@ function testAdimiCalistir(){
       robotIfade("dusun");
 
       if(tahmin === "meyve"){
-        rozet.textContent = "Robot Kararı: MEYVE ⚠️ (Hatalı Model!)";
+        rozet.textContent = "Robi'nin Kararı: MEYVE ⚠️ (Hatalı Model!)";
         rozet.style.background = "#DC2626";
-        aciklama.textContent = "Eyvah! Yanlış etiket verdiğiniz için robot " + n.ad + " görselini meyve sandı!";
+        aciklama.textContent = "Eyvah! Yanlış etiket verdiğiniz için Robi " + n.ad + " görselini meyve sandı!";
         aciklama.className = "kotu";
         setTimeout(function(){
           tk.classList.add("cekildi");
         }, window.__FAST ? 80 : 350);
       } else {
-        rozet.textContent = "Robot Kararı: MEYVE DEĞİL ⚠️ (Hatalı Model!)";
+        rozet.textContent = "Robi'nin Kararı: MEYVE DEĞİL ⚠️ (Hatalı Model!)";
         rozet.style.background = "#DC2626";
-        aciklama.textContent = "Hata! Yanlış etiketler yüzünden robot " + n.ad + " meyvesini eledi!";
+        aciklama.textContent = "Hata! Yanlış etiketler yüzünden Robi " + n.ad + " meyvesini eledi!";
         aciklama.className = "kotu";
         setTimeout(function(){
           tk.classList.add("gitti");
@@ -2389,7 +2400,7 @@ function kasaKapat(){
 var GECIS_BILGILERI = [
   {
     yapilan: "Farklı renk ve şekillerdeki tüm meyve ve sebze fotoğraflarını kasalara ayırarak zengin bir eğitim veri seti oluşturdunuz. Modeliniz renk, form ve tür özelliklerini hafızasına kaydetti!",
-    siradaki: "Şimdi sırada büyük test var! Z.A.K.A. robotu yeni fotoğrafları tarayacak ve eğittiğiniz modeli kullanarak otonom tahminlerde bulunacak. Bakalım modeliniz ne kadar doğru öğrenebilmiş?"
+    siradaki: "Şimdi sırada büyük test var! Robi yeni fotoğrafları tarayacak ve eğittiğiniz modeli kullanarak otonom kararlar verecek. Bakalım modeliniz ne kadar doğru öğrenebilmiş?"
   }
 ];
 
@@ -2442,12 +2453,12 @@ function oyunuBitir(){
 
   var mesajEl = $("son-mesaj");
   if(basariYuzde >= 80){
-    mesajEl.innerHTML = "<b>Harika bir model! Model Doğruluğu: %" + basariYuzde + "</b><br>Doğru ve güvenilir veriyle eğittiğiniz için robot neredeyse hiç yanılmadı!";
+    mesajEl.innerHTML = "<b>Harika bir model! Model Doğruluğu: %" + basariYuzde + "</b><br>Doğru ve güvenilir veriyle eğittiğiniz için Robi neredeyse hiç yanılmadı!";
   } else {
-    mesajEl.innerHTML = "<b>Model Doğruluğu: %" + basariYuzde + " (Model Zorlandı!)</b><br>Eğitim sırasında bazı nesneleri yanlış etiketlediğiniz için robot da testte yanıldı! <br><i>Unutmayın: Yapay zekâ sihirli değildir, ona verdiğiniz bilginin kalitesi kadar doğru tahmin yapabilir.</i>";
+    mesajEl.innerHTML = "<b>Model Doğruluğu: %" + basariYuzde + " (Model Zorlandı!)</b><br>Eğitim sırasında bazı nesneleri yanlış etiketlediğiniz için Robi de testte yanıldı! <br><i>Unutmayın: Yapay zekâ sihirli değildir, ona verdiğiniz bilginin kalitesi kadar doğru tahmin yapabilir.</i>";
   }
 
-  $("son-puan").textContent = "Test Doğruluğu: %" + basariYuzde + " (" + testDogruSayisi + " / " + toplamTest + " Doğru Karar) — Puan: " + puan;
+  $("son-puan").textContent = "Puanınız: " + puan + " / 250 (Model Doğruluğu: %" + basariYuzde + " — " + testDogruSayisi + " / " + toplamTest + " Doğru Karar)";
   ekranAc(2);
 }
 
@@ -2458,6 +2469,8 @@ function oyunuBaslat(){
   yanlisSayisi = 0;
   egitimVeriSeti = [];
   testDogruSayisi = 0;
+  var initPuanEl = $("skor-puan");
+  if(initPuanEl){ initPuanEl.textContent = "0 / 250"; }
   
   bildirimTemizle();
   bolumYukle();
