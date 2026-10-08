@@ -57,6 +57,7 @@ html{
   width:100%;
   max-width:100%;
   overflow-x:hidden;
+  overflow-y:hidden;
   font-size:105%;
 }
 body{
@@ -927,8 +928,8 @@ img,svg{max-width:100%}
   box-shadow:0 2px 8px rgba(0,0,0,0.05);
 }
 .kasa-oge-svg{
-  width:58px;
-  height:40px;
+  width:clamp(46px, 11vw, 62px);
+  height:clamp(32px, 8vw, 44px);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -1201,27 +1202,71 @@ img,svg{max-width:100%}
     font-size:clamp(0.85rem, 2.6vw, 1.05rem);
   }
   #altbar{
-    padding:0.35rem 0.5rem;
+    padding:0.25rem 0.45rem;
+    gap:0.3rem;
   }
   .gezinme{
     min-height:44px;
-    min-width:75px;
-    font-size:0.9rem;
-    padding:0 0.6rem;
-    border-radius:12px;
+    min-width:clamp(65px, 16vw, 76px);
+    font-size:0.85rem;
+    padding:0 0.5rem;
+    border-radius:11px;
+    gap:0.25rem;
   }
   .gezinme svg{
-    width:18px;
-    height:18px;
+    width:16px;
+    height:16px;
+  }
+  #sayac-kutu, #puan-kutu{
+    gap:0.05rem;
+  }
+  .sayac-etiket{
+    font-size:0.65rem;
+  }
+  .sayac-deger{
+    font-size:0.82rem;
   }
 }
 
 /* 3. Dar Ekranlar (<= 360px) */
 @media(max-width:360px){
+  #ustbar{
+    padding:0.25rem 0.35rem;
+    gap:0.25rem;
+  }
+  .arac{
+    min-width:44px;
+    min-height:44px;
+    width:44px;
+    height:44px;
+  }
   #bolum-no{display:none}
   .kategori-buton .btn-ust{display:none}
   .kategori-buton{min-height:44px}
   .sepet-alani{flex:0 1 clamp(65px, 23vw, 80px)}
+  #altbar{
+    padding:0.2rem 0.3rem;
+    gap:0.25rem;
+  }
+  .gezinme{
+    min-height:44px;
+    min-width:52px;
+    font-size:0.8rem;
+    padding:0 0.3rem;
+    gap:0.15rem;
+  }
+  .gezinme svg{
+    display:none;
+  }
+  #sayac-kutu, #puan-kutu{
+    gap:0;
+  }
+  .sayac-etiket{
+    font-size:0.6rem;
+  }
+  .sayac-deger{
+    font-size:0.75rem;
+  }
 }
 
 /* 4. Yatay Telefonlar & Alçak Ekranlar (<= 500px yükseklik) */
@@ -1251,13 +1296,22 @@ img,svg{max-width:100%}
   }
   .gezinme{
     min-height:44px;
-    min-width:75px;
-    font-size:0.9rem;
+    min-width:70px;
+    font-size:0.88rem;
     border-radius:10px;
+  }
+  #sayac-kutu, #puan-kutu{
+    gap:0;
+  }
+  .sayac-etiket{
+    font-size:0.62rem;
+  }
+  .sayac-deger{
+    font-size:0.8rem;
   }
   #gorev-serit{
     padding:0.1rem 0.2rem;
-    min-height:28px;
+    min-height:26px;
   }
   #bolum-no{
     font-size:0.8rem;
@@ -1268,7 +1322,7 @@ img,svg{max-width:100%}
     line-height:1.2;
   }
   #sahne-bahce{
-    padding-top:1.6rem;
+    padding-top:1.5rem;
     border-radius:12px;
   }
   #geribildirim{
@@ -1277,16 +1331,16 @@ img,svg{max-width:100%}
     padding:0.2rem 0.6rem;
   }
   #egitim-vitrin{
-    gap:0.5rem;
+    gap:0.45rem;
   }
   .sepet-alani{
-    min-height:clamp(80px, 28vh, 120px);
+    min-height:clamp(75px, 26vh, 115px);
     border-radius:12px;
     padding:0.2rem;
   }
   .sepet-baslik-kutu{
-    margin-bottom:0.15rem;
-    padding-bottom:0.15rem;
+    margin-bottom:0.12rem;
+    padding-bottom:0.12rem;
   }
   .sepet-ikon{
     width:18px;
@@ -1299,47 +1353,47 @@ img,svg{max-width:100%}
     font-size:0.7rem;
   }
   .sepet-icerik{
-    max-height:clamp(35px, 12vh, 60px);
+    max-height:clamp(32px, 11vh, 58px);
   }
   #nesne-kapsayici{
-    height:clamp(55px, 20vh, 85px);
-    width:clamp(85px, 18vw, 125px);
+    height:clamp(52px, 19vh, 80px);
+    width:clamp(80px, 18vw, 120px);
     border-radius:14px;
   }
   #nesne-adi{
     font-size:0.82rem;
-    padding:0.15rem 0.5rem;
+    padding:0.12rem 0.5rem;
   }
   #test-sahne{
-    gap:0.25rem;
-    padding:0.25rem;
+    gap:0.22rem;
+    padding:0.22rem;
   }
   #test-donut-alani{
-    gap:0.15rem;
+    gap:0.12rem;
   }
   #test-karar-rozet{
     font-size:0.85rem;
-    padding:0.18rem 0.6rem;
+    padding:0.16rem 0.6rem;
   }
   #test-aciklama-metin{
     font-size:0.8rem;
-    padding:0.15rem 0.5rem;
-    min-height:1.4rem;
+    padding:0.14rem 0.5rem;
+    min-height:1.35rem;
   }
   #test-merkez-kume{
-    gap:0.6rem;
+    gap:0.55rem;
   }
   #robot-bolgesi{
-    width:clamp(65px, 18vh, 85px);
-    height:clamp(65px, 18vh, 85px);
+    width:clamp(60px, 17vh, 80px);
+    height:clamp(60px, 17vh, 80px);
   }
   #tarama-isik{
-    width:clamp(70px, 18vw, 110px);
+    width:clamp(65px, 18vw, 105px);
     left:60%;
   }
   #test-nesne-kutu{
-    width:clamp(75px, 16vw, 110px);
-    height:clamp(50px, 16vh, 75px);
+    width:clamp(70px, 16vw, 105px);
+    height:clamp(48px, 15vh, 72px);
     border-radius:12px;
   }
   #test-nesne-adi{
@@ -1348,7 +1402,7 @@ img,svg{max-width:100%}
   }
   #kategoriler{
     padding:0.1rem 0;
-    gap:0.5rem;
+    gap:0.45rem;
   }
   .kategori-buton{
     min-height:44px;
@@ -1362,35 +1416,35 @@ img,svg{max-width:100%}
     font-size:0.88rem;
   }
   #giris-gorsel{
-    max-height:clamp(50px, 16vh, 85px);
+    max-height:clamp(48px, 15vh, 80px);
   }
   #ekran-giris h2{
-    font-size:clamp(1rem, 3vh, 1.3rem);
+    font-size:clamp(0.95rem, 3vh, 1.25rem);
   }
   #ekran-giris .giris-aciklama{
-    font-size:0.85rem;
-    line-height:1.3;
-  }
-  #btn-basla{
-    min-height:44px;
-    padding:0.4rem 1.2rem;
-    font-size:0.95rem;
-    border-radius:12px;
-  }
-  #son-gorsel{
-    max-height:clamp(45px, 15vh, 75px);
-  }
-  #ekran-son h2{
-    font-size:clamp(1rem, 3vh, 1.3rem);
-  }
-  #son-mesaj{
     font-size:0.82rem;
     line-height:1.25;
   }
+  #btn-basla{
+    min-height:44px;
+    padding:0.35rem 1.1rem;
+    font-size:0.92rem;
+    border-radius:12px;
+  }
+  #son-gorsel{
+    max-height:clamp(42px, 14vh, 70px);
+  }
+  #ekran-son h2{
+    font-size:clamp(0.95rem, 3vh, 1.25rem);
+  }
+  #son-mesaj{
+    font-size:0.8rem;
+    line-height:1.2;
+  }
   .ikincil-buton{
     min-height:44px;
-    padding:0.4rem 1.2rem;
-    font-size:0.95rem;
+    padding:0.35rem 1.1rem;
+    font-size:0.92rem;
     border-radius:12px;
   }
   .kasa-pencere{
