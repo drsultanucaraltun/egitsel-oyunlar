@@ -205,6 +205,19 @@ img,svg{max-width:100%}
   color:var(--murekkep);
   padding:0 0.5rem;
 }
+.giris-bilgi-kutu{
+  background:rgba(255, 255, 255, 0.95);
+  border:2.5px solid var(--cizgi);
+  border-radius:14px;
+  padding:clamp(0.5rem, 1.5vh, 0.75rem) clamp(0.7rem, 2vw, 1.1rem);
+  max-width:min(94%, 46rem);
+  text-align:left;
+  font-size:clamp(0.8rem, 1.5vw, 0.94rem);
+  line-height:1.4;
+  color:var(--murekkep);
+  box-shadow:0 3px 10px rgba(0,0,0,0.05);
+}
+.giris-bilgi-kutu b{color:var(--bahce-koyu);}
 #giris-gorsel-kapsayici{display:flex;align-items:center;justify-content:center;max-width:100%}
 #giris-gorsel{width:min(24rem, 64vw);height:auto;max-height:clamp(85px, 20vh, 160px)}
 #btn-basla{
@@ -1556,8 +1569,17 @@ img,svg{max-width:100%}
       </div>
       <p class="giris-aciklama">
         Yapay zekâ dostumuz <b>Robi</b> meyveleri henüz tanıyamıyor.<br>
-        Fen bilimlerine göre çiçekten gelişip tohum taşıyan ağaç meyveleri ile bitkinin kök veya yapraklarını Robi'ye öğreteceğiz. Robi'ye <b>örnek fotoğraflar göstererek</b> yapay zekâ modelini eğitiniz; <b>100 tam puan</b> kazanınız!
+        Robi'ye <b>örnek fotoğraflar göstererek</b> yapay zekâ modelini eğitiniz; <b>100 tam puan</b> kazanınız!
       </p>
+
+      <div class="giris-bilgi-kutu">
+        <b>🌱 Fen Bilimleri — Botanik Bilgi Notu:</b>
+        <ul style="margin:0.35rem 0 0.35rem 1.2rem;line-height:1.35;">
+          <li><b>Meyve:</b> Çiçekli bitkilerin döllenme sonrası gelişen ve içinde tohum (çekirdek) barındıran kısmıdır (Elma, armut, portakal, kiraz, limon, şeftali, üzüm, muz vb.).</li>
+          <li><b>Sebze / Meyve Olmayan:</b> Bitkinin meyvesi dışındaki kök, gövde, yaprak gibi diğer kısımlarıdır (Havuç köktür, patates ve soğan gövdedir, ıspanak yapraktır).</li>
+          <li><i>Önemli Bilgi:</i> Domates, salatalık, biber, patlıcan ve kabak da tohum taşıdıkları için botanik olarak birer meyvedir. Bu modelde Robi'ye net ağaç/bağ meyveleri ile kök ve yaprak sebzeleri öğretiyoruz.</li>
+        </ul>
+      </div>
       <button id="btn-basla" type="button">Eğitime Başlayınız.</button>
     </section>
 
@@ -1777,7 +1799,7 @@ img,svg{max-width:100%}
         <circle cx="142" cy="35" r="5" fill="#F59E0B"/>
         <circle cx="100" cy="22" r="5" fill="#F59E0B"/>
       </svg>
-      <p id="son-mesaj">Yapay zekâ modeli, <b>güvenilir veri</b> sayesinde meyveleri doğru sınıflandırmayı öğrendi. Doğru ve güvenilir bilgi, iyi modeller oluşturur!</p>
+      <p id="son-mesaj">Yapay zekâ modeli, <b>bilimsel ve güvenilir veri</b> sayesinde meyveleri doğru sınıflandırmayı öğrendi. Çiçekten gelişip tohum barındıran kısımlar meyve; bitkinin kök, gövde ve yaprak kısımları ise meyve değildir. Doğru bilgi, iyi modeller oluşturur!</p>
       
       <div id="son-puan"></div>
       <button class="ikincil-buton" id="btn-yeniden" type="button">Yeniden Oyna</button>
@@ -1963,7 +1985,7 @@ var ACIKLAMALAR = {
       "Süper! Meyve verisi başarıyla eklendi."
     ],
     yanlis: [
-      "Dikkat! Bu gerçekten bir meyvedir. Meyve değil diye etiketlersen model yanılır.",
+      "Dikkat! Çiçekten gelişen ve tohum taşıyan bu ürün bir meyvedir. Meyve değil diye etiketlersen model yanılır.",
       "Hata! Meyveleri doğru etiketlemek modelin doğruluğu için çok önemlidir.",
       "Yanlış etiket! Hatalı veri yapay zekânın hatalı tahminler yapmasına yol açar."
     ]
@@ -1976,7 +1998,7 @@ var ACIKLAMALAR = {
       "Süper! Hatalı etiket olmadan model gelişiyor."
     ],
     yanlis: [
-      "Dikkat! Bu bir meyve değil. Meyve diye etiketlersen model karışır.",
+      "Dikkat! Bu ürün bitkinin kök, gövde veya yaprağıdır; meyve değildir. Meyve diye etiketlersen model karışır.",
       "Hata! Farklı gıdaları meyve olarak etiketlemek modeli yanıltır.",
       "Yanlış etiket! Güvenilir veri için nesneleri dikkatli sınıflandırınız."
     ]
