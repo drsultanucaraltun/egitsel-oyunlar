@@ -2818,10 +2818,26 @@ function evreGorev(){
   gorevYukle();
   glCizIste();
 }
+/* "Kurmaya başla" ile "Devreyi kur" aynı yerde dönüşümlü görünür; odak görünen düğmeye geçer. */
 function araclarGoster(){
-  $("btn-hedef-gec").hidden=(EVRE!=="hedef");
-  $("btn-devre-kur").hidden=(EVRE!=="kurulum");
+  var hb=$("btn-hedef-gec"), db=$("btn-devre-kur"), odak=document.activeElement;
+  hb.hidden=(EVRE==="kurulum") || (!devre().length && EVRE!=="hedef");
+  db.hidden=(EVRE!=="kurulum");
+  if(odak===hb && hb.hidden && !db.hidden){ db.focus(); }
+  else if(odak===db && db.hidden && !hb.hidden){ hb.focus(); }
   $("btn-yukle").disabled=(EVRE!=="gorev");
+}
+/* Gösteriden ya da görevden kuruluma döner: devre tahtası boşalır, öğrenci yeniden kurar.
+   Bitmiş derste ders birinci görevden yeniden başlar. */
+function kurmayaBasla(){
+  if(EVRE==="kurulum" || !devre().length) return;
+  var ds=dersDurum[dersIndeks];
+  if(EVRE==="gorev" && kilit && !ds.bitti) return;
+  if(ilerleZaman){ clearTimeout(ilerleZaman); ilerleZaman=null; }
+  if(ds.bitti){ dersSifirla(dersIndeks); gorevIndeks=0; }
+  else if(EVRE==="gorev"){ ds.kurulan={}; }
+  kilit=false;
+  evreKurulum();
 }
 function seritYaz(baslik,metin){
   $("gorev-baslik").textContent=baslik;
@@ -2977,7 +2993,7 @@ function kur(id,sessiz){
   kurulumCiz();
 }
 function devreyiKur(){
-  if(EVRE!=="kurulum") return;
+  if(EVRE!=="kurulum" || otoKurZaman) return;
   secimTemizle();
   var kalan=devre().filter(function(o){ return !kurulan()[o.id]; });
   function sonraki(){
@@ -3141,7 +3157,7 @@ function gorevYukle(){
   if(gv && gv.melodi){ a.melodi=gv.melodi.slice(); if(SAHNELER.ses) SAHNELER.ses.secili=null; }
   if(!gv && a.melodi){ var son=d.gorevler[d.gorevler.length-1]; if(son.dogru) a.melodi=son.dogru.slice(); }
   if(gv){ seritYaz("Görev "+(gorevIndeks+1)+"/"+d.gorevler.length+":",gv.metin); }
-  else { seritYaz("Tamamlandı:","Bu dersi bitirdiniz. Yeniden yapmak için ders numarasına tıklayınız."); }
+  else { seritYaz("Tamamlandı:","Bu dersi bitirdiniz. Yeniden yapmak için "+(devre().length ? "Kurmaya başla düğmesine basınız." : "ders numarasına tıklayınız.")); }
   ayarlariCiz();
   sahne.guncelle(a,null);
   kodGuncelle(null);
@@ -3516,7 +3532,7 @@ function gorevHatali(gv,mesaj){
   ayarlariCiz();
   sahne.guncelle(a,"direnc");
   kodGuncelle(null);
-  bildir(mesaj+" Doğru ayarları yerleştirdim; kodda ve sahnede inceleyiniz. Görev puansız geçildi.","kotu",true);
+  bildir(mesaj+" Doğru ayarları yerleştirdim; kodda ve sahnede inceleyiniz.","kotu",true);
   ilerleZaman=setTimeout(gorevIlerle,window.__FAST?300:5200);
 }
 function gorevIlerle(){
@@ -3599,7 +3615,7 @@ $("btn-basla").addEventListener("click",function(){
 $("btn-yeniden").addEventListener("click",function(){ oyunuBaslat(); sahne=null; ekranAc(0); });
 $("btn-yukle").addEventListener("click",function(){ yukle(); });
 $("btn-devre-kur").addEventListener("click",function(){ devreyiKur(); });
-$("btn-hedef-gec").addEventListener("click",function(){ evreKurulum(); });
+$("btn-hedef-gec").addEventListener("click",function(){ kurmayaBasla(); });
 $("btn-bilgi").addEventListener("click",function(){
   var acik=$("bilgi-kart").hidden;
   $("bilgi-kart").hidden=!acik;
