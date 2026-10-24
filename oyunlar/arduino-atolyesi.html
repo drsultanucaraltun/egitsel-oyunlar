@@ -237,6 +237,17 @@ code{font-family:Menlo,Consolas,"Courier New",monospace;font-size:0.92em;backgro
 #sahne .kur-hedef:focus{outline:none}
 #sahne .kur-hedef:focus circle,#sahne .kur-hedef.secili circle,#sahne .kur-hedef:hover circle{stroke:var(--odak);stroke-width:3.5}
 #sahne .kur-pin.secili circle,#sahne .kur-uc.secili circle{fill:#E9DDFF}
+.arac-btn.ikonlu{display:inline-flex;align-items:center;gap:0.35rem}
+.arac-btn.ikonlu svg{width:22px;height:22px;flex:0 0 auto}
+.sema-perde{position:fixed;inset:0;z-index:300;background:rgba(31,42,55,.5);display:flex;align-items:center;justify-content:center;padding:1rem}
+.sema-perde[hidden]{display:none}
+.sema-pencere{background:var(--panel);border-radius:16px;width:min(1100px,96vw);max-height:94vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.3)}
+.sema-ust{flex:0 0 auto;display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.8rem;border-bottom:2px solid var(--cizgi)}
+.sema-ust h2{font-size:1.25rem;font-weight:700;color:var(--vurgu-koyu);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sema-govde{flex:1 1 auto;min-height:0;overflow:auto;padding:0.5rem 0.8rem;display:flex;justify-content:center;align-items:flex-start}
+.sema-govde svg{width:100%;height:auto;max-height:72vh;display:block}
+.sema-govde text{font-family:'Roboto',Arial,sans-serif}
+.sema-malzeme{flex:0 0 auto;padding:0.4rem 1rem 0.8rem;font-size:1rem;border-top:2px solid var(--cizgi)}
 @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
 @media (max-height:820px){
   #ekran-giris h2{font-size:2.3rem}
@@ -303,7 +314,7 @@ code{font-family:Menlo,Consolas,"Courier New",monospace;font-size:0.92em;backgro
       </div>
       <div id="oyun-govde">
         <div class="kart-panel" id="sahne-kart">
-          <div id="sahne-arac"><button class="arac-btn birincil" id="btn-hedef-gec" type="button" hidden>Kurmaya başla</button><button class="arac-btn birincil" id="btn-devre-kur" type="button" hidden>Devreyi kur</button><span id="sahne-arac-yazi"></span><span class="bosluk"></span><span class="kam-ipucu" aria-hidden="true">Sürükle: döndür · Tekerlek: yakınlaştır · Shift+sürükle: kaydır</span><button class="kam-btn" id="btn-kam-sol" type="button" aria-label="Sahneyi sola döndürünüz" title="Sola döndür (Q)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v4h4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-sag" type="button" aria-label="Sahneyi sağa döndürünüz" title="Sağa döndür (E)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-3-6.2M20 4v4h-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-ust" type="button" aria-label="Daha yukarıdan bakınız" title="Yukarıdan bak (R)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-alt" type="button" aria-label="Daha yandan bakınız" title="Yandan bak (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-yakin" type="button" aria-label="Yakınlaştırınız" title="Yakınlaştır (+)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-5-5M11 8v6M8 11h6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-uzak" type="button" aria-label="Uzaklaştırınız" title="Uzaklaştır (−)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-5-5M8 11h6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-sifir" type="button" aria-label="Görünümü sıfırlayınız" title="Görünümü sıfırla (0)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+          <div id="sahne-arac"><button class="arac-btn birincil" id="btn-hedef-gec" type="button" hidden>Kurmaya başla</button><button class="arac-btn birincil" id="btn-devre-kur" type="button" hidden>Devreyi kur</button><button class="arac-btn ikonlu" id="btn-sema" type="button" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8h4M18 8h4M6 8l1.5-3 3 6 3-6 3 6 1.5-3M2 17h7M15 17h7M9 13v8M15 13v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Devre şeması</button><span id="sahne-arac-yazi"></span><span class="bosluk"></span><span class="kam-ipucu" aria-hidden="true">Sürükle: döndür · Tekerlek: yakınlaştır · Shift+sürükle: kaydır</span><button class="kam-btn" id="btn-kam-sol" type="button" aria-label="Sahneyi sola döndürünüz" title="Sola döndür (Q)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v4h4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-sag" type="button" aria-label="Sahneyi sağa döndürünüz" title="Sağa döndür (E)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-3-6.2M20 4v4h-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-ust" type="button" aria-label="Daha yukarıdan bakınız" title="Yukarıdan bak (R)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-alt" type="button" aria-label="Daha yandan bakınız" title="Yandan bak (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-yakin" type="button" aria-label="Yakınlaştırınız" title="Yakınlaştır (+)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-5-5M11 8v6M8 11h6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-uzak" type="button" aria-label="Uzaklaştırınız" title="Uzaklaştır (−)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-5-5M8 11h6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-sifir" type="button" aria-label="Görünümü sıfırlayınız" title="Görünümü sıfırla (0)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
           <div id="sahne-kap" tabindex="0" aria-label="3B devre sahnesi. Döndürmek için sürükleyiniz; klavyede Q ve E döndürür, artı ve eksi yakınlaştırır, 0 görünümü sıfırlar.">
             <canvas id="kanvas3b" aria-hidden="true"></canvas>
             <svg id="sahne" viewBox="0 0 960 520" role="group" aria-label="Devre sahnesi" preserveAspectRatio="none"></svg>
@@ -354,6 +365,18 @@ code{font-family:Menlo,Consolas,"Courier New",monospace;font-size:0.92em;backgro
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
   </footer>
+  <div id="sema-perde" class="sema-perde" hidden>
+    <div class="sema-pencere" role="dialog" aria-modal="true" aria-labelledby="sema-baslik">
+      <div class="sema-ust">
+        <h2 id="sema-baslik">Devre şeması</h2>
+        <span class="bosluk"></span>
+        <button class="arac-btn ikonlu" id="btn-sema-indir" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Şemayı indir (PDF)</button>
+        <button class="arac" id="btn-sema-kapat" type="button" aria-label="Şemayı kapatınız" title="Kapat (Esc)"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button>
+      </div>
+      <div id="sema-govde" class="sema-govde"></div>
+      <p id="sema-malzeme" class="sema-malzeme"></p>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1703,7 +1726,7 @@ function mercekBagla(){
   /* Belge düzeyinde dinlenir: kablo ve parça sürüklerken de imleç tahtanın ya da kartın üstündeyse büyüteç açık kalır. */
   document.addEventListener("pointermove",function(e){
     var c=C3();
-    if(e.pointerType!=="mouse" || aktif!==1 || !GL_HAZIR || kap.classList.contains("suruklen") || !c || !c.alan){ kapat(); return; }
+    if(e.pointerType!=="mouse" || aktif!==1 || !GL_HAZIR || kap.classList.contains("suruklen") || !c || !c.alan || !$("sema-perde").hidden){ kapat(); return; }
     var r=kap.getBoundingClientRect(), x=e.clientX-r.left, y=e.clientY-r.top;
     if(x<0 || y<0 || x>r.width || y>r.height || !ustunde(c,x/r.width*960,y/r.height*GL_BOY.svgH)){ kapat(); return; }
     MERCEK.r=sinirAl(Math.round(Math.min(r.width,r.height)*0.2),70,120);
@@ -3160,6 +3183,475 @@ function tepsiSurukle(b){
   });
 }
 
+/* ============ DEVRE ŞEMASI ============ */
+/* Her dersin devresi standart sembollerle bir çizim listesine dönüştürülür. Aynı liste ekrandaki SVG'ye
+   ve indirilen vektör PDF'ye çevrilir. Şema öğrencinin o anki seçimlerini (direnç, LED rengi, aşağı çekme,
+   motor bağlantısı) yansıtır. Ölçüler 840 × 520 birimlik çizim alanındadır. */
+var SEMA_G=840, SEMA_Y=520;
+var SM="#1F2A37", SM_GRI="#56606B", SM_UYARI="#B45309", SM_KART="#00707A";
+
+function Sema(){ this.o=[]; }
+Sema.prototype.cizgi=function(n,o){ o=o||{}; this.o.push({ t:"cizgi", n:n, k:o.k||2.2, renk:o.renk||SM, kesik:!!o.kesik }); };
+Sema.prototype.daire=function(x,y,r,o){ o=o||{}; this.o.push({ t:"daire", x:x, y:y, r:r, k:o.k===undefined?2.2:o.k, renk:o.renk||SM, dolgu:o.dolgu||null }); };
+Sema.prototype.kutu=function(x,y,w,h,o){ o=o||{}; this.o.push({ t:"kutu", x:x, y:y, w:w, h:h, r:o.r||0, k:o.k===undefined?2.2:o.k, renk:o.renk||SM, dolgu:o.dolgu||null, kesik:!!o.kesik }); };
+Sema.prototype.cokgen=function(n,o){ o=o||{}; this.o.push({ t:"cokgen", n:n, dolgu:o.dolgu||SM, renk:o.renk||null }); };
+Sema.prototype.yazi=function(x,y,m,o){ o=o||{}; this.o.push({ t:"yazi", x:x, y:y, m:m, b:o.b||15, kalin:!!o.kalin, hiza:o.hiza||"start", renk:o.renk||SM }); };
+Sema.prototype.nokta=function(x,y){ this.daire(x,y,4.2,{ k:0, dolgu:SM }); };
+
+/* ---------- yardımcılar ---------- */
+function semaAcik(h,oran){
+  var c=[parseInt(h.substr(1,2),16),parseInt(h.substr(3,2),16),parseInt(h.substr(5,2),16)];
+  return "#"+c.map(function(v){ var s=Math.round(v+(255-v)*oran).toString(16); return s.length<2?"0"+s:s; }).join("");
+}
+/* İki uç arasındaki eksen: p(t,n) = başlangıç + t·(boyuna) + n·(dik). Dikey eksende n<0 sağ taraftır. */
+function semaEksen(x1,y1,x2,y2){
+  var dx=x2-x1, dy=y2-y1, L=Math.sqrt(dx*dx+dy*dy), ux=dx/L, uy=dy/L;
+  return { L:L, p:function(t,n){ return [x1+ux*t-uy*n, y1+uy*t+ux*n]; } };
+}
+function semaOk(s,a,b,o){
+  o=o||{};
+  var dx=b[0]-a[0], dy=b[1]-a[1], L=Math.sqrt(dx*dx+dy*dy), ux=dx/L, uy=dy/L, k=o.uc||8, renk=o.renk||SM;
+  s.cizgi([a,[b[0]-ux*k*0.7,b[1]-uy*k*0.7]],{ k:o.k||2, renk:renk });
+  s.cokgen([b,[b[0]-ux*k-uy*k*0.45,b[1]-uy*k+ux*k*0.45],[b[0]-ux*k+uy*k*0.45,b[1]-uy*k-ux*k*0.45]],{ dolgu:renk });
+}
+/* Etiket: ilk satır kalın (ad), sonraki satırlar küçük ve gri (değer, açıklama). */
+function semaEtiket(s,orta,konum,metin,d,renk){
+  var x=orta[0], y=orta[1], sat=[].concat(metin), hiza="middle", n=sat.length;
+  if(!metin) return;
+  if(konum==="ust"){ y-=d+(n-1)*17; }
+  else if(konum==="alt"){ y+=d+12; }
+  else if(konum==="sag"){ x+=d; y+=5-(n-1)*8.5; hiza="start"; }
+  else { x-=d; y+=5-(n-1)*8.5; hiza="end"; }
+  sat.forEach(function(m,i){ s.yazi(x,y+i*17,m,{ hiza:hiza, b:i?13:15, kalin:i===0, renk:renk||(i?SM_GRI:SM) }); });
+}
+function semaDirenc(s,x1,y1,x2,y2,o){
+  o=o||{};
+  var e=semaEksen(x1,y1,x2,y2), m=e.L/2, t0=m-28, t1=m+28, adim=56/6, n=[e.p(t0,0)], i, st={ renk:o.renk, kesik:o.kesik };
+  s.cizgi([e.p(0,0),e.p(t0,0)],st); s.cizgi([e.p(t1,0),e.p(e.L,0)],st);
+  for(i=0;i<6;i++){ n.push(e.p(t0+adim*(i+0.5),i%2?8:-8)); }
+  n.push(e.p(t1,0));
+  s.cizgi(n,st);
+  semaEtiket(s,e.p(m,0),o.konum||"ust",o.etiket,o.d||20,o.renk);
+}
+function semaLed(s,x1,y1,x2,y2,o){
+  o=o||{};
+  var e=semaEksen(x1,y1,x2,y2), m=e.L/2, t0=m-11, t1=m+11, k;
+  s.cizgi([e.p(0,0),e.p(t0,0)]); s.cizgi([e.p(t1,0),e.p(e.L,0)]);
+  s.cokgen([e.p(t0,-11),e.p(t0,11),e.p(t1,0)],{ dolgu:o.dolgu||"#FFFFFF", renk:SM });
+  s.cizgi([e.p(t1,-11),e.p(t1,11)],{ k:2.6 });
+  for(k=0;k<2;k++){ semaOk(s,e.p(m-4+k*9,-14),e.p(m-11+k*9,-28),{ k:1.6, uc:6 }); }
+  semaEtiket(s,e.p(m,0),o.konum||"sol",o.etiket,o.d||20);
+}
+function semaDugme(s,x1,y1,x2,y2,o){
+  o=o||{};
+  var e=semaEksen(x1,y1,x2,y2), m=e.L/2;
+  s.cizgi([e.p(0,0),e.p(m-21,0)]); s.cizgi([e.p(m+21,0),e.p(e.L,0)]);
+  s.daire(e.p(m-18,0)[0],e.p(m-18,0)[1],3.2,{ k:2, dolgu:"#FFFFFF" });
+  s.daire(e.p(m+18,0)[0],e.p(m+18,0)[1],3.2,{ k:2, dolgu:"#FFFFFF" });
+  s.cizgi([e.p(m-22,-12),e.p(m+22,-12)],{ k:2.4 });
+  s.cizgi([e.p(m,-12),e.p(m,-24)]);
+  s.cizgi([e.p(m-8,-24),e.p(m+8,-24)],{ k:2.4 });
+  semaEtiket(s,e.p(m,0),o.konum||"sag",o.etiket,o.d||36);
+}
+function semaLdr(s,x1,y1,x2,y2,o){
+  o=o||{};
+  var e=semaEksen(x1,y1,x2,y2), m=e.L/2, c=e.p(m,0), k;
+  semaDirenc(s,x1,y1,x2,y2,{});
+  s.daire(c[0],c[1],30,{ k:1.8 });
+  for(k=0;k<2;k++){ semaOk(s,e.p(m-16+k*13,56),e.p(m-8+k*13,36),{ k:1.6, uc:6 }); }
+  semaEtiket(s,c,o.konum||"sag",o.etiket,o.d||40);
+}
+function semaZil(s,x1,y1,x2,y2,o){
+  o=o||{};
+  var e=semaEksen(x1,y1,x2,y2), m=e.L/2, t0=m-15, t1=m+15;
+  s.cizgi([e.p(0,0),e.p(t0,0)]); s.cizgi([e.p(t1,0),e.p(e.L,0)]);
+  s.cokgen([e.p(t0,-8),e.p(t0,8),e.p(t1,8),e.p(t1,-8)],{ dolgu:"#FFFFFF", renk:SM });
+  s.cokgen([e.p(t0,-8),e.p(t0-9,-28),e.p(t1+9,-28),e.p(t1,-8)],{ dolgu:"#FFFFFF", renk:SM });
+  var arti=e.p(t0-8,10);
+  s.yazi(arti[0],arti[1]+5,"+",{ hiza:"middle", kalin:true, b:16 });
+  semaEtiket(s,e.p(m,0),o.konum||"sag",o.etiket,o.d||44);
+}
+function semaMotor(s,x1,y1,x2,y2,o){
+  o=o||{};
+  var e=semaEksen(x1,y1,x2,y2), m=e.L/2, c=e.p(m,0), arti=e.p(m-34,12);
+  s.cizgi([e.p(0,0),e.p(m-26,0)]); s.cizgi([e.p(m+26,0),e.p(e.L,0)]);
+  s.daire(c[0],c[1],26,{ k:2.4, dolgu:"#FFFFFF" });
+  s.yazi(c[0],c[1]+7,"M",{ hiza:"middle", kalin:true, b:20 });
+  s.yazi(arti[0],arti[1]+5,"+",{ hiza:"middle", kalin:true, b:16 });
+  semaEtiket(s,c,o.konum||"sag",o.etiket,o.d||40);
+}
+/* NPN transistör: gövde merkezi (cx, cy); dönüş: B (sol), C (üst), E (alt) uçları. */
+function semaNpn(s,cx,cy,o){
+  o=o||{};
+  var b=[cx-44,cy], c=[cx+8,cy-70], em=[cx+8,cy+70];
+  s.daire(cx,cy,24,{ k:2, dolgu:"#FFFFFF" });
+  s.cizgi([b,[cx-10,cy]]);
+  s.cizgi([[cx-10,cy-14],[cx-10,cy+14]],{ k:3 });
+  s.cizgi([[cx-10,cy-7],[cx+8,cy-18],[cx+8,cy-70]]);
+  s.cizgi([[cx+8,cy+18],[cx+8,cy+70]]);
+  semaOk(s,[cx-10,cy+7],[cx+8,cy+18],{ k:2, uc:8 });
+  s.yazi(cx-30,cy-8,"B",{ hiza:"middle", b:12, renk:SM_GRI });
+  s.yazi(cx+16,cy-44,"C",{ b:12, renk:SM_GRI });
+  s.yazi(cx+16,cy+52,"E",{ b:12, renk:SM_GRI });
+  semaEtiket(s,[cx,cy],"sag",o.etiket,34);
+  return { B:b, C:c, E:em };
+}
+/* Arduino Uno bloğu: pinler sağ kenarda; dönüş: pin adı → kablo ucu. */
+function semaKart(s,x,pinler,o){
+  o=o||{};
+  var w=170, ys=pinler.map(function(p){ return p[1]; }), y0=Math.min.apply(null,ys)-62, y1=Math.max.apply(null,ys)+32, uc={};
+  s.kutu(x,y0,w,y1-y0,{ r:10, k:2.6, renk:SM_KART, dolgu:"#E6F3F4" });
+  s.yazi(x+w/2,y0+30,"Arduino Uno",{ hiza:"middle", kalin:true, b:17, renk:"#005A62" });
+  pinler.forEach(function(p){
+    s.cizgi([[x+w,p[1]],[x+w+20,p[1]]]);
+    s.yazi(x+w-10,p[1]+5,p[0],{ hiza:"end", kalin:true });
+    uc[p[0]]=[x+w+20,p[1]];
+  });
+  return uc;
+}
+/* Modül bloğu (sensör, servo, ışık modülü): pinler [ad, y, "sol"|"sag", kablo uzunluğu]. */
+function semaModul(s,x,y0,w,h,baslik,pinler){
+  var uc={};
+  s.kutu(x,y0,w,h,{ r:10, k:2.4, dolgu:"#F3F4F7" });
+  s.yazi(x+w/2,y0+28,baslik[0],{ hiza:"middle", kalin:true, b:16 });
+  if(baslik[1]){ s.yazi(x+w/2,y0+46,baslik[1],{ hiza:"middle", b:13, renk:SM_GRI }); }
+  pinler.forEach(function(p){
+    var sag=p[2]==="sag", u=p[3]||20, kx=sag?x+w:x, ux=sag?kx+u:kx-u;
+    s.cizgi([[kx,p[1]],[ux,p[1]]]);
+    s.yazi(sag?x+w-10:x+10,p[1]+5,p[0],{ hiza:sag?"end":"start", kalin:true });
+    uc[p[0]]=[ux,p[1]];
+  });
+  return uc;
+}
+function semaDirencAdi(r){ return r>=1000 ? (r/1000)+" kΩ" : r+" Ω"; }
+function semaLedRengi(deger){
+  for(var i=0;i<LED_RENKLERI.length;i++){ if(LED_RENKLERI[i].deger===deger) return LED_RENKLERI[i]; }
+  return LED_RENKLERI[0];
+}
+
+/* ---------- ders şemaları ---------- */
+var SEMALAR={
+  kart:function(s){
+    s.kutu(30,200,150,110,{ r:10, k:2.4, dolgu:"#F3F4F7" });
+    s.yazi(105,251,"Bilgisayar",{ hiza:"middle", kalin:true, b:16 });
+    s.yazi(105,270,"güç + kod",{ hiza:"middle", b:13, renk:SM_GRI });
+    s.cizgi([[180,255],[260,255]],{ k:4 });
+    s.yazi(220,243,"USB",{ hiza:"middle", kalin:true, b:13 });
+    var p=semaKart(s,260,[["D13",170],["GND",380]]);
+    s.kutu(470,118,330,300,{ r:10, k:1.6, kesik:true, renk:SM_GRI });
+    s.yazi(484,404,"Kartın üzerinde (basitleştirilmiş)",{ b:13, renk:SM_GRI });
+    s.cizgi([p.D13,[490,170]]);
+    semaDirenc(s,490,170,640,170,{ etiket:["1 kΩ"] });
+    s.cizgi([[640,170],[700,170]]);
+    semaLed(s,700,170,700,380,{ dolgu:semaAcik("#F2C23A",0.35), etiket:["L","yerleşik LED"] });
+    s.cizgi([[700,380],p.GND]);
+    return ["Arduino Uno","USB kablosu","Kartın üzerindeki L ışığı 13. pine bağlıdır"];
+  },
+  led:function(s,a){
+    var p=semaKart(s,50,[["D13",150],["GND",400]]), r=semaLedRengi(a.renk);
+    if(a.direnc>0){
+      semaDirenc(s,p.D13[0],150,430,150,{ etiket:["Direnç",semaDirencAdi(a.direnc)] });
+      s.cizgi([[430,150],[600,150]]);
+    } else {
+      s.cizgi([p.D13,[600,150]]);
+      semaEtiket(s,[420,150],"ust",["Direnç yok!","LED ve pin zarar görebilir"],20,SM_UYARI);
+    }
+    semaLed(s,600,150,600,400,{ dolgu:semaAcik(r.renk,0.35), etiket:["LED",r.ad] });
+    s.cizgi([[600,400],p.GND]);
+    return ["Arduino Uno","devre tahtası",(a.direnc>0?semaDirencAdi(a.direnc)+" direnç":"direnç yok"),r.ad.toLocaleLowerCase("tr")+" LED","bağlantı kabloları"];
+  },
+  dugme:function(s,a){
+    var p=semaKart(s,50,[["D13",110],["5V",210],["D2",310],["GND",420]]);
+    semaDirenc(s,p.D13[0],110,440,110,{ etiket:["220 Ω"] });
+    s.cizgi([[440,110],[660,110]]);
+    semaLed(s,660,110,660,420,{ dolgu:semaAcik("#E8392E",0.35), etiket:["LED"] });
+    s.cizgi([p["5V"],[430,210]]);
+    semaDugme(s,430,210,430,310,{ etiket:["Düğme"] });
+    s.cizgi([p.D2,[430,310]]); s.nokta(430,310);
+    if(a.cekme==="var"){
+      semaDirenc(s,430,310,430,420,{ konum:"sag", etiket:["10 kΩ","aşağı çekme"] });
+    } else {
+      semaDirenc(s,430,310,430,420,{ konum:"sag", kesik:true, renk:SM_UYARI, etiket:["10 kΩ takılı değil","D2 boşta kalır"] });
+    }
+    s.cizgi([[660,420],p.GND]); s.nokta(430,420);
+    return ["Arduino Uno","devre tahtası","düğme","220 Ω ve 10 kΩ direnç","LED","bağlantı kabloları"];
+  },
+  pot:function(s){
+    var p=semaKart(s,50,[["~D9",110],["5V",200],["A0",310],["GND",420]]);
+    semaDirenc(s,p["~D9"][0],110,440,110,{ etiket:["220 Ω"] });
+    s.cizgi([[440,110],[660,110]]);
+    semaLed(s,660,110,660,420,{ dolgu:semaAcik("#F2C23A",0.35), etiket:["LED"] });
+    s.cizgi([p["5V"],[470,200]]);
+    semaDirenc(s,470,200,470,420,{ konum:"sag", d:22, etiket:["Potansiyometre","10 kΩ"] });
+    semaOk(s,p.A0,[459,310],{ k:2.2, uc:10 });
+    s.cizgi([[660,420],p.GND]); s.nokta(470,420);
+    return ["Arduino Uno","devre tahtası","10 kΩ potansiyometre","220 Ω direnç","LED","bağlantı kabloları"];
+  },
+  rgb:function(s){
+    var p=semaKart(s,50,[["~D9",110],["~D10",200],["~D11",290],["GND",430]]);
+    var ledler=[["~D9",110,720,"#E8392E","K"],["~D10",200,640,"#3FBF6A","Y"],["~D11",290,560,"#3D7BE0","M"]];
+    ledler.forEach(function(l){
+      semaDirenc(s,p[l[0]][0],l[1],420,l[1],{ etiket:["220 Ω"] });
+      s.cizgi([[420,l[1]],[l[2],l[1]],[l[2],300]]);
+      semaLed(s,l[2],300,l[2],350,{ dolgu:semaAcik(l[3],0.3), etiket:[l[4]] });
+      s.cizgi([[l[2],350],[l[2],380]]);
+    });
+    s.cizgi([[560,380],[720,380]]); s.nokta(640,380); s.nokta(560,380);
+    s.kutu(520,284,250,112,{ r:8, k:1.6, kesik:true, renk:SM_GRI });
+    s.yazi(770,416,"RGB LED · ortak katot",{ hiza:"end", b:13, renk:SM_GRI });
+    s.cizgi([[560,380],[560,430],p.GND]);
+    return ["Arduino Uno","devre tahtası","RGB LED (ortak katot)","3 × 220 Ω direnç","bağlantı kabloları"];
+  },
+  isik:function(s){
+    var p=semaKart(s,50,[["~D9",110],["5V",200],["A0",300],["GND",420]]);
+    semaDirenc(s,p["~D9"][0],110,440,110,{ etiket:["220 Ω"] });
+    s.cizgi([[440,110],[680,110]]);
+    semaLed(s,680,110,680,420,{ dolgu:semaAcik("#F2C23A",0.35), etiket:["LED"] });
+    s.cizgi([p["5V"],[470,200]]);
+    semaLdr(s,470,200,470,300,{ etiket:["LDR","fotodirenç"] });
+    s.cizgi([p.A0,[470,300]]); s.nokta(470,300);
+    semaDirenc(s,470,300,470,420,{ konum:"sag", etiket:["10 kΩ"] });
+    s.cizgi([[680,420],p.GND]); s.nokta(470,420);
+    return ["Arduino Uno","devre tahtası","LDR (fotodirenç)","10 kΩ ve 220 Ω direnç","LED","bağlantı kabloları"];
+  },
+  sensor:function(s){
+    var p=semaKart(s,50,[["5V",140],["D9",220],["D10",300],["GND",380]]);
+    var m=semaModul(s,560,80,220,330,["HC-SR04","mesafe sensörü"],[["VCC",140],["Trig",220],["Echo",300],["GND",380]]);
+    s.daire(705,205,30,{ k:2, dolgu:"#FFFFFF" }); s.yazi(705,211,"T",{ hiza:"middle", kalin:true, b:16 });
+    s.daire(705,315,30,{ k:2, dolgu:"#FFFFFF" }); s.yazi(705,321,"R",{ hiza:"middle", kalin:true, b:16 });
+    [["5V","VCC"],["D9","Trig"],["D10","Echo"],["GND","GND"]].forEach(function(b){ s.cizgi([p[b[0]],m[b[1]]]); });
+    return ["Arduino Uno","devre tahtası","HC-SR04 mesafe sensörü","bağlantı kabloları"];
+  },
+  ses:function(s){
+    var p=semaKart(s,50,[["D8",170],["GND",390]]);
+    s.cizgi([p.D8,[540,170]]);
+    semaZil(s,540,170,540,390,{ etiket:["Zil","pasif piezo"] });
+    s.cizgi([[540,390],p.GND]);
+    return ["Arduino Uno","devre tahtası","pasif piezo zil","bağlantı kabloları"];
+  },
+  motor:function(s,a){
+    var p;
+    if(a.baglanti!=="transistor"){
+      p=semaKart(s,50,[["~D6",160],["GND",400]]);
+      s.cizgi([p["~D6"],[600,160]]);
+      semaMotor(s,600,160,600,400,{ etiket:["Motor","fan"] });
+      s.cizgi([[600,400],p.GND]);
+      s.yazi(420,470,"Motor doğrudan pine bağlı: pin motorun istediği akımı veremez.",{ hiza:"middle", kalin:true, renk:SM_UYARI });
+      return ["Arduino Uno","devre tahtası","DC motor (fan)","bağlantı kabloları"];
+    }
+    p=semaKart(s,50,[["5V",100],["~D6",290],["GND",430]]);
+    s.cizgi([p["5V"],[600,100]]);
+    semaMotor(s,600,100,600,220,{ etiket:["Motor","fan"] });
+    var t=semaNpn(s,592,290,{ etiket:["TIP120","transistör"] });
+    semaDirenc(s,p["~D6"][0],290,t.B[0],290,{ etiket:["1 kΩ"] });
+    s.cizgi([t.E,[600,430],p.GND]);
+    return ["Arduino Uno","devre tahtası","DC motor (fan)","TIP120 transistör","1 kΩ direnç","bağlantı kabloları"];
+  },
+  servo:function(s){
+    var p=semaKart(s,50,[["5V",170],["~D9",260],["GND",350]]);
+    var m=semaModul(s,560,100,230,300,["Servo motor","SG90"],[["+5 V (kırmızı)",170],["Sinyal (turuncu)",260],["GND (kahverengi)",350]]);
+    s.cizgi([p["5V"],m["+5 V (kırmızı)"]],{ k:3, renk:"#C0392B" });
+    s.cizgi([p["~D9"],m["Sinyal (turuncu)"]],{ k:3, renk:"#E08A1E" });
+    s.cizgi([p.GND,m["GND (kahverengi)"]],{ k:3, renk:"#7A5034" });
+    return ["Arduino Uno","SG90 servo motor","servonun 3 kablosu"];
+  },
+  proje:function(s){
+    var p=semaKart(s,50,[["5V",110],["D9",150],["D10",190],["D4",330],["D3",370],["D2",410],["GND",470]]);
+    var sn=semaModul(s,560,40,200,210,["HC-SR04","mesafe sensörü"],[["VCC",110],["Trig",150],["Echo",190],["GND",150,"sag",40]]);
+    s.daire(650,190,22,{ k:2, dolgu:"#FFFFFF" }); s.yazi(650,196,"T",{ hiza:"middle", kalin:true });
+    s.daire(705,190,22,{ k:2, dolgu:"#FFFFFF" }); s.yazi(705,196,"R",{ hiza:"middle", kalin:true });
+    var tr=semaModul(s,560,280,200,160,["Trafik ışığı modülü"],[["Kırmızı",330],["Sarı",370],["Yeşil",410],["GND",370,"sag",40]]);
+    [["#E8392E",330],["#F2C23A",370],["#3FBF6A",410]].forEach(function(l){ s.daire(670,l[1],10,{ k:1.8, dolgu:l[0] }); });
+    [["5V","VCC",sn],["D9","Trig",sn],["D10","Echo",sn],["D4","Kırmızı",tr],["D3","Sarı",tr],["D2","Yeşil",tr]].forEach(function(b){ s.cizgi([p[b[0]],b[2][b[1]]]); });
+    s.cizgi([sn.GND,[800,470],p.GND]); s.cizgi([tr.GND,[800,370]]); s.nokta(800,370);
+    return ["Arduino Uno","devre tahtası","HC-SR04 mesafe sensörü","trafik ışığı modülü","bağlantı kabloları"];
+  }
+};
+function semaKur(){
+  var d=DERSLER[dersIndeks], s=new Sema(), f=SEMALAR[d.sahne];
+  var malzeme=f ? f(s,a||dersDurum[dersIndeks].ayar) : [];
+  return { sema:s, malzeme:malzeme, baslik:(dersIndeks+1)+". "+d.ad };
+}
+
+/* Çizimin kapladığı alan (kenar boşluğuyla); ekranda ve PDF'de şema bu alana sığdırılır. */
+function semaSinir(s){
+  var x0=1e9, y0=1e9, x1=-1e9, y1=-1e9;
+  function ekle(x,y){ x0=Math.min(x0,x); y0=Math.min(y0,y); x1=Math.max(x1,x); y1=Math.max(y1,y); }
+  s.o.forEach(function(e){
+    if(e.t==="cizgi"||e.t==="cokgen"){ e.n.forEach(function(q){ ekle(q[0],q[1]); }); }
+    else if(e.t==="daire"){ ekle(e.x-e.r,e.y-e.r); ekle(e.x+e.r,e.y+e.r); }
+    else if(e.t==="kutu"){ ekle(e.x,e.y); ekle(e.x+e.w,e.y+e.h); }
+    else if(e.t==="yazi"){
+      var w=pdfParcala(e.m,e.kalin).gen*e.b, x=e.hiza==="middle" ? e.x-w/2 : (e.hiza==="end" ? e.x-w : e.x);
+      ekle(x,e.y-e.b); ekle(x+w,e.y+e.b*0.25);
+    }
+  });
+  var b=24;
+  return { x:x0-b, y:y0-b, w:x1-x0+2*b, h:y1-y0+2*b };
+}
+
+/* ---------- SVG ---------- */
+function semaSvg(s){
+  function n2(v){ return (Math.round(v*10)/10).toString(); }
+  function noktalar(n){ return n.map(function(q){ return n2(q[0])+","+n2(q[1]); }).join(" "); }
+  function kacis(m){ return m.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+  var sn=semaSinir(s), vb=n2(sn.x)+" "+n2(sn.y)+" "+n2(sn.w)+" "+n2(sn.h);
+  var h='<svg viewBox="'+vb+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Devre şeması" stroke-linecap="round" stroke-linejoin="round">';
+  h+='<rect x="'+n2(sn.x)+'" y="'+n2(sn.y)+'" width="'+n2(sn.w)+'" height="'+n2(sn.h)+'" fill="#FFFFFF"/>';
+  s.o.forEach(function(e){
+    var kesik=e.kesik?' stroke-dasharray="6 5"':"";
+    if(e.t==="cizgi"){ h+='<polyline points="'+noktalar(e.n)+'" fill="none" stroke="'+e.renk+'" stroke-width="'+e.k+'"'+kesik+'/>'; }
+    else if(e.t==="daire"){ h+='<circle cx="'+n2(e.x)+'" cy="'+n2(e.y)+'" r="'+e.r+'" fill="'+(e.dolgu||"none")+'"'+(e.k?' stroke="'+e.renk+'" stroke-width="'+e.k+'"':"")+'/>'; }
+    else if(e.t==="kutu"){ h+='<rect x="'+e.x+'" y="'+e.y+'" width="'+e.w+'" height="'+e.h+'" rx="'+e.r+'" fill="'+(e.dolgu||"none")+'" stroke="'+e.renk+'" stroke-width="'+e.k+'"'+kesik+'/>'; }
+    else if(e.t==="cokgen"){ h+='<polygon points="'+noktalar(e.n)+'" fill="'+e.dolgu+'"'+(e.renk?' stroke="'+e.renk+'" stroke-width="2"':"")+'/>'; }
+    else if(e.t==="yazi"){ h+='<text x="'+n2(e.x)+'" y="'+n2(e.y)+'" font-size="'+e.b+'" font-weight="'+(e.kalin?700:400)+'" fill="'+e.renk+'" text-anchor="'+e.hiza+'">'+kacis(e.m)+'</text>'; }
+  });
+  return h+"</svg>";
+}
+
+/* ---------- vektör PDF (A4 yatay) ---------- */
+/* Yazılar standart Helvetica ile yazılır; Türkçe harfler kodlama farklarıyla eşlenir, Ω Symbol yazı tipinden gelir. */
+var PDF_GEN={
+  n:[278,278,355,556,556,889,667,191,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,278,278,584,584,584,556,
+     1015,667,667,722,722,667,611,778,722,278,500,667,556,833,722,778,667,778,722,667,611,722,667,944,667,667,611,278,278,278,469,556,
+     333,556,556,500,556,556,278,556,556,222,222,500,222,833,556,556,556,556,333,500,278,556,500,722,500,500,500,334,260,334,584],
+  k:[278,333,474,556,556,889,722,238,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,333,333,584,584,584,611,
+     975,722,722,722,722,667,611,778,722,278,556,722,611,833,722,778,667,778,722,667,611,722,667,944,667,667,611,333,278,333,584,556,
+     333,556,611,556,611,556,333,611,611,278,278,556,278,889,611,611,611,611,389,556,333,611,556,778,556,556,500,389,280,389,584]
+};
+/* karakter → [bayt kodu, genişlik için eşdeğer karakter] */
+var PDF_KOD={ "ğ":[128,"g"], "Ğ":[129,"G"], "ş":[130,"s"], "Ş":[131,"S"], "ı":[132,"i"], "İ":[133,"I"],
+  "ç":[231,"c"], "Ç":[199,"C"], "ö":[246,"o"], "Ö":[214,"O"], "ü":[252,"u"], "Ü":[220,"U"],
+  "°":[176,400], "·":[183,278], "–":[150,556], "µ":[181,556], "×":[215,584] };
+function pdfParcala(m,kalin){
+  var parca=[], gen=0, t=kalin?PDF_GEN.k:PDF_GEN.n, i, c, kod, g, son=null;
+  for(i=0;i<m.length;i++){
+    c=m.charAt(i);
+    if(c==="Ω"){ kod=87; g=768; if(son!=="S"){ parca.push({ f:"S", b:[] }); son="S"; } }
+    else {
+      if(PDF_KOD[c]){ kod=PDF_KOD[c][0]; g=typeof PDF_KOD[c][1]==="number" ? PDF_KOD[c][1] : t[PDF_KOD[c][1].charCodeAt(0)-32]; if(c==="ı") g=278; }
+      else { kod=c.charCodeAt(0); if(kod<32||kod>126){ kod=63; } g=t[kod-32]; }
+      if(son!=="H"){ parca.push({ f:"H", b:[] }); son="H"; }
+    }
+    parca[parca.length-1].b.push(kod); gen+=g;
+  }
+  return { parca:parca, gen:gen/1000 };
+}
+function pdfDizgi(b){
+  return "("+b.map(function(k){
+    if(k===40||k===41||k===92) return "\\"+String.fromCharCode(k);
+    if(k>126){ var o=k.toString(8); return "\\"+("000"+o).slice(-3); }
+    return String.fromCharCode(k);
+  }).join("")+")";
+}
+function pdfRenk(h){ return [parseInt(h.substr(1,2),16)/255,parseInt(h.substr(3,2),16)/255,parseInt(h.substr(5,2),16)/255].map(function(v){ return v.toFixed(3); }).join(" "); }
+function semaPdf(s,baslik,malzeme){
+  var PW=842, PH=595, sn=semaSinir(s), olc=Math.min((PW-72)/sn.w,(PH-150)/sn.h), c=[], i;
+  var ox=(PW-sn.w*olc)/2-sn.x*olc, oy=86+((PH-150)-sn.h*olc)/2-sn.y*olc;
+  function X(x){ return (ox+x*olc).toFixed(2); }
+  function Y(y){ return (PH-(oy+y*olc)).toFixed(2); }
+  function yaziYaz(x,y,m,b,kalin,renk,hiza){
+    var p=pdfParcala(m,kalin), w=p.gen*b, x0=hiza==="middle" ? x-w/2 : (hiza==="end" ? x-w : x);
+    c.push("BT "+pdfRenk(renk)+" rg 1 0 0 1 "+x0.toFixed(2)+" "+y.toFixed(2)+" Tm");
+    p.parca.forEach(function(q){ c.push("/"+(q.f==="S"?"F3":(kalin?"F2":"F1"))+" "+b.toFixed(2)+" Tf "+pdfDizgi(q.b)+" Tj"); });
+    c.push("ET");
+  }
+  function daireYol(x,y,r){
+    var k=0.5523*r;
+    return [x+r,y,"m",x+r,y+k,x+k,y+r,x,y+r,"c",x-k,y+r,x-r,y+k,x-r,y,"c",x-r,y-k,x-k,y-r,x,y-r,"c",x+k,y-r,x+r,y-k,x+r,y,"c"]
+      .map(function(v){ return typeof v==="number" ? v.toFixed(2) : v; }).join(" ");
+  }
+  function kutuYol(x,y,w,h,r){
+    if(!r) return x.toFixed(2)+" "+y.toFixed(2)+" "+w.toFixed(2)+" "+h.toFixed(2)+" re";
+    var k=0.5523*r, x1=x+w, y1=y+h;
+    return [x+r,y,"m",x1-r,y,"l",x1-r+k,y,x1,y+r-k,x1,y+r,"c",x1,y1-r,"l",x1,y1-r+k,x1-r+k,y1,x1-r,y1,"c",x+r,y1,"l",
+            x+r-k,y1,x,y1-r+k,x,y1-r,"c",x,y+r,"l",x,y+r-k,x+r-k,y,x+r,y,"c","h"]
+      .map(function(v){ return typeof v==="number" ? v.toFixed(2) : v; }).join(" ");
+  }
+  c.push("1 j 1 J");
+  /* başlık */
+  yaziYaz(36,PH-44,baslik,18,true,"#1F2A37","start");
+  yaziYaz(36,PH-62,"Arduino Atölyesi · Devre şeması",11,false,"#56606B","start");
+  c.push(pdfRenk("#BCD5D3")+" RG 1 w 36 "+(PH-74)+" m "+(PW-36)+" "+(PH-74)+" l S");
+  /* şema */
+  s.o.forEach(function(e){
+    if(e.t==="cizgi"){
+      c.push(pdfRenk(e.renk)+" RG "+(e.k*olc).toFixed(2)+" w "+(e.kesik?"["+(6*olc).toFixed(1)+" "+(5*olc).toFixed(1)+"] 0 d":"[] 0 d"));
+      c.push(e.n.map(function(q,j){ return X(q[0])+" "+Y(q[1])+(j?" l":" m"); }).join(" ")+" S");
+    } else if(e.t==="daire"){
+      var yol=daireYol(+X(e.x),+Y(e.y),e.r*olc);
+      if(e.dolgu){ c.push(pdfRenk(e.dolgu)+" rg"); }
+      if(e.k){ c.push(pdfRenk(e.renk)+" RG "+(e.k*olc).toFixed(2)+" w [] 0 d"); }
+      c.push(yol+" "+(e.dolgu ? (e.k?"B":"f") : "S"));
+    } else if(e.t==="kutu"){
+      if(e.dolgu){ c.push(pdfRenk(e.dolgu)+" rg"); }
+      c.push(pdfRenk(e.renk)+" RG "+(e.k*olc).toFixed(2)+" w "+(e.kesik?"["+(6*olc).toFixed(1)+" "+(5*olc).toFixed(1)+"] 0 d":"[] 0 d"));
+      c.push(kutuYol(+X(e.x),+Y(e.y+e.h),e.w*olc,e.h*olc,e.r*olc)+" "+(e.dolgu?"B":"S"));
+    } else if(e.t==="cokgen"){
+      c.push(pdfRenk(e.dolgu)+" rg"+(e.renk?" "+pdfRenk(e.renk)+" RG "+(2*olc).toFixed(2)+" w [] 0 d":""));
+      c.push(e.n.map(function(q,j){ return X(q[0])+" "+Y(q[1])+(j?" l":" m"); }).join(" ")+" h "+(e.renk?"B":"f"));
+    } else if(e.t==="yazi"){
+      yaziYaz(+X(e.x),+Y(e.y),e.m,e.b*olc,e.kalin,e.renk,e.hiza);
+    }
+  });
+  /* malzeme listesi */
+  c.push(pdfRenk("#BCD5D3")+" RG 1 w [] 0 d 36 52 m "+(PW-36)+" 52 l S");
+  yaziYaz(36,32,"Malzemeler: "+malzeme.join(", "),11,false,"#1F2A37","start");
+  var akis=c.join("\n");
+  function utf16(m){ var h="FEFF"; for(i=0;i<m.length;i++){ h+=("0000"+m.charCodeAt(i).toString(16)).slice(-4).toUpperCase(); } return "<"+h+">"; }
+  var nesneler=[
+    "<< /Type /Catalog /Pages 2 0 R >>",
+    "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+    "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 "+PW+" "+PH+"] /Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R >> >> /Contents 7 0 R >>",
+    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding 8 0 R >>",
+    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding 8 0 R >>",
+    "<< /Type /Font /Subtype /Type1 /BaseFont /Symbol >>",
+    "<< /Length "+akis.length+" >>\nstream\n"+akis+"\nendstream",
+    "<< /Type /Encoding /BaseEncoding /WinAnsiEncoding /Differences [128 /gbreve /Gbreve /scedilla /Scedilla /dotlessi /Idotaccent] >>",
+    "<< /Title "+utf16(baslik+" · Devre şeması")+" /Producer (Arduino Atolyesi) >>"
+  ];
+  var pdf="%PDF-1.4\n%âãÏÓ\n", ofs=[];
+  nesneler.forEach(function(o,j){ ofs.push(pdf.length); pdf+=(j+1)+" 0 obj\n"+o+"\nendobj\n"; });
+  var xref=pdf.length;
+  pdf+="xref\n0 "+(nesneler.length+1)+"\n0000000000 65535 f \n";
+  ofs.forEach(function(o){ pdf+=("0000000000"+o).slice(-10)+" 00000 n \n"; });
+  pdf+="trailer\n<< /Size "+(nesneler.length+1)+" /Root 1 0 R /Info 9 0 R >>\nstartxref\n"+xref+"\n%%EOF\n";
+  var bayt=new Uint8Array(pdf.length);
+  for(i=0;i<pdf.length;i++){ bayt[i]=pdf.charCodeAt(i)&255; }
+  return bayt;
+}
+
+/* ---------- pencere ---------- */
+var semaAcan=null;
+function semaAc(){
+  var k=semaKur(), perde=$("sema-perde");
+  $("sema-baslik").textContent="Devre şeması · "+k.baslik;
+  $("sema-govde").innerHTML=semaSvg(k.sema);
+  $("sema-malzeme").textContent="Malzemeler: "+k.malzeme.join(", ");
+  semaAcan=perde.contains(document.activeElement) ? $("btn-sema") : document.activeElement;
+  perde.hidden=false;
+  if(typeof MERCEK!=="undefined" && MERCEK.acik){ MERCEK.acik=false; glCizIste(); }
+  $("btn-sema-kapat").focus();
+}
+function semaKapat(){
+  $("sema-perde").hidden=true;
+  if(semaAcan && semaAcan.focus){ semaAcan.focus(); }
+  semaAcan=null;
+}
+function semaDosyaAdi(){
+  var harf={ "ç":"c","ğ":"g","ı":"i","ö":"o","ş":"s","ü":"u" };
+  var ad=DERSLER[dersIndeks].ad.toLocaleLowerCase("tr").replace(/[çğıöşü]/g,function(c){ return harf[c]; }).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+  return "devre-semasi-"+(dersIndeks+1)+"-"+ad+".pdf";
+}
+function semaIndir(){
+  var k=semaKur(), bayt=semaPdf(k.sema,k.baslik,k.malzeme);
+  var b=new Blob([bayt],{ type:"application/pdf" }), url=URL.createObjectURL(b), l=document.createElement("a");
+  l.href=url; l.download=semaDosyaAdi();
+  document.body.appendChild(l); l.click();
+  setTimeout(function(){ URL.revokeObjectURL(url); if(l.parentNode) l.parentNode.removeChild(l); },2000);
+  bildir("Devre şeması PDF olarak indirildi.","iyi");
+}
+
 /* ============ GÖREV AKIŞI ============ */
 var SAHNE_IPUCU={
   kart:"Kartın parçalarına tıklayınız.", led:"Dirence ya da LED'e tıklayınca ilgili ayar seçilir.",
@@ -3703,6 +4195,19 @@ $("btn-basla").addEventListener("click",function(){
 $("btn-yeniden").addEventListener("click",function(){ oyunuBaslat(); sahne=null; ekranAc(0); });
 $("btn-yukle").addEventListener("click",function(){ yukle(); });
 $("btn-devre-kur").addEventListener("click",function(){ devreyiKur(); });
+$("btn-sema").addEventListener("click",semaAc);
+$("btn-sema-kapat").addEventListener("click",semaKapat);
+$("btn-sema-indir").addEventListener("click",semaIndir);
+$("sema-perde").addEventListener("click",function(e){ if(e.target===this) semaKapat(); });
+document.addEventListener("keydown",function(e){
+  if($("sema-perde").hidden) return;
+  if(e.key==="Escape"){ e.preventDefault(); semaKapat(); return; }
+  if(e.key==="Tab"){
+    /* odak pencerenin içinde döner */
+    var o=[$("btn-sema-indir"),$("btn-sema-kapat")], i=o.indexOf(document.activeElement);
+    e.preventDefault(); o[(i+(e.shiftKey?o.length-1:1))%o.length].focus();
+  }
+});
 $("btn-hedef-gec").addEventListener("click",function(){ kurmayaBasla(); });
 $("btn-bilgi").addEventListener("click",function(){
   var acik=$("bilgi-kart").hidden;
