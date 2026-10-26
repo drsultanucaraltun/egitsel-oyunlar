@@ -2875,7 +2875,7 @@ SAHNELER.proje={
 };
 
 /* ============ DEVRE KURULUMU ============ */
-/* Her ders "hedef" evresiyle açılır (devrenin çalışır hâli gösterilir). Ardından her görev
+/* Her ders "hedef" evresiyle açılır (devrenin çalışır hâli, "Kurmaya başla"ya basılana kadar gösterilir). Ardından her görev
    "kurulum" (öğrenci parçaları ve kabloları sürükleyerek kurar) ve "gorev" (kod) evrelerinden geçer. */
 var EVRE="gorev";
 var KURULUM_HARITA={};
@@ -2927,11 +2927,25 @@ function evreHedef(){
   yuklenenAyar=kopya(a);
   calisiyor=true;
   seriTemizle();
+  seriYaz("Devreyi kendiniz kurmak için Kurmaya başla düğmesine basınız.","sistem");
   seriDurum("ÇALIŞIYOR","calisiyor");
-  sahne.calistir(yuklenenAyar,d.sahne==="proje" ? { arac:"araba", fren:5 } : null,function(){});
+  gosteriCalistir();
   gosteriOynat(d.sahne);
   glCizIste();
-  gosteriZaman=setTimeout(evreKurulum,window.__FAST?200:9000);
+}
+/* Gösteri, "Kurmaya başla"ya basılana kadar sürer. Park sensöründe araç park edince birkaç saniye sonra
+   yeniden yola çıkar; öteki sahnelerin programları zaten döngü hâlinde çalışır. */
+function gosteriCalistir(){
+  var proje=DERSLER[dersIndeks].sahne==="proje";
+  sahne.calistir(yuklenenAyar,proje ? { arac:"araba", fren:5 } : null,function(){
+    if(!proje) return;
+    gosteriZaman=setTimeout(function(){
+      gosteriZaman=null;
+      if(EVRE!=="hedef") return;
+      zamanlariDurdur();
+      gosteriCalistir();
+    },window.__FAST?300:3000);
+  });
 }
 function gosteriOynat(ad){
   var t=0;
