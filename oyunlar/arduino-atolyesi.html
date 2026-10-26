@@ -272,6 +272,10 @@ code{font-family:Menlo,Consolas,"Courier New",monospace;font-size:0.92em;backgro
 }
 @media (max-width:860px){
   #sahnealani .ekran#ekran-oyun{overflow:auto}
+  #gorev-serit{flex-direction:column;align-items:stretch;gap:0.3rem}
+  #sahne-arac{overflow-x:auto}
+  #sahne-arac .arac-btn{flex:0 0 auto;white-space:nowrap}
+  #ders-serit{justify-content:flex-start}
   #oyun-govde{display:flex;flex-direction:column}
   #sahne-kart{min-height:30rem}
   #yan-panel{min-height:34rem}
@@ -1551,8 +1555,16 @@ function P3(p){
   var m=GL_VP, x=m[0]*p[0]+m[4]*p[1]+m[8]*p[2]+m[12], y=m[1]*p[0]+m[5]*p[1]+m[9]*p[2]+m[13];
   return [(x+1)/2*960, (1-y)/2*GL_BOY.svgH];
 }
-function yakinlastir(carpan){
-  KAM.yakin=sinirAl(KAM.yakin*carpan,0.22,1.6);
+/* carpan < 1 yakınlaştırır. (fx, fy) verilirse sahne merkezine göre bu noktanın (CSS pikseli) altındaki
+   dünya noktası yerinde kalır: parmakların ya da imlecin olduğu yer büyür. */
+var YAKIN_EN=0.15, YAKIN_EC=1.6;
+function yakinlastir(carpan,fx,fy){
+  var w1=kameraGenislik();
+  KAM.yakin=sinirAl(KAM.yakin*carpan,YAKIN_EN,YAKIN_EC);
+  if(fx!==undefined){
+    var x=kameraEksen(), k=(w1-kameraGenislik())/GL_BOY.w;
+    KAM.hedef=[KAM.hedef[0]+(x.sag[0]*fx-x.yuk[0]*fy)*k, KAM.hedef[1]+(x.sag[1]*fx-x.yuk[1]*fy)*k, KAM.hedef[2]+(x.sag[2]*fx-x.yuk[2]*fy)*k];
+  }
   glCizIste();
 }
 function dondur(dYon,dEgim){
@@ -1739,36 +1751,72 @@ function mercekBagla(){
 }
 
 /* ---------- fare, dokunma, klavye ---------- */
+/* İki parmakla sıkıştırma: parmaklar arası uzaklık yakınlaştırır, orta noktanın kayması sahneyi kaydırır.
+   Dokunma olaylarıyla izlenir; böylece parmaklardan biri parça ya da pin üstüne düşse de çalışır. */
+var KISKAC=null, KISKAC_SAYAC=0;
+function kiskacNokta(t1,t2){
+  var r=$("sahne-kap").getBoundingClientRect();
+  return { d:Math.max(1,Math.hypot(t1.clientX-t2.clientX,t1.clientY-t2.clientY)),
+           x:(t1.clientX+t2.clientX)/2-r.left-r.width/2, y:(t1.clientY+t2.clientY)/2-r.top-r.height/2 };
+}
+function kiskacBasla(t1,t2){ var n=kiskacNokta(t1,t2); KISKAC={ d:n.d, yakin:KAM.yakin, x:n.x, y:n.y }; KISKAC_SAYAC++; }
+function kiskacSurdur(t1,t2){
+  if(!KISKAC) return;
+  var n=kiskacNokta(t1,t2);
+  kaydirKamera(n.x-KISKAC.x,n.y-KISKAC.y);
+  yakinlastir(KISKAC.yakin*KISKAC.d/n.d/KAM.yakin,n.x,n.y);
+  KISKAC.x=n.x; KISKAC.y=n.y;
+}
 function kameraKontrolBagla(){
-  var kap=$("sahne-kap"), isaretler={}, mod=null, sonX=0, sonY=0, ilkMesafe=0, ilkYakin=1;
+  var kap=$("sahne-kap"), isaretler={}, mod=null, sonX=0, sonY=0, dokunma=0, gestureBas=1;
   function sayi(){ var n=0, k; for(k in isaretler){ if(isaretler.hasOwnProperty(k)) n++; } return n; }
-  function iki(){ var l=[], k; for(k in isaretler){ if(isaretler.hasOwnProperty(k)) l.push(isaretler[k]); } return l; }
+  function merkezFark(e){ var r=kap.getBoundingClientRect(); return [e.clientX-r.left-r.width/2, e.clientY-r.top-r.height/2]; }
   kap.addEventListener("pointerdown",function(e){
     if(e.target.closest && e.target.closest(".parca,.kur-hedef")) return;
     isaretler[e.pointerId]={ x:e.clientX, y:e.clientY };
     try{ kap.setPointerCapture(e.pointerId); }catch(h){}
-    if(sayi()===2){ var l=iki(); ilkMesafe=Math.max(1,Math.hypot(l[0].x-l[1].x,l[0].y-l[1].y)); ilkYakin=KAM.yakin; mod="iki"; }
-    else { mod=(e.button===2||e.shiftKey) ? "kaydir" : "dondur"; }
+    /* ikinci parmak inince döndürme durur; sıkıştırmayı dokunma olayları yürütür */
+    mod=(sayi()>1 || KISKAC) ? null : ((e.button===2||e.shiftKey) ? "kaydir" : "dondur");
     sonX=e.clientX; sonY=e.clientY;
     kap.classList.add("suruklen");
     e.preventDefault();
   });
   kap.addEventListener("pointermove",function(e){
-    if(!isaretler[e.pointerId]) return;
-    isaretler[e.pointerId]={ x:e.clientX, y:e.clientY };
-    if(mod==="iki" && sayi()===2){
-      var l=iki(), d=Math.max(1,Math.hypot(l[0].x-l[1].x,l[0].y-l[1].y));
-      KAM.yakin=sinirAl(ilkYakin*ilkMesafe/d,0.22,1.6); glCizIste(); return;
-    }
+    if(!isaretler[e.pointerId] || !mod) return;
     var dx=e.clientX-sonX, dy=e.clientY-sonY;
     sonX=e.clientX; sonY=e.clientY;
-    if(mod==="kaydir"){ kaydirKamera(dx,dy); } else if(mod==="dondur"){ dondur(-dx*0.35,-dy*0.3); }
+    if(mod==="kaydir"){ kaydirKamera(dx,dy); } else { dondur(-dx*0.35,-dy*0.3); }
   });
-  function birak(e){ delete isaretler[e.pointerId]; if(sayi()===0){ mod=null; kap.classList.remove("suruklen"); } else if(sayi()===1){ mod="dondur"; var l=iki(); sonX=l[0].x; sonY=l[0].y; } }
+  function birak(e){ delete isaretler[e.pointerId]; if(sayi()===0){ mod=null; kap.classList.remove("suruklen"); } else { mod=null; } }
   kap.addEventListener("pointerup",birak);
   kap.addEventListener("pointercancel",birak);
   kap.addEventListener("contextmenu",function(e){ e.preventDefault(); });
-  kap.addEventListener("wheel",function(e){ e.preventDefault(); yakinlastir(Math.exp(e.deltaY*0.0012)); },{ passive:false });
+  /* telefon ve tablet: iki parmakla sıkıştırma */
+  kap.addEventListener("touchstart",function(e){
+    dokunma=e.touches.length;
+    if(e.touches.length===2){ mod=null; kiskacBasla(e.touches[0],e.touches[1]); e.preventDefault(); }
+  },{ passive:false });
+  kap.addEventListener("touchmove",function(e){
+    if(e.touches.length===2 && KISKAC){ e.preventDefault(); kiskacSurdur(e.touches[0],e.touches[1]); }
+  },{ passive:false });
+  function dokunmaBitti(e){ dokunma=e.touches.length; if(e.touches.length<2){ KISKAC=null; } }
+  kap.addEventListener("touchend",dokunmaBitti);
+  kap.addEventListener("touchcancel",dokunmaBitti);
+  /* fare tekerleği ve dokunmatik yüzey: Chrome, Edge ve Firefox sıkıştırmayı Ctrl + tekerlek olarak gönderir */
+  kap.addEventListener("wheel",function(e){
+    e.preventDefault();
+    var d=e.deltaY*(e.deltaMode===1 ? 33 : (e.deltaMode===2 ? 400 : 1)), m=merkezFark(e);
+    yakinlastir(Math.exp(d*(e.ctrlKey ? 0.01 : 0.0012)),m[0],m[1]);
+  },{ passive:false });
+  /* Safari dokunmatik yüzey sıkıştırması (gesture olayları); dokunmatik ekranda dokunma olayları zaten çalışır */
+  kap.addEventListener("gesturestart",function(e){ e.preventDefault(); gestureBas=KAM.yakin; },{ passive:false });
+  kap.addEventListener("gesturechange",function(e){
+    e.preventDefault();
+    if(dokunma || !e.scale) return;
+    var m=merkezFark(e);
+    yakinlastir(gestureBas/e.scale/KAM.yakin,m[0],m[1]);
+  },{ passive:false });
+  kap.addEventListener("gestureend",function(e){ e.preventDefault(); },{ passive:false });
   kap.addEventListener("keydown",function(e){
     if(e.target!==kap) return;
     var k=e.key, ok=true;
@@ -3032,8 +3080,9 @@ function ucSec(e){
   sesCal("tik");
 }
 function kabloCekBasla(e,ev){
-  var bas=svgNokta(ev), tasindi=false, merkez=ucMerkez(e);
+  var bas=svgNokta(ev), tasindi=false, merkez=ucMerkez(e), kiskac=KISKAC_SAYAC;
   function hareket(m){
+    if(kiskac!==KISKAC_SAYAC){ ogeAyarla("kur-cizgi",{opacity:0}); return; }
     var n=svgNokta(m);
     if(Math.abs(n.x-bas.x)+Math.abs(n.y-bas.y)>5){ tasindi=true; }
     if(tasindi){ ogeAyarla("kur-cizgi",{x1:merkez[0].toFixed(1),y1:merkez[1].toFixed(1),x2:n.x.toFixed(1),y2:n.y.toFixed(1),opacity:0.9}); }
@@ -3042,6 +3091,7 @@ function kabloCekBasla(e,ev){
     window.removeEventListener("pointermove",hareket);
     window.removeEventListener("pointerup",bitir);
     ogeAyarla("kur-cizgi",{opacity:0});
+    if(kiskac!==KISKAC_SAYAC){ ucEtiket(e,false); return; }   /* iki parmakla yakınlaştırıldı: kablo bırakılmaz */
     if(!tasindi){ ucSec(e); return; }
     var n=svgNokta(m), en=null, enD=16;
     $("sahne").querySelectorAll(".kur-pin,.kur-uc").forEach(function(h){
