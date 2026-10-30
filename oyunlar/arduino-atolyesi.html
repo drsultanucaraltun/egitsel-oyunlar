@@ -82,7 +82,15 @@ code{font-family:Menlo,Consolas,"Courier New",monospace;font-size:0.92em;backgro
 #ilerleme-dis{flex:0 0 auto;height:12px;border-radius:8px;background:var(--panel);border:2px solid #C9DBEE;overflow:hidden}
 #ilerleme-ic{height:100%;width:0;background:#5596D4;transition:width .25s}
 
-#oyun-govde{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 31rem;gap:0.8rem;padding-top:0.55rem}
+#oyun-govde{--yan-genislik:31rem;flex:1 1 auto;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 0.8rem max(18rem,min(var(--yan-genislik),calc(100% - 25.8rem)));gap:0;padding-top:0.55rem}
+#panel-ayrac{position:relative;display:flex;align-items:center;justify-content:center;cursor:col-resize;touch-action:none;border-radius:6px}
+#panel-ayrac::before{content:"";width:6px;height:3.5rem;border-radius:4px;background:var(--cizgi);transition:background .15s}
+#panel-ayrac::after{content:"";position:absolute;top:0;bottom:0;left:-5px;right:-5px}
+#panel-ayrac:hover::before,#panel-ayrac.suruklen::before{background:var(--vurgu)}
+#panel-ayrac:focus{outline:none}
+#panel-ayrac:focus-visible{outline:3px solid var(--odak)}
+#panel-ayrac:focus-visible::before{background:var(--odak)}
+body.ayrac-suruklen,body.ayrac-suruklen *{cursor:col-resize !important;user-select:none !important}
 .kart-panel{background:var(--panel);border:3px solid var(--cizgi);border-radius:14px;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 .panel-baslik{flex:0 0 auto;display:flex;align-items:center;gap:0.5rem;padding:0.35rem 0.7rem;border-bottom:2px solid var(--cizgi);font-size:1rem;font-weight:700;color:var(--gri);letter-spacing:0.04em;min-height:44px}
 .panel-baslik .bosluk{flex:1}
@@ -95,8 +103,10 @@ code{font-family:Menlo,Consolas,"Courier New",monospace;font-size:0.92em;backgro
 #sahne-kap{cursor:grab;touch-action:none;overflow:hidden}
 #sahne-kap.suruklen{cursor:grabbing}
 #sahne-kap:focus-visible{outline:4px solid var(--odak);outline-offset:-4px}
-#sahne-arac{flex:0 0 auto;display:flex;align-items:center;gap:0.3rem;padding:0.2rem 0.5rem;border-bottom:2px solid var(--cizgi);background:#FAFCFC;min-height:52px}
+#sahne-arac{flex:0 0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:0.3rem;padding:0.2rem 0.5rem;border-bottom:2px solid var(--cizgi);background:#FAFCFC;min-height:52px}
 #sahne-arac .bosluk{flex:1}
+#sahne-arac .arac-btn,#sahne-arac .kam-btn{flex:0 0 auto;white-space:nowrap}
+.kam-grup{flex:0 0 auto;display:flex;gap:0.3rem;margin-left:auto}
 #sahne-arac-yazi{font-size:0.95rem;font-weight:700;color:var(--murekkep);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .kam-ipucu{font-size:0.8rem;color:var(--gri);white-space:nowrap;margin-right:0.3rem}
 .kam-btn{min-width:48px;min-height:48px;border:2px solid var(--cizgi);border-radius:10px;background:var(--panel);color:var(--murekkep);display:inline-flex;align-items:center;justify-content:center;padding:0}
@@ -307,16 +317,17 @@ code{font-family:Menlo,Consolas,"Courier New",monospace;font-size:0.92em;backgro
   .kam-ipucu{display:none}
 }
 @media (max-width:1100px){
-  #oyun-govde{grid-template-columns:minmax(0,1fr) 24rem}
+  #oyun-govde{--yan-genislik:24rem}
   .sekme{font-size:0.85rem}
 }
 @media (max-width:860px){
   #sahnealani .ekran#ekran-oyun{overflow:auto}
   #gorev-serit{flex-direction:column;align-items:stretch;gap:0.3rem}
-  #sahne-arac{overflow-x:auto}
+  #sahne-arac{overflow-x:auto;flex-wrap:nowrap}
   #sahne-arac .arac-btn{flex:0 0 auto;white-space:nowrap}
   #ders-serit{justify-content:flex-start}
   #oyun-govde{display:flex;flex-direction:column}
+  #panel-ayrac{display:none}
   #sahne-kart{min-height:30rem}
   #yan-panel{min-height:34rem}
   #ustbar h1 span{display:none}
@@ -358,13 +369,14 @@ code{font-family:Menlo,Consolas,"Courier New",monospace;font-size:0.92em;backgro
       </div>
       <div id="oyun-govde">
         <div class="kart-panel" id="sahne-kart">
-          <div id="sahne-arac"><button class="arac-btn birincil" id="btn-hedef-gec" type="button" hidden>Kurmaya başla</button><button class="arac-btn birincil" id="btn-devre-kur" type="button" hidden>Devreyi kur</button><button class="arac-btn ikonlu" id="btn-sema" type="button" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8h4M18 8h4M6 8l1.5-3 3 6 3-6 3 6 1.5-3M2 17h7M15 17h7M9 13v8M15 13v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Devre şeması</button><span id="sahne-arac-yazi"></span><span class="bosluk"></span><span class="kam-ipucu" aria-hidden="true">Sürükle: döndür · Tekerlek: yakınlaştır · Shift+sürükle: kaydır</span><button class="kam-btn" id="btn-kam-sol" type="button" aria-label="Sahneyi sola döndürünüz" title="Sola döndür (Q)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v4h4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-sag" type="button" aria-label="Sahneyi sağa döndürünüz" title="Sağa döndür (E)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-3-6.2M20 4v4h-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-ust" type="button" aria-label="Daha yukarıdan bakınız" title="Yukarıdan bak (R)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-alt" type="button" aria-label="Daha yandan bakınız" title="Yandan bak (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-yakin" type="button" aria-label="Yakınlaştırınız" title="Yakınlaştır (+)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-5-5M11 8v6M8 11h6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-uzak" type="button" aria-label="Uzaklaştırınız" title="Uzaklaştır (−)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-5-5M8 11h6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-sifir" type="button" aria-label="Görünümü sıfırlayınız" title="Görünümü sıfırla (0)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+          <div id="sahne-arac"><button class="arac-btn birincil" id="btn-hedef-gec" type="button" hidden>Kurmaya başla</button><button class="arac-btn birincil" id="btn-devre-kur" type="button" hidden>Devreyi kur</button><button class="arac-btn ikonlu" id="btn-sema" type="button" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8h4M18 8h4M6 8l1.5-3 3 6 3-6 3 6 1.5-3M2 17h7M15 17h7M9 13v8M15 13v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Devre şeması</button><span id="sahne-arac-yazi"></span><span class="bosluk"></span><span class="kam-ipucu" aria-hidden="true">Sürükle: döndür · Tekerlek: yakınlaştır · Shift+sürükle: kaydır</span><span class="kam-grup" role="group" aria-label="Kamera"><button class="kam-btn" id="btn-kam-sol" type="button" aria-label="Sahneyi sola döndürünüz" title="Sola döndür (Q)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v4h4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-sag" type="button" aria-label="Sahneyi sağa döndürünüz" title="Sağa döndür (E)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-3-6.2M20 4v4h-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-ust" type="button" aria-label="Daha yukarıdan bakınız" title="Yukarıdan bak (R)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-alt" type="button" aria-label="Daha yandan bakınız" title="Yandan bak (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-yakin" type="button" aria-label="Yakınlaştırınız" title="Yakınlaştır (+)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-5-5M11 8v6M8 11h6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-uzak" type="button" aria-label="Uzaklaştırınız" title="Uzaklaştır (−)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-5-5M8 11h6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="kam-btn" id="btn-kam-sifir" type="button" aria-label="Görünümü sıfırlayınız" title="Görünümü sıfırla (0)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span></div>
           <div id="sahne-kap" tabindex="0" aria-label="3B devre sahnesi. Döndürmek için sürükleyiniz; klavyede Q ve E döndürür, artı ve eksi yakınlaştırır, 0 görünümü sıfırlar.">
             <canvas id="kanvas3b" aria-hidden="true"></canvas>
             <svg id="sahne" viewBox="0 0 960 520" role="group" aria-label="Devre sahnesi" preserveAspectRatio="none"></svg>
           </div>
           <div id="ayarlar" aria-label="Devre ve kod ayarları"></div>
         </div>
+        <div id="panel-ayrac" role="separator" tabindex="0" aria-orientation="vertical" aria-controls="yan-panel" aria-label="Kod panelinin genişliği" title="Sürükleyerek kod panelini genişletiniz ya da daraltınız. Çift tıklama ilk boyuta döndürür."></div>
         <div id="yan-panel">
           <div class="kart-panel" id="bilgi-kart" hidden>
             <div class="sekmeler" role="tablist" aria-label="Ders bilgisi">
@@ -8554,6 +8566,56 @@ document.querySelectorAll(".sekme").forEach(function(s,i,hepsi){
     bilgiSekme=h.getAttribute("data-sekme"); bilgiCiz(); h.focus();
   });
 });
+
+/* ---------- kod paneli genişliği: ayraç sürüklenir; sol/sağ ok 2 rem, Home en geniş, End en dar; çift tıklama ilk boyut ---------- */
+function panelSinirlari(){
+  var rem=parseFloat(getComputedStyle(document.documentElement).fontSize)||16,
+      en=$("oyun-govde").clientWidth-$("panel-ayrac").offsetWidth;
+  return { en:18*rem, boy:Math.max(18*rem,en-25*rem), adim:2*rem };
+}
+function panelAriaGuncelle(){
+  var a=$("panel-ayrac"), s=panelSinirlari(), g=$("yan-panel").getBoundingClientRect().width,
+      y=s.boy>s.en ? Math.round(100*(g-s.en)/(s.boy-s.en)) : 0;
+  y=Math.max(0,Math.min(100,y));
+  a.setAttribute("aria-valuemin","0"); a.setAttribute("aria-valuemax","100"); a.setAttribute("aria-valuenow",String(y));
+  a.setAttribute("aria-valuetext","Kod paneli genişliği yüzde "+y);
+}
+function panelGenislik(px){
+  var s=panelSinirlari();
+  if(px===null){ $("oyun-govde").style.removeProperty("--yan-genislik"); }
+  else { $("oyun-govde").style.setProperty("--yan-genislik",Math.round(Math.max(s.en,Math.min(s.boy,px)))+"px"); }
+  panelAriaGuncelle(); yerlesimDegisti();
+}
+(function(){
+  var a=$("panel-ayrac"), x0=0, g0=0, kimlik=null;
+  a.addEventListener("pointerdown",function(e){
+    if(e.button!==0) return;
+    e.preventDefault();
+    kimlik=e.pointerId; x0=e.clientX; g0=$("yan-panel").getBoundingClientRect().width;
+    try{ a.setPointerCapture(kimlik); }catch(h){}
+    a.classList.add("suruklen"); document.body.classList.add("ayrac-suruklen");
+  });
+  a.addEventListener("pointermove",function(e){ if(e.pointerId===kimlik) panelGenislik(g0-(e.clientX-x0)); });
+  function birak(e){
+    if(e.pointerId!==kimlik) return;
+    kimlik=null; a.classList.remove("suruklen"); document.body.classList.remove("ayrac-suruklen");
+  }
+  a.addEventListener("pointerup",birak);
+  a.addEventListener("pointercancel",birak);
+  a.addEventListener("dblclick",function(){ panelGenislik(null); });
+  a.addEventListener("keydown",function(e){
+    var s=panelSinirlari(), g=$("yan-panel").getBoundingClientRect().width;
+    if(e.key==="ArrowLeft"){ panelGenislik(g+s.adim); }
+    else if(e.key==="ArrowRight"){ panelGenislik(g-s.adim); }
+    else if(e.key==="Home"){ panelGenislik(s.boy); }
+    else if(e.key==="End"){ panelGenislik(s.en); }
+    else if(e.key==="Enter"){ panelGenislik(null); }
+    else return;
+    e.preventDefault();
+  });
+  a.addEventListener("focus",panelAriaGuncelle);
+  window.addEventListener("resize",panelAriaGuncelle);
+})();
 
 /* ============ BAŞLANGIÇ ============ */
 glBaslat();
