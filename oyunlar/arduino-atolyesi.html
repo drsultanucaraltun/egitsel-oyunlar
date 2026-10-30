@@ -240,6 +240,7 @@ code{font-family:Menlo,Consolas,"Courier New",monospace;font-size:0.92em;backgro
 #sahne .kur-pin.secili circle,#sahne .kur-uc.secili circle{fill:#E9DDFF}
 .arac-btn.ikonlu{display:inline-flex;align-items:center;gap:0.35rem}
 .arac-btn.ikonlu svg{width:22px;height:22px;flex:0 0 auto}
+.arac-btn.ikonlu[hidden]{display:none}
 .sema-perde{position:fixed;inset:0;z-index:300;background:rgba(31,42,55,.5);display:flex;align-items:center;justify-content:center;padding:1rem}
 .sema-perde[hidden]{display:none}
 .sema-pencere{background:var(--panel);border-radius:16px;width:min(1100px,96vw);max-height:94vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.3)}
@@ -263,10 +264,30 @@ code{font-family:Menlo,Consolas,"Courier New",monospace;font-size:0.92em;backgro
 .arac-btn.durdur{background:#B3261E;border-color:#B3261E;color:#fff}
 .arac-btn.calistir[hidden],.arac-btn.durdur[hidden]{display:none}
 #blok-durum.serbest{color:var(--yanlis)}
-.kart-pencere{width:min(640px,96vw)}
+.kart-pencere{width:min(680px,96vw)}
 .kart-govde{padding:0.8rem 1.1rem 1.1rem;font-size:1.05rem;line-height:1.45;overflow:auto}
 .kart-govde ol{padding-left:1.3rem;margin:0.5rem 0 0.9rem}
 .kart-govde li{margin-bottom:0.35rem}
+.kart-govde p{margin:0 0 0.5rem}
+.kart-bolum{padding:0 0 0.9rem}
+.kart-bolum+.kart-bolum{border-top:2px solid var(--cizgi);padding-top:0.8rem}
+.kart-bolum h3{font-size:1.15rem;margin:0 0 0.35rem;display:flex;align-items:baseline;gap:0.6rem;flex-wrap:wrap}
+.kart-not{font-size:0.85rem;font-weight:700;color:var(--gri)}
+.kart-baglanti{padding:0.45rem 0.7rem;border-radius:10px;background:#EEF3F5;font-weight:700}
+.kart-baglanti[hidden]{display:none}
+.kart-baglanti.iyi{background:var(--dogru-acik);color:var(--dogru)}
+.kart-baglanti.kotu{background:var(--yanlis-acik);color:var(--yanlis)}
+.kart-dugmeler{display:flex;flex-wrap:wrap;gap:0.5rem}
+.kart-dugmeler .arac-btn:disabled{opacity:0.55;cursor:wait}
+.kart-ilerleme{height:10px;border-radius:6px;background:#E4E8F0;overflow:hidden;margin:0 0 0.6rem}
+.kart-ilerleme[hidden]{display:none}
+#kart-ilerleme-ic{height:100%;width:0;background:#5596D4;transition:width .15s}
+.kart-ilk{margin-top:0.6rem}
+.kart-ilk[hidden]{display:none}
+.kart-ilk summary{cursor:pointer;font-weight:700;color:var(--vurgu-koyu);padding:0.55rem 0}
+#btn-karta{position:relative}
+#btn-karta.bagli::after{content:"";position:absolute;right:3px;top:3px;width:10px;height:10px;border-radius:50%;background:#2E9E57;border:2px solid #fff}
+#seri .kart{color:#00777A}
 @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
 @media (max-height:820px){
   #ekran-giris h2{font-size:2.3rem}
@@ -410,14 +431,41 @@ code{font-family:Menlo,Consolas,"Courier New",monospace;font-size:0.92em;backgro
         <button class="arac" id="btn-kart-kapat" type="button" aria-label="Pencereyi kapatınız" title="Kapat (Esc)"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button>
       </div>
       <div class="kart-govde">
-        <p>Bu dersin kodunu gerçek bir Arduino Uno'ya yükleyebilirsiniz.</p>
-        <ol>
-          <li><b>Kodu indir</b> düğmesiyle <code id="kart-dosya">ders.ino</code> dosyasını kaydediniz.</li>
-          <li>Arduino IDE'de <b>Dosya → Aç</b> ile dosyayı açınız. IDE dosyayı aynı adlı bir klasöre taşımayı önerirse kabul ediniz.</li>
-          <li><b>Araçlar → Kart</b> menüsünden <b>Arduino Uno</b>'yu, <b>Araçlar → Port</b> menüsünden kartın bağlı olduğu USB portunu seçiniz.</li>
-          <li><b>Yükle</b> (→) düğmesine basınız. Devreyi ekrandaki şemaya göre kurmayı unutmayınız.</li>
-        </ol>
-        <button class="arac-btn birincil ikonlu" id="btn-ino-indir" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Kodu indir (.ino)</button>
+        <section class="kart-bolum" aria-labelledby="kart-dogrudan">
+          <h3 id="kart-dogrudan">Doğrudan yükle <span class="kart-not">Chrome ya da Edge · USB kablosu</span></h3>
+          <p>Program kartın belleğine yazılır. USB'yi çıkarıp kartı pil ya da adaptörle beslediğinizde de çalışmaya devam eder.</p>
+          <p id="kart-destek-yok" class="kart-baglanti kotu" hidden>Bu tarayıcı karta USB ile doğrudan bağlanmayı desteklemiyor. Sayfayı bilgisayarda Chrome ya da Edge ile açınız ya da aşağıdaki Arduino IDE yolunu kullanınız.</p>
+          <p id="kart-baglanti" class="kart-baglanti" role="status" aria-live="polite">Kart bağlı değil.</p>
+          <div class="kart-ilerleme" id="kart-ilerleme" hidden><div id="kart-ilerleme-ic"></div></div>
+          <div class="kart-dugmeler">
+            <button class="arac-btn birincil ikonlu" id="btn-kart-bagla" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v14M12 3l-2.5 3M12 3l2.5 3M12 17a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM12 13l-5-2.5V8M12 15l5-2.5V10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="5.5" y="6" width="3" height="2.4" rx=".4" fill="currentColor"/><circle cx="17" cy="9" r="1.4" fill="currentColor"/></svg>Karta bağlan</button>
+            <button class="arac-btn birincil ikonlu" id="btn-kart-yukle" type="button" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V5M7 10l5-5 5 5M5 20h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Programı karta yükle</button>
+            <button class="arac-btn" id="btn-kart-durdur" type="button" hidden>Karttaki programı durdur</button>
+            <button class="arac-btn" id="btn-kart-kes" type="button" hidden>Bağlantıyı kes</button>
+            <button class="arac-btn" id="btn-kart-tum" type="button" hidden>Tüm portlar</button>
+          </div>
+          <details class="kart-ilk" id="kart-ilk">
+            <summary>İlk kullanımda: karta Atölye yazılımını bir kez yükleyiniz</summary>
+            <ol>
+              <li><b>Atölye yazılımını indir</b> düğmesiyle <code>atolye_yazilimi.ino</code> dosyasını kaydediniz.</li>
+              <li>Dosyayı Arduino IDE'de açınız; IDE aynı adlı bir klasöre taşımayı önerirse kabul ediniz. <b>Araçlar → Kart</b> menüsünden <b>Arduino Uno</b>'yu, <b>Araçlar → Port</b> menüsünden kartın portunu seçiniz.</li>
+              <li><b>Yükle</b> (→) düğmesine basınız. Yükleme bitince Arduino IDE'yi kapatınız; açık kalırsa port meşgul olur.</li>
+              <li>Bu pencerede <b>Karta bağlan</b>'a basıp listeden kartı seçiniz. Bu adımlar bir kez yapılır; sonraki programlar doğrudan gönderilir.</li>
+            </ol>
+            <button class="arac-btn ikonlu" id="btn-yazilim-indir" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Atölye yazılımını indir (.ino)</button>
+          </details>
+        </section>
+        <section class="kart-bolum" aria-labelledby="kart-ide">
+          <h3 id="kart-ide">Arduino IDE ile yükle</h3>
+          <p>Bu dersin kodunu dosya olarak indirip Arduino IDE ile karta yükleyebilirsiniz.</p>
+          <ol>
+            <li><b>Kodu indir</b> düğmesiyle <code id="kart-dosya">ders.ino</code> dosyasını kaydediniz.</li>
+            <li>Arduino IDE'de <b>Dosya → Aç</b> ile dosyayı açınız. IDE dosyayı aynı adlı bir klasöre taşımayı önerirse kabul ediniz.</li>
+            <li><b>Araçlar → Kart</b> menüsünden <b>Arduino Uno</b>'yu, <b>Araçlar → Port</b> menüsünden kartın bağlı olduğu USB portunu seçiniz.</li>
+            <li><b>Yükle</b> (→) düğmesine basınız. Devreyi ekrandaki şemaya göre kurmayı unutmayınız.</li>
+          </ol>
+          <button class="arac-btn birincil ikonlu" id="btn-ino-indir" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Kodu indir (.ino)</button>
+        </section>
       </div>
     </div>
   </div>
@@ -6769,15 +6817,27 @@ var SABLONLAR={
   }
 };
 function bagAnahtar(id){ var m=/^bag_([a-z]+)_\d+$/.exec(id||""); return m ? m[1] : null; }
-function blokSablonYukle(){
-  if(!BLOK.ws || !a) return;
+/* Dersin şablon programı, güncel ayarlarla, Blockly'nin kayıt biçiminde */
+function blokSablonDurumu(){
   var d=DERSLER[dersIndeks], f=SABLONLAR[d.sahne], s;
   BLOK.bag=0;
   s=f ? f(a) : { dongu:[] };
   var hat={ type:"ard_basla", id:"basla", x:16, y:16 };
   var zincir=sbZincir((s.kur||[]).concat([ sb("ard_surekli",{ i:{ DO:sbDo(s.dongu) } }) ]));
   hat.next={ block:zincir };
-  var durum={ blocks:{ languageVersion:0, blocks:[hat] }, variables:(s.degisken||[]).map(function(ad){ return { name:ad, id:"v_"+ad }; }) };
+  return { blocks:{ languageVersion:0, blocks:[hat] }, variables:(s.degisken||[]).map(function(ad){ return { name:ad, id:"v_"+ad }; }) };
+}
+/* Ekranda görünmeyen bir çalışma alanında şablon (metin görünümünden karta yüklerken). Kullanınca dispose() ediniz. */
+function blokSablonAlani(){
+  blokHazirla();
+  var ws=new Blockly.Workspace();
+  Blockly.Events.disable();
+  try{ Blockly.serialization.workspaces.load(blokSablonDurumu(),ws); } finally { Blockly.Events.enable(); }
+  return ws;
+}
+function blokSablonYukle(){
+  if(!BLOK.ws || !a) return;
+  var durum=blokSablonDurumu();
   Blockly.Events.disable();
   try{
     BLOK.ws.clear();
@@ -6854,12 +6914,18 @@ function blokDurumYaz(){
 }
 
 /* ---------- görünüm ---------- */
-function blokKur(){
+var BLOK_HAZIR=false;
+function blokHazirla(){
+  if(BLOK_HAZIR) return;
+  BLOK_HAZIR=true;
   blokIletileri();
   Blockly.Extensions.register("ezgi_dogrula",function(){
     this.getField("NOTALAR").setValidator(function(m){ var d=ezgiCoz(m); return d ? ezgiMetni(d) : null; });
   });
   blokTanimla(); blokUretecKur();
+}
+function blokKur(){
+  blokHazirla();
   BLOK.ws=Blockly.inject($("blok-alan"),{
     toolbox:blokAracKutusu(), theme:blokTema(), renderer:"zelos", trashcan:true, sounds:false,
     zoom:{ controls:true, wheel:true, startScale:0.72, maxScale:1.6, minScale:0.4, scaleSpeed:1.15 },
@@ -6911,7 +6977,9 @@ function kartAc(){
   kartAcan=document.activeElement;
   $("kart-dosya").textContent=inoDosyaAdi();
   $("kart-perde").hidden=false;
-  $("btn-ino-indir").focus();
+  kartArayuz();
+  var ilk=[$("btn-kart-yukle"),$("btn-kart-bagla"),$("btn-ino-indir")].filter(function(x){ return !x.hidden && !x.disabled; })[0];
+  (ilk||$("btn-ino-indir")).focus();
 }
 function kartKapat(){ $("kart-perde").hidden=true; if(kartAcan && kartAcan.focus) kartAcan.focus(); kartAcan=null; }
 function inoIndir(){
@@ -7457,6 +7525,410 @@ function benzDugmeleri(){
   var yuruyor=calisiyor||yukleniyor;
   c.hidden=yuruyor; d.hidden=!yuruyor;
   c.disabled=(EVRE!=="gorev");
+}
+/* kart/atolye_yazilimi/atolye_yazilimi.ino dosyasından birlestir.sh üretir; elle düzenlemeyiniz. */
+var KART_YAZILIMI="/*\n  Arduino Atölyesi · Atölye yazılımı (sürüm 1)\n  Yapay Zekâ Okulum (YZO)\n\n  Bu yazılımı karta bir kez yükleyiniz: Arduino IDE'de açıp Araçlar → Kart: Arduino Uno,\n  Araçlar → Port: kartın portu seçildikten sonra Yükle (→) düğmesine basınız.\n  Sonra Arduino Atölyesi'nde \"Arduino karta yükle → Karta bağlan\" ile blok programlarınızı\n  USB üzerinden doğrudan karta gönderebilirsiniz (Chrome ya da Edge). Program kartın EEPROM\n  belleğine yazılır; kart yeniden başlasa ya da USB yerine pil ve adaptörle beslense de çalışır.\n\n  Nasıl çalışır: tarayıcı blokları kısa bir bayt koduna çevirir; bu yazılım bayt kodunu\n  EEPROM'dan okuyup komut komut yürütür. Beklemeler kartı kilitlemez, program çalışırken de\n  yeni program gönderilebilir.\n\n  Haberleşme 115200 baud ile yapılır. Tarayıcıdan gelen her çerçeve:\n    0xA5, komut, uzunluk (0–48), veri…, CRC16 düşük bayt, CRC16 yüksek bayt\n  CRC16: CCITT (çokterim 0x1021, başlangıç 0xFFFF); komut, uzunluk ve veri baytları üzerinden.\n  Kartın yanıtları \"#ATOLYE ...\" ile başlayan satırlardır; programın seri monitöre yazdıkları\n  olduğu gibi gönderilir.\n*/\n#include <EEPROM.h>\n#include <Servo.h>\n\n#define SURUM 1\n#define BASLIK 8          // EEPROM'da programın önündeki başlık: 'Y' 'Z' sürüm değişken uzunluk(2) CRC(2)\n#define YIGIN_BOY 24\n#define DEGISKEN_BOY 64\n#define SERVO_BOY 4\n#define ADIM_SINIRI 64    // seri porta yeniden bakmadan önce yürütülen en çok komut\n#define CERCEVE_EN 48\n\n/* bayt kodu komutları */\nenum {\n  K_BITIR = 0x00, K_SAYI8 = 0x01, K_SAYI16 = 0x02, K_SAYI32 = 0x03,\n  K_OKU = 0x04, K_YAZ = 0x05, K_ARTIR = 0x06,\n  K_TOPLA = 0x10, K_CIKAR = 0x11, K_CARP = 0x12, K_BOL = 0x13, K_US = 0x14,\n  K_ESIT = 0x15, K_FARKLI = 0x16, K_KUCUK = 0x17, K_KUCUKES = 0x18, K_BUYUK = 0x19, K_BUYUKES = 0x1A,\n  K_DEGIL = 0x1B, K_MANTIK = 0x1C, K_ADIMYON = 0x1D, K_SAYKOSUL = 0x1E,\n  K_ATLA = 0x20, K_SIFIRSA = 0x21, K_VE = 0x22, K_VEYA = 0x23,\n  K_BEKLE = 0x30, K_BEKLEUS = 0x31, K_DYAZ = 0x32, K_PWM = 0x33, K_DOKU = 0x34, K_AOKU = 0x35,\n  K_TON = 0x36, K_TONDUR = 0x37, K_EZGI = 0x38, K_SERVO = 0x39, K_DARBE = 0x3A,\n  K_SERISAYI = 0x3B, K_SERIYAZI = 0x3C, K_PINKIP = 0x40, K_SERVOBAGLA = 0x41\n};\n/* hata kodları; tarayıcı bunları Türkçe açıklamaya çevirir */\nenum {\n  H_YIGIN_TASTI = 1, H_YIGIN_BOS = 2, H_BILINMEYEN = 3, H_SINIR = 4, H_DEGISKEN = 5,\n  H_BUYUK = 7, H_PARCA = 8, H_SAGLAMA = 9, H_CERCEVE = 10, H_KOMUT = 11, H_ZAMAN = 12\n};\n\nint32_t yigin[YIGIN_BOY];\nuint8_t ys = 0;\nint32_t degisken[DEGISKEN_BOY];\nuint16_t pc = 0, kodBoy = 0, yuklenecek = 0;\nbool calisiyor = false, bekliyor = false;\nuint32_t bekleBas = 0, bekleSure = 0;   // mikrosaniye\nuint8_t ezgiPin = 0, ezgiKalan = 0;\nuint16_t ezgiAdres = 0;\nint32_t ezgiSure = 0;\nint8_t tonPini = -1;\nServo servolar[SERVO_BOY];\nint8_t servoPini[SERVO_BOY] = { -1, -1, -1, -1 };\nuint8_t cerceve[CERCEVE_EN];\n\nvoid onEk();\nvoid durdur();\nvoid baslat();\nvoid programHatasi(uint8_t kod);\nvoid cerceveHatasi(uint8_t kod);\nvoid komut();\nvoid ezgiSonraki();\n\nuint16_t kodSiniri() { return (uint16_t)(EEPROM.length() - BASLIK); }\n\nuint16_t crcEkle(uint16_t c, uint8_t b) {\n  c ^= (uint16_t)((uint16_t)b << 8);\n  for (uint8_t i = 0; i < 8; i++) {\n    c = (c & 0x8000) ? (uint16_t)((uint16_t)(c << 1) ^ 0x1021) : (uint16_t)(c << 1);\n  }\n  return c;\n}\n\nint32_t sinirla(int32_t x, int32_t alt, int32_t ust) { return x < alt ? alt : (x > ust ? ust : x); }\nbool pinUygun(uint8_t p) { return p >= 2 && p <= 19; }   // 0 ve 1 USB haberleşmesine ayrılmıştır\n\n/* ---------- yanıtlar ---------- */\nvoid onEk() { Serial.print(F(\"#ATOLYE \")); }\nvoid programHatasi(uint8_t kod) {\n  if (!calisiyor) return;   // aynı komuttaki ikinci hata yeniden bildirilmez\n  onEk(); Serial.print(F(\"HATA \")); Serial.print(kod); Serial.print(' '); Serial.println(pc);\n  durdur();\n}\nvoid cerceveHatasi(uint8_t kod) { onEk(); Serial.print(F(\"HATA \")); Serial.println(kod); }\n\n/* ---------- donanım ---------- */\nvoid tonuKes() { if (tonPini >= 0) { noTone((uint8_t)tonPini); tonPini = -1; } }\n\nvoid servolariBirak() {\n  for (uint8_t i = 0; i < SERVO_BOY; i++) {\n    if (servoPini[i] >= 0) { servolar[i].detach(); servoPini[i] = -1; }\n  }\n}\n\nint8_t servoBul(uint8_t p) {\n  for (uint8_t i = 0; i < SERVO_BOY; i++) if (servoPini[i] == (int8_t)p) return (int8_t)i;\n  for (uint8_t i = 0; i < SERVO_BOY; i++) {\n    if (servoPini[i] < 0) { servolar[i].attach(p); servoPini[i] = (int8_t)p; return (int8_t)i; }\n  }\n  return -1;\n}\n\nvoid pinleriSifirla() {\n  for (uint8_t p = 2; p <= 19; p++) { digitalWrite(p, LOW); pinMode(p, INPUT); }\n}\n\nvoid durdur() {\n  calisiyor = false; bekliyor = false; ezgiKalan = 0;\n  tonuKes(); servolariBirak(); pinleriSifirla();\n}\n\n/* ---------- program ---------- */\nbool programGecerli() {\n  if (EEPROM.read(0) != 'Y' || EEPROM.read(1) != 'Z' || EEPROM.read(2) != SURUM) return false;\n  if (EEPROM.read(3) > DEGISKEN_BOY) return false;\n  uint16_t boy = (uint16_t)EEPROM.read(4) | (uint16_t)((uint16_t)EEPROM.read(5) << 8);\n  uint16_t crc = (uint16_t)EEPROM.read(6) | (uint16_t)((uint16_t)EEPROM.read(7) << 8);\n  if (boy == 0 || boy > kodSiniri()) return false;\n  uint16_t c = 0xFFFF;\n  for (uint16_t i = 0; i < boy; i++) c = crcEkle(c, EEPROM.read(BASLIK + i));\n  if (c != crc) return false;\n  kodBoy = boy;\n  return true;\n}\n\nvoid baslat() {\n  durdur();\n  if (!programGecerli()) { kodBoy = 0; onEk(); Serial.println(F(\"BOS\")); return; }\n  ys = 0; pc = 0;\n  for (uint8_t i = 0; i < DEGISKEN_BOY; i++) degisken[i] = 0;\n  calisiyor = true;\n  onEk(); Serial.println(F(\"CALISIYOR\"));\n}\n\nuint8_t b1() {\n  if (pc >= kodBoy) { programHatasi(H_SINIR); return 0; }\n  return EEPROM.read(BASLIK + pc++);\n}\nuint16_t b2() {\n  uint8_t d = b1();\n  uint8_t y = b1();\n  return (uint16_t)d | (uint16_t)((uint16_t)y << 8);\n}\nint32_t b4() {\n  uint32_t s = 0;\n  for (uint8_t i = 0; i < 4; i++) s |= (uint32_t)b1() << (8 * i);\n  return (int32_t)s;\n}\n\nvoid it(int32_t v) {\n  if (ys >= YIGIN_BOY) { programHatasi(H_YIGIN_TASTI); return; }\n  yigin[ys++] = v;\n}\nint32_t al() {\n  if (ys == 0) { programHatasi(H_YIGIN_BOS); return 0; }\n  return yigin[--ys];\n}\nuint8_t degNo() {\n  uint8_t v = b1();\n  if (v >= DEGISKEN_BOY) { programHatasi(H_DEGISKEN); return 0; }\n  return v;\n}\n\n/* taşmada C++ derleyicisinin yaptığı gibi sarar */\nint32_t topla(int32_t a, int32_t b) { return (int32_t)((uint32_t)a + (uint32_t)b); }\nint32_t bol(int32_t a, int32_t b) {\n  if (b == 0) return 0;\n  if (b == -1) return (int32_t)(0UL - (uint32_t)a);\n  return a / b;\n}\nint32_t us(int32_t a, int32_t b) {\n  if (b < 0) return a == 1 ? 1 : (a == -1 ? ((b & 1) ? -1 : 1) : 0);\n  uint32_t s = 1, t = (uint32_t)a;\n  while (b) { if (b & 1) s *= t; t *= t; b >>= 1; }\n  return (int32_t)s;\n}\n\nvoid bekle(uint32_t mikro) { bekliyor = true; bekleBas = micros(); bekleSure = mikro; }\n\nvoid ezgiSonraki() {\n  uint8_t d = EEPROM.read(BASLIK + ezgiAdres);\n  uint8_t y = EEPROM.read(BASLIK + ezgiAdres + 1);\n  uint16_t hz = (uint16_t)d | (uint16_t)((uint16_t)y << 8);\n  ezgiAdres += 2; ezgiKalan--;\n  if (hz > 0 && pinUygun(ezgiPin)) { tone(ezgiPin, hz, (unsigned long)ezgiSure); tonPini = (int8_t)ezgiPin; }\n  bekle(((uint32_t)ezgiSure + 50UL) * 1000UL);\n}\n\nvoid komut() {\n  uint8_t k = b1();\n  if (!calisiyor) return;\n  int32_t a, b;\n  uint8_t p, v;\n  switch (k) {\n    case K_BITIR: calisiyor = false; onEk(); Serial.println(F(\"BITTI\")); break;\n    case K_SAYI8: it((int8_t)b1()); break;\n    case K_SAYI16: it((int16_t)b2()); break;\n    case K_SAYI32: it(b4()); break;\n    case K_OKU: v = degNo(); it(degisken[v]); break;\n    case K_YAZ: v = degNo(); a = al(); degisken[v] = a; break;\n    case K_ARTIR: v = degNo(); a = al(); degisken[v] = topla(degisken[v], a); break;\n    case K_TOPLA: b = al(); a = al(); it(topla(a, b)); break;\n    case K_CIKAR: b = al(); a = al(); it((int32_t)((uint32_t)a - (uint32_t)b)); break;\n    case K_CARP: b = al(); a = al(); it((int32_t)((uint32_t)a * (uint32_t)b)); break;\n    case K_BOL: b = al(); a = al(); it(bol(a, b)); break;\n    case K_US: b = al(); a = al(); it(us(a, b)); break;\n    case K_ESIT: b = al(); a = al(); it(a == b); break;\n    case K_FARKLI: b = al(); a = al(); it(a != b); break;\n    case K_KUCUK: b = al(); a = al(); it(a < b); break;\n    case K_KUCUKES: b = al(); a = al(); it(a <= b); break;\n    case K_BUYUK: b = al(); a = al(); it(a > b); break;\n    case K_BUYUKES: b = al(); a = al(); it(a >= b); break;\n    case K_DEGIL: a = al(); it(a == 0); break;\n    case K_MANTIK: a = al(); it(a != 0); break;\n    case K_ADIMYON: {   // yığın: adım, ilk, son → ilk ≤ son ise +|adım|, değilse −|adım| (adım 0 ise 1)\n      int32_t z = al(); a = al(); b = al();\n      if (b < 0) b = -b;\n      if (b == 0) b = 1;\n      it(a <= z ? b : -b);\n      break;\n    }\n    case K_SAYKOSUL: {  // sayaç, son, adım değişkenleri: adım > 0 ise sayaç ≤ son, değilse sayaç ≥ son\n      uint8_t d = degNo(), z = degNo(), s = degNo();\n      it(degisken[s] > 0 ? degisken[d] <= degisken[z] : degisken[d] >= degisken[z]);\n      break;\n    }\n    case K_ATLA: pc = b2(); break;\n    case K_SIFIRSA: { uint16_t h = b2(); a = al(); if (a == 0) pc = h; break; }\n    case K_VE: {        // üstteki değer 0 ise onu bırakıp atlar, değilse atar ve sağ tarafa geçer\n      uint16_t h = b2();\n      if (ys == 0) { programHatasi(H_YIGIN_BOS); break; }\n      if (yigin[ys - 1] == 0) pc = h; else ys--;\n      break;\n    }\n    case K_VEYA: {\n      uint16_t h = b2();\n      if (ys == 0) { programHatasi(H_YIGIN_BOS); break; }\n      if (yigin[ys - 1] != 0) { yigin[ys - 1] = 1; pc = h; } else ys--;\n      break;\n    }\n    case K_BEKLE: a = al(); if (calisiyor && a > 0) bekle((uint32_t)sinirla(a, 0, 4000000L) * 1000UL); break;\n    case K_BEKLEUS:\n      a = al();\n      if (calisiyor && a > 0) { if (a <= 1000) delayMicroseconds((unsigned int)a); else bekle((uint32_t)a); }\n      break;\n    case K_DYAZ: p = b1(); a = al(); if (calisiyor && pinUygun(p)) digitalWrite(p, a ? HIGH : LOW); break;\n    case K_PWM: p = b1(); a = al(); if (calisiyor && pinUygun(p)) analogWrite(p, (int)sinirla(a, 0, 255)); break;\n    case K_DOKU: p = b1(); it(pinUygun(p) && digitalRead(p) == HIGH); break;\n    case K_AOKU: p = b1(); it(p < 6 ? analogRead(A0 + p) : 0); break;\n    case K_TON: {\n      p = b1(); int32_t ms = al(); a = al();\n      if (!calisiyor || !pinUygun(p)) break;\n      if (a <= 0) { noTone(p); if (tonPini == (int8_t)p) tonPini = -1; break; }\n      tone(p, (unsigned int)sinirla(a, 31, 65535L), (unsigned long)sinirla(ms, 0, 4000000L));\n      tonPini = (int8_t)p;\n      break;\n    }\n    case K_TONDUR: p = b1(); if (calisiyor && pinUygun(p)) { noTone(p); if (tonPini == (int8_t)p) tonPini = -1; } break;\n    case K_EZGI: {      // pin, nota sayısı, notalar (2'şer bayt, 0 = sessiz); nota süresi yığından\n      p = b1(); uint8_t n = b1(); a = al();\n      if (!calisiyor) break;\n      if ((uint32_t)pc + 2UL * n > kodBoy) { programHatasi(H_SINIR); break; }\n      ezgiPin = p; ezgiKalan = n; ezgiAdres = pc; ezgiSure = sinirla(a, 0, 60000L);\n      pc += (uint16_t)(2 * n);\n      if (ezgiKalan) ezgiSonraki();\n      break;\n    }\n    case K_SERVO: {\n      p = b1(); a = al();\n      if (calisiyor && pinUygun(p)) { int8_t i = servoBul(p); if (i >= 0) servolar[i].write((int)sinirla(a, 0, 180)); }\n      break;\n    }\n    case K_DARBE: p = b1(); it(pinUygun(p) ? (int32_t)pulseIn(p, HIGH, 30000UL) : 0); break;\n    case K_SERISAYI: a = al(); if (calisiyor) Serial.println(a); break;\n    case K_SERIYAZI: {\n      uint8_t n = b1();\n      for (uint8_t i = 0; i < n && calisiyor; i++) { uint8_t c = b1(); if (calisiyor) Serial.write(c); }\n      if (calisiyor) Serial.println();\n      break;\n    }\n    case K_PINKIP: p = b1(); v = b1(); if (calisiyor && pinUygun(p)) pinMode(p, v ? OUTPUT : INPUT); break;\n    case K_SERVOBAGLA: p = b1(); if (calisiyor && pinUygun(p)) servoBul(p); break;\n    default: programHatasi(H_BILINMEYEN); break;\n  }\n}\n\nvoid yurut() {\n  for (uint8_t n = 0; n < ADIM_SINIRI && calisiyor; n++) {\n    if (bekliyor) {\n      if ((uint32_t)(micros() - bekleBas) < bekleSure) return;\n      bekliyor = false;\n      if (ezgiKalan) { ezgiSonraki(); continue; }\n    }\n    komut();\n  }\n}\n\n/* ---------- tarayıcıdan gelen çerçeveler ---------- */\nuint16_t kelime(uint8_t i) { return (uint16_t)cerceve[i] | (uint16_t)((uint16_t)cerceve[i + 1] << 8); }\n\nvoid isle(uint8_t kom, uint8_t boy) {\n  switch (kom) {\n    case 'K':   // kimlik: sürüm, en büyük program, durum (0 boş, 1 çalışıyor, 2 durdu)\n      onEk(); Serial.print(F(\"KIMLIK \")); Serial.print(SURUM); Serial.print(' ');\n      Serial.print(kodSiniri()); Serial.print(' ');\n      Serial.println(calisiyor ? 1 : (kodBoy ? 2 : 0));\n      break;\n    case 'B':   // yükleme başlıyor: program uzunluğu\n      if (boy < 2) { cerceveHatasi(H_CERCEVE); break; }\n      yuklenecek = kelime(0);\n      if (yuklenecek == 0 || yuklenecek > kodSiniri()) { yuklenecek = 0; cerceveHatasi(H_BUYUK); break; }\n      durdur(); kodBoy = 0;\n      EEPROM.update(0, 0);   // eski program geçersiz sayılır\n      onEk(); Serial.print(F(\"B \")); Serial.println(yuklenecek);\n      break;\n    case 'P': { // program parçası: konum + baytlar\n      if (boy < 2 || !yuklenecek) { cerceveHatasi(H_PARCA); break; }\n      uint16_t ofs = kelime(0);\n      uint8_t n = (uint8_t)(boy - 2);\n      if ((uint32_t)ofs + n > yuklenecek) { cerceveHatasi(H_PARCA); break; }\n      for (uint8_t i = 0; i < n; i++) EEPROM.update(BASLIK + ofs + i, cerceve[2 + i]);\n      onEk(); Serial.print(F(\"P \")); Serial.println(ofs);\n      break;\n    }\n    case 'S': { // son: programın CRC'si ve değişken sayısı; doğruysa başlık yazılır ve program başlar\n      if (boy < 3 || !yuklenecek) { cerceveHatasi(H_PARCA); break; }\n      uint16_t c = 0xFFFF;\n      for (uint16_t i = 0; i < yuklenecek; i++) c = crcEkle(c, EEPROM.read(BASLIK + i));\n      if (c != kelime(0)) { yuklenecek = 0; cerceveHatasi(H_SAGLAMA); break; }\n      EEPROM.update(1, 'Z'); EEPROM.update(2, SURUM); EEPROM.update(3, cerceve[2]);\n      EEPROM.update(4, lowByte(yuklenecek)); EEPROM.update(5, highByte(yuklenecek));\n      EEPROM.update(6, cerceve[0]); EEPROM.update(7, cerceve[1]);\n      EEPROM.update(0, 'Y');   // başlık en son tamamlanır\n      onEk(); Serial.print(F(\"TAMAM \")); Serial.println(yuklenecek);\n      yuklenecek = 0;\n      baslat();\n      break;\n    }\n    case 'D': durdur(); onEk(); Serial.println(F(\"DURDU\")); break;\n    case 'C': baslat(); break;\n    default: cerceveHatasi(H_KOMUT); break;\n  }\n}\n\nvoid komutDinle() {\n  while (Serial.available() > 0) {\n    if (Serial.read() != 0xA5) continue;\n    uint8_t bas[2], son[2];\n    if (Serial.readBytes(bas, 2) != 2) { cerceveHatasi(H_ZAMAN); return; }\n    uint8_t kom = bas[0], boy = bas[1];\n    if (boy > CERCEVE_EN) { cerceveHatasi(H_CERCEVE); return; }\n    if (boy && Serial.readBytes(cerceve, boy) != boy) { cerceveHatasi(H_ZAMAN); return; }\n    if (Serial.readBytes(son, 2) != 2) { cerceveHatasi(H_ZAMAN); return; }\n    uint16_t c = crcEkle(crcEkle(0xFFFF, kom), boy);\n    for (uint8_t i = 0; i < boy; i++) c = crcEkle(c, cerceve[i]);\n    if (c != ((uint16_t)son[0] | (uint16_t)((uint16_t)son[1] << 8))) { cerceveHatasi(H_CERCEVE); return; }\n    isle(kom, boy);\n  }\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  Serial.setTimeout(200);\n  onEk(); Serial.print(F(\"HAZIR \")); Serial.println(SURUM);\n  baslat();\n}\n\nvoid loop() {\n  komutDinle();\n  if (calisiyor) yurut();\n}\n";
+/* ============ KARTA DOĞRUDAN YÜKLEME ============ */
+/* Blok programı kısa bir bayt koduna çevrilir ve Web Serial ile karttaki "Atölye yazılımı"na gönderilir
+   (kart/atolye_yazilimi/atolye_yazilimi.ino; komut listesi ve çerçeve biçimi o dosyanın başındadır).
+   Yazılım programı EEPROM'a yazar ve komut komut yürütür. Anlam benzeticiyle (p5_benzetici) aynıdır:
+   for döngüsünün sınırları bir kez hesaplanır, tamsayı bölmesi sıfıra doğru keser, 0'a bölme 0 verir. */
+var KK={ BITIR:0x00, SAYI8:0x01, SAYI16:0x02, SAYI32:0x03, OKU:0x04, YAZ:0x05, ARTIR:0x06,
+  TOPLA:0x10, CIKAR:0x11, CARP:0x12, BOL:0x13, US:0x14, ESIT:0x15, FARKLI:0x16, KUCUK:0x17, KUCUKES:0x18, BUYUK:0x19, BUYUKES:0x1A,
+  DEGIL:0x1B, MANTIK:0x1C, ADIMYON:0x1D, SAYKOSUL:0x1E, ATLA:0x20, SIFIRSA:0x21, VE:0x22, VEYA:0x23,
+  BEKLE:0x30, BEKLEUS:0x31, DYAZ:0x32, PWM:0x33, DOKU:0x34, AOKU:0x35, TON:0x36, TONDUR:0x37, EZGI:0x38, SERVO:0x39, DARBE:0x3A,
+  SERISAYI:0x3B, SERIYAZI:0x3C, PINKIP:0x40, SERVOBAGLA:0x41 };
+var KART_SURUM=1, KART_KOD_EN=1016, KART_YIGIN=24, KART_DEGISKEN=64, KART_PARCA=32, KART_YAZI_EN=120;
+function KartHatasi(m){ this.mesaj=m; }
+
+/* ---------- derleyici ---------- */
+function kartDerle(ws){
+  var hat=null;
+  ws.getTopBlocks(true).forEach(function(b){ if(!hat && b.type==="ard_basla" && b.isEnabled()) hat=b; });
+  if(!hat) return { hata:"Programın başında “Arduino başladığında” bloğu olmalı." };
+  try{
+    var on=kartDerleGecis(ws,hat,null);   /* 1. geçiş kullanılan pinleri bulur */
+    var s=kartDerleGecis(ws,hat,on);      /* 2. geçiş pin kiplerini programın başına koyar */
+    if(s.kod.length>KART_KOD_EN) return { hata:"Program kartın belleğine sığmıyor ("+s.kod.length+" bayt; en çok "+KART_KOD_EN+"). Programı kısaltınız." };
+    return { kod:s.kod, degSay:s.degSay };
+  } catch(e){ if(e instanceof KartHatasi) return { hata:e.mesaj }; throw e; }
+}
+function kartDerleGecis(ws,hat,on){
+  var kod=[], deg={}, degSay=0, derin=0, pinler={}, servolar={}, etiketler=[];
+  ws.getVariableMap().getAllVariables().forEach(function(d){ deg[d.getId()]=degSay++; });
+  function hata(m){ throw new KartHatasi(m); }
+  function b1(x){ kod.push(x & 255); }
+  function b2(x){ kod.push(x & 255,(x>>8) & 255); }
+  function yig(n){ derin+=n; if(derin>KART_YIGIN) hata("Program çok iç içe işlemler içeriyor; işlemleri birkaç değişkene bölünüz."); }
+  function gecici(){ if(degSay>=KART_DEGISKEN) hata("Programda çok fazla değişken ve döngü var."); return degSay++; }
+  function degNo(b){ var d=b.getField("VAR").getVariable(); if(!d || deg[d.getId()]===undefined) hata("Bir değişken bloğunun değişkeni bulunamadı."); return deg[d.getId()]; }
+  function pinAl(b){
+    var p=parseInt(b.getFieldValue("PIN"),10);
+    if(p===0 || p===1) hata("0 ve 1 numaralı pinler kartın USB haberleşmesinde kullanılır. Karta yüklemek için başka bir pin seçiniz.");
+    return p;
+  }
+  function pinKip(p,kip){ if(!pinler[p] || kip===1) pinler[p]=kip; }   /* C++ üreteci gibi: çıkış ağır basar */
+  function etiket(){ var e={ adres:-1, yamalar:[] }; etiketler.push(e); return e; }
+  function atla(op,e){ b1(op); e.yamalar.push(kod.length); b2(0); }
+  function koy(e){ e.adres=kod.length; }
+  function sayi(n){
+    n=Math.trunc(Number(n)); if(!isFinite(n)) n=0;
+    n=Math.max(-2147483648,Math.min(2147483647,n));
+    if(n>=-128 && n<=127){ b1(KK.SAYI8); b1(n); }
+    else if(n>=-32768 && n<=32767){ b1(KK.SAYI16); b2(n); }
+    else { b1(KK.SAYI32); kod.push(n & 255,(n>>8) & 255,(n>>16) & 255,(n>>>24) & 255); }
+    yig(1);
+  }
+  function giris(b,ad){ var h=b.getInputTargetBlock(ad); return (h && h.isEnabled()) ? h : null; }
+  function deger(b,ad,yok){ var h=giris(b,ad); if(h){ ifade(h); } else { sayi(yok||0); } }
+  function blokAdi(b){ var t=String(b.toString()).replace(/\s+/g," ").trim(); return t.length>40 ? t.slice(0,39)+"…" : t; }
+  function ifade(b){
+    var t=b.type, op, p;
+    if(t==="math_number"){ sayi(b.getFieldValue("NUM")); return; }
+    if(t==="ard_seviye"){ sayi(b.getFieldValue("SEVIYE")==="HIGH" ? 1 : 0); return; }
+    if(t==="logic_boolean"){ sayi(b.getFieldValue("BOOL")==="TRUE" ? 1 : 0); return; }
+    if(t==="variables_get"){ b1(KK.OKU); b1(degNo(b)); yig(1); return; }
+    if(t==="ard_dijital_oku"){ p=pinAl(b); pinKip(p,0); b1(KK.DOKU); b1(p); yig(1); return; }
+    if(t==="ard_analog_oku"){ b1(KK.AOKU); b1(parseInt(String(b.getFieldValue("PIN")).slice(1),10)||0); yig(1); return; }
+    if(t==="ard_darbe"){ p=pinAl(b); pinKip(p,0); b1(KK.DARBE); b1(p); yig(1); return; }
+    if(t==="math_arithmetic"){
+      op={ ADD:KK.TOPLA, MINUS:KK.CIKAR, MULTIPLY:KK.CARP, DIVIDE:KK.BOL, POWER:KK.US }[b.getFieldValue("OP")];
+      if(op===undefined) hata("“"+blokAdi(b)+"” işlemi karta yüklenemez.");
+      deger(b,"A"); deger(b,"B"); b1(op); yig(-1); return;
+    }
+    if(t==="logic_compare"){
+      op={ EQ:KK.ESIT, NEQ:KK.FARKLI, LT:KK.KUCUK, LTE:KK.KUCUKES, GT:KK.BUYUK, GTE:KK.BUYUKES }[b.getFieldValue("OP")];
+      deger(b,"A"); deger(b,"B"); b1(op); yig(-1); return;
+    }
+    if(t==="logic_operation"){   /* kısa devre: "ve"de sol yanlışsa, "veya"da sol doğruysa sağ hesaplanmaz */
+      var e=etiket();
+      deger(b,"A"); atla(b.getFieldValue("OP")==="AND" ? KK.VE : KK.VEYA,e); yig(-1);
+      deger(b,"B"); b1(KK.MANTIK); koy(e); return;
+    }
+    if(t==="logic_negate"){ deger(b,"BOOL",1); b1(KK.DEGIL); return; }
+    if(t==="text") hata("Yazı blokları karta yüklenirken yalnız “seri monitöre yaz” bloğunun içinde kullanılabilir.");
+    hata("“"+blokAdi(b)+"” bloğu karta yüklenemez.");
+  }
+  function zincir(b){ while(b){ if(b.isEnabled()) komut(b); b=b.getNextBlock(); } }
+  function ic(b,ad){ zincir(b.getInputTargetBlock(ad)); }
+  function komut(b){
+    var t=b.type, p, e1, e2, n;
+    if(t==="ard_bekle"){ deger(b,"SURE"); b1(KK.BEKLE); yig(-1); }
+    else if(t==="ard_bekle_us"){ deger(b,"SURE"); b1(KK.BEKLEUS); yig(-1); }
+    else if(t==="ard_dijital_yaz"){ p=pinAl(b); pinKip(p,1); deger(b,"DEGER"); b1(KK.DYAZ); b1(p); yig(-1); }
+    else if(t==="ard_pwm_yaz"){ p=pinAl(b); pinKip(p,1); deger(b,"DEGER"); b1(KK.PWM); b1(p); yig(-1); }
+    else if(t==="ard_ton"){ p=pinAl(b); deger(b,"HZ"); deger(b,"SURE"); b1(KK.TON); b1(p); yig(-2); }
+    else if(t==="ard_ton_dur"){ p=pinAl(b); b1(KK.TONDUR); b1(p); }
+    else if(t==="ard_ezgi"){
+      p=pinAl(b);
+      var notalar=ezgiCoz(b.getFieldValue("NOTALAR"))||[];
+      deger(b,"SURE"); b1(KK.EZGI); b1(p); b1(notalar.length);
+      notalar.forEach(function(hz){ b2(hz||0); });
+      yig(-1);
+    }
+    else if(t==="ard_servo"){ p=pinAl(b); servolar[p]=true; deger(b,"ACI"); b1(KK.SERVO); b1(p); yig(-1); }
+    else if(t==="ard_seri"){
+      var h=giris(b,"DEGER");
+      if(!h || h.type==="text"){
+        var y=kartUtf8(h ? h.getFieldValue("TEXT") : "");
+        b1(KK.SERIYAZI); b1(y.length); y.forEach(b1);
+      } else { ifade(h); b1(KK.SERISAYI); yig(-1); }
+    }
+    else if(t==="variables_set"){ n=degNo(b); deger(b,"VALUE"); b1(KK.YAZ); b1(n); yig(-1); }
+    else if(t==="math_change"){ n=degNo(b); deger(b,"DELTA"); b1(KK.ARTIR); b1(n); yig(-1); }
+    else if(t==="controls_repeat_ext"){
+      var tn=gecici(), ti=gecici();
+      deger(b,"TIMES"); b1(KK.YAZ); b1(tn); yig(-1);
+      sayi(0); b1(KK.YAZ); b1(ti); yig(-1);
+      e1=etiket(); e2=etiket(); koy(e1);
+      b1(KK.OKU); b1(ti); b1(KK.OKU); b1(tn); yig(2); b1(KK.KUCUK); yig(-1); atla(KK.SIFIRSA,e2); yig(-1);
+      ic(b,"DO");
+      sayi(1); b1(KK.ARTIR); b1(ti); yig(-1);
+      atla(KK.ATLA,e1); koy(e2);
+    }
+    else if(t==="controls_whileUntil"){
+      e1=etiket(); e2=etiket(); koy(e1);
+      deger(b,"BOOL"); if(b.getFieldValue("MODE")==="UNTIL") b1(KK.DEGIL);
+      atla(KK.SIFIRSA,e2); yig(-1);
+      ic(b,"DO"); atla(KK.ATLA,e1); koy(e2);
+    }
+    else if(t==="controls_if"){
+      var son=etiket(), sira=0, sonraki;
+      do{
+        deger(b,"IF"+sira); sonraki=etiket(); atla(KK.SIFIRSA,sonraki); yig(-1);
+        ic(b,"DO"+sira); atla(KK.ATLA,son); koy(sonraki);
+        sira++;
+      } while(b.getInput("IF"+sira));
+      if(b.getInput("ELSE")) ic(b,"ELSE");
+      koy(son);
+    }
+    else if(t==="controls_for"){
+      var d=degNo(b), ta=gecici(), tz=gecici(), ts=gecici();
+      deger(b,"FROM"); b1(KK.YAZ); b1(ta); yig(-1);
+      deger(b,"TO"); b1(KK.YAZ); b1(tz); yig(-1);
+      deger(b,"BY",1); b1(KK.OKU); b1(ta); b1(KK.OKU); b1(tz); yig(2); b1(KK.ADIMYON); yig(-2); b1(KK.YAZ); b1(ts); yig(-1);
+      b1(KK.OKU); b1(ta); b1(KK.YAZ); b1(d); yig(1); yig(-1);
+      e1=etiket(); e2=etiket(); koy(e1);
+      b1(KK.SAYKOSUL); b1(d); b1(tz); b1(ts); yig(1); atla(KK.SIFIRSA,e2); yig(-1);
+      ic(b,"DO");
+      b1(KK.OKU); b1(ts); b1(KK.ARTIR); b1(d); yig(1); yig(-1);
+      atla(KK.ATLA,e1); koy(e2);
+    }
+    else if(t==="ard_surekli"){ e1=etiket(); koy(e1); ic(b,"DO"); atla(KK.ATLA,e1); }
+    else hata("“"+blokAdi(b)+"” bloğu karta yüklenemez.");
+    if(derin!==0) hata("Program karta çevrilirken bir sorun çıktı. Programı yeniden düzenleyip deneyiniz.");
+  }
+  /* pin kipleri ve servolar programın başında (C++ üretecinin setup() başı gibi) */
+  if(on){
+    Object.keys(on.pinler).sort(function(x,y){ return x-y; }).forEach(function(p){ b1(KK.PINKIP); b1(+p); b1(on.pinler[p]); });
+    Object.keys(on.servolar).sort(function(x,y){ return x-y; }).forEach(function(p){ b1(KK.SERVOBAGLA); b1(+p); });
+  }
+  /* kurulum blokları "sürekli tekrarla"ya kadar; sürekli tekrarla programın döngüsüdür (C++ üreteciyle aynı) */
+  var b=hat.getNextBlock(), dongu=null;
+  while(b){
+    if(b.type==="ard_surekli"){ dongu=b; break; }
+    if(b.isEnabled()) komut(b);
+    b=b.getNextBlock();
+  }
+  if(dongu){ var bas=etiket(); koy(bas); ic(dongu,"DO"); atla(KK.ATLA,bas); }
+  else { b1(KK.BITIR); }
+  etiketler.forEach(function(e){ e.yamalar.forEach(function(y){ kod[y]=e.adres & 255; kod[y+1]=(e.adres>>8) & 255; }); });
+  return { kod:kod, degSay:degSay, pinler:pinler, servolar:servolar };
+}
+/* UTF-8 baytları; en çok KART_YAZI_EN bayt, çok baytlı bir harf ortasından kesilmez */
+function kartUtf8(s){
+  var u=unescape(encodeURIComponent(String(s))), r=[], i;
+  for(i=0;i<u.length;i++){ r.push(u.charCodeAt(i)); }
+  if(r.length>KART_YAZI_EN){ i=KART_YAZI_EN; while(i>0 && (r[i] & 0xC0)===0x80){ i--; } r=r.slice(0,i); }
+  return r;
+}
+function kartCrc(l,c){
+  c=(c===undefined) ? 0xFFFF : c;
+  for(var i=0;i<l.length;i++){
+    c^=(l[i] & 255)<<8;
+    for(var j=0;j<8;j++){ c=(c & 0x8000) ? ((c<<1) ^ 0x1021) & 0xFFFF : (c<<1) & 0xFFFF; }
+  }
+  return c;
+}
+/* Yüklenecek program: serbest programda bloklar, değilse dersin şablonu (güncel ayarlarla) */
+function kartProgrami(){
+  if(BLOK.ws && BLOK.serbest) return kartDerle(BLOK.ws);
+  if(a.melodi && a.melodi.indexOf(null)>=0) return { hata:"Önce boş nota kutularını doldurunuz." };
+  var ws=blokSablonAlani();
+  try{ return kartDerle(ws); } finally { ws.dispose(); }
+}
+
+/* ---------- Web Serial bağlantısı ---------- */
+var KART={ port:null, okuyucu:null, yazici:null, tampon:"", bekleyen:null, durum:"kopuk", surum:0, en:KART_KOD_EN, kapaniyor:false, kuyruk:[], akit:null };
+/* Arduino, Arduino.org, CH340/CH9102 (WCH), FTDI ve CP210x (Silicon Labs) USB çipleri */
+var KART_FILTRE=[{ usbVendorId:0x2341 },{ usbVendorId:0x2A03 },{ usbVendorId:0x1A86 },{ usbVendorId:0x0403 },{ usbVendorId:0x10C4 }];
+var KART_HATALAR={
+  1:"Program kartta çok iç içe işlemlere girdi ve durduruldu.",
+  2:"Program kartta beklenmedik biçimde durdu. Programı yeniden yükleyiniz.",
+  3:"Kart programda tanımadığı bir komut buldu. Atölye yazılımını yeniden yükleyiniz.",
+  4:"Program kartta beklenmedik biçimde durdu. Programı yeniden yükleyiniz.",
+  5:"Programda kartın kaldıramayacağı kadar çok değişken var.",
+  7:"Program kartın belleğine sığmıyor.",
+  8:"Program karta eksik ulaştı. Yeniden deneyiniz.",
+  9:"Program karta bozuk ulaştı. Yeniden deneyiniz.",
+  10:"Karta giden veri bozuldu. Yeniden deneyiniz.",
+  11:"Karttaki Atölye yazılımı bu komutu tanımıyor. Yazılımı yeniden yükleyiniz.",
+  12:"Karta giden veri yarım kaldı. Yeniden deneyiniz."
+};
+function kartDestekli(){ return !!(navigator.serial && window.isSecureContext); }
+function kartHataMetni(kod){ return KART_HATALAR[kod] || ("Kart bir hata bildirdi (kod "+kod+")."); }
+
+function kartVeri(s){
+  KART.tampon+=s;
+  var i;
+  while((i=KART.tampon.indexOf("\n"))>=0){
+    var satir=KART.tampon.slice(0,i).replace(/\r$/,"");
+    KART.tampon=KART.tampon.slice(i+1);
+    kartSatir(satir);
+  }
+  if(KART.tampon.length>400){ kartSatir(KART.tampon); KART.tampon=""; }
+}
+function kartSatir(s){
+  var m=/^#ATOLYE ([A-Z]+)(?: (.*))?$/.exec(s), w=KART.bekleyen;
+  if(!m){
+    if(KART.durum==="bagli" || KART.durum==="yaziliyor") kartSeriSatir(s);
+    return;
+  }
+  var tur=m[1], arg=m[2] ? m[2].split(" ") : [];
+  if(w){
+    if(w.turler.indexOf(tur)>=0){ w.coz({ tur:tur, arg:arg }); return; }
+    if(tur==="HATA"){ w.red(new KartHatasi(kartHataMetni(+arg[0]))); return; }
+  }
+  if(KART.durum!=="bagli") return;
+  if(tur==="HATA" && arg.length>1){ kartSeriBosalt(); seriYaz("Kart: "+kartHataMetni(+arg[0]),"kotu"); kartIleti("Karttaki program durdu: "+kartHataMetni(+arg[0]),"kotu"); }
+  else if(tur==="BITTI"){ kartSeriBosalt(); seriYaz("Kart: program sona erdi (sürekli tekrarla bloğu yok).","sistem"); }
+  else if(tur==="HAZIR"){ kartSeriBosalt(); seriYaz("Kart yeniden başladı.","sistem"); }
+}
+/* Kartın seri çıktısı monitöre 0,1 sn'de bir toplu yazılır; çok hızlı yazan programlar sayfayı yormaz. */
+function kartSeriSatir(s){
+  KART.kuyruk.push(s);
+  if(KART.kuyruk.length>40){ KART.kuyruk.splice(0,KART.kuyruk.length-40); }
+  if(!KART.akit){ KART.akit=setTimeout(kartSeriBosalt,100); }
+}
+function kartSeriBosalt(){
+  if(KART.akit){ clearTimeout(KART.akit); KART.akit=null; }
+  var l=KART.kuyruk; KART.kuyruk=[];
+  l.forEach(function(s){ seriYaz(s,"kart"); });
+}
+function kartBekle(turler,ms){
+  return new Promise(function(coz,red){
+    var z=setTimeout(function(){ KART.bekleyen=null; red(new KartHatasi("zaman")); },ms);
+    KART.bekleyen={ turler:turler,
+      coz:function(m){ clearTimeout(z); KART.bekleyen=null; coz(m); },
+      red:function(e){ clearTimeout(z); KART.bekleyen=null; red(e); } };
+  });
+}
+function kartGonder(kom,veri){
+  if(!KART.yazici) return Promise.reject(new KartHatasi("kopuk"));
+  var g=[kom.charCodeAt(0),veri.length].concat(veri), c=kartCrc(g), b=new Uint8Array(g.length+3);
+  b[0]=0xA5; b.set(g,1); b[g.length+1]=c & 255; b[g.length+2]=c>>8;
+  return KART.yazici.write(b);
+}
+/* Yanıt bekleyiciyi göndermeden önce kurar; böylece hızlı bir yanıt kaçmaz. */
+function kartIstek(kom,veri,turler,ms){
+  var w=kartBekle(turler,ms);
+  kartGonder(kom,veri)["catch"](function(e){ if(KART.bekleyen) KART.bekleyen.red(e); });
+  return w;
+}
+function kartOkumaDongusu(){
+  var cozucu=new TextDecoder(), okuyucu=KART.okuyucu;
+  function oku(){ return okuyucu.read().then(function(r){ if(r.done) return; kartVeri(cozucu.decode(r.value,{ stream:true })); return oku(); }); }
+  oku()["catch"](function(){}).then(function(){
+    if(KART.okuyucu===okuyucu && !KART.kapaniyor){ kartKopar("Kartın bağlantısı koptu. USB kablosunu denetleyip yeniden bağlanınız.","kotu"); }
+  });
+}
+function kartKopar(mesaj,tur){
+  var k=KART;
+  if(k.bekleyen){ k.bekleyen.red(new KartHatasi("kopuk")); }
+  kartSeriBosalt();
+  k.kapaniyor=true;
+  var port=k.port, okuyucu=k.okuyucu, yazici=k.yazici;
+  k.port=null; k.okuyucu=null; k.yazici=null; k.tampon="";
+  k.durum="kopuk";
+  kartArayuz(); if(mesaj) kartIleti(mesaj,tur);
+  var p=Promise.resolve();
+  if(okuyucu){ p=p.then(function(){ return okuyucu.cancel(); })["catch"](function(){}).then(function(){ try{ okuyucu.releaseLock(); }catch(e){} }); }
+  if(yazici){ p=p.then(function(){ try{ yazici.releaseLock(); }catch(e){} }); }
+  if(port){ p=p.then(function(){ return port.close(); })["catch"](function(){}); }
+  return p.then(function(){ k.kapaniyor=false; });
+}
+function kartKimlik(deneme){
+  return kartIstek("K",[],["KIMLIK"],1200)["catch"](function(e){
+    if(e instanceof KartHatasi && e.mesaj==="zaman" && !deneme) return kartKimlik(1);
+    throw e;
+  });
+}
+function kartBaglan(tumPortlar){
+  if(!kartDestekli() || KART.durum!=="kopuk") return;
+  var port=null;
+  KART.durum="baglaniyor"; kartArayuz(); kartIleti("Kart seçiliyor…");
+  $("btn-kart-tum").hidden=true;
+  navigator.serial.requestPort(tumPortlar ? {} : { filters:KART_FILTRE }).then(function(p){
+    port=p; kartIleti("Karta bağlanılıyor… Kart yeniden başlıyor.");
+    return port.open({ baudRate:115200 });
+  }).then(function(){
+    KART.port=port; KART.kapaniyor=false; KART.tampon="";
+    KART.yazici=port.writable.getWriter(); KART.okuyucu=port.readable.getReader();
+    kartOkumaDongusu();
+    /* port açılınca Uno yeniden başlar; açılış satırını bekler, gelmezse kimlik sorulur */
+    return kartBekle(["HAZIR"],3000)["catch"](function(e){ if(e.mesaj!=="zaman") throw e; });
+  }).then(function(){
+    return kartKimlik();
+  }).then(function(m){
+    var surum=+m.arg[0];
+    if(surum!==KART_SURUM){
+      return kartKopar("Karttaki Atölye yazılımı bu sayfayla uyumlu değil (sürüm "+surum+"). Yazılımı yeniden yükleyiniz.","kotu").then(function(){ $("kart-ilk").open=true; });
+    }
+    KART.surum=surum; KART.en=Math.min(+m.arg[1]||KART_KOD_EN,KART_KOD_EN); KART.durum="bagli";
+    kartArayuz();
+    kartIleti("Kart bağlı. "+(m.arg[2]==="1" ? "Kartta bir program çalışıyor." : (m.arg[2]==="2" ? "Karttaki program durmuş." : "Kartta henüz program yok."))+" Programı karta yükleyebilirsiniz.","iyi");
+    seriYaz("Kart bağlandı; karttaki programın seri çıktısı burada görünür.","sistem");
+    $("btn-kart-yukle").focus();
+  })["catch"](function(e){
+    var ad=e && e.name;
+    if(ad==="NotFoundError"){   /* seçim penceresi kapatıldı */
+      KART.durum="kopuk"; kartArayuz(); kartIleti("Kart seçilmedi. Kartınız listede yoksa “Tüm portlar” ile yeniden deneyiniz.");
+      $("btn-kart-tum").hidden=false; return;
+    }
+    if(ad==="NetworkError" || ad==="InvalidStateError"){
+      KART.durum="kopuk"; kartArayuz(); kartIleti("Kartın portu açılamadı. Arduino IDE ya da başka bir program portu kullanıyor olabilir; onu kapatıp yeniden deneyiniz.","kotu"); return;
+    }
+    if(e instanceof KartHatasi && e.mesaj==="zaman"){
+      kartKopar("Kartta Atölye yazılımı bulunamadı. Aşağıdaki adımlarla yazılımı karta bir kez yükleyiniz.","kotu").then(function(){ $("kart-ilk").open=true; });
+      return;
+    }
+    if(e instanceof KartHatasi && e.mesaj==="kopuk") return;
+    kartKopar("Karta bağlanılamadı"+(e && e.message ? ": "+e.message : "."),"kotu");
+  });
+}
+function kartYukle(){
+  if(KART.durum!=="bagli") return;
+  var s=kartProgrami();
+  if(s.hata){ kartIleti(s.hata,"kotu"); return; }
+  if(s.kod.length>KART.en){ kartIleti("Program kartın belleğine sığmıyor ("+s.kod.length+" bayt; en çok "+KART.en+"). Programı kısaltınız.","kotu"); return; }
+  if(calisiyor || yukleniyor){ programDurdur(); }
+  var kod=s.kod, n=kod.length, ofs=0;
+  KART.durum="yaziliyor"; kartArayuz(); kartIlerleme(0); kartIleti("Program karta gönderiliyor…");
+  function parca(){
+    if(ofs>=n) return Promise.resolve();
+    var o=ofs, p=kod.slice(o,o+KART_PARCA);
+    return kartIstek("P",[o & 255,o>>8].concat(p),["P"],1500).then(function(){ ofs=o+p.length; kartIlerleme(ofs/n); return parca(); });
+  }
+  kartIstek("B",[n & 255,n>>8],["B"],1500).then(parca).then(function(){
+    var c=kartCrc(kod);
+    return kartIstek("S",[c & 255,c>>8,s.degSay],["TAMAM"],3000);
+  }).then(function(){
+    KART.durum="bagli"; kartArayuz();
+    kartIleti("Program karta yüklendi ve çalışıyor ("+n+" bayt). USB'yi çıkarıp kartı pil ya da adaptörle beslerseniz de çalışmaya devam eder.","iyi");
+    kartSeriBosalt(); seriYaz("Kart: yeni program çalışıyor.","sistem");
+    bildir("Program Arduino karta yüklendi.","iyi");
+  })["catch"](function(e){
+    if((e instanceof KartHatasi && e.mesaj==="kopuk") || !KART.port) return;
+    KART.durum="bagli"; kartArayuz();
+    kartIleti(e instanceof KartHatasi ? (e.mesaj==="zaman" ? "Kart yanıt vermedi. Bağlantıyı kesip yeniden bağlanınız." : e.mesaj) : "Program gönderilemedi: "+(e && e.message ? e.message : e),"kotu");
+  });
+}
+function kartDurdur(){
+  if(KART.durum!=="bagli") return;
+  kartIstek("D",[],["DURDU"],1500).then(function(){ kartIleti("Karttaki program durduruldu. Yeniden başlatmak için programı karta yükleyiniz ya da karttaki sıfırlama (RESET) düğmesine basınız."); })
+    ["catch"](function(e){ if(!(e instanceof KartHatasi && e.mesaj==="kopuk")) kartIleti("Kart yanıt vermedi.","kotu"); });
+}
+function kartKes(){
+  if(!KART.port) return;
+  kartKopar(KART.durum==="yaziliyor" ? "Yükleme yarıda kesildi; kartta program kalmadı. Yeniden bağlanıp programı yükleyiniz." : "Kartla bağlantı kesildi. Karttaki program çalışmaya devam ediyor.");
+}
+
+/* ---------- pencere ---------- */
+function kartIleti(m,tur){ var e=$("kart-baglanti"); e.textContent=m; e.className="kart-baglanti"+(tur ? " "+tur : ""); }
+function kartIlerleme(o){ $("kart-ilerleme-ic").style.width=Math.round(o*100)+"%"; }
+function kartArayuz(){
+  var d=KART.durum, destek=kartDestekli(), bagli=(d==="bagli" || d==="yaziliyor"), mesgul=(d==="baglaniyor" || d==="yaziliyor");
+  $("kart-destek-yok").hidden=destek;
+  $("kart-baglanti").hidden=!destek;
+  $("kart-ilk").hidden=!destek;
+  $("btn-kart-bagla").hidden=!destek || bagli; $("btn-kart-bagla").disabled=mesgul;
+  ["btn-kart-yukle","btn-kart-durdur","btn-kart-kes"].forEach(function(id){ $(id).hidden=!bagli; $(id).disabled=mesgul; });
+  if(bagli || mesgul){ $("btn-kart-tum").hidden=true; }
+  $("kart-ilerleme").hidden=(d!=="yaziliyor");
+  $("btn-karta").classList.toggle("bagli",bagli);
+  $("btn-karta").title=bagli ? "Arduino karta yükle (kart bağlı)" : "Arduino karta yükle";
+}
+function kartYazilimIndir(){
+  var b=new Blob([KART_YAZILIMI],{ type:"text/plain;charset=utf-8" }), url=URL.createObjectURL(b), l=document.createElement("a");
+  l.href=url; l.download="atolye_yazilimi.ino";
+  document.body.appendChild(l); l.click();
+  setTimeout(function(){ URL.revokeObjectURL(url); if(l.parentNode) l.parentNode.removeChild(l); },2000);
+  kartIleti("atolye_yazilimi.ino indirildi. Arduino IDE ile karta yükleyip IDE'yi kapattıktan sonra “Karta bağlan”a basınız.");
+}
+if(navigator.serial){
+  navigator.serial.addEventListener("disconnect",function(e){
+    if(KART.port && e.target===KART.port){ kartKopar("Kartın USB bağlantısı çıkarıldı.","kotu"); }
+  });
 }
 
 /* ============ GÖREV AKIŞI ============ */
@@ -8017,11 +8489,22 @@ $("btn-durdur").addEventListener("click",function(){ programDurdur(); seriYaz("P
 $("btn-karta").addEventListener("click",kartAc);
 $("btn-kart-kapat").addEventListener("click",kartKapat);
 $("btn-ino-indir").addEventListener("click",inoIndir);
+$("btn-kart-bagla").addEventListener("click",function(){ kartBaglan(false); });
+$("btn-kart-tum").addEventListener("click",function(){ kartBaglan(true); });
+$("btn-kart-yukle").addEventListener("click",kartYukle);
+$("btn-kart-durdur").addEventListener("click",kartDurdur);
+$("btn-kart-kes").addEventListener("click",kartKes);
+$("btn-yazilim-indir").addEventListener("click",kartYazilimIndir);
 $("kart-perde").addEventListener("click",function(e){ if(e.target===this) kartKapat(); });
 document.addEventListener("keydown",function(e){
   if($("kart-perde").hidden) return;
   if(e.key==="Escape"){ e.preventDefault(); kartKapat(); return; }
-  if(e.key==="Tab"){ var o=[$("btn-ino-indir"),$("btn-kart-kapat")], i=o.indexOf(document.activeElement); e.preventDefault(); o[(i+(e.shiftKey?o.length-1:1))%o.length].focus(); }
+  if(e.key==="Tab"){
+    /* odak pencerenin görünen düğmeleri arasında döner */
+    var o=[].slice.call($("kart-perde").querySelectorAll("button,summary")).filter(function(x){ return !x.disabled && x.offsetParent!==null && (x.tagName==="SUMMARY" || !x.closest("details:not([open])")); }),
+        i=o.indexOf(document.activeElement);
+    e.preventDefault(); if(o.length) o[(i+(e.shiftKey?o.length-1:1))%o.length].focus();
+  }
 });
 $("btn-sema-kapat").addEventListener("click",semaKapat);
 $("btn-sema-indir").addEventListener("click",semaIndir);
