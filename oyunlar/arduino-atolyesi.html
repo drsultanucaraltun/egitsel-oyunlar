@@ -18,6 +18,8 @@
   --vurgu:#00707A;
   --vurgu-koyu:#005A62;
   --vurgu-acik:#DCEBF9;
+  --baslik:#1F6FA8;
+  --baslik-koyu:#185A8A;
   --dogru:#15803D;
   --dogru-acik:#DCFCE7;
   --yanlis:#B45309;
@@ -50,7 +52,7 @@ code{font-family:Menlo,Consolas,"Courier New",monospace;font-size:0.92em;backgro
 
 /* ============ ÜST BAR ============ */
 #ustbar{flex:0 0 auto;display:flex;align-items:center;gap:0.55rem;padding:0.45rem 1rem;background:var(--panel);border-bottom:3px solid var(--cizgi)}
-#ustbar h1{font-size:1.5rem;font-weight:700;color:var(--vurgu);white-space:nowrap;display:flex;align-items:center;gap:0.5rem}
+#ustbar h1{font-size:1.5rem;font-weight:700;color:var(--baslik);white-space:nowrap;display:flex;align-items:center;gap:0.5rem}
 #ustbar h1 svg{width:34px;height:34px;flex:0 0 auto}
 #skorlar{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:1.2rem;font-size:1.3rem;font-weight:700}
 .skor-kutu{display:flex;align-items:center;gap:0.35rem;white-space:nowrap}
@@ -65,12 +67,12 @@ code{font-family:Menlo,Consolas,"Courier New",monospace;font-size:0.92em;backgro
 
 /* ============ GİRİŞ ============ */
 #ekran-giris{align-items:center;justify-content:center;text-align:center;gap:0.8rem}
-#ekran-giris h2{font-size:3rem;font-weight:700;color:var(--vurgu)}
+#ekran-giris h2{font-size:3rem;font-weight:700;color:var(--baslik)}
 #giris-alt{font-size:1.3rem;font-weight:700;letter-spacing:0.3em;color:var(--gri)}
 #ekran-giris p{font-size:1.35rem;max-width:50rem}
 #giris-gorsel{width:min(36rem,64vw);max-height:36vh;object-fit:contain}
-#btn-basla{font-size:1.5rem;font-weight:700;background:var(--vurgu);color:var(--panel);border:none;border-radius:16px;padding:0.85rem 2.2rem;min-height:64px}
-#btn-basla:hover{background:var(--vurgu-koyu)}
+#btn-basla{font-size:1.5rem;font-weight:700;background:var(--baslik);color:var(--panel);border:none;border-radius:16px;padding:0.85rem 2.2rem;min-height:64px}
+#btn-basla:hover{background:var(--baslik-koyu)}
 
 /* ============ OYUN ============ */
 #gorev-serit{flex:0 0 auto;display:flex;align-items:center;gap:0.8rem;padding:0.2rem 0.2rem 0.35rem}
