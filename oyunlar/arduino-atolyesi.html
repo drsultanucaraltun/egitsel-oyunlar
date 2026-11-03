@@ -6915,7 +6915,6 @@ function blokAyarEsitle(){
     if(b.type==="math_number"){ if(Number(b.getFieldValue("NUM"))!==Number(a[k])){ blokYankiEkle(b.id+"/NUM",a[k]); b.setFieldValue(a[k],"NUM"); } }
     else if(b.type==="ard_ezgi"){ var m=ezgiMetni(a[k]); if(b.getFieldValue("NOTALAR")!==m){ blokYankiEkle(b.id+"/NOTALAR",m); b.setFieldValue(m,"NOTALAR"); } }
   });
-  blokSalt();
 }
 /* Art arda yazılan değerlerin her biri ayrı bir gecikmeli olay doğurur; her yazım listeye eklenir, dönen olay kendi kaydını düşer. */
 function blokYankiEkle(anahtar,deger){ (BLOK.yanki[anahtar]=BLOK.yanki[anahtar]||[]).push(String(deger)); }
@@ -6925,21 +6924,26 @@ function blokYankiMi(anahtar,deger){
   l.splice(i,1);
   return true;
 }
-function blokSalt(){ if(BLOK.ws && BLOK.ws.setIsReadOnly){ BLOK.ws.setIsReadOnly(EVRE!=="gorev"); } }
 function blokDegisti(e){
   if(e.isUiEvent || !BLOK.ws) return;
   if(e.type===Blockly.Events.BLOCK_CHANGE && e.element==="field"){
     var k=bagAnahtar(e.blockId), yk=e.blockId+"/"+e.name;
     if(blokYankiMi(yk,e.newValue)){ k=null; }
     if(k){
-      if(k==="melodi"){ var m=ezgiCoz(e.newValue); if(m && JSON.stringify(m)!==JSON.stringify(a.melodi)){ ayarDegisti("melodi",m,"nota"); } }
-      else { var v=Math.round(Number(e.newValue)); if(isFinite(v) && v!==a[k]){ ayarDegisti(k,v,"kod"); } }
+      if(k==="melodi"){ var m=ezgiCoz(e.newValue); if(m && JSON.stringify(m)!==JSON.stringify(a.melodi)){ blokAyarYaz("melodi",m,"nota"); } }
+      else { var v=Math.round(Number(e.newValue)); if(isFinite(v) && v!==a[k]){ blokAyarYaz(k,v,"kod"); } }
     }
   }
   var once=BLOK.serbest;
   BLOK.serbest=(blokImza()!==BLOK.imza);
-  if(BLOK.serbest && !once && (calisiyor||yukleniyor)){ programDurdur(); seriYaz("Program değişti. Yeni programı denemek için Yükle'ye basınız.","sistem"); }
+  if(BLOK.serbest && !once && (calisiyor||yukleniyor) && EVRE==="gorev"){ programDurdur(); seriYaz("Program değişti. Yeni programı denemek için Yükle'ye basınız.","sistem"); }
   if(BLOK.serbest || once){ blokDurumYaz(); kodGuncelle(null); }
+}
+/* Bloklar her evrede düzenlenir. Gösteride a, örnek değerli bir kopyadır: bloktaki değer gösteriyi
+   durdurmadan hem kopyaya hem dersin ayarına yazılır, devre kurulunca kaybolmaz. */
+function blokAyarYaz(k,v,kaynak){
+  if(EVRE==="hedef"){ a[k]=v; dersDurum[dersIndeks].ayar[k]=(v && v.slice) ? v.slice() : v; return; }
+  ayarDegisti(k,v,kaynak);
 }
 function blokDurumYaz(){
   var d=$("blok-durum");
