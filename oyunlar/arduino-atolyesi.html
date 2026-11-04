@@ -338,6 +338,29 @@ body.ayrac-suruklen,body.ayrac-suruklen *{cursor:col-resize !important;user-sele
   #kod{font-size:0.8rem}
   .gezinme{min-height:60px;font-size:1.2rem;min-width:7rem}
 }
+/* Kısa masaüstü ekranlar (ör. 1366×768 dizüstünde tarayıcı çubuklarıyla ≈650 px): 3B sahneye yer açılır.
+   Ayar grupları sığdıkça yan yana dizilir, düğmeler 44 px'e iner, çubuklar ve boşluklar daralır. */
+@media (max-height:820px) and (min-width:861px){
+  #ustbar{padding:0.25rem 1rem}
+  #ustbar .arac{min-width:44px;min-height:44px}
+  #sahnealani .ekran#ekran-oyun{padding:0.35rem 1.1rem}
+  #gorev-serit{padding:0.1rem 0.2rem 0.25rem}
+  #ilerleme-dis{height:8px}
+  #oyun-govde{padding-top:0.35rem}
+  #sahne-arac{min-height:48px;padding:0.1rem 0.5rem}
+  .kam-btn{min-width:44px;min-height:44px}
+  #sahne-arac .arac-btn{min-height:44px}
+  #geribildirim{height:3rem;margin:0.2rem 0.5rem}
+  #ayarlar{display:flex;flex-wrap:wrap;gap:0.2rem 1.2rem;padding:0.25rem 0.7rem 0.3rem}
+  #ayarlar .ayar{flex:1 1 auto;min-width:12.5rem}
+  .secenek{min-height:44px;min-width:44px}
+  .secenek .nokta{width:22px;height:22px}
+  .nota-yuva{min-width:44px;min-height:44px}
+  .panel-baslik{min-height:40px;padding-top:0.2rem;padding-bottom:0.2rem}
+  #altbar{padding:0.25rem 1.2rem}
+  .gezinme{min-height:48px;font-size:1.1rem}
+  .ders-cip{min-width:44px;min-height:44px}
+}
 @media (max-width:1700px){
   .kam-ipucu{display:none}
 }
