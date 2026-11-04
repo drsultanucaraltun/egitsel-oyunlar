@@ -97,7 +97,19 @@ body.ayrac-suruklen,body.ayrac-suruklen *{cursor:col-resize !important;user-sele
 .panel-baslik{flex:0 0 auto;display:flex;align-items:center;gap:0.5rem;padding:0.35rem 0.7rem;border-bottom:2px solid var(--cizgi);font-size:1rem;font-weight:700;color:var(--gri);letter-spacing:0.04em;min-height:44px}
 .panel-baslik .bosluk{flex:1}
 
-#sahne-kart{min-width:0;background:#F4F7F3}
+#sahne-kart{min-width:0;background:#F4F7F3;position:relative}
+#parca-i{position:absolute;z-index:6;width:36px;height:36px;min-width:36px;padding:0;border-radius:50%;border:3px solid #fff;background:var(--vurgu);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+#parca-i::after{content:"";position:absolute;inset:-8px;border-radius:50%}
+#parca-i svg{width:20px;height:20px}
+#parca-i:hover{background:var(--vurgu-koyu)}
+#parca-i[hidden]{display:none}
+#parca-i:focus-visible{outline:3px solid var(--odak);outline-offset:2px}
+.parca-kart{position:absolute;z-index:7;width:min(23rem,calc(100% - 16px));overflow:auto;background:var(--panel);border:3px solid var(--vurgu);border-radius:14px;box-shadow:0 10px 28px rgba(0,0,0,.22);padding:0.45rem 0.8rem 0.8rem}
+.parca-kart[hidden]{display:none}
+.parca-kart-ust{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.35rem}
+.parca-kart-ust h3{flex:1;font-size:1.15rem;font-weight:700;color:var(--vurgu-koyu);line-height:1.25}
+#parca-kart-icerik{font-size:1rem;line-height:1.4}
+.parca-ozet{font-weight:700;margin-bottom:0.45rem}
 #sahne-kap{flex:1 1 auto;min-height:0;position:relative;background:#FAFDF7}
 #kanvas3b{position:absolute;inset:0;width:100%;height:100%;display:block}
 #sahne{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;overflow:hidden}
@@ -182,6 +194,8 @@ body.ayrac-suruklen,body.ayrac-suruklen *{cursor:col-resize !important;user-sele
 @keyframes nabiz{0%,100%{box-shadow:0 0 0 0 rgba(0,112,122,.5)}50%{box-shadow:0 0 0 7px rgba(0,112,122,0)}}
 #kod{flex:1 1 auto;min-height:0;overflow:auto;background:var(--kod-zemin);font-family:Menlo,Consolas,"Courier New",monospace;font-size:0.86rem;line-height:1.5;padding:0.35rem 0;white-space:pre;color:#24313A;font-weight:400}
 .satir{display:block;padding-right:0.6rem}
+.satir.calisan{background:#FFF1BF;box-shadow:inset 5px 0 0 #E0A800}
+#blok-alan .blocklyHighlighted>.blocklyPath{stroke:#1F2A37 !important;stroke-width:3px !important;filter:drop-shadow(0 0 3px #FFC21A) drop-shadow(0 0 6px #FFC21A)}
 .satir .no{display:inline-block;width:2.4em;padding-right:0.7em;text-align:right;color:#93A0A8;user-select:none}
 .k-anahtar{color:#7C3AED;font-weight:700}
 .k-islev{color:#00707A;font-weight:700}
@@ -385,6 +399,11 @@ body.ayrac-suruklen,body.ayrac-suruklen *{cursor:col-resize !important;user-sele
             <canvas id="kanvas3b" aria-hidden="true"></canvas>
             <svg id="sahne" viewBox="0 0 960 520" role="group" aria-label="Devre sahnesi" preserveAspectRatio="none"></svg>
           </div>
+          <button id="parca-i" type="button" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5.8" r="2.1" fill="currentColor"/><path d="M12 10.5v8.5" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg></button>
+          <section class="parca-kart" id="parca-kart" role="dialog" aria-labelledby="parca-kart-baslik" hidden>
+            <div class="parca-kart-ust"><h3 id="parca-kart-baslik"></h3><button class="arac" id="parca-kart-kapat" type="button" aria-label="Bilgi kartını kapatınız" title="Kapat (Esc)"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button></div>
+            <div id="parca-kart-icerik"></div>
+          </section>
           <div id="geribildirim" role="status" aria-live="assertive"></div>
           <div id="ayarlar" aria-label="Devre ve kod ayarları"></div>
         </div>
@@ -5787,6 +5806,7 @@ function evreHedef(){
   seriDurum("ÇALIŞIYOR","calisiyor");
   gosteriCalistir();
   gosteriOynat(d.sahne);
+  golgeBaslat();
   glCizIste();
 }
 /* Gösteri, "Kurmaya başla"ya basılana kadar sürer. Park sensöründe araç park edince birkaç saniye sonra
@@ -6696,6 +6716,13 @@ function blokAracKutusu(){
 /* ---------- Arduino (C++) kod üreteci ---------- */
 var BS={ ATOM:0, TEKLI:2, CARP:5, TOPLA:6, KARS:8, ESIT:9, VE:13, VEYA:14, YOK:99 };
 var ARDUINO_KOD=null;
+/* Blockly denetim bloklarında deyim önekini bastırır (suppressPrefixSuffix); çalışan bloğu izlemek için önek burada eklenir. */
+function onekEkle(g){
+  ["controls_if","controls_repeat_ext","controls_whileUntil","controls_for"].forEach(function(t){
+    var f=g.forBlock[t];
+    if(f){ g.forBlock[t]=function(b,u){ var k=f.call(this,b,u); return (g.STATEMENT_PREFIX && b.suppressPrefixSuffix && typeof k==="string") ? g.injectId(g.STATEMENT_PREFIX,b)+k : k; }; }
+  });
+}
 function cAdi(ad){
   var h={ "ç":"c","ğ":"g","ı":"i","ö":"o","ş":"s","ü":"u","Ç":"C","Ğ":"G","İ":"I","Ö":"O","Ş":"S","Ü":"U" };
   var s=String(ad).replace(/[çğıöşüÇĞİÖŞÜ]/g,function(c){ return h[c]; }).replace(/[^A-Za-z0-9_]/g,"_");
@@ -6771,11 +6798,13 @@ function blokUretecKur(){
     }
     return "for ("+d+" = "+a1+"; ("+a1+" <= "+a2+") ? "+d+" <= "+a2+" : "+d+" >= "+a2+"; "+d+" += (("+a1+" <= "+a2+") ? 1 : -1) * abs("+ad+")) {\n"+ic+"}\n";
   };
+  onekEkle(g);
   ARDUINO_KOD=g;
 }
 /* Çalışma alanındaki "Arduino başladığında" programını tam bir Arduino taslağına (sketch) çevirir. */
-function blokArduinoKodu(){
-  var g=ARDUINO_KOD, ws=BLOK.ws, hat=null, kur="", dongu="", ust=[], setup=[];
+function blokArduinoKodu(ws){
+  ws=ws||BLOK.ws;
+  var g=ARDUINO_KOD, hat=null, kur="", dongu="", ust=[], setup=[];
   g.init(ws);
   ws.getTopBlocks(true).forEach(function(b){ if(!hat && b.type==="ard_basla" && b.isEnabled()) hat=b; });
   if(hat){
@@ -7042,6 +7071,8 @@ var ASYNC_FN=null;
 function benzUretecKur(){
   var g=new Blockly.CodeGenerator("Benzetim");
   g.INDENT="  ";
+  /* her deyimden önce çalışan blok bildirilir (çalışan satır ve blok vurgusu için) */
+  g.STATEMENT_PREFIX="A.blokIz(%1);\n";
   g.init=function(){ this.isInitialized=true; this.sayac=0; };
   g.finish=function(k){ return k; };
   g.scrub_=function(blok,kod,tek){ var s=blok.nextConnection && blok.nextConnection.targetBlock(); return (s && !tek) ? kod+this.blockToCode(s) : kod; };
@@ -7100,13 +7131,15 @@ function benzUretecKur(){
            "for ("+d+" = "+ilk+"; "+ilk+" <= "+son+" ? "+d+" <= "+son+" : "+d+" >= "+son+"; "+d+" += "+ilk+" <= "+son+" ? "+ad+" : -"+ad+") {\n"+
            g.statementToCode(b,"DO")+"  await A.adim();\n}\n";
   };
+  onekEkle(g);
   BENZ.kod=g;
 }
 /* "Arduino başladığında" programını A (sanal Arduino) alan bir async işleve çevirir. */
-function benzProgram(){
+function benzProgram(ws){
   if(!BENZ.kod){ benzUretecKur(); }
   if(!ASYNC_FN){ ASYNC_FN=new Function("return (async function(){}).constructor;")(); }
-  var g=BENZ.kod, ws=BLOK.ws, hat=null, kur="", dongu="";
+  ws=ws||BLOK.ws;
+  var g=BENZ.kod, hat=null, kur="", dongu="";
   g.init(ws);
   ws.getTopBlocks(true).forEach(function(b){ if(!hat && b.type==="ard_basla" && b.isEnabled()) hat=b; });
   if(hat){
@@ -7131,7 +7164,7 @@ function SanalArduino(kip,donanim,sinir){
 SanalArduino.prototype={
   calisiyor:function(){ return !this.dur; },
   denetle:function(){
-    if(this.dur || (this.kip==="canli" && this.nesil!==BENZ.nesil)) throw BENZ_DUR;
+    if(this.dur || (this.kip!=="analiz" && this.nesil!==BENZ.nesil)) throw BENZ_DUR;
     if(this.kip==="analiz" && this.zaman>=this.sinir) throw BENZ_DUR;
   },
   /* Analizde bir süre sonra olay döngüsüne nefes aldırır; canlıda gerçek zamanlayıcıyla bekler. */
@@ -7179,13 +7212,131 @@ SanalArduino.prototype={
     this.sonSeri=this.zaman;
     seriYaz(typeof deger==="boolean" ? (deger?"1":"0") : String(deger));
   },
-  bol:function(x,y){ x=Number(x)||0; y=Number(y)||0; return y===0 ? 0 : Math.trunc(x/y); }
+  bol:function(x,y){ x=Number(x)||0; y=Number(y)||0; return y===0 ? 0 : Math.trunc(x/y); },
+  blokIz:function(id){ if(this.blokCb) this.blokCb(id); }
 };
 /* Program kesilene kadar (ya da analiz süresi dolana kadar) çalıştırır. */
 function benzKos(prog,A){
   return prog(A).then(function(){ return A; },function(e){ if(e!==BENZ_DUR){ A.hata=A.hata||e; } return A; });
 }
 function benzDurdur(){ BENZ.nesil++; if(BENZ.canli){ BENZ.canli.dur=true; BENZ.canli=null; } }
+
+/* ---------- çalışan satır ve blok ---------- */
+/* Şablon program sahnenin kendi animasyonuyla çalışır. Hangi satırın çalıştığını göstermek için aynı program
+   "gölge" kipinde gerçek zamanlı koşturulur: seri monitöre yazmaz, sahneye dokunmaz, girdileri sahneden okur. */
+function golgeDonanim(sahneAd){
+  return {
+    doku:function(p){ if(p!==2) return 0; var D=SAHNELER.dugme; return (D && D.basili) ? 1 : (a.cekme==="var" ? 0 : ((D && D.oku) ? 1 : 0)); },
+    aoku:function(k){ if(k!=="A0") return 0; return sahneAd==="isik" ? ldrOkuma(a.mesafe,a.lamba) : (a.pot||0); },
+    darbe:function(p){ return p===10 ? (a.mesafe||0)*58 : 0; }
+  };
+}
+function golgeBaslat(){
+  if(BLOK.ws && BLOK.serbest) return;
+  var ws=(BLOK.ws && BLOK.ders===dersIndeks) ? BLOK.ws : null, gecici=null, prog;
+  try{
+    if(!ws){ gecici=blokSablonAlani(); ws=gecici; }
+    prog=benzProgram(ws);
+    calisanHazirla(ws,false);
+  }catch(e){ if(gecici) gecici.dispose(); return; }
+  var A=new SanalArduino("golge",golgeDonanim(DERSLER[dersIndeks].sahne));
+  A.blokCb=calisanBlok;
+  BENZ.canli=A;
+  benzKos(prog,A).then(function(A2){
+    if(gecici) gecici.dispose();
+    if(A2.nesil===BENZ.nesil) calisanTemizle();
+  });
+}
+var CALISAN={ id:null, harita:{}, ws:null, satir:-1, istek:false };
+function calisanHazirla(ws,serbest){
+  CALISAN.ws=ws; CALISAN.id=null;
+  try{ CALISAN.harita=satirHaritasi(ws,serbest); }catch(e){ CALISAN.harita={}; }
+}
+/* Sık değişen döngülerde ekranı her deyimde değil, kısa aralıklarla günceller. */
+function calisanBlok(id){
+  if(CALISAN.id===id) return;
+  CALISAN.id=id;
+  if(CALISAN.istek) return;
+  CALISAN.istek=true;
+  setTimeout(calisanUygula,window.__FAST ? 5 : 40);
+}
+function calisanUygula(){
+  if(!CALISAN.istek) return;
+  CALISAN.istek=false;
+  var id=CALISAN.id;
+  if(BLOK.ws){ try{ BLOK.ws.highlightBlock(id ? blokKarsiligi(id) : null); }catch(h){} }
+  if(id && CALISAN.harita.hasOwnProperty(id)) satirVurgula(CALISAN.harita[id]);
+}
+/* Gölge, görünmeyen bir şablon alanında çalışıyorsa blok görünümündeki aynı yapılı şablonda karşılığı bulunur. */
+function blokKarsiligi(id){
+  if(!CALISAN.ws || CALISAN.ws===BLOK.ws) return id;
+  var k=CALISAN.ws.getAllBlocks(true), h=BLOK.ws.getAllBlocks(true), i;
+  if(k.length!==h.length) return null;
+  for(i=0;i<k.length;i++){ if(k[i].type!==h[i].type) return null; }
+  for(i=0;i<k.length;i++){ if(k[i].id===id) return h[i].id; }
+  return null;
+}
+function calisanTemizle(){
+  CALISAN.id=null; CALISAN.istek=false;
+  if(BLOK.ws){ try{ BLOK.ws.highlightBlock(null); }catch(h){} }
+  satirVurgula(-1);
+}
+function satirVurgula(n){
+  CALISAN.satir=n;
+  var k=$("kod"), s=k.querySelector(".satir.calisan"), y;
+  if(s) s.classList.remove("calisan");
+  if(n<0) return;
+  y=k.querySelectorAll(".satir")[n];
+  if(!y) return;
+  y.classList.add("calisan");
+  if(!k.hidden && k.clientHeight){
+    var ust=y.offsetTop, alt=ust+y.offsetHeight;
+    if(ust<k.scrollTop || alt>k.scrollTop+k.clientHeight){ k.scrollTop=Math.max(0,ust-k.clientHeight/3); }
+  }
+}
+/* Blok kimliği → metin görünümündeki satır. Bloklardan üretilen kodda her deyimin önüne kimlik işareti konur.
+   Serbest programda metin bu üretilen koddur; şablonda metin elle yazılmıştır, satırlar deyim imzalarıyla
+   (işlev adı, atanan değişken, if/for/while) en uzun ortak dizi bulunarak eşlenir. */
+function satirHaritasi(ws,serbest){
+  var g=ARDUINO_KOD, eski=g.STATEMENT_PREFIX, kod, uret=[], bekleyen=[], harita={};
+  g.STATEMENT_PREFIX="\u0007%1\n";
+  try{ kod=blokArduinoKodu(ws); } finally { g.STATEMENT_PREFIX=eski; }
+  kod.split("\n").forEach(function(sat){
+    var t=sat.trim();
+    if(t.charAt(0)==="\u0007"){ bekleyen.push(t.slice(1).replace(/^'|'$/g,"")); return; }
+    uret.push({ s:sat, idler:bekleyen }); bekleyen=[];
+  });
+  if(serbest){ uret.forEach(function(u,i){ u.idler.forEach(function(id){ harita[id]=i; }); }); return harita; }
+  var G=uret.filter(function(u){ return u.idler.length && deyimImzasi(u.s); }).map(function(u){ return { i:deyimImzasi(u.s), idler:u.idler }; });
+  var H=[];
+  kodMetni(null).replace(/\u0001\w+\u0006([^\u0002]*)\u0002/g,"$1").replace(/\u0003\d+\u0006([^\u0004]*)\u0004/g,"$1").split("\n").forEach(function(sat,n){
+    var i=deyimImzasi(sat); if(i) H.push({ i:i, n:n });
+  });
+  var m=G.length, n2=H.length, T=[], x, y;
+  for(x=0;x<=m;x++){ T.push([]); for(y=0;y<=n2;y++){ T[x].push(0); } }
+  for(x=m-1;x>=0;x--){ for(y=n2-1;y>=0;y--){ T[x][y]=G[x].i===H[y].i ? T[x+1][y+1]+1 : Math.max(T[x+1][y],T[x][y+1]); } }
+  x=0; y=0;
+  while(x<m && y<n2){
+    if(G[x].i===H[y].i){ G[x].idler.forEach(function(id){ harita[id]=H[y].n; }); x++; y++; }
+    else if(T[x+1][y]>=T[x][y+1]){ x++; } else { y++; }
+  }
+  return harita;
+}
+function deyimImzasi(sat){
+  var t=sat.replace(/\/\/.*$/,"").trim().replace(/^\}\s*/,""), m;
+  if(!t || /^[{};]*$/.test(t) || /^(void|#)/.test(t)) return null;
+  if(/^else\s+if\b/.test(t)) return "elseif";
+  if((m=t.match(/^(if|else|for|while)\b/))) return m[1];
+  t=t.replace(/^(const\s+)?(unsigned\s+)?(int|long|float|byte|bool|boolean|double|char|String|word)\s+/,"");
+  if((m=t.match(/^([A-Za-z_]\w*)\s*(\+\+|--|[-+*\/]=)/))) return "degis:"+m[1];
+  if((m=t.match(/^([A-Za-z_]\w*)\s*=[^=]/))) return "ata:"+m[1];
+  if((m=t.match(/^([A-Za-z_][\w.]*)\s*\(/))){
+    var ad=m[1].indexOf(".")>=0 ? m[1].slice(m[1].lastIndexOf(".")) : m[1], d;
+    if(ad==="digitalWrite"){ d=t.match(/,\s*([^)]+)\)/); return ad+":"+(d ? d[1].trim() : ""); }
+    return ad;
+  }
+  return null;
+}
 
 /* ---------- iz yardımcıları ---------- */
 /* t anında pinin son durumu (dijital ya da PWM yazımı) */
@@ -7533,6 +7684,8 @@ function serbestYukle(){
     var don=(DONANIM[d.sahne]||function(){ return {}; })();
     if(don.basla) don.basla();
     var A=new SanalArduino("canli",don);
+    calisanHazirla(BLOK.ws,true);
+    A.blokCb=calisanBlok;
     BENZ.canli=A;
     benzKos(prog,A).then(function(A2){
       if(A2.hata && A2.nesil===BENZ.nesil){ seriYaz(A2.hata==="dongu" ? "Program bir döngüde takıldı: döngünün içine bekleme ekleyiniz." : "Program hatası: "+A2.hata,"kotu"); }
@@ -7966,6 +8119,186 @@ if(navigator.serial){
     if(KART.port && e.target===KART.port){ kartKopar("Kartın USB bağlantısı çıkarıldı.","kotu"); }
   });
 }
+/* ============ PARÇA BİLGİSİ ============ */
+/* Sahnedeki bir devre elemanının üzerine gelince yanında "i" düğmesi çıkar; düğme elemanı tanıtan bir kart açar.
+   Kart çarpı düğmesiyle (ya da Esc ile) kapanır. Sayısal değerler derslerin "Özellikler" tablolarıyla aynıdır.
+   1. dersteki kart parçaları, "bul" görevinde öğrenci bulmadan tanıtılmaz (cevap verilmesin). */
+var PARCA_BILGI={
+  uno:{ ad:"Arduino Uno", ozet:"Yazdığınız programı çalıştıran küçük bir bilgisayardır.", maddeler:[
+    "Beyni ATmega328P mikrodenetleyicisidir; 16 MHz hızla çalışır.",
+    "14 dijital pini (6'sı PWM verebilir) ve 6 analog girişi vardır; 5 V ile çalışır.",
+    "Program USB kablosuyla yüklenir; kart aynı kablodan beslenir.",
+    "Bir pinden en fazla 40 mA çekilebilir. Motor gibi büyük yükler doğrudan pine bağlanmaz." ] },
+  tahta:{ ad:"Devre tahtası (breadboard)", ozet:"Lehim yapmadan devre kurmaya yarar; parçaların bacakları deliklere takılır.", maddeler:[
+    "Ortadaki beşli delik grupları kendi içinde birbirine bağlıdır; aynı gruba takılan bacaklar birleşir.",
+    "Ortadaki oluk tahtayı iki yarıya ayırır; oluğun iki yanı birbirine bağlı değildir.",
+    "Kenarlardaki uzun raylar güç içindir: kırmızı (+) 5 V'a, siyah (−) GND'ye bağlanır." ] },
+  led:{ ad:"LED (ışık yayan diyot)", ozet:"Akım geçince ışık verir; akım yalnız bir yönde geçebilir.", maddeler:[
+    "Uzun bacak artı (anot) pine, kısa bacak eksi (katot) GND'ye bağlanır.",
+    "İleri gerilimi rengine göre 1,8–3,2 V arasındadır; önerilen akım 20 mA'dir.",
+    "Mutlaka bir dirençle bağlanır. Direnç olmazsa akım sınırlanmaz, LED ve pin zarar görebilir.",
+    "Kodda digitalWrite(pin, HIGH) LED'i yakar, LOW söndürür." ] },
+  direnc:{ ad:"Direnç", ozet:"Akımı sınırlar; değeri ohm (Ω) ile ölçülür.", maddeler:[
+    "Üzerindeki renk halkaları değerini gösterir: 220 Ω = kırmızı-kırmızı-kahverengi.",
+    "LED'den geçen akım ≈ (5 V − 2 V) ÷ direnç: 220 Ω ile yaklaşık 14 mA eder.",
+    "Direnç büyüdükçe akım azalır, LED sönükleşir.",
+    "Yönü yoktur; iki bacağı da aynıdır." ] },
+  cekme:{ ad:"Aşağı çekme direnci (10 kΩ)", ozet:"Düğme basılı değilken pini GND'ye bağlı tutar.", maddeler:[
+    "Böylece pin, düğme bırakıldığında kararlı biçimde LOW okur.",
+    "Bu direnç olmazsa pin boşta kalır; okunan değer HIGH ile LOW arasında rastgele değişir.",
+    "Kodda pinMode(pin, INPUT_PULLUP) yazılırsa kartın içindeki direnç kullanılır; o zaman düğme basılıyken LOW okunur." ] },
+  dugme:{ ad:"Düğme (dokunsal anahtar)", ozet:"Basılı tutulduğu sürece iki ucunu birbirine bağlar; bırakınca bağlantı kesilir.", maddeler:[
+    "Arduino düğmeyi digitalRead ile okur: aşağı çekme direnciyle basılıyken HIGH, değilken LOW gelir.",
+    "Basınca kontaklar yaklaşık 5 ms titrer (sıçrama); kodda kısa bir bekleme bunu önler." ] },
+  pot:{ ad:"Potansiyometre (10 kΩ)", ozet:"Döndürülerek ayarlanan bir dirençtir; orta bacağı iki uç arasındaki gerilimi verir.", maddeler:[
+    "Uçlar 5 V'a ve GND'ye, orta bacak A0 analog girişine bağlanır.",
+    "analogRead(A0) 0 ile 1023 arasında bir sayı verir: 0 V → 0, 5 V → 1023.",
+    "analogWrite 0–255 aldığı için okunan değer 4'e bölünerek LED'e verilir." ] },
+  rgb:{ ad:"RGB LED (ortak katot)", ozet:"Tek kapağın altında kırmızı, yeşil ve mavi üç LED vardır.", maddeler:[
+    "En uzun bacak ortak katottur ve GND'ye bağlanır.",
+    "Öteki üç bacak birer 220 Ω dirençle ~9, ~10 ve ~11 PWM pinlerine gider.",
+    "Her rengin parlaklığı analogWrite ile 0–255 arasında ayarlanır; karışımlarla yaklaşık 16,7 milyon renk elde edilir." ] },
+  ldr:{ ad:"Işık sensörü (LDR, fotodirenç)", ozet:"Üzerine düşen ışık arttıkça direnci azalır.", maddeler:[
+    "Gün ışığında direnci yaklaşık 10–20 kΩ, karanlıkta yaklaşık 1 MΩ'dur.",
+    "10 kΩ'luk bir dirençle gerilim bölücü kurulur; aradaki nokta A0'a bağlanır.",
+    "analogRead(A0) ile okunan değer ışıkla değişir; kod bunu bir eşikle karşılaştırıp LED'i yakar." ] },
+  lamba:{ ad:"Masa lambası", ozet:"Devrenin parçası değildir; ışık sensörüne düşen ışığı değiştirmek için kullanılır.", maddeler:[
+    "Lambayı sensöre yaklaştırınca sensöre daha çok ışık düşer, uzaklaştırınca azalır." ] },
+  sensor:{ ad:"Ultrasonik mesafe sensörü (HC-SR04)", ozet:"Ses dalgası gönderip yankısını dinleyerek uzaklık ölçer.", maddeler:[
+    "TRIG pinine 10 µs'lik bir darbe gelince insan kulağının duyamadığı 40 kHz'lik bir ses gönderir.",
+    "Ses bir engele çarpıp döner; ECHO pini bu gidiş-dönüş süresi boyunca HIGH kalır.",
+    "Uzaklık ≈ süre (µs) ÷ 58 santimetredir.",
+    "2–400 cm arasını ölçer; ışın açısı yaklaşık 15°'dir." ] },
+  zil:{ ad:"Pasif zil (piezo)", ozet:"İçindeki ince plaka elektrikle titreşir ve ses çıkarır.", maddeler:[
+    "Pasif zil kendi kendine ötmez; tone(pin, frekans) ile istenen notayı çalar.",
+    "Orta Do 262 Hz, La 440 Hz'dir; yaklaşık 100 Hz – 10 kHz arasını çalabilir.",
+    "noTone(pin) sesi keser. Aktif zil ise yalnız tek bir perdede öter." ] },
+  transistor:{ ad:"Transistör (TIP120)", ozet:"Küçük bir akımla büyük bir akımı açıp kapatan elektronik bir anahtardır.", maddeler:[
+    "Arduino pini 1 kΩ'luk bir dirençle transistörün tabanına (baz) bağlanır.",
+    "Motorun büyük akımı pinden değil, transistörün üzerinden geçer.",
+    "TIP120 bir Darlington transistördür; 5 A'e kadar akımı anahtarlayabilir." ] },
+  motor:{ ad:"DC motor ve pervane", ozet:"Akım geçince döner; akımın yönü değişirse dönüş yönü de değişir.", maddeler:[
+    "Bu motor 3–6 V ile çalışır ve yaklaşık 200 mA çeker; pin bunu veremediği için transistörle sürülür.",
+    "analogWrite ile PWM verilerek hızı ayarlanır: 0 durur, 255 tam hızdır.",
+    "Motora ters yönde bir koruma diyotu eklenir; motor durunca oluşan gerilim sıçraması devreye zarar vermez." ] },
+  servo:{ ad:"Servo motor (SG90)", ozet:"İstenen açıya dönüp orada duran küçük bir motordur.", maddeler:[
+    "0 ile 180° arasında döner; 60°'lik dönüş yaklaşık 0,1 saniye sürer.",
+    "Üç kablosu vardır: kahverengi GND, kırmızı 5 V, turuncu sinyal.",
+    "Kodda Servo kütüphanesiyle servo.write(açı) yazılır; kart 50 Hz'lik darbelerle açıyı bildirir." ] },
+  engel:{ ad:"Engel", ozet:"Devrenin parçası değildir; mesafe sensörünün uzaklığını ölçtüğü cisimdir.", maddeler:[
+    "Sürükleyerek ya da ok tuşlarıyla uzaklığını değiştirebilirsiniz.",
+    "Düz ve geniş yüzeyler (duvar, kutu) sesi iyi yansıtır; yuvarlak bir top sesi dağıtır, ölçüm oynayabilir." ] },
+  arac:{ ad:"Araç", ozet:"Park eden araçtır; mesafe sensörü araçla arasındaki uzaklığı ölçer.", maddeler:[
+    "Sürükleyerek ya da ok tuşlarıyla aracı yaklaştırıp uzaklaştırabilirsiniz.",
+    "Uzaklık azaldıkça trafik ışığı modülünde yanan ışık değişir." ] },
+  isiklar:{ ad:"Trafik ışığı modülü", ozet:"Kırmızı, sarı ve yeşil LED ile dirençleri tek bir küçük kartın üstündedir.", maddeler:[
+    "Her ışık ayrı bir pine bağlanır; pini HIGH yapmak o ışığı yakar.",
+    "Modülün GND bacağı kartın GND'sine bağlanır.",
+    "Park sensöründe uzaklığa göre hangi ışığın yanacağına kod karar verir." ] }
+};
+var PB={ hedef:null, gizle:null, kartAd:null, donus:null };
+function parcaBilgisi(ad){
+  var d=DERSLER[dersIndeks];
+  if(d && d.parcalar && d.parcalar[ad]) return { ad:d.parcalar[ad].ad, ozet:d.parcalar[ad].bilgi, maddeler:[] };
+  if(ad==="engel" && d && d.sahne==="proje") return PARCA_BILGI.arac;
+  return PARCA_BILGI[ad]||null;
+}
+function parcaBilgiGizli(ad){
+  var d=DERSLER[dersIndeks], ds=dersDurum[dersIndeks], gv=aktifGorevVerisi();
+  return !!(d.parcalar && d.parcalar[ad] && gv && gv.tur==="bul" && !ds.bulunan[ad]);
+}
+/* İmlecin altındaki eleman: önce sahnedeki parçalar, sonra kart ve devre tahtası. */
+function parcaHedefBul(x,y,oge){
+  var p=oge && oge.closest ? oge.closest("#sahne .parca") : null, ad;
+  if(p){ ad=p.getAttribute("data-parca"); return (ad && parcaBilgisi(ad) && !parcaBilgiGizli(ad)) ? { ad:ad, oge:p } : null; }
+  var kr=$("sahne-kap").getBoundingClientRect(), c=C3(), sx, sy, l=["uno","tahta"], i;
+  x-=kr.left; y-=kr.top;
+  if(!GL_HAZIR || !c || !c.alan || x<0 || y<0 || x>kr.width || y>kr.height) return null;
+  sx=x/kr.width*960; sy=y/kr.height*GL_BOY.svgH;
+  for(i=0;i<l.length;i++){ if(c.alan[l[i]] && icindeMi(alanZarf(l[i]),sx,sy)) return { ad:l[i] }; }
+  return null;
+}
+function piGoster(h,x,y){
+  var b=$("parca-i"), sk=$("sahne-kart").getBoundingClientRect(), kr=$("sahne-kap").getBoundingClientRect(), bilgi=parcaBilgisi(h.ad);
+  piGizlemeyiBirak();
+  if(PB.hedef && PB.hedef.ad===h.ad && PB.hedef.oge===h.oge && !b.hidden) return;
+  PB.hedef=h;
+  /* parçada çerçevenin sağ üst köşesi; kartta ve tahtada imlecin girdiği yerin yanı (düğme imleçle kaçmasın) */
+  if(h.oge){ var r=(h.oge.querySelector(".vurgu-cerceve")||h.oge).getBoundingClientRect(); x=r.right; y=r.top; }
+  else { x+=22; y-=26; }
+  x=Math.max(kr.left+20,Math.min(kr.right-20,x)); y=Math.max(kr.top+20,Math.min(kr.bottom-20,y));
+  b.style.left=Math.round(x-sk.left-18)+"px"; b.style.top=Math.round(y-sk.top-18)+"px";
+  b.setAttribute("aria-label",bilgi.ad+" hakkında bilgi");
+  b.title=bilgi.ad+" hakkında bilgi";
+  b.hidden=false;
+}
+function piGizlemeyiBirak(){ if(PB.gizle){ clearTimeout(PB.gizle); PB.gizle=null; } }
+function piGizleSonra(ms){
+  if(PB.gizle || $("parca-i").hidden) return;
+  PB.gizle=setTimeout(function(){ PB.gizle=null; if(document.activeElement!==$("parca-i")) piGizle(); },ms||600);
+}
+function piGizle(){ piGizlemeyiBirak(); $("parca-i").hidden=true; PB.hedef=null; }
+function parcaKartAc(h){
+  var bilgi=h && parcaBilgisi(h.ad);
+  if(!bilgi) return;
+  var k=$("parca-kart"), kap=$("sahne-kap"), sk=$("sahne-kart").getBoundingClientRect(), solda=false;
+  if(h.oge){ var r=h.oge.getBoundingClientRect(); solda=(r.left+r.width/2)>(sk.left+sk.width/2); }
+  else { solda=parseFloat($("parca-i").style.left)>sk.width/2; }
+  $("parca-kart-baslik").textContent=bilgi.ad;
+  var ic='<p class="parca-ozet"></p>'+(bilgi.maddeler.length ? '<ul class="ozellik-liste">'+bilgi.maddeler.map(function(){ return "<li><span></span></li>"; }).join("")+"</ul>" : "");
+  $("parca-kart-icerik").innerHTML=ic;
+  $("parca-kart-icerik").querySelector(".parca-ozet").textContent=bilgi.ozet;
+  [].slice.call($("parca-kart-icerik").querySelectorAll("li span")).forEach(function(s,i){ s.textContent=bilgi.maddeler[i]; });
+  k.style.top=(kap.offsetTop+8)+"px";
+  k.style.maxHeight=Math.max(120,kap.offsetHeight-16)+"px";
+  k.style.left=solda ? "8px" : "auto"; k.style.right=solda ? "auto" : "8px";
+  if(k.hidden){ PB.donus=(document.activeElement && document.activeElement!==document.body) ? document.activeElement : null; }
+  PB.kartAd=h.ad;
+  k.hidden=false;
+  $("parca-kart-icerik").scrollTop=0;
+  sesCal("tik");
+  $("parca-kart-kapat").focus({ preventScroll:true });
+}
+function parcaKartKapat(){
+  var k=$("parca-kart"), d=PB.donus;
+  if(k.hidden) return;
+  k.hidden=true; PB.kartAd=null; PB.donus=null;
+  if(d && d.focus && document.body.contains(d) && d.offsetParent!==null){ try{ d.focus({ preventScroll:true }); }catch(h){} }
+}
+function parcaBilgiKapat(){ piGizle(); parcaKartKapat(); }
+function parcaBilgiBagla(){
+  var kap=$("sahne-kap"), b=$("parca-i");
+  document.addEventListener("pointermove",function(e){
+    if(e.pointerType!=="mouse") return;
+    if(e.target===b || b.contains(e.target)){ piGizlemeyiBirak(); return; }
+    if(aktif!==1 || kap.classList.contains("suruklen") || !$("sema-perde").hidden || !$("kart-perde").hidden){ piGizleSonra(150); return; }
+    var h=parcaHedefBul(e.clientX,e.clientY,e.target);
+    if(h){ piGoster(h,e.clientX,e.clientY); } else { piGizleSonra(); }
+  });
+  /* dokunmatik ekranda üzerine gelme olmaz: parçaya dokununca düğme birkaç saniye görünür */
+  document.addEventListener("pointerdown",function(e){
+    if(e.pointerType==="mouse" || aktif!==1) return;
+    if(e.target===b || b.contains(e.target)) return;
+    var h=parcaHedefBul(e.clientX,e.clientY,e.target);
+    if(h){ piGoster(h,e.clientX,e.clientY); PB.gizle=setTimeout(function(){ PB.gizle=null; piGizle(); },4000); }
+  });
+  kap.addEventListener("wheel",function(){ piGizle(); },{ passive:true });
+  document.addEventListener("focusin",function(e){
+    var p=e.target && e.target.closest ? e.target.closest("#sahne .parca") : null;
+    if(p){ var ad=p.getAttribute("data-parca"); if(ad && parcaBilgisi(ad) && !parcaBilgiGizli(ad)) piGoster({ ad:ad, oge:p },0,0); }
+  });
+  /* klavyede bir parçanın üzerindeyken "i" tuşu bilgi kartını açar */
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape" && !$("parca-kart").hidden && (document.activeElement===document.body || $("parca-kart").contains(document.activeElement) || document.activeElement===b)){ e.preventDefault(); parcaKartKapat(); return; }
+    if((e.key==="i" || e.key==="I") && !e.ctrlKey && !e.metaKey && !e.altKey){
+      var p=document.activeElement && document.activeElement.closest ? document.activeElement.closest("#sahne .parca") : null, ad=p && p.getAttribute("data-parca");
+      if(ad && parcaBilgisi(ad) && !parcaBilgiGizli(ad)){ e.preventDefault(); parcaKartAc({ ad:ad, oge:p }); }
+    }
+  });
+  b.addEventListener("click",function(){ if(PB.hedef) parcaKartAc(PB.hedef); });
+  b.addEventListener("blur",function(){ piGizleSonra(); });
+  $("parca-kart-kapat").addEventListener("click",parcaKartKapat);
+}
 
 /* ============ GÖREV AKIŞI ============ */
 var SAHNE_IPUCU={
@@ -8012,6 +8345,7 @@ function skorGuncelle(){
 }
 function programDurdur(){
   benzDurdur();
+  calisanTemizle();
   zamanlariDurdur();
   if(sahne && (calisiyor||yukleniyor) && sahne.dur){ sahne.dur(); }
   calisiyor=false; yukleniyor=false;
@@ -8023,6 +8357,7 @@ function yukleDikkat(acik){ $("btn-yukle").classList.toggle("dikkat",!!acik); }
 
 function dersAc(i){
   programDurdur();
+  parcaBilgiKapat();
   zamanlayiciTemizle();
   if(ilerleZaman){ clearTimeout(ilerleZaman); ilerleZaman=null; }
   dersIndeks=i;
@@ -8248,6 +8583,7 @@ function kodGuncelle(degisen){
   });
   var ilk=k.querySelector(".kod-girdi.bos")||k.querySelector(".kod-girdi");
   if(ilk && degisen===null && k.scrollHeight>k.clientHeight){ k.scrollTop=Math.max(0,ilk.offsetTop-k.clientHeight/2); }
+  if(CALISAN.satir>=0){ satirVurgula(CALISAN.satir); }
 }
 
 /* ---------- bilgi sekmeleri ---------- */
@@ -8372,6 +8708,7 @@ function yukle(){
     sahne.calistir(yuklenenAyar,gv,function(sonuc){
       if(dersAn===dersIndeks && gorevAn===aktifGorevVerisi()){ degerlendir(gorevAn,sonuc||{}); }
     });
+    golgeBaslat();
   },sure(950));
 }
 function kuralDenetle(gv,ya){
@@ -8647,6 +8984,7 @@ function panelGenislik(px){
 /* ============ BAŞLANGIÇ ============ */
 glBaslat();
 kameraKontrolBagla();
+parcaBilgiBagla();
 if(window.VARLIK){ $("giris-gorsel").src=VARLIK.giris.src; }
 oyunuBaslat();
 (function(){
