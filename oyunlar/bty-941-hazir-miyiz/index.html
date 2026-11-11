@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Algoritma, Akış Diyagramı ve Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--zemin:#FFFFFF;--lacivert:#1C2B45;--mavi:#2B62B0;--kiremit:#B5452F;--yesil:#2E7D4F;--kagit:#F6F7F8;--sis:#C6CBD2;--odak:#E0A92E}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--zemin);overflow:hidden}
+body{font-family:'Lexend',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--lacivert);touch-action:manipulation}
+button,textarea{font:inherit;color:inherit}
+button{cursor:pointer;touch-action:manipulation}
+button:focus-visible,textarea:focus-visible,#cubuk:focus-visible{outline:4px solid var(--odak);outline-offset:3px}
+#oynatici{position:fixed;inset:0;background:var(--zemin);display:flex;flex-direction:column;align-items:center;justify-content:center}
+#sahne{position:relative;overflow:hidden;background:var(--zemin)}
+#sahne video{position:absolute;inset:0;width:100%;height:100%;display:block;background:var(--zemin)}
+#katman{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;pointer-events:none}
+#kamera{position:absolute;inset:0;transform-origin:960px 540px}
+#kamera > *{pointer-events:auto}
+
+/* Kâğıt: filmdeki yırtık kenarlı kâğıtların aynısı */
+.kagit{position:absolute;isolation:isolate;padding:16px 30px 18px;font-weight:600;line-height:1.2;color:var(--lacivert)}
+.kagit::before,.kagit::after{content:'';position:absolute;inset:0;clip-path:var(--yirtik,none);z-index:-1}
+.kagit::before{background:rgba(0,0,0,.13);transform:translate(4px,6px)}
+.kagit::after{background:var(--kagit)}
+.kagit.kirmizi{color:#fff}.kagit.kirmizi::after{background:var(--kiremit)}
+.donut{font-size:38px;font-weight:700;display:none}
+.donut.iyi{color:var(--yesil)}.donut.kotu{color:var(--kiremit)}
+.donut.acik{display:block;animation:gel .45s cubic-bezier(.2,1.4,.4,1) both}
+.secilen{width:300px;height:104px;display:none;align-items:center;justify-content:center;font-size:46px;font-weight:700;padding:0}
+.secilen.acik{display:flex}
+.rozet{position:absolute;right:-26px;top:-26px;width:60px;height:60px}
+.hak{font-size:38px;display:none;align-items:center;gap:20px}
+.hak.acik{display:flex}
+.hak i{width:22px;height:22px;border-radius:50%;background:var(--mavi)}
+.hak i.bos{background:transparent;box-shadow:inset 0 0 0 4px var(--sis)}
+
+/* Tıklama alanları */
+.alan{position:absolute;border:0;background:transparent;border-radius:18px;display:none}
+.alan.acik{display:block}
+.alan:hover{box-shadow:0 0 0 6px rgba(43,98,176,.55)}
+.bekliyor .alan.acik{animation:nabiz 1.6s ease-in-out infinite}
+.alan.kotu{box-shadow:0 0 0 7px var(--kiremit),0 0 30px 10px rgba(181,69,47,.35);animation:salla .45s linear}
+.alan.kotu-iz{box-shadow:0 0 0 5px rgba(181,69,47,.55)}
+.not{position:absolute;display:none;border:0;background:transparent;resize:none;font:400 23px/1.15 'Lexend',system-ui,sans-serif;color:var(--lacivert);padding:8px 18px}
+.not.acik{display:block}
+.not::placeholder{color:#8A94A3}
+
+@keyframes nabiz{0%,100%{box-shadow:0 0 0 0 rgba(43,98,176,0)}50%{box-shadow:0 0 0 10px rgba(43,98,176,.45)}}
+@keyframes salla{0%,100%{transform:translateX(0)}25%{transform:translateX(-12px)}50%{transform:translateX(12px)}75%{transform:translateX(-8px)}}
+@keyframes gel{from{opacity:0;transform:translateY(24px) rotate(-1.5deg)}to{opacity:1;transform:none}}
+
+/* Başlat perdesi */
+#perde{position:absolute;inset:0;background:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center}
+#baslat{width:22%;max-width:200px;min-width:64px;aspect-ratio:1;border-radius:50%;border:0;background:var(--mavi);box-shadow:0 10px 0 #1F4A86,0 20px 40px rgba(28,43,69,.25);display:flex;align-items:center;justify-content:center}
+#baslat svg{width:44%;height:44%;margin-left:8%}
+#baslat:active{transform:translateY(6px);box-shadow:0 4px 0 #1F4A86}
+#uyari{position:absolute;left:8%;right:8%;top:50%;transform:translateY(-50%);display:none;padding:22px 26px;border-radius:14px;background:var(--kagit);border:2px dashed var(--sis);font-size:clamp(13px,2vw,20px);line-height:1.45;text-align:center}
+
+/* Altyazı şeridi: videonun altında, içeriği örtmez */
+#altyazi{display:flex;align-items:center;justify-content:center;text-align:center;padding:0 3%;line-height:1.3;font-weight:400;color:var(--lacivert);background:var(--zemin)}
+#altyazi[hidden]{display:none}
+
+/* Kontrol çubuğu */
+#kontrol{display:flex;align-items:center;gap:10px;height:56px;padding:0 10px;background:var(--lacivert);color:#fff}
+#kontrol > button{flex:none;width:44px;height:44px;border:0;border-radius:10px;background:transparent;display:flex;align-items:center;justify-content:center}
+#kontrol > button:hover{background:rgba(255,255,255,.12)}
+#kontrol svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+#zaman{flex:none;font-size:15px;min-width:96px;text-align:center;font-variant-numeric:tabular-nums}
+#cubuk{position:relative;flex:1;min-width:60px;height:40px;cursor:pointer;touch-action:none}
+#cubuk .ray{position:absolute;left:0;right:0;top:17px;height:6px;border-radius:3px;background:rgba(255,255,255,.25)}
+#cubuk .acilan{position:absolute;left:0;top:17px;height:6px;border-radius:3px;background:rgba(255,255,255,.18)}
+#cubuk .dolu{position:absolute;left:0;top:17px;height:6px;border-radius:3px;background:#7FA6DE}
+#cubuk .tutamak{position:absolute;top:11px;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:#fff}
+#cubuk .isaret{position:absolute;top:13px;width:14px;height:14px;margin-left:-7px;border-radius:3px;background:var(--odak);border:2px solid var(--lacivert);transform:rotate(45deg)}
+#cubuk .isaret.tamam{background:#6CC08B}
+#altyaziDugme[aria-pressed="true"] svg{stroke:var(--odak)}
+#ileri{flex:none;height:42px;padding:0 18px 0 20px;border:0;border-radius:10px;background:#3C4A63;color:#AEB7C6;font-size:17px;font-weight:600;display:flex;align-items:center;gap:8px;cursor:default}
+#ileri svg{width:20px;height:20px;stroke:currentColor}
+#ileri.acik{background:var(--mavi);color:#fff;cursor:pointer;animation:nabizIleri 1.6s ease-in-out infinite}
+@keyframes nabizIleri{0%,100%{box-shadow:0 0 0 0 rgba(127,166,222,0)}50%{box-shadow:0 0 0 6px rgba(127,166,222,.55)}}
+@media (max-width:640px){#kontrol{gap:4px;padding:0 6px;height:48px}#kontrol > button{width:38px;height:38px}#kontrol svg{width:22px;height:22px}#zaman{display:none}#ileri{padding:0 12px;font-size:15px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+.gizli{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+<div id="oynatici">
+  <div id="sahne">
+    <video id="video" src="video.mp4" preload="auto" playsinline></video>
+    <div id="katman"><div id="kamera">
+      <!-- Sahne 3: 1. Deneme -->
+      <button type="button" class="alan" data-etk="e1" data-i="0" aria-label="Doğru"></button>
+      <button type="button" class="alan" data-etk="e1" data-i="1" aria-label="Hatalı"></button>
+      <div class="kagit kirmizi secilen" data-etk="e1"></div>
+      <div class="kagit donut" data-etk="e1" role="status" aria-live="assertive"></div>
+      <!-- Sahne 4: 2. Deneme -->
+      <button type="button" class="alan" data-etk="k1" data-i="0" aria-label="1. kartı açınız."></button>
+      <button type="button" class="alan" data-etk="k2" data-i="0" aria-label="2. kartı açınız."></button>
+      <button type="button" class="alan" data-etk="k3" data-i="0" aria-label="3. kartı açınız."></button>
+      <!-- Sahne 5: 3. Deneme -->
+      <button type="button" class="alan" data-etk="e3" data-i="0" aria-label="Evet"></button>
+      <button type="button" class="alan" data-etk="e3" data-i="1" aria-label="Hayır"></button>
+      <div class="kagit kirmizi secilen" data-etk="e3"></div>
+      <div class="kagit donut" data-etk="e3" role="status" aria-live="assertive"></div>
+      <!-- Sahne 6: Hata Nerede? -->
+      <div class="kagit hak" id="hak" aria-live="polite"></div>
+      <div class="kagit donut" data-etk="e4" role="status" aria-live="assertive"></div>
+      <!-- Sahne 7: Düşünelim (not alanları; yazılanlar kaydedilmez) -->
+    </div></div>
+    <div id="uyari" role="alert">Video dosyası bulunamadı. Motion sayfasında <b>Export</b> ile MP4 indirip bu klasöre <b>video.mp4</b> adıyla koyunuz.</div>
+    <div id="perde"><button type="button" id="baslat" aria-label="Videoyu başlatınız."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l15 9-15 9z" fill="#fff"/></svg></button></div>
+  </div>
+  <div id="altyazi" aria-live="polite"></div>
+  <div id="kontrol">
+    <button type="button" id="oynat" aria-label="Oynatınız."><svg viewBox="0 0 24 24" aria-hidden="true"><path id="oynatSekil" d="M7 4l13 8-13 8z" fill="#fff" stroke="none"/></svg></button>
+    <div id="zaman">0:00 / 0:00</div>
+    <div id="cubuk" role="slider" tabindex="0" aria-label="Video konumu" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="ray"></div><div class="acilan"></div><div class="dolu"></div><div class="tutamak"></div></div>
+    <button type="button" id="altyaziDugme" aria-pressed="true" aria-label="Altyazıyı kapatınız."><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 10.5a2 2 0 1 0 0 3M17 10.5a2 2 0 1 0 0 3"/></svg></button>
+    <button type="button" id="sesDugme" aria-pressed="false" aria-label="Sesi kapatınız."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path id="sesDalga" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/><path id="sesCizgi" d="M16 9l6 6M22 9l-6 6" style="display:none"/></svg></button>
+    <button type="button" id="tamEkran" aria-label="Tam ekran"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+    <button type="button" id="ileri" aria-disabled="true">İleri<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</div>
+<script>
+(function(){
+'use strict';
+// ================= VERİ =================
+// Sahneler: başlangıç, bitiş (sn) ve filmdeki yavaş kamera itmesinin oranı
+var SAHNELER = [
+  {ad:'Giriş', bas:0, son:20, kam:0.022},
+  {ad:'Not Hesaplayıcı', bas:20, son:55, kam:0.02},
+  {ad:'Test: 1. Deneme', bas:55, son:89, kam:0.018},
+  {ad:'Test: 2. Deneme', bas:89, son:154, kam:0.015},
+  {ad:'Test: 3. Deneme', bas:154, son:188, kam:0.018},
+  {ad:'Hata Nerede?', bas:188, son:218, kam:0.018},
+  {ad:'Düşünelim', bas:218, son:254, kam:0.016}
+];
+var TOPLAM = 254;
+// Seslendirme: her cümle ses/<ad>.m4a dosyasıdır. [ad, grup, filmdeki başlama anı (sn), süre (sn), altyazı]
+// Grup "ana" videoyla birlikte çalar; e1/e3 dalları öğrencinin seçimine göre, e4_yanlis yanlış tıklamada çalar.
+var SES = [
+  ["ana_02","ana",3.39,7.323,"Önceki ünitelerde problemleri çözmek için algoritma yazmayı ve akış diyagramı tasarlamayı öğrendiniz."],
+  ["ana_03","ana",11.06,5.996,"Peki tasarlanan bir akış diyagramının her durumda doğru çalıştığından nasıl emin olabiliriz?"],
+  ["ana_04","ana",17.41,2.781,"Gelin bir akış diyagramını birlikte deneyelim."],
+  ["ana_05","ana",20.3,1.251,"Not Hesaplayıcı"],
+  ["ana_06","ana",22.5,3.767,"Bir okul için not hesaplayan bir program hazırlanacak."],
+  ["ana_07","ana",27.5,3.001,"Programın akış diyagramı ekranda görülüyor."],
+  ["ana_08","ana",30.85,1.948,"Önce üç sınav notu girilir."],
+  ["ana_09","ana",33.15,3.075,"Ardından bu notların ortalaması hesaplanır."],
+  ["ana_10","ana",36.58,7.393,"Ortalama 50 veya üzerindeyse ekrana ortalama ile birlikte “Geçti”, 50’nin altındaysa “Kaldı” yazdırılır."],
+  ["ana_11","ana",44.32,3.655,"Akış diyagramı hazır ve kodlamaya geçilmek isteniyor."],
+  ["ana_12","ana",48.5,3.465,"Peki bu akış diyagramı gerçekten doğru çalışıyor mu?"],
+  ["ana_13","ana",52.32,2.713,"Kodlamadan önce birkaç veriyle deneyelim."],
+  ["ana_14","ana",55.3,1.637,"Test: 1. Deneme"],
+  ["ana_15","ana",57.29,5.397,"Akış diyagramını ilk olarak 60, 70 ve 80 notlarıyla deniyoruz."],
+  ["ana_16","ana",67.0,5.659,"Program ortalamayı 156,67 olarak hesapladı ve “Geçti” yazdı."],
+  ["ana_17","ana",73.01,1.678,"Sizce bu sonuç doğru mu?"],
+  ["e1_dogru_01","e1_dogru",78.0,3.442,"Doğru tespit! Notların hiçbiri 100’ü geçmiyor."],
+  ["e1_dogru_02","e1_dogru",81.79,4.232,"Bu notların ortalaması 156,67 olamaz."],
+  ["e1_dogru_03","e1_dogru",86.37,2.13,"Beklenen ortalama 70’tir."],
+  ["e1_yanlis_01","e1_yanlis",78.0,6.211,"Tekrar düşünelim. Ortalama, notların en küçüğü ile en büyüğü arasında bir değer olmalıdır."],
+  ["e1_yanlis_02","e1_yanlis",84.56,3.06,"156,67 bu aralıkta değil."],
+  ["e1_yanlis_03","e1_yanlis",87.97,2.13,"Beklenen ortalama 70’tir."],
+  ["ana_18","ana",89.3,1.625,"Test: 2. Deneme"],
+  ["ana_19","ana",91.27,3.245,"Bu kez 20, 30 ve 40 notlarını giriyoruz."],
+  ["ana_20","ana",99.6,4.8,"Program ortalamayı 63,33 hesapladı ve “Geçti” yazdı."],
+  ["ana_21","ana",104.75,2.714,"Oysa bu notların ortalaması 30’dur."],
+  ["ana_22","ana",107.81,2.621,"Öğrencinin dersten kalması gerekirdi."],
+  ["ana_23","ana",111.0,3.825,"Bu program okulda test edilmeden kullanılsaydı ne olurdu?"],
+  ["ana_24","ana",115.18,2.318,"Kartlara tıklayarak inceleyiniz."],
+  ["ana_25","ana",119.0,3.198,"Dersten kalan öğrenciler geçmiş gibi görünürdü."],
+  ["ana_26","ana",123.0,2.807,"Öğrencilere ve velilere yanlış bilgi verilirdi."],
+  ["ana_27","ana",127.6,5.929,"Hata fark edildiğinde tüm öğrencilerin ortalamalarının yeniden hesaplanması gerekirdi."],
+  ["ana_28","ana",133.88,6.045,"Karneler, raporlar ve öğrencilere verilen bilgiler tek tek düzeltilmek zorunda kalınırdı."],
+  ["ana_29","ana",140.27,5.021,"Bu durum öğretmenler ve okul yönetimi için ciddi zaman ve emek kaybı demektir."],
+  ["ana_30","ana",145.64,7.985,"Oysa akış diyagramı kodlamadan önce test edilseydi hata birkaç denemede tespit edilip kolayca düzeltilebilirdi."],
+  ["ana_31","ana",154.3,1.648,"Test: 3. Deneme"],
+  ["ana_32","ana",156.3,3.954,"Son olarak 0, 0 ve 90 notlarını giriyoruz."],
+  ["ana_33","ana",164.5,5.276,"Program ortalamayı 30 olarak hesapladı ve “Kaldı” yazdı. Bu sonuç doğru."],
+  ["ana_34","ana",170.13,6.181,"Peki bu doğru sonuç, akış diyagramının doğru olduğunu gösterir mi? Seçiminizi yapınız."],
+  ["e3_dogru_01","e3_dogru",174.0,4.687,"Harika! Bu veride ilk iki not 0 olduğu için hata ortaya çıkmadı."],
+  ["e3_dogru_02","e3_dogru",179.04,2.339,"Bazı veriler hatayı gizleyebilir."],
+  ["e3_dogru_03","e3_dogru",181.73,3.732,"Bu yüzden akış diyagramı farklı verilerle denenmelidir."],
+  ["e3_yanlis_01","e3_yanlis",174.0,5.515,"Tekrar düşünelim. Önceki iki denemede aynı akış diyagramı yanlış sonuç üretti."],
+  ["e3_yanlis_02","e3_yanlis",179.86,2.339,"Bazı veriler hatayı gizleyebilir."],
+  ["e3_yanlis_03","e3_yanlis",182.55,4.69,"Tek bir doğru sonuç, akış diyagramının doğru olduğunu göstermez."],
+  ["ana_35","ana",188.3,0.902,"Hata Nerede?"],
+  ["ana_36","ana",190.0,2.865,"Üç denemenin ikisinde sonuç yanlış çıktı."],
+  ["ana_37","ana",193.22,3.095,"Sizce hata akış diyagramının hangi adımında?"],
+  ["ana_38","ana",196.66,3.236,"Hatalı olduğunu düşündüğünüz adıma tıklayınız."],
+  ["e4_yanlis_01","e4_yanlis",0,6.043,"Bu adım beklendiği gibi çalışıyor. Ortalamanın hesaplandığı adımı yeniden inceleyiniz."],
+  ["ana_39","ana",204.9,1.774,"Evet, hata bu adımda!"],
+  ["ana_40","ana",207.02,4.255,"Bilgisayar işlem önceliğine göre önce bölme işlemini yapar."],
+  ["ana_41","ana",211.63,4.905,"Bu yüzden yalnızca Not3, 3’e bölünür ve sonuç diğer iki nota eklenir."],
+  ["ana_42","ana",218.3,0.692,"Düşünelim"],
+  ["ana_43","ana",220.0,4.92,"Not hesaplayıcı akış diyagramıyla ilgili bazı soruları birlikte düşünelim."],
+  ["ana_44","ana",225.27,3.685,"Bu akış diyagramı doğru mu? Buna nasıl karar verdiniz?"],
+  ["ana_45","ana",229.9,5.558,"Hataları ortaya çıkarmak için bir akış diyagramını hangi verilerle denemek gerekir?"],
+  ["ana_46","ana",235.81,5.187,"Akış diyagramı test edilmeden kodlansaydı program nasıl sonuçlar üretirdi?"],
+  ["ana_47","ana",241.35,4.954,"Hataları kodlamaya geçmeden önce fark etmenin ne gibi yararları olabilir?"],
+  ["ana_48","ana",246.65,3.918,"Bu soruların cevaplarını Öğrenelim bölümünde birlikte bulacağız."]
+];
+// Altyazı, sesin bitiminden 1,5 sn sonrasına ya da aynı gruptaki sonraki cümleye kadar görünür
+function cumleler(g){
+  var l = SES.filter(function(s){ return s[1] === g; });
+  return l.map(function(s, i){ var son = s[2] + s[3] + 1.5; if (l[i + 1]) son = Math.min(son, l[i + 1][2]); return {ad:s[0], bas:s[2], sure:s[3], son:son, metin:s[4]}; });
+}
+var ANA = cumleler('ana');
+// Akış diyagramı şekilleri (filmdeki konumlar: 140 + yerel × 0,94)
+var SEKIL = [['Başla',450,60,240,84],['Not1, Not2, Not3 gir',450,210,500,96],['Ort = Not1 + Not2 + Not3 / 3',450,365,640,96],['Ort >= 50 ?',450,545,360,180],['Geçti yazdır',210,740,400,112],['Kaldı yazdır',690,740,400,112],['Bitir',450,915,240,84]].map(function(s){
+  return {ad:s[0], x:140 + (s[1] - s[3]/2) * 0.94, y:140 + (s[2] - s[4]/2) * 0.94, w:s[3] * 0.94, h:s[4] * 0.94};
+});
+// Etkileşimler. durak: video burada durur; devam: cevaptan sonra buradan sürer; bitis: sahnenin sonu
+var ETK = [
+  {id:'e1', tur:'secim', durak:75, devam:78, bitis:89, dogru:1,
+   hedef:[{x:880,y:650,w:300,h:104,ad:'Doğru'},{x:1224,y:650,w:300,h:104,ad:'Hatalı'}],
+   geri:{dogru:'Doğru tespit! Beklenen ortalama: 70', yanlis:'Tekrar düşünelim. Beklenen ortalama: 70'}, fb:[880,800],
+   dal:{dogru:cumleler('e1_dogru'), yanlis:cumleler('e1_yanlis')}},
+  {id:'k1', tur:'kart', durak:117, devam:119, bitis:154, hedef:[{x:1010,y:190,w:834,h:176}]},
+  {id:'k2', tur:'kart', durak:123, devam:123, bitis:154, hedef:[{x:1010,y:400,w:834,h:176}]},
+  {id:'k3', tur:'kart', durak:127.6, devam:127.6, bitis:154, hedef:[{x:1010,y:610,w:834,h:176}]},
+  {id:'e3', tur:'secim', durak:171, devam:174, bitis:188, dogru:1,
+   hedef:[{x:880,y:670,w:300,h:104,ad:'Evet'},{x:1224,y:670,w:300,h:104,ad:'Hayır'}],
+   geri:{dogru:'Harika! Bazı veriler hatayı gizleyebilir.', yanlis:'Tekrar düşünelim. Bazı veriler hatayı gizleyebilir.'}, fb:[880,810],
+   dal:{dogru:cumleler('e3_dogru'), yanlis:cumleler('e3_yanlis')}},
+  {id:'e4', tur:'sekil', durak:201, devam:204.9, bitis:218, dogru:2, hedef:SEKIL, fb:[1060,404],
+   yanlisMetin:'Bu adım doğru çalışıyor.', yanlisSes:cumleler('e4_yanlis')[0]}
+];
+// Düşünelim sahnesinde not alanı yok
+var NOTLAR = [];
+
+// ================= DURUM =================
+function $(id){ return document.getElementById(id); }
+function hepsi(s, kok){ return Array.prototype.slice.call((kok || document).querySelectorAll(s)); }
+var video = $('video'), sahne = $('sahne'), katman = $('katman'), kamera = $('kamera');
+var altyaziKutu = $('altyazi');
+var D = {};               // etkileşim durumları
+var bekleyen = null;      // video bu etkileşimde duruyor
+var ileriBekliyor = false;// video sahne sonunda İleri'yi bekliyor
+var basladi = false, altyaziAcik = true, sessiz = false, surukle = false;
+var sonT = 0, ozelAltyazi = null, bitti = false;
+
+function etk(id){ for (var i = 0; i < ETK.length; i++) if (ETK[i].id === id) return ETK[i]; }
+function sahneBul(t){ for (var i = 0; i < SAHNELER.length; i++) if (t < SAHNELER[i].son) return SAHNELER[i]; return SAHNELER[SAHNELER.length - 1]; }
+function eio(x){ return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+
+// Yırtık kenar (filmdeki kâğıtlarla aynı yöntem)
+function yirtik(seed){
+  var a = seed | 0; function r(){ a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }
+  function j(){ return (0.6 + r() * 4.2).toFixed(1); }
+  var p = [], i;
+  for (i = 0; i <= 28; i++) p.push((i / 28 * 100).toFixed(2) + '% ' + j() + 'px');
+  for (i = 1; i < 9; i++) p.push('calc(100% - ' + j() + 'px) ' + (i / 9 * 100).toFixed(2) + '%');
+  for (i = 28; i >= 0; i--) p.push((i / 28 * 100).toFixed(2) + '% calc(100% - ' + j() + 'px)');
+  for (i = 8; i > 0; i--) p.push(j() + 'px ' + (i / 9 * 100).toFixed(2) + '%');
+  return 'polygon(' + p.join(',') + ')';
+}
+hepsi('.kagit').forEach(function(k, i){ k.style.setProperty('--yirtik', yirtik(301 + i * 17)); });
+
+// Tıklama alanlarını yerleştir
+ETK.forEach(function(e){
+  if (e.tur === 'sekil'){
+    var ilk = kamera.querySelector('#hak');
+    e.hedef.forEach(function(s, i){
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'alan';
+      b.setAttribute('data-etk', 'e4'); b.setAttribute('data-i', i); b.setAttribute('aria-label', s.ad + ' adımı');
+      kamera.insertBefore(b, ilk);
+    });
+  }
+  hepsi('.alan[data-etk="' + e.id + '"]', kamera).forEach(function(b){
+    var h = e.hedef[+b.getAttribute('data-i')], p = 8;
+    b.style.left = (h.x - p) + 'px'; b.style.top = (h.y - p) + 'px'; b.style.width = (h.w + 2 * p) + 'px'; b.style.height = (h.h + 2 * p) + 'px';
+    b.addEventListener('click', function(){ tikla(e, +b.getAttribute('data-i'), b); });
+  });
+  var fb = kamera.querySelector('.donut[data-etk="' + e.id + '"]');
+  if (fb){ fb.style.left = e.fb[0] + 'px'; fb.style.top = e.fb[1] + 'px'; }
+});
+$('hak').style.left = '1060px'; $('hak').style.top = '301px';
+NOTLAR.forEach(function(n, i){
+  var t = document.createElement('textarea');
+  t.className = 'not'; t.id = 'not' + (i + 1);
+  t.style.left = n[0] + 'px'; t.style.top = n[1] + 'px'; t.style.width = '584px'; t.style.height = '70px';
+  t.placeholder = 'Notunuzu buraya yazabilirsiniz.';
+  t.setAttribute('aria-label', (i + 1) + '. soru için notunuz. Yazdıklarınız kaydedilmez.');
+  kamera.appendChild(t);
+});
+
+// ================= ETKİLEŞİMLER =================
+function sifirla(id){
+  var e = etk(id);
+  D[id] = {tamam:false, sonuc:null, hak:3};
+  hepsi('.alan[data-etk="' + id + '"]', kamera).forEach(function(b){ b.classList.remove('kotu', 'kotu-iz'); b.disabled = false; });
+  var fb = kamera.querySelector('.donut[data-etk="' + id + '"]'); if (fb){ fb.className = 'kagit donut'; fb.textContent = ''; }
+  var sc = kamera.querySelector('.secilen[data-etk="' + id + '"]'); if (sc){ sc.classList.remove('acik'); sc.innerHTML = ''; }
+  if (id === 'e4'){ ozelAltyazi = null; ozelKes(); hakYaz(3); }
+}
+function hakYaz(n){
+  var h = $('hak');
+  h.innerHTML = '<span>Deneme hakkı: ' + n + '</span><span style="display:flex;gap:10px"><i' + (n < 1 ? ' class="bos"' : '') + '></i><i' + (n < 2 ? ' class="bos"' : '') + '></i><i' + (n < 3 ? ' class="bos"' : '') + '></i></span>';
+  h.classList.toggle('acik', n < 3);
+}
+function geriBildirim(e, iyi, metin){
+  var fb = kamera.querySelector('.donut[data-etk="' + e.id + '"]');
+  fb.className = 'kagit donut ' + (iyi ? 'iyi' : 'kotu');
+  fb.textContent = metin;
+  void fb.offsetWidth; fb.classList.add('acik');
+}
+function cozuldu(e){
+  ozelKes(); ozelAltyazi = null;
+  D[e.id].tamam = true;
+  sahne.classList.remove('bekliyor');
+  hepsi('.alan[data-etk="' + e.id + '"]', kamera).forEach(function(b){ b.disabled = true; });
+  isaretleriCiz();
+  bekleyen = null;
+  video.currentTime = e.devam;
+  oynat();
+}
+function tikla(e, i, b){
+  if (!basladi || D[e.id].tamam) return;
+  if (bekleyen !== e){ // soru göründü ama video henüz durmadıysa: burada dur ve cevabı al
+    if (Math.abs(video.currentTime - e.durak) > 1.2) return;
+    video.pause(); bekleyen = e;
+  }
+  if (e.tur === 'secim'){
+    var iyi = i === e.dogru;
+    D[e.id].sonuc = iyi ? 'dogru' : 'yanlis';
+    if (!iyi){ // yanlış seçilen buton kırmızıya döner
+      var h = e.hedef[i], sc = kamera.querySelector('.secilen[data-etk="' + e.id + '"]');
+      sc.style.left = h.x + 'px'; sc.style.top = h.y + 'px';
+      sc.innerHTML = '<span>' + h.ad + '</span><svg class="rozet" viewBox="-30 -30 60 60" aria-hidden="true"><circle r="26" fill="#fff" stroke="#B5452F" stroke-width="5"/><path d="M-9 -9 L9 9 M9 -9 L-9 9" stroke="#B5452F" stroke-width="7" stroke-linecap="round"/></svg>';
+      sc.classList.add('acik');
+    }
+    geriBildirim(e, iyi, e.geri[D[e.id].sonuc]);
+    cozuldu(e);
+  } else if (e.tur === 'kart'){
+    cozuldu(e);
+  } else if (e.tur === 'sekil'){
+    var S = D[e.id];
+    hepsi('.alan[data-etk="e4"]', kamera).forEach(function(x){ x.classList.remove('kotu'); });
+    if (i === e.dogru){
+      geriGizle(e); ozelAltyazi = null; S.sonuc = 'dogru'; cozuldu(e);
+    } else {
+      S.hak--; hakYaz(S.hak);
+      void b.offsetWidth; b.classList.add('kotu', 'kotu-iz');
+      if (S.hak <= 0){ // üçüncü yanlışta doğru adım gösterilir
+        geriGizle(e); ozelAltyazi = null; S.sonuc = 'yanlis';
+        setTimeout(function(){ if (bekleyen === e) cozuldu(e); }, 900);
+      } else {
+        geriBildirim(e, false, e.yanlisMetin);
+        ozelAltyazi = e.yanlisSes; ozelCal(e.yanlisSes);
+      }
+    }
+  }
+  ciz(video.currentTime);
+}
+function geriGizle(e){ var fb = kamera.querySelector('.donut[data-etk="' + e.id + '"]'); if (fb){ fb.className = 'kagit donut'; fb.textContent = ''; } }
+ETK.forEach(function(e){ sifirla(e.id); });
+
+// ================= ZAMAN DÖNGÜSÜ =================
+function ilkAcik(){ for (var i = 0; i < ETK.length; i++) if (!D[ETK[i].id].tamam) return ETK[i]; return null; }
+function durakta(e){
+  video.pause(); video.currentTime = e.durak; bekleyen = e;
+  sahne.classList.add('bekliyor');
+  var ilk = kamera.querySelector('.alan[data-etk="' + e.id + '"]');
+  if (ilk) setTimeout(function(){ try { ilk.focus({preventScroll:true}); } catch(x){} }, 60);
+}
+function sahneSonu(s){
+  video.pause(); video.currentTime = s.son - 0.06; ileriBekliyor = true; ileriAc(true);
+}
+function ileriAc(a){
+  var b = $('ileri'); b.classList.toggle('acik', a); b.setAttribute('aria-disabled', a ? 'false' : 'true');
+  if (a) setTimeout(function(){ try { b.focus({preventScroll:true}); } catch(x){} }, 60);
+}
+function dongu(){ adim(); requestAnimationFrame(dongu); }
+function adim(){
+  var t = video.currentTime;
+  if (basladi && !video.paused && !surukle){
+    var e = ilkAcik();
+    if (e && t >= e.durak - 0.02 && sonT <= e.durak + 0.25){ durakta(e); t = e.durak; }
+    else if (e && t > e.durak + 0.25){ durakta(e); t = e.durak; } // atlanmış olamaz: geri getir
+    else {
+      for (var i = 0; i < SAHNELER.length - 1; i++){
+        var s = SAHNELER[i], u = s.son - 0.06;
+        if (sonT < u && t >= u){ sahneSonu(s); t = u; break; }
+      }
+    }
+  }
+  sonT = t;
+  ciz(t);
+  sesSenkron(t);
+}
+// Sekme arka plandayken kare döngüsü yavaşlar; video zaman olayı yedek olarak da denetler
+video.addEventListener('timeupdate', adim);
+video.addEventListener('seeked', function(){ ciz(video.currentTime); });
+function ciz(t){
+  // Filmdeki yavaş kamera itmesi: katman da aynı oranda büyür, alanlar çizimlerin üstünde kalır
+  var s = sahneBul(t), p = Math.max(0, Math.min(1, (t - s.bas) / (s.son - s.bas)));
+  kamera.style.transform = 'scale(' + (1 + s.kam * eio(p)).toFixed(5) + ')';
+  ETK.forEach(function(e){
+    var bek = bekleyen === e, gor = (t >= e.durak - 0.05 && t < e.bitis) || bek;
+    hepsi('.alan[data-etk="' + e.id + '"]', kamera).forEach(function(b){ b.classList.toggle('acik', bek && !D[e.id].tamam); });
+    var fb = kamera.querySelector('.donut[data-etk="' + e.id + '"]'); if (fb) fb.style.visibility = gor ? 'visible' : 'hidden';
+    var sc = kamera.querySelector('.secilen[data-etk="' + e.id + '"]'); if (sc) sc.style.visibility = gor ? 'visible' : 'hidden';
+  });
+  $('hak').style.visibility = (t >= 192 && t < 218) ? 'visible' : 'hidden';
+  NOTLAR.forEach(function(n, i){ $('not' + (i + 1)).classList.toggle('acik', t >= n[2]); });
+  altyaziGuncelle(t);
+  cubukCiz(t);
+}
+// O anda duyulması ve görülmesi gereken cümle: cevaplanmış sorunun dalı önce gelir
+function etkinCumle(t){
+  for (var k = 0; k < ETK.length; k++){
+    var e = ETK[k];
+    if (e.dal && D[e.id].sonuc && t >= e.devam - 0.05 && t < e.bitis){
+      var l = e.dal[D[e.id].sonuc];
+      for (var j = 0; j < l.length; j++) if (t >= l[j].bas && t < l[j].son) return l[j];
+      return null;
+    }
+  }
+  for (var i = 0; i < ANA.length; i++) if (t >= ANA[i].bas && t < ANA[i].son) return ANA[i];
+  return null;
+}
+function altyaziGuncelle(t){
+  var c = etkinCumle(t), m = (ozelAltyazi && bekleyen) ? ozelAltyazi.metin : (c ? c.metin : '');
+  if (altyaziKutu.textContent !== m) altyaziKutu.textContent = m;
+}
+
+// ================= SESLENDİRME =================
+var ses = new Audio(), ozel = new Audio(), sesAd = null;
+ses.preload = 'auto'; ozel.preload = 'auto';
+function sesKes(){ try { ses.pause(); } catch(x){} sesAd = null; }
+function ozelKes(){ try { ozel.pause(); } catch(x){} }
+function sesSenkron(t){
+  if (video.paused){
+    // Durakta ve sahne sonunda başlamış cümle kendiliğinden biter; kullanıcı durdurduysa ses de durur
+    if (!bekleyen && !ileriBekliyor && !ses.paused) ses.pause();
+    return;
+  }
+  var c = etkinCumle(t);
+  if (!c || t >= c.bas + c.sure - 0.02){ if (!ses.paused) ses.pause(); return; }
+  var ofs = t - c.bas;
+  if (sesAd !== c.ad){ sesAd = c.ad; ses.src = 'ses/' + c.ad + '.m4a'; try { ses.currentTime = ofs; } catch(x){} }
+  else if (ses.readyState >= 1 && !ses.seeking && Math.abs(ses.currentTime - ofs) > 0.35) ses.currentTime = ofs;
+  if (ses.paused){ ses.muted = sessiz; var p = ses.play(); if (p && p.catch) p.catch(function(){}); }
+}
+function ozelCal(c){
+  sesKes(); ozelKes();
+  ozel.src = 'ses/' + c.ad + '.m4a'; ozel.muted = sessiz;
+  var p = ozel.play(); if (p && p.catch) p.catch(function(){});
+}
+
+// ================= KONTROLLER =================
+function sureYaz(s){ s = Math.max(0, Math.floor(s)); return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); }
+var cubuk = $('cubuk');
+function toplam(){ return isFinite(video.duration) && video.duration > 0 ? video.duration : TOPLAM; }
+function sinir(){ var e = ilkAcik(); return e ? e.durak : toplam(); }
+function isaretleriCiz(){
+  hepsi('.isaret', cubuk).forEach(function(x){ x.remove(); });
+  ETK.forEach(function(e){
+    if (e.tur === 'kart' && e.id !== 'k1') return;
+    var m = document.createElement('div'); m.className = 'isaret' + (D[e.id].tamam ? ' tamam' : '');
+    m.style.left = (e.durak / toplam() * 100) + '%'; cubuk.appendChild(m);
+  });
+}
+function cubukCiz(t){
+  var T = toplam(), y = Math.min(100, t / T * 100);
+  cubuk.querySelector('.dolu').style.width = y + '%';
+  cubuk.querySelector('.acilan').style.width = Math.min(100, sinir() / T * 100) + '%';
+  cubuk.querySelector('.tutamak').style.left = y + '%';
+  cubuk.setAttribute('aria-valuenow', Math.round(y));
+  cubuk.setAttribute('aria-valuetext', sureYaz(t) + ' / ' + sureYaz(T));
+  $('zaman').textContent = sureYaz(t) + ' / ' + sureYaz(T);
+}
+function git(hedef){
+  hedef = Math.max(0, Math.min(hedef, toplam() - 0.05));
+  hedef = Math.min(hedef, sinir()); // cevaplanmamış soru atlanamaz
+  // Geriye dönülen sorular sıfırlanır
+  ETK.forEach(function(e){ if (hedef < e.durak - 0.01 && (D[e.id].tamam || D[e.id].sonuc || D[e.id].hak < 3)) sifirla(e.id); });
+  isaretleriCiz();
+  if (bekleyen && Math.abs(hedef - bekleyen.durak) > 0.01){ bekleyen = null; sahne.classList.remove('bekliyor'); }
+  ileriBekliyor = false; ileriAc(false); ozelAltyazi = bekleyen ? ozelAltyazi : null;
+  sesKes(); ozelKes();
+  video.currentTime = hedef; sonT = hedef;
+  var e = ilkAcik();
+  if (e && Math.abs(hedef - e.durak) < 0.01 && basladi){ video.pause(); durakta(e); }
+  ciz(hedef);
+}
+function cubuktanZaman(ev){ var r = cubuk.getBoundingClientRect(); return Math.max(0, Math.min(1, (ev.clientX - r.left) / r.width)) * toplam(); }
+cubuk.addEventListener('pointerdown', function(ev){ if (!basladi) return; surukle = true; try { cubuk.setPointerCapture(ev.pointerId); } catch(x){} git(cubuktanZaman(ev)); });
+cubuk.addEventListener('pointermove', function(ev){ if (surukle) git(cubuktanZaman(ev)); });
+cubuk.addEventListener('pointerup', function(){ surukle = false; });
+cubuk.addEventListener('pointercancel', function(){ surukle = false; });
+cubuk.addEventListener('keydown', function(ev){
+  if (!basladi) return;
+  if (ev.key === 'ArrowRight'){ git(video.currentTime + 5); ev.preventDefault(); }
+  if (ev.key === 'ArrowLeft'){ git(video.currentTime - 5); ev.preventDefault(); }
+});
+function oynat(){
+  if (bekleyen){ // soru cevaplanmadan devam edilemez: alanlar dikkat çeker
+    sahne.classList.remove('bekliyor'); void sahne.offsetWidth; sahne.classList.add('bekliyor');
+    return;
+  }
+  ileriBekliyor = false; ileriAc(false);
+  if (video.ended || video.currentTime >= toplam() - 0.1) git(0);
+  var p = video.play(); if (p && p.catch) p.catch(function(){});
+}
+function oynatDurumu(){
+  var oyn = !video.paused;
+  $('oynatSekil').setAttribute('d', oyn ? 'M6 4h4v16H6zM14 4h4v16h-4z' : 'M7 4l13 8-13 8z');
+  $('oynat').setAttribute('aria-label', oyn ? 'Duraklatınız.' : 'Oynatınız.');
+}
+video.addEventListener('play', oynatDurumu);
+video.addEventListener('pause', oynatDurumu);
+video.addEventListener('loadedmetadata', function(){ isaretleriCiz(); cubukCiz(video.currentTime); });
+video.addEventListener('error', function(){ $('uyari').style.display = 'block'; });
+video.addEventListener('ended', function(){
+  if (bitti) return; bitti = true;
+  // Storyline'a bildir: değişken adı HazirMiyizBitti (Doğru/Yanlış)
+  try { var pl = window.parent && window.parent !== window && window.parent.GetPlayer && window.parent.GetPlayer(); if (pl) pl.SetVar('HazirMiyizBitti', true); } catch(x){}
+});
+function baslat(){ basladi = true; $('perde').style.display = 'none'; oynat(); }
+$('baslat').addEventListener('click', baslat);
+$('oynat').addEventListener('click', function(){ if (!basladi){ baslat(); return; } if (ileriBekliyor){ oynat(); return; } if (video.paused) oynat(); else video.pause(); });
+$('ileri').addEventListener('click', function(){ if (ileriBekliyor){ sesKes(); oynat(); } });
+sahne.addEventListener('click', function(ev){
+  if (!basladi || ev.target.closest('button,textarea')) return;
+  if (bekleyen) { oynat(); return; }
+  if (video.paused) oynat(); else video.pause();
+});
+$('altyaziDugme').addEventListener('click', function(){
+  altyaziAcik = !altyaziAcik;
+  this.setAttribute('aria-pressed', altyaziAcik ? 'true' : 'false');
+  this.setAttribute('aria-label', altyaziAcik ? 'Altyazıyı kapatınız.' : 'Altyazıyı açınız.');
+  altyaziKutu.hidden = !altyaziAcik; boyutla();
+});
+$('sesDugme').addEventListener('click', function(){
+  sessiz = !sessiz; video.muted = sessiz; ses.muted = sessiz; ozel.muted = sessiz;
+  this.setAttribute('aria-pressed', sessiz ? 'true' : 'false');
+  this.setAttribute('aria-label', sessiz ? 'Sesi açınız.' : 'Sesi kapatınız.');
+  $('sesDalga').style.display = sessiz ? 'none' : ''; $('sesCizgi').style.display = sessiz ? '' : 'none';
+});
+$('tamEkran').addEventListener('click', function(){
+  var el = $('oynatici'), d = document;
+  if (d.fullscreenElement || d.webkitFullscreenElement){ (d.exitFullscreen || d.webkitExitFullscreen).call(d); }
+  else if (el.requestFullscreen || el.webkitRequestFullscreen){ (el.requestFullscreen || el.webkitRequestFullscreen).call(el); }
+});
+document.addEventListener('keydown', function(ev){
+  var tg = ev.target.tagName;
+  if (tg === 'TEXTAREA' || tg === 'BUTTON' || ev.target === cubuk) return;
+  if (ev.key === ' '){ ev.preventDefault(); $('oynat').click(); }
+});
+
+// ================= BOYUTLANDIRMA =================
+function boyutla(){
+  var G = window.innerWidth, Y = window.innerHeight, bar = $('kontrol').offsetHeight || 56;
+  var serit = altyaziAcik ? Math.max(40, Math.min(96, Y * 0.11)) : 0;
+  var w = Math.min(G, (Y - bar - serit) * 16 / 9), h = w * 9 / 16;
+  sahne.style.width = w + 'px'; sahne.style.height = h + 'px';
+  altyaziKutu.style.width = w + 'px'; altyaziKutu.style.height = serit + 'px';
+  altyaziKutu.style.fontSize = Math.max(12, Math.min(28, Math.min(w * 0.02, serit * 0.3))) + 'px';
+  $('kontrol').style.width = w + 'px';
+  katman.style.transform = 'scale(' + (w / 1920) + ')';
+}
+window.addEventListener('resize', boyutla);
+boyutla();
+isaretleriCiz();
+window.__OYNATICI = {video:video, durum:D, git:git, bekleyen:function(){ return bekleyen; }, ileriBekliyor:function(){ return ileriBekliyor; }, ses:function(){ return {ad:sesAd, t:ses.currentTime, durdu:ses.paused}; }};
+requestAnimationFrame(dongu);
+})();
+</script>
+</body>
+</html>
