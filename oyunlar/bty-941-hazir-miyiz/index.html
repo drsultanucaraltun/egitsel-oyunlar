@@ -62,8 +62,10 @@ button:focus-visible,textarea:focus-visible,#cubuk:focus-visible{outline:4px sol
 #uyari{position:absolute;left:8%;right:8%;top:50%;transform:translateY(-50%);display:none;padding:22px 26px;border-radius:14px;background:var(--kagit);border:2px dashed var(--sis);font-size:clamp(13px,2vw,20px);line-height:1.45;text-align:center}
 
 /* Altyazı şeridi: videonun altında, içeriği örtmez */
-#altyazi{display:flex;align-items:center;justify-content:center;text-align:center;padding:0 3%;line-height:1.3;font-weight:400;color:var(--lacivert);background:var(--zemin)}
-#altyazi[hidden]{display:none}
+/* Videonun altındaki şerit: ortada altyazı, sağ uçta İleri butonu (Articulate yerleşimine benzer) */
+#serit{position:relative;background:var(--zemin)}
+#altyazi{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 13%;line-height:1.3;font-weight:400;color:var(--lacivert)}
+#altyazi.kapali{visibility:hidden}
 
 /* Kontrol çubuğu */
 #kontrol{display:flex;align-items:center;gap:10px;height:56px;padding:0 10px;background:var(--lacivert);color:#fff}
@@ -80,7 +82,7 @@ button:focus-visible,textarea:focus-visible,#cubuk:focus-visible{outline:4px sol
 #cubuk .isaret.tamam{background:#6CC08B}
 #altyaziDugme[aria-pressed="true"] svg{stroke:var(--odak)}
 /* İleri: sahne sonunda videonun sağ alt köşesinde beliren görsel buton (ileri.png) */
-#ileri{position:absolute;left:1756px;top:916px;width:124px;height:116px;padding:0;border:0;border-radius:22px;background:url(ileri.png) center/contain no-repeat;display:none;pointer-events:auto;cursor:pointer;filter:drop-shadow(0 6px 10px rgba(28,43,69,.22))}
+#ileri{position:absolute;right:2px;top:50%;translate:0 -50%;height:82%;aspect-ratio:835/781;padding:0;border:0;border-radius:16%;background:url(ileri.png) center/contain no-repeat;display:none;cursor:pointer;filter:drop-shadow(0 4px 8px rgba(28,43,69,.22))}
 #ileri.acik{display:block;animation:ileriGel .45s cubic-bezier(.2,1.5,.4,1) both,ileriNabiz 1.8s ease-in-out .6s infinite}
 #ileri:hover{filter:drop-shadow(0 8px 14px rgba(28,43,69,.3)) brightness(1.08)}
 #ileri:active{filter:drop-shadow(0 3px 6px rgba(28,43,69,.25)) brightness(.92)}
@@ -115,12 +117,11 @@ button:focus-visible,textarea:focus-visible,#cubuk:focus-visible{outline:4px sol
       <div class="kagit donut" data-etk="e4" role="status" aria-live="assertive"></div>
       <!-- Sahne 7: Düşünelim (not alanları; yazılanlar kaydedilmez) -->
     </div>
-    <button type="button" id="ileri" aria-label="İleri" aria-disabled="true"></button>
     </div>
     <div id="uyari" role="alert">Video dosyası bulunamadı. Motion sayfasında <b>Export</b> ile MP4 indirip bu klasöre <b>video.mp4</b> adıyla koyunuz.</div>
     <div id="perde"><button type="button" id="baslat" aria-label="Videoyu başlatınız."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l15 9-15 9z" fill="#fff"/></svg></button></div>
   </div>
-  <div id="altyazi" aria-live="polite"></div>
+  <div id="serit"><div id="altyazi" aria-live="polite"></div><button type="button" id="ileri" aria-label="İleri" aria-disabled="true"></button></div>
   <div id="kontrol">
     <button type="button" id="oynat" aria-label="Oynatınız."><svg viewBox="0 0 24 24" aria-hidden="true"><path id="oynatSekil" d="M7 4l13 8-13 8z" fill="#fff" stroke="none"/></svg></button>
     <div id="zaman">0:00 / 0:00</div>
@@ -539,7 +540,7 @@ $('altyaziDugme').addEventListener('click', function(){
   altyaziAcik = !altyaziAcik;
   this.setAttribute('aria-pressed', altyaziAcik ? 'true' : 'false');
   this.setAttribute('aria-label', altyaziAcik ? 'Altyazıyı kapatınız.' : 'Altyazıyı açınız.');
-  altyaziKutu.hidden = !altyaziAcik; boyutla();
+  altyaziKutu.classList.toggle('kapali', !altyaziAcik);
 });
 $('sesDugme').addEventListener('click', function(){
   sessiz = !sessiz; video.muted = sessiz; ses.muted = sessiz; ozel.muted = sessiz;
@@ -561,10 +562,10 @@ document.addEventListener('keydown', function(ev){
 // ================= BOYUTLANDIRMA =================
 function boyutla(){
   var G = window.innerWidth, Y = window.innerHeight, bar = $('kontrol').offsetHeight || 56;
-  var serit = altyaziAcik ? Math.max(40, Math.min(96, Y * 0.11)) : 0;
+  var serit = Math.max(40, Math.min(96, Y * 0.11));   // altyazı kapalıyken de kalır: İleri butonu burada durur
   var w = Math.min(G, (Y - bar - serit) * 16 / 9), h = w * 9 / 16;
   sahne.style.width = w + 'px'; sahne.style.height = h + 'px';
-  altyaziKutu.style.width = w + 'px'; altyaziKutu.style.height = serit + 'px';
+  $('serit').style.width = w + 'px'; $('serit').style.height = serit + 'px';
   altyaziKutu.style.fontSize = Math.max(12, Math.min(28, Math.min(w * 0.02, serit * 0.3))) + 'px';
   $('kontrol').style.width = w + 'px';
   katman.style.transform = 'scale(' + (w / 1920) + ')';
