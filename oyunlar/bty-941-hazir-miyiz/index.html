@@ -79,11 +79,14 @@ button:focus-visible,textarea:focus-visible,#cubuk:focus-visible{outline:4px sol
 #cubuk .isaret{position:absolute;top:13px;width:14px;height:14px;margin-left:-7px;border-radius:3px;background:var(--odak);border:2px solid var(--lacivert);transform:rotate(45deg)}
 #cubuk .isaret.tamam{background:#6CC08B}
 #altyaziDugme[aria-pressed="true"] svg{stroke:var(--odak)}
-#ileri{flex:none;height:42px;padding:0 18px 0 20px;border:0;border-radius:10px;background:#3C4A63;color:#AEB7C6;font-size:17px;font-weight:600;display:flex;align-items:center;gap:8px;cursor:default}
-#ileri svg{width:20px;height:20px;stroke:currentColor}
-#ileri.acik{background:var(--mavi);color:#fff;cursor:pointer;animation:nabizIleri 1.6s ease-in-out infinite}
-@keyframes nabizIleri{0%,100%{box-shadow:0 0 0 0 rgba(127,166,222,0)}50%{box-shadow:0 0 0 6px rgba(127,166,222,.55)}}
-@media (max-width:640px){#kontrol{gap:4px;padding:0 6px;height:48px}#kontrol > button{width:38px;height:38px}#kontrol svg{width:22px;height:22px}#zaman{display:none}#ileri{padding:0 12px;font-size:15px}}
+/* İleri: sahne sonunda videonun sağ alt köşesinde beliren görsel buton (ileri.png) */
+#ileri{position:absolute;left:1756px;top:916px;width:124px;height:116px;padding:0;border:0;border-radius:22px;background:url(ileri.png) center/contain no-repeat;display:none;pointer-events:auto;cursor:pointer;filter:drop-shadow(0 6px 10px rgba(28,43,69,.22))}
+#ileri.acik{display:block;animation:ileriGel .45s cubic-bezier(.2,1.5,.4,1) both,ileriNabiz 1.8s ease-in-out .6s infinite}
+#ileri:hover{filter:drop-shadow(0 8px 14px rgba(28,43,69,.3)) brightness(1.08)}
+#ileri:active{filter:drop-shadow(0 3px 6px rgba(28,43,69,.25)) brightness(.92)}
+@keyframes ileriGel{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+@keyframes ileriNabiz{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@media (max-width:640px){#kontrol{gap:4px;padding:0 6px;height:48px}#kontrol > button{width:38px;height:38px}#kontrol svg{width:22px;height:22px}#zaman{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 .gizli{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 </style>
@@ -111,7 +114,9 @@ button:focus-visible,textarea:focus-visible,#cubuk:focus-visible{outline:4px sol
       <div class="kagit hak" id="hak" aria-live="polite"></div>
       <div class="kagit donut" data-etk="e4" role="status" aria-live="assertive"></div>
       <!-- Sahne 7: Düşünelim (not alanları; yazılanlar kaydedilmez) -->
-    </div></div>
+    </div>
+    <button type="button" id="ileri" aria-label="İleri" aria-disabled="true"></button>
+    </div>
     <div id="uyari" role="alert">Video dosyası bulunamadı. Motion sayfasında <b>Export</b> ile MP4 indirip bu klasöre <b>video.mp4</b> adıyla koyunuz.</div>
     <div id="perde"><button type="button" id="baslat" aria-label="Videoyu başlatınız."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l15 9-15 9z" fill="#fff"/></svg></button></div>
   </div>
@@ -122,9 +127,7 @@ button:focus-visible,textarea:focus-visible,#cubuk:focus-visible{outline:4px sol
     <div id="cubuk" role="slider" tabindex="0" aria-label="Video konumu" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="ray"></div><div class="acilan"></div><div class="dolu"></div><div class="tutamak"></div></div>
     <button type="button" id="altyaziDugme" aria-pressed="true" aria-label="Altyazıyı kapatınız."><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 10.5a2 2 0 1 0 0 3M17 10.5a2 2 0 1 0 0 3"/></svg></button>
     <button type="button" id="sesDugme" aria-pressed="false" aria-label="Sesi kapatınız."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path id="sesDalga" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/><path id="sesCizgi" d="M16 9l6 6M22 9l-6 6" style="display:none"/></svg></button>
-    <button type="button" id="tamEkran" aria-label="Tam ekran"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
-    <button type="button" id="ileri" aria-disabled="true">İleri<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-  </div>
+    <button type="button" id="tamEkran" aria-label="Tam ekran"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>  </div>
 </div>
 <script>
 (function(){
