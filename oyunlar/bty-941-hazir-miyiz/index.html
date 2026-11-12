@@ -134,80 +134,81 @@ button:focus-visible,textarea:focus-visible,#cubuk:focus-visible{outline:4px sol
 (function(){
 'use strict';
 // ================= VERİ =================
-// Sahneler: başlangıç, bitiş (sn) ve filmdeki yavaş kamera itmesinin oranı
+// Sahneler: başlangıç, bitiş (sn), filmdeki yavaş kamera itmesi, çizim süresi (eski) ve seslendirme zaman tablosu.
+// tt: [çizim zamanı, seslendirme zamanı] çapaları; filmdeki W.TT ile aynıdır.
 var SAHNELER = [
-  {ad:'Giriş', bas:0, son:20, kam:0.022},
-  {ad:'Not Hesaplayıcı', bas:20, son:55, kam:0.02},
-  {ad:'Test: 1. Deneme', bas:55, son:89, kam:0.018},
-  {ad:'Test: 2. Deneme', bas:89, son:154, kam:0.015},
-  {ad:'Test: 3. Deneme', bas:154, son:188, kam:0.018},
-  {ad:'Hata Nerede?', bas:188, son:218, kam:0.018},
-  {ad:'Düşünelim', bas:218, son:254, kam:0.016}
+  {id:'giris', ad:'Giriş', bas:0.0, son:22.25, kam:0.022, eski:20, tt:[[0.0,0.0],[3.39,1.6],[11.06,10.7],[17.41,17.05],[20.0,22.25]]},
+  {id:'not-hesaplayici', ad:'Not Hesaplayıcı', bas:22.25, son:69.57, kam:0.02, eski:35, tt:[[0.0,0.0],[0.3,0.3],[2.5,2.5],[7.5,8.52],[10.85,13.14],[13.15,17.08],[16.58,21.86],[24.32,31.92],[28.5,37.38],[32.32,41.44],[35.0,47.32]]},
+  {id:'deneme-1', ad:'Test: 1. Deneme', bas:69.57, son:108.87, kam:0.018, eski:34, tt:[[0.0,0.0],[0.3,0.3],[2.29,2.88],[12.0,12.59],[18.01,19.05],[20,21.7],[23,24.7],[34.0,39.3]]},
+  {id:'deneme-2', ad:'Test: 2. Deneme', bas:108.87, son:181.75, kam:0.015, eski:65, tt:[[0.0,0.0],[0.3,0.3],[2.27,2.72],[10.6,11.05],[15.75,17.47],[18.81,20.85],[22.0,24.23],[26.18,29.65],[28,33.9],[30,36.2],[34,40.2],[38.6,44.8],[44.88,51.08],[51.27,57.54],[56.64,63.04],[65.0,72.88]]},
+  {id:'deneme-3', ad:'Test: 3. Deneme', bas:181.75, son:223.86, kam:0.018, eski:34, tt:[[0.0,0.0],[0.3,0.3],[2.3,2.64],[10.5,10.84],[16.13,17.38],[17,25.11],[20,28.11],[34.0,42.11]]},
+  {id:'hata-nerede', ad:'Hata Nerede?', bas:223.86, son:258.8, kam:0.018, eski:30, tt:[[0.0,0.0],[0.3,0.3],[2.0,2.0],[5.22,6.34],[8.66,10.56],[13,14.9],[16.9,19.1],[19.02,22.08],[23.63,27.66],[30.0,34.94]]},
+  {id:'dusunelim', ad:'Düşünelim', bas:258.8, son:295.74, kam:0.016, eski:36, tt:[[0.0,0.0],[0.3,0.3],[2.0,2.0],[7.27,8.06],[11.9,12.69],[17.81,18.75],[23.35,24.29],[28.65,29.59],[36.0,36.94]]}
 ];
-var TOPLAM = 254;
+var TOPLAM = 295.74;
 // Seslendirme: her cümle ses/<ad>.m4a dosyasıdır. [ad, grup, filmdeki başlama anı (sn), süre (sn), altyazı]
 // Grup "ana" videoyla birlikte çalar; e1/e3 dalları öğrencinin seçimine göre, e4_yanlis yanlış tıklamada çalar.
 var SES = [
-  ["ana_02","ana",3.39,7.323,"Önceki ünitelerde problemleri çözmek için algoritma yazmayı ve akış diyagramı tasarlamayı öğrendiniz."],
-  ["ana_03","ana",11.06,5.996,"Peki tasarlanan bir akış diyagramının her durumda doğru çalıştığından nasıl emin olabiliriz?"],
-  ["ana_04","ana",17.41,2.781,"Gelin bir akış diyagramını birlikte deneyelim."],
-  ["ana_05","ana",20.3,1.251,"Not Hesaplayıcı"],
-  ["ana_06","ana",22.5,3.767,"Bir okul için not hesaplayan bir program hazırlanacak."],
-  ["ana_07","ana",27.5,3.001,"Programın akış diyagramı ekranda görülüyor."],
-  ["ana_08","ana",30.85,1.948,"Önce üç sınav notu girilir."],
-  ["ana_09","ana",33.15,3.075,"Ardından bu notların ortalaması hesaplanır."],
-  ["ana_10","ana",36.58,7.393,"Ortalama 50 veya üzerindeyse ekrana ortalama ile birlikte “Geçti”, 50’nin altındaysa “Kaldı” yazdırılır."],
-  ["ana_11","ana",44.32,3.655,"Akış diyagramı hazır ve kodlamaya geçilmek isteniyor."],
-  ["ana_12","ana",48.5,3.465,"Peki bu akış diyagramı gerçekten doğru çalışıyor mu?"],
-  ["ana_13","ana",52.32,2.713,"Kodlamadan önce birkaç veriyle deneyelim."],
-  ["ana_14","ana",55.3,1.637,"Test: 1. Deneme"],
-  ["ana_15","ana",57.29,5.397,"Akış diyagramını ilk olarak 60, 70 ve 80 notlarıyla deniyoruz."],
-  ["ana_16","ana",67.0,5.659,"Program ortalamayı 156,67 olarak hesapladı ve “Geçti” yazdı."],
-  ["ana_17","ana",73.01,1.678,"Sizce bu sonuç doğru mu?"],
-  ["e1_dogru_01","e1_dogru",78.0,3.442,"Doğru tespit! Notların hiçbiri 100’ü geçmiyor."],
-  ["e1_dogru_02","e1_dogru",81.79,4.232,"Bu notların ortalaması 156,67 olamaz."],
-  ["e1_dogru_03","e1_dogru",86.37,2.13,"Beklenen ortalama 70’tir."],
-  ["e1_yanlis_01","e1_yanlis",78.0,6.211,"Tekrar düşünelim. Ortalama, notların en küçüğü ile en büyüğü arasında bir değer olmalıdır."],
-  ["e1_yanlis_02","e1_yanlis",84.56,3.06,"156,67 bu aralıkta değil."],
-  ["e1_yanlis_03","e1_yanlis",87.97,2.13,"Beklenen ortalama 70’tir."],
-  ["ana_18","ana",89.3,1.625,"Test: 2. Deneme"],
-  ["ana_19","ana",91.27,3.245,"Bu kez 20, 30 ve 40 notlarını giriyoruz."],
-  ["ana_20","ana",99.6,4.8,"Program ortalamayı 63,33 hesapladı ve “Geçti” yazdı."],
-  ["ana_21","ana",104.75,2.714,"Oysa bu notların ortalaması 30’dur."],
-  ["ana_22","ana",107.81,2.621,"Öğrencinin dersten kalması gerekirdi."],
-  ["ana_23","ana",111.0,3.825,"Bu program okulda test edilmeden kullanılsaydı ne olurdu?"],
-  ["ana_24","ana",115.18,2.318,"Kartlara tıklayarak inceleyiniz."],
-  ["ana_25","ana",119.0,3.198,"Dersten kalan öğrenciler geçmiş gibi görünürdü."],
-  ["ana_26","ana",123.0,2.807,"Öğrencilere ve velilere yanlış bilgi verilirdi."],
-  ["ana_27","ana",127.6,5.929,"Hata fark edildiğinde tüm öğrencilerin ortalamalarının yeniden hesaplanması gerekirdi."],
-  ["ana_28","ana",133.88,6.045,"Karneler, raporlar ve öğrencilere verilen bilgiler tek tek düzeltilmek zorunda kalınırdı."],
-  ["ana_29","ana",140.27,5.021,"Bu durum öğretmenler ve okul yönetimi için ciddi zaman ve emek kaybı demektir."],
-  ["ana_30","ana",145.64,7.985,"Oysa akış diyagramı kodlamadan önce test edilseydi hata birkaç denemede tespit edilip kolayca düzeltilebilirdi."],
-  ["ana_31","ana",154.3,1.648,"Test: 3. Deneme"],
-  ["ana_32","ana",156.3,3.954,"Son olarak 0, 0 ve 90 notlarını giriyoruz."],
-  ["ana_33","ana",164.5,5.276,"Program ortalamayı 30 olarak hesapladı ve “Kaldı” yazdı. Bu sonuç doğru."],
-  ["ana_34","ana",170.13,6.181,"Peki bu doğru sonuç, akış diyagramının doğru olduğunu gösterir mi? Seçiminizi yapınız."],
-  ["e3_dogru_01","e3_dogru",174.0,4.687,"Harika! Bu veride ilk iki not 0 olduğu için hata ortaya çıkmadı."],
-  ["e3_dogru_02","e3_dogru",179.04,2.339,"Bazı veriler hatayı gizleyebilir."],
-  ["e3_dogru_03","e3_dogru",181.73,3.732,"Bu yüzden akış diyagramı farklı verilerle denenmelidir."],
-  ["e3_yanlis_01","e3_yanlis",174.0,5.515,"Tekrar düşünelim. Önceki iki denemede aynı akış diyagramı yanlış sonuç üretti."],
-  ["e3_yanlis_02","e3_yanlis",179.86,2.339,"Bazı veriler hatayı gizleyebilir."],
-  ["e3_yanlis_03","e3_yanlis",182.55,4.69,"Tek bir doğru sonuç, akış diyagramının doğru olduğunu göstermez."],
-  ["ana_35","ana",188.3,0.902,"Hata Nerede?"],
-  ["ana_36","ana",190.0,2.865,"Üç denemenin ikisinde sonuç yanlış çıktı."],
-  ["ana_37","ana",193.22,3.095,"Sizce hata akış diyagramının hangi adımında?"],
-  ["ana_38","ana",196.66,3.236,"Hatalı olduğunu düşündüğünüz adıma tıklayınız."],
-  ["e4_yanlis_01","e4_yanlis",0,6.043,"Bu adım beklendiği gibi çalışıyor. Ortalamanın hesaplandığı adımı yeniden inceleyiniz."],
-  ["ana_39","ana",204.9,1.774,"Evet, hata bu adımda!"],
-  ["ana_40","ana",207.02,4.255,"Bilgisayar işlem önceliğine göre önce bölme işlemini yapar."],
-  ["ana_41","ana",211.63,4.905,"Bu yüzden yalnızca Not3, 3’e bölünür ve sonuç diğer iki nota eklenir."],
-  ["ana_42","ana",218.3,0.692,"Düşünelim"],
-  ["ana_43","ana",220.0,4.92,"Not hesaplayıcı akış diyagramıyla ilgili bazı soruları birlikte düşünelim."],
-  ["ana_44","ana",225.27,3.685,"Bu akış diyagramı doğru mu? Buna nasıl karar verdiniz?"],
-  ["ana_45","ana",229.9,5.558,"Hataları ortaya çıkarmak için bir akış diyagramını hangi verilerle denemek gerekir?"],
-  ["ana_46","ana",235.81,5.187,"Akış diyagramı test edilmeden kodlansaydı program nasıl sonuçlar üretirdi?"],
-  ["ana_47","ana",241.35,4.954,"Hataları kodlamaya geçmeden önce fark etmenin ne gibi yararları olabilir?"],
-  ["ana_48","ana",246.65,3.918,"Bu soruların cevaplarını Öğrenelim bölümünde birlikte bulacağız."]
+  ["ana_02","ana",1.6,8.8,"Önceki ünitelerde problemleri çözmek için algoritma yazmayı ve akış diyagramı tasarlamayı öğrendiniz."],
+  ["ana_03","ana",10.7,5.84,"Peki tasarlanan bir akış diyagramının her durumda doğru çalıştığından nasıl emin olabiliriz?"],
+  ["ana_04","ana",17.05,4.4,"Gelin bir akış diyagramını birlikte deneyelim."],
+  ["ana_05","ana",22.55,1.56,"Not Hesaplayıcı"],
+  ["ana_06","ana",24.75,5.72,"Bir okul için not hesaplayan bir program hazırlanacak."],
+  ["ana_07","ana",30.77,4.32,"Programın akış diyagramı ekranda görülüyor."],
+  ["ana_08","ana",35.39,3.64,"Önce üç sınav notu girilir."],
+  ["ana_09","ana",39.33,4.48,"Ardından bu notların ortalaması hesaplanır."],
+  ["ana_10","ana",44.11,9.76,"Ortalama 50 veya üzerindeyse ekrana ortalama ile birlikte “Geçti”, 50’nin altındaysa “Kaldı” yazdırılır."],
+  ["ana_11","ana",54.17,5.16,"Akış diyagramı hazır ve kodlamaya geçilmek isteniyor."],
+  ["ana_12","ana",59.63,3.76,"Peki bu akış diyagramı gerçekten doğru çalışıyor mu?"],
+  ["ana_13","ana",63.69,5.08,"Kodlamadan önce birkaç veriyle deneyelim."],
+  ["ana_14","ana",69.87,2.28,"Test: 1. Deneme"],
+  ["ana_15","ana",72.45,7.84,"Akış diyagramını ilk olarak 60, 70 ve 80 notlarıyla deniyoruz."],
+  ["ana_16","ana",82.16,6.16,"Program ortalamayı 156,67 olarak hesapladı ve “Geçti” yazdı."],
+  ["ana_17","ana",88.62,2.4,"Sizce bu sonuç doğru mu?"],
+  ["e1_dogru_01","e1_dogru",94.27,3.88,"Doğru tespit! Notların hiçbiri 100’ü geçmiyor."],
+  ["e1_dogru_02","e1_dogru",98.45,4.92,"Bu notların ortalaması 156,67 olamaz."],
+  ["e1_dogru_03","e1_dogru",103.67,4.12,"Beklenen ortalama 70’tir."],
+  ["e1_yanlis_01","e1_yanlis",94.27,6.32,"Tekrar düşünelim. Ortalama, notların en küçüğü ile en büyüğü arasında bir değer olmalıdır."],
+  ["e1_yanlis_02","e1_yanlis",100.89,4.28,"156,67 bu aralıkta değil."],
+  ["e1_yanlis_03","e1_yanlis",105.47,2.6,"Beklenen ortalama 70’tir."],
+  ["ana_18","ana",109.17,2.12,"Test: 2. Deneme"],
+  ["ana_19","ana",111.59,5.04,"Bu kez 20, 30 ve 40 notlarını giriyoruz."],
+  ["ana_20","ana",119.92,6.12,"Program ortalamayı 63,33 hesapladı ve “Geçti” yazdı."],
+  ["ana_21","ana",126.34,3.08,"Oysa bu notların ortalaması 30’dur."],
+  ["ana_22","ana",129.72,3.08,"Öğrencinin dersten kalması gerekirdi."],
+  ["ana_23","ana",133.1,5.12,"Bu program okulda test edilmeden kullanılsaydı ne olurdu?"],
+  ["ana_24","ana",138.52,4.0,"Kartlara tıklayarak inceleyiniz."],
+  ["ana_25","ana",145.07,3.28,"Dersten kalan öğrenciler geçmiş gibi görünürdü."],
+  ["ana_26","ana",149.07,3.96,"Öğrencilere ve velilere yanlış bilgi verilirdi."],
+  ["ana_27","ana",153.67,5.4,"Hata fark edildiğinde tüm öğrencilerin ortalamalarının yeniden hesaplanması gerekirdi."],
+  ["ana_28","ana",159.95,6.16,"Karneler, raporlar ve öğrencilere verilen bilgiler tek tek düzeltilmek zorunda kalınırdı."],
+  ["ana_29","ana",166.41,5.2,"Bu durum öğretmenler ve okul yönetimi için ciddi zaman ve emek kaybı demektir."],
+  ["ana_30","ana",171.91,9.04,"Oysa akış diyagramı kodlamadan önce test edilseydi hata birkaç denemede tespit edilip kolayca düzeltilebilirdi."],
+  ["ana_31","ana",182.05,2.04,"Test: 3. Deneme"],
+  ["ana_32","ana",184.39,6.2,"Son olarak 0, 0 ve 90 notlarını giriyoruz."],
+  ["ana_33","ana",192.59,6.24,"Program ortalamayı 30 olarak hesapladı ve “Kaldı” yazdı. Bu sonuç doğru."],
+  ["ana_34","ana",199.13,7.48,"Peki bu doğru sonuç, akış diyagramının doğru olduğunu gösterir mi? Seçiminizi yapınız."],
+  ["e3_dogru_01","e3_dogru",209.86,5.24,"Harika! Bu veride ilk iki not 0 olduğu için hata ortaya çıkmadı."],
+  ["e3_dogru_02","e3_dogru",215.4,3.56,"Bazı veriler hatayı gizleyebilir."],
+  ["e3_dogru_03","e3_dogru",219.26,3.68,"Bu yüzden akış diyagramı farklı verilerle denenmelidir."],
+  ["e3_yanlis_01","e3_yanlis",209.86,5.12,"Tekrar düşünelim. Önceki iki denemede aynı akış diyagramı yanlış sonuç üretti."],
+  ["e3_yanlis_02","e3_yanlis",215.28,2.8,"Bazı veriler hatayı gizleyebilir."],
+  ["e3_yanlis_03","e3_yanlis",218.38,4.48,"Tek bir doğru sonuç, akış diyagramının doğru olduğunu göstermez."],
+  ["ana_35","ana",224.16,1.32,"Hata Nerede?"],
+  ["ana_36","ana",225.86,4.04,"Üç denemenin ikisinde sonuç yanlış çıktı."],
+  ["ana_37","ana",230.2,3.92,"Sizce hata akış diyagramının hangi adımında?"],
+  ["ana_38","ana",234.42,3.76,"Hatalı olduğunu düşündüğünüz adıma tıklayınız."],
+  ["ana_39","ana",242.96,2.68,"Evet, hata bu adımda!"],
+  ["ana_40","ana",245.94,5.28,"Bilgisayar işlem önceliğine göre önce bölme işlemini yapar."],
+  ["ana_41","ana",251.52,6.48,"Bu yüzden yalnızca Not3, 3’e bölünür ve sonuç diğer iki nota eklenir."],
+  ["ana_42","ana",259.1,1.16,"Düşünelim"],
+  ["ana_43","ana",260.8,5.76,"Not hesaplayıcı akış diyagramıyla ilgili bazı soruları birlikte düşünelim."],
+  ["ana_44","ana",266.86,4.08,"Bu akış diyagramı doğru mu? Buna nasıl karar verdiniz?"],
+  ["ana_45","ana",271.49,5.76,"Hataları ortaya çıkarmak için bir akış diyagramını hangi verilerle denemek gerekir?"],
+  ["ana_46","ana",277.55,4.72,"Akış diyagramı test edilmeden kodlansaydı program nasıl sonuçlar üretirdi?"],
+  ["ana_47","ana",283.09,4.76,"Hataları kodlamaya geçmeden önce fark etmenin ne gibi yararları olabilir?"],
+  ["ana_48","ana",288.39,4.96,"Bu soruların cevaplarını Öğrenelim bölümünde birlikte bulacağız."],
+  ["e4_yanlis_01","e4_yanlis",0,6.32,"Bu adım beklendiği gibi çalışıyor. Ortalamanın hesaplandığı adımı yeniden inceleyiniz."]
 ];
 // Altyazı, sesin bitiminden 1,5 sn sonrasına ya da aynı gruptaki sonraki cümleye kadar görünür
 function cumleler(g){
@@ -221,18 +222,18 @@ var SEKIL = [['Başla',450,60,240,84],['Not1, Not2, Not3 gir',450,210,500,96],['
 });
 // Etkileşimler. durak: video burada durur; devam: cevaptan sonra buradan sürer; bitis: sahnenin sonu
 var ETK = [
-  {id:'e1', tur:'secim', durak:75, devam:78, bitis:89, dogru:1,
+  {id:'e1', tur:'secim', durak:91.27, devam:94.27, bitis:108.87, dogru:1,
    hedef:[{x:880,y:650,w:300,h:104,ad:'Doğru'},{x:1224,y:650,w:300,h:104,ad:'Hatalı'}],
    geri:{dogru:'Doğru tespit! Beklenen ortalama: 70', yanlis:'Tekrar düşünelim. Beklenen ortalama: 70'}, fb:[880,800],
    dal:{dogru:cumleler('e1_dogru'), yanlis:cumleler('e1_yanlis')}},
-  {id:'k1', tur:'kart', durak:117, devam:119, bitis:154, hedef:[{x:1010,y:190,w:834,h:176}]},
-  {id:'k2', tur:'kart', durak:123, devam:123, bitis:154, hedef:[{x:1010,y:400,w:834,h:176}]},
-  {id:'k3', tur:'kart', durak:127.6, devam:127.6, bitis:154, hedef:[{x:1010,y:610,w:834,h:176}]},
-  {id:'e3', tur:'secim', durak:171, devam:174, bitis:188, dogru:1,
+  {id:'k1', tur:'kart', durak:142.77, devam:144.77, bitis:181.75, hedef:[{x:1010,y:190,w:834,h:176}]},
+  {id:'k2', tur:'kart', durak:149.07, devam:149.07, bitis:181.75, hedef:[{x:1010,y:400,w:834,h:176}]},
+  {id:'k3', tur:'kart', durak:153.67, devam:153.67, bitis:181.75, hedef:[{x:1010,y:610,w:834,h:176}]},
+  {id:'e3', tur:'secim', durak:206.86, devam:209.86, bitis:223.86, dogru:1,
    hedef:[{x:880,y:670,w:300,h:104,ad:'Evet'},{x:1224,y:670,w:300,h:104,ad:'Hayır'}],
    geri:{dogru:'Harika! Bazı veriler hatayı gizleyebilir.', yanlis:'Tekrar düşünelim. Bazı veriler hatayı gizleyebilir.'}, fb:[880,810],
    dal:{dogru:cumleler('e3_dogru'), yanlis:cumleler('e3_yanlis')}},
-  {id:'e4', tur:'sekil', durak:201, devam:204.9, bitis:218, dogru:2, hedef:SEKIL, fb:[1060,404],
+  {id:'e4', tur:'sekil', durak:238.76, devam:242.66, bitis:258.8, dogru:2, hedef:SEKIL, fb:[1060,404],
    yanlisMetin:'Bu adım doğru çalışıyor.', yanlisSes:cumleler('e4_yanlis')[0]}
 ];
 // Düşünelim sahnesinde not alanı yok
@@ -251,6 +252,12 @@ var sonT = 0, ozelAltyazi = null, bitti = false;
 
 function etk(id){ for (var i = 0; i < ETK.length; i++) if (ETK[i].id === id) return ETK[i]; }
 function sahneBul(t){ for (var i = 0; i < SAHNELER.length; i++) if (t < SAHNELER[i].son) return SAHNELER[i]; return SAHNELER[SAHNELER.length - 1]; }
+// Seslendirme zamanını filmin çizim zamanına çevirir (filmdeki W.zaman ile aynı)
+function zaman(s, x){
+  var c = s.tt; if (x <= c[0][1]) return x;
+  for (var i = 1; i < c.length; i++) if (x <= c[i][1]) return c[i-1][0] + (x - c[i-1][1]) * (c[i][0] - c[i-1][0]) / Math.max(1e-6, c[i][1] - c[i-1][1]);
+  return c[c.length-1][0] + (x - c[c.length-1][1]);
+}
 function eio(x){ return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
 
 // Yırtık kenar (filmdeki kâğıtlarla aynı yöntem)
@@ -403,7 +410,7 @@ video.addEventListener('timeupdate', adim);
 video.addEventListener('seeked', function(){ ciz(video.currentTime); });
 function ciz(t){
   // Filmdeki yavaş kamera itmesi: katman da aynı oranda büyür, alanlar çizimlerin üstünde kalır
-  var s = sahneBul(t), p = Math.max(0, Math.min(1, (t - s.bas) / (s.son - s.bas)));
+  var s = sahneBul(t), p = Math.max(0, Math.min(1, zaman(s, t - s.bas) / s.eski));
   kamera.style.transform = 'scale(' + (1 + s.kam * eio(p)).toFixed(5) + ')';
   ETK.forEach(function(e){
     var bek = bekleyen === e, gor = (t >= e.durak - 0.05 && t < e.bitis) || bek;
@@ -411,7 +418,7 @@ function ciz(t){
     var fb = kamera.querySelector('.donut[data-etk="' + e.id + '"]'); if (fb) fb.style.visibility = gor ? 'visible' : 'hidden';
     var sc = kamera.querySelector('.secilen[data-etk="' + e.id + '"]'); if (sc) sc.style.visibility = gor ? 'visible' : 'hidden';
   });
-  $('hak').style.visibility = (t >= 192 && t < 218) ? 'visible' : 'hidden';
+  $('hak').style.visibility = (t >= 229.43 && t < 258.8) ? 'visible' : 'hidden';
   NOTLAR.forEach(function(n, i){ $('not' + (i + 1)).classList.toggle('acik', t >= n[2]); });
   altyaziGuncelle(t);
   cubukCiz(t);
