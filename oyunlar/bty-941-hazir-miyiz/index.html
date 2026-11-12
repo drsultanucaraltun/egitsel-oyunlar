@@ -516,6 +516,12 @@ function oynat(){
     sahne.classList.remove('bekliyor'); void sahne.offsetWidth; sahne.classList.add('bekliyor');
     return;
   }
+  if (ileriBekliyor){
+    // Sahne sonunda bekleniyordu: doğrudan sonraki sahnenin başına geç. Aksi hâlde video kare yuvarlaması yüzünden
+    // durma noktasının birkaç milisaniye gerisinden başlar ve aynı sahne sonunda yeniden durur.
+    var sn = sahneBul(video.currentTime).son + 0.01;
+    sesKes(); video.currentTime = sn; sonT = sn;
+  }
   ileriBekliyor = false; ileriAc(false);
   if (video.ended || video.currentTime >= toplam() - 0.1) git(0);
   var p = video.play(); if (p && p.catch) p.catch(function(){});
