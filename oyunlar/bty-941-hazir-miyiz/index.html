@@ -73,6 +73,17 @@ button:focus-visible,textarea:focus-visible,#cubuk:focus-visible{outline:4px sol
 #kontrol > button:hover{background:rgba(255,255,255,.12)}
 #kontrol svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 #zaman{flex:none;font-size:15px;min-width:96px;text-align:center;font-variant-numeric:tabular-nums}
+/* Oynatma hızı: düğme ve yukarı açılan menü (video, seslendirme ve geri bildirim sesi birlikte hızlanır) */
+#hizKutu{position:relative;flex:none}
+#hizDugme{min-width:44px;height:44px;padding:0 8px;border:0;border-radius:10px;background:transparent;color:#fff;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+#hizDugme:hover,#hizDugme[aria-expanded="true"]{background:rgba(255,255,255,.12)}
+#hizMenu{position:absolute;right:0;bottom:calc(100% + 8px);z-index:5;min-width:136px;padding:6px;border-radius:12px;background:var(--lacivert);box-shadow:0 8px 24px rgba(28,43,69,.35);display:flex;flex-direction:column;gap:2px}
+#hizMenu[hidden]{display:none}
+#hizMenu button{display:flex;align-items:center;gap:8px;height:40px;padding:0 14px 0 10px;border:0;border-radius:8px;background:transparent;color:#fff;font-size:16px;text-align:left;white-space:nowrap}
+#hizMenu button::before{content:'';flex:none;width:16px}
+#hizMenu button:hover,#hizMenu button:focus-visible{background:rgba(255,255,255,.14)}
+#hizMenu button[aria-checked="true"]{color:var(--odak);font-weight:700}
+#hizMenu button[aria-checked="true"]::before{content:'\2713'}
 #cubuk{position:relative;flex:1;min-width:60px;height:40px;cursor:pointer;touch-action:none}
 #cubuk .ray{position:absolute;left:0;right:0;top:17px;height:6px;border-radius:3px;background:rgba(255,255,255,.25)}
 #cubuk .acilan{position:absolute;left:0;top:17px;height:6px;border-radius:3px;background:rgba(255,255,255,.18)}
@@ -88,7 +99,7 @@ button:focus-visible,textarea:focus-visible,#cubuk:focus-visible{outline:4px sol
 #ileri:active{filter:drop-shadow(0 3px 6px rgba(28,43,69,.25)) brightness(.92)}
 @keyframes ileriGel{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
 @keyframes ileriNabiz{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
-@media (max-width:640px){#kontrol{gap:4px;padding:0 6px;height:48px}#kontrol > button{width:38px;height:38px}#kontrol svg{width:22px;height:22px}#zaman{display:none}}
+@media (max-width:640px){#kontrol{gap:4px;padding:0 6px;height:48px}#kontrol > button{width:38px;height:38px}#kontrol svg{width:22px;height:22px}#zaman{display:none}#hizDugme{min-width:38px;height:38px;padding:0 4px;font-size:13px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 .gizli{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 </style>
@@ -107,6 +118,7 @@ button:focus-visible,textarea:focus-visible,#cubuk:focus-visible{outline:4px sol
     <div id="zaman">0:00 / 0:00</div>
     <div id="cubuk" role="slider" tabindex="0" aria-label="Video konumu" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="ray"></div><div class="acilan"></div><div class="dolu"></div><div class="tutamak"></div></div>
     <button type="button" id="altyaziDugme" aria-pressed="true" aria-label="Altyazıyı kapatınız."><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 10.5a2 2 0 1 0 0 3M17 10.5a2 2 0 1 0 0 3"/></svg></button>
+    <div id="hizKutu"><button type="button" id="hizDugme" aria-haspopup="true" aria-expanded="false" aria-controls="hizMenu" aria-label="Oynatma hızı: normal">1×</button><div id="hizMenu" role="menu" aria-label="Oynatma hızı" hidden></div></div>
     <button type="button" id="sesDugme" aria-pressed="false" aria-label="Sesi kapatınız."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path id="sesDalga" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/><path id="sesCizgi" d="M16 9l6 6M22 9l-6 6" style="display:none"/></svg></button>
     <button type="button" id="tamEkran" aria-label="Tam ekran"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
   </div>
@@ -443,6 +455,34 @@ $('tamEkran').addEventListener('click', function(){
   if (d.fullscreenElement || d.webkitFullscreenElement){ (d.exitFullscreen || d.webkitExitFullscreen).call(d); }
   else if (el2.requestFullscreen || el2.webkitRequestFullscreen){ (el2.requestFullscreen || el2.webkitRequestFullscreen).call(el2); }
 });
+// Oynatma hızı: video, seslendirme ve geri bildirim sesi aynı hızda çalar; ses perdesi korunur.
+// defaultPlaybackRate de ayarlanır, çünkü ses dosyası değişince tarayıcı hızı bu değere döndürür.
+var HIZLAR = [0.75, 1, 1.25, 1.5, 2], hiz = 1, hizDugme = $('hizDugme'), hizMenu = $('hizMenu');
+function hizYazi(r){ return String(r).replace('.', ','); }
+function hizUygula(m){ m.defaultPlaybackRate = hiz; m.playbackRate = hiz; m.preservesPitch = true; m.webkitPreservesPitch = true; }
+function hizSec(r){
+  hiz = r; [video, ses, ozel].forEach(hizUygula);
+  hizDugme.textContent = hizYazi(r) + '×';
+  hizDugme.setAttribute('aria-label', 'Oynatma hızı: ' + (r === 1 ? 'normal' : hizYazi(r) + ' kat'));
+  hepsi('button', hizMenu).forEach(function(b){ b.setAttribute('aria-checked', +b.getAttribute('data-hiz') === r ? 'true' : 'false'); });
+}
+function hizMenuAc(){ hizMenu.hidden = false; hizDugme.setAttribute('aria-expanded', 'true'); var s = hizMenu.querySelector('[aria-checked="true"]'); if (s) s.focus(); }
+function hizMenuKapat(odakla){ if (hizMenu.hidden) return; hizMenu.hidden = true; hizDugme.setAttribute('aria-expanded', 'false'); if (odakla) hizDugme.focus(); }
+HIZLAR.forEach(function(r){
+  var b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'menuitemradio'); b.setAttribute('data-hiz', r);
+  b.textContent = r === 1 ? 'Normal' : hizYazi(r) + '×'; b.setAttribute('aria-label', r === 1 ? 'Normal hız' : hizYazi(r) + ' kat hız');
+  b.addEventListener('click', function(){ hizSec(r); hizMenuKapat(true); });
+  hizMenu.appendChild(b);
+});
+hizDugme.addEventListener('click', function(){ if (hizMenu.hidden) hizMenuAc(); else hizMenuKapat(false); });
+hizMenu.addEventListener('keydown', function(ev){
+  var l = hepsi('button', hizMenu), i = l.indexOf(document.activeElement);
+  if (ev.key === 'Escape'){ ev.preventDefault(); hizMenuKapat(true); }
+  else if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp'){ ev.preventDefault(); l[(i + (ev.key === 'ArrowDown' ? 1 : l.length - 1)) % l.length].focus(); }
+  else if (ev.key === 'Tab') hizMenuKapat(false);
+});
+document.addEventListener('click', function(ev){ if (!ev.target.closest('#hizKutu')) hizMenuKapat(false); });
+hizSec(1);
 document.addEventListener('keydown', function(ev){
   var tg = ev.target.tagName;
   if (tg === 'TEXTAREA' || tg === 'BUTTON' || ev.target === cubuk) return;
@@ -462,7 +502,7 @@ function boyutla(){
 }
 window.addEventListener('resize', boyutla);
 boyutla(); isaretleriCiz();
-window.__OYNATICI = {video:video, durum:D, git:git, bekleyen:function(){ return bekleyen; }, ileriBekliyor:function(){ return ileriBekliyor; }, ses:function(){ return {ad:sesAd, t:ses.currentTime, durdu:ses.paused}; }, sureler:SURE};
+window.__OYNATICI = {video:video, durum:D, git:git, bekleyen:function(){ return bekleyen; }, ileriBekliyor:function(){ return ileriBekliyor; }, ses:function(){ return {ad:sesAd, t:ses.currentTime, durdu:ses.paused}; }, sureler:SURE, hiz:function(r){ if (r) hizSec(r); return hiz; }};
 requestAnimationFrame(dongu);
 })();
 </script>
