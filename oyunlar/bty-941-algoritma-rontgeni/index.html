@@ -327,15 +327,23 @@ button.d{cursor:pointer;min-height:44px}
 button.d:hover{background:var(--ana-acik)}
 .d.bas,.d.bit{border-radius:99px;background:var(--dogru-acik);border-color:var(--dogru);min-width:6rem}
 .d.giris,.d.cikis{border:none;background:none;padding:0}
-.d.giris::before,.d.cikis::before{content:"";position:absolute;inset:0;border:2px solid #0E7490;background:#ECFEFF;transform:skewX(-14deg);border-radius:4px;transition:background .25s}
-.d.giris .m,.d.cikis .m{position:relative;padding:.15rem 1.5rem}
+.d.giris::before{content:"";position:absolute;inset:0;border:2px solid #0E7490;background:#ECFEFF;transform:skewX(-14deg);border-radius:4px;transition:background .25s}
+.d.giris .m{position:relative;padding:.15rem 1.5rem}
+/* Ekrana yazdırma: dalgalı alt kenarlı dörtgen (belge şekli) */
+.d.cikis .sekil{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.d.cikis .sekil .govde{fill:#ECFEFF;stroke:#0E7490;stroke-width:2px;vector-effect:non-scaling-stroke;transition:fill .25s}
+.d.cikis .sekil .kuyruk{fill:none;stroke:var(--gri);stroke-width:2px;vector-effect:non-scaling-stroke}
+.d.cikis .m{position:relative;padding:.3rem 1.1rem calc(.35rem + .85em)}
+.d.cikis.aktif .sekil .govde{fill:#A5F3FC}
+.d.cikis.hata .sekil .govde{fill:var(--yanlis-acik);stroke:var(--yanlis)}
+.d.cikis.duzeldi .sekil .govde{fill:var(--dogru-acik);stroke:var(--dogru)}
 .d.karar{border:none;background:none;padding:0}
 .d.karar .kenar{display:block;background:var(--uyari);padding:2px;clip-path:polygon(10% 0,90% 0,100% 50%,90% 100%,10% 100%,0 50%)}
 .d.karar .ic{background:var(--uyari-acik);padding:clamp(.25rem,1vh,.5rem) 1.9rem;clip-path:polygon(10% 0,90% 0,100% 50%,90% 100%,10% 100%,0 50%);font-weight:700;transition:background .25s}
 .akis.tiklanir button.d{box-shadow:0 0 0 3px var(--ana-orta)}
 .d.aktif{outline:3px solid var(--ana);outline-offset:2px}
 .d.islem.aktif,.d.bas.aktif,.d.bit.aktif{background:var(--ana-orta)}
-.d.giris.aktif::before,.d.cikis.aktif::before{background:#A5F3FC}
+.d.giris.aktif::before{background:#A5F3FC}
 .d.karar.aktif .ic{background:#FDE68A}
 .d.hata{border-color:var(--yanlis);background:var(--yanlis-acik)}
 .d.karar.hata .kenar{background:var(--yanlis)} .d.karar.hata .ic{background:var(--yanlis-acik)}
@@ -1236,6 +1244,7 @@ function dugum(d, tikla){
   if (d.slot) return '<div class="kutu bosluk" id="'+d.slot+'" data-kutu="'+d.slot+'" data-etiket="Eksik adım" hidden><div class="yuva"></div></div>';
   if (d.donus) return '<span class="donus">'+IK.don+' Karara dön</span>';
   var ic = d.tur === 'karar' ? '<span class="kenar"><span class="ic">'+d.m+'</span></span>' : '<span class="m">'+d.m+'</span>';
+  if (d.tur === 'cikis') ic = '<svg class="sekil" viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="govde" d="M1,1 H99 V31 C75,23 62,23 50,31 C38,39 25,39 1,31 Z"/><path class="kuyruk" d="M50,31 V40"/></svg>' + ic;
   var etiket = {bas:'Başla', bit:'Bitir', giris:'Girdi', cikis:'Çıktı', islem:'İşlem', karar:'Karar'}[d.tur];
   if (tikla && d.tur !== 'bas' && d.tur !== 'bit')
     return '<button type="button" class="d '+d.tur+'" data-id="'+d.id+'" aria-label="'+etiket+': '+d.m+'">'+ic+'</button>';
