@@ -1618,7 +1618,10 @@ function ileriGoster(n){
 }
 /* 1920×1080 sahneyi pencereye orantılı sığdır (Değerlendirelim şablonu) */
 function sahneSigdir(){
-  var W = 1920, H = 1080, w = window.innerWidth, h = window.innerHeight, K = Math.min(w / W, h / H);
+  /* Kenarlarda boşluk: sahne ekranı tam kaplamaz (her yanda ekranın yaklaşık %4'ü) */
+  var W = 1920, H = 1080, w = window.innerWidth, h = window.innerHeight;
+  var pay = Math.max(12, Math.round(Math.min(w, h) * 0.04));
+  var K = Math.min((w - 2 * pay) / W, (h - 2 * pay) / H);
   var u = document.getElementById('uygulama');
   u.style.transform = 'translate(' + ((w - W * K) / 2) + 'px,' + ((h - H * K) / 2) + 'px) scale(' + K + ')';
   document.documentElement.style.setProperty('--olcek', K);
