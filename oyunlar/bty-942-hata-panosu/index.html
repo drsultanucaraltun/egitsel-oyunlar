@@ -1288,7 +1288,7 @@ function algoYaz(kap, satirlar, dugme){
     if (uyumlu && !dogru){ EBA.bildir('Tekrar bakınız. Koşul neyle karşılaştırılıyor?', 'kotu'); return; }
     if (!uyumlu && dogru){ EBA.bildir('Bu adım algoritmayla aynı.', 'kotu'); return; }
     isaretle(li, dogru); EBA.ses.cal('tik');
-    if (!dogru){ durumYaz(akis, 'kar', 'hata'); EBA.bildir('Hata yakalandı. Koşulun sağ tarafı boş; 0 sayısı eksik. Karşılaştırmayı sürdürünüz.', 'iyi', 4000); }
+    if (!dogru){ durumYaz(akis, 'kar', 'hata'); EBA.bildir('Hata yakalandı. Koşulun sağ tarafında 0 sayısı eksik. Karşılaştırmayı sürdürünüz.', 'iyi', 4000); }
     i++;
     if (i >= A.length){
       vurguCok(akis, []);
@@ -1304,7 +1304,7 @@ function algoYaz(kap, satirlar, dugme){
     aciklama:'Karar kutusundaki koşul yarım kalmış: Yükleme >',
     fark:'Statik analiz: Algoritmayla adım adım karşılaştırıldı.',
     neden:{ 'Algoritma':'Algoritmanın 4. adımı doğru: 0\'dan büyükse ekle.',
-            'Mantıksal':'Modül yanlış sonuç vermiyor; hiç çalışamıyor.',
+            'Mantıksal':'Modül yanlış sonuç vermiyor. Hiç çalışamıyor.',
             'Çalışma zamanı':'Hata çalıştırmadan, yazım kuralında bulundu.' }
   };
   kayitKur(sec, 1, K);
@@ -1313,7 +1313,7 @@ function algoYaz(kap, satirlar, dugme){
     kim:'Yazılım ekibi', bildirim:'Para yükleme modülü hiç çalışmıyor.', yontem:'statik',
     yontemNeden:{ statik:'Doğru seçim. Çalışmayan modül, çalıştırılmadan incelenir.',
                   birim:'Hangi adımın bozuk olduğu henüz bilinmiyor.',
-                  dinamik:'Modül çalışmıyor; çalışırken izlenemez.' },
+                  dinamik:'Modül çalışmıyor. Çalışırken izlenemez.' },
     sonra:function(){ asama(sec, 'karsilastir'); goster(); }
   });
 })();
@@ -1356,8 +1356,8 @@ function algoYaz(kap, satirlar, dugme){
     aciklama:'Fiyat ile adet çarpılacağına toplanıyor.',
     fark:'',
     neden:{ 'Akış diyagramı':'Diyagram algoritmayı aynen aktarmış. Hata algoritmanın 4. adımında.',
-            'Söz dizimi':'Kurallara uygun yazılmış; program çalışıyor.',
-            'Çalışma zamanı':'Program çökmüyor; çalışıp yanlış sonuç veriyor.' }
+            'Söz dizimi':'Kurallara uygun yazılmış. Program çalışıyor.',
+            'Çalışma zamanı':'Program çökmüyor. Çalışıp yanlış sonuç veriyor.' }
   };
   kayitKur(sec, 2, K);
   $('#g2-algo').addEventListener('click', function(e){
@@ -1431,16 +1431,16 @@ function algoYaz(kap, satirlar, dugme){
   $('#g3-neden-btn').addEventListener('click', function(){ asama(sec, 'neden'); });
   var K = {
     yer:'Algoritma', tur:'Çalışma zamanı',
-    aciklama:'Gün sayısı 0 olan kartta sıfıra bölme yapılıyor; bu durum düşünülmemiş.',
+    aciklama:'Gün sayısı 0 olan kartta sıfıra bölme yapılıyor. Bu durum düşünülmemiş.',
     fark:'Dinamik analiz: Yeni kart (0 gün) ile program çöktü.',
     neden:{ 'Akış diyagramı':'Diyagram algoritmayı aynen aktarmış. 0 gün durumu algoritmada düşünülmemiş.',
-            'Söz dizimi':'Yazım kurallarına uyulmuş; program diğer kartlarda çalışıyor.',
-            'Mantıksal':'Diğer kartlarda sonuç doğru; program yalnızca 0 günde çöküyor.' }
+            'Söz dizimi':'Yazım kurallarına uyulmuş. Program diğer kartlarda çalışıyor.',
+            'Mantıksal':'Diğer kartlarda sonuç doğru. Program yalnızca 0 günde çöküyor.' }
   };
   kayitKur(sec, 3, K);
   secimKur($('#g3-secenek'), [
     {m:'Ortalama formülü ters yazılmış.', neden:'Formül doğru: Harcama / Gün. Ali için 30 TL çıktı.'},
-    {m:'Gün sayısı 0 olabilir; bu durum düşünülmemiş.', dogru:true, neden:'Bölmeden önce gün sayısı kontrol edilmiyor.'},
+    {m:'Gün sayısı 0 olabilir. Bu durum düşünülmemiş.', dogru:true, neden:'Bölmeden önce gün sayısı kontrol edilmiyor.'},
     {m:'Harcama tutarı yanlış okunmuş.', neden:'Harcama 0 TL olarak doğru okundu.'}
   ], function(){ gec(function(){ asama(sec, 'kayit'); }, 1300); });
   yontemKur(sec, {
@@ -1459,13 +1459,13 @@ function algoYaz(kap, satirlar, dugme){
     {sira:1, ad:'Koşul yarım kalmış: Yükleme >', kaynak:'Görev 1', yer:'Akış diyagramı', tur:'Söz dizimi', etki:'Para yükleme hiç çalışmıyor.', onc:'Yüksek', sinif:'yuksek', duz:'Koşul Yükleme > 0 ? yapıldı.'},
     {sira:2, ad:'Tutar = Fiyat + Adet', kaynak:'Görev 2', yer:'Algoritma', tur:'Mantıksal', etki:'Her satışta yanlış tutar.', onc:'Yüksek', sinif:'yuksek', duz:'Tutar = Fiyat × Adet yapıldı.'},
     {sira:3, ad:'Gün = 0 durumu düşünülmemiş', kaynak:'Görev 3', yer:'Algoritma', tur:'Çalışma zamanı', etki:'Yeni kartta rapor çöküyor.', onc:'Orta', sinif:'orta', duz:'Gün > 0 ? kararı eklendi.'},
-    {sira:4, ad:'Fişte tarih ay/gün sırasıyla', kaynak:'Kod incelemesi', yer:'Algoritma', tur:'Mantıksal', etki:'Tarih karışık; hesap doğru.', onc:'Düşük', sinif:'dusuk', duz:'Tarih gün/ay sırasıyla yazılıyor.'}
+    {sira:4, ad:'Fişte tarih ay/gün sırasıyla', kaynak:'Kod incelemesi', yer:'Algoritma', tur:'Mantıksal', etki:'Tarih karışık. Hesap doğru.', onc:'Düşük', sinif:'dusuk', duz:'Tarih gün/ay sırasıyla yazılıyor.'}
   ];
   function neden(r, n){
-    if (r.sira === 1) return 'Para yükleme hiç çalışmıyor; diğer testler bile yapılamaz. En acil hata bu.';
-    if (r.sira === 2) return n < 2 ? 'Program çalışıyor. Hiç çalışmayan modül daha acil.' : 'Her satışta yanlış tutar çıkıyor; etkisi büyük.';
-    if (r.sira === 3) return n < 3 ? 'Yalnızca yeni kartlarda çıkıyor; daha az kişiyi etkiliyor.' : 'Programı çökertiyor; görünüm hatasından daha acil.';
-    return 'Hesaplar doğru; yalnızca tarih görünümü karışık. Önceliği düşük.';
+    if (r.sira === 1) return 'Para yükleme hiç çalışmıyor. Diğer testler bile yapılamaz. En acil hata bu.';
+    if (r.sira === 2) return n < 2 ? 'Program çalışıyor. Hiç çalışmayan modül daha acil.' : 'Her satışta yanlış tutar çıkıyor. Etkisi büyük.';
+    if (r.sira === 3) return n < 3 ? 'Yalnızca yeni kartlarda çıkıyor. Daha az kişiyi etkiliyor.' : 'Programı çökertiyor. Görünüm hatasından daha acil.';
+    return 'Hesaplar doğru. Yalnızca tarih görünümü karışık. Önceliği düşük.';
   }
   var sirayla = [3, 1, 4, 2];
   $('#g4-havuz').innerHTML = sirayla.map(function(s){
